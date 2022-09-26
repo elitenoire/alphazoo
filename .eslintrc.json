@@ -25,5 +25,15 @@
     "chakra-ui/props-order": "error",
     "chakra-ui/props-shorthand": "error",
     "chakra-ui/require-specific-component": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "types/**/*.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-definitions": "off"
+      }
+    }
+  ]
 }

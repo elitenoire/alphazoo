@@ -15,10 +15,6 @@ export default class Document extends NextDocument {
           <meta name="apple-mobile-web-app-title" content="Alphazoo" />
           <meta name="application-name" content="Alphazoo" />
           <link rel="manifest" href="/manifest.json" />
-          <meta
-            name="description"
-            content="Animal Alphabets - Practise your English ABCs with a variety of animals."
-          />
         </Head>
         <body>
           {/* Make Color mode to persists when you refresh the page. */}
