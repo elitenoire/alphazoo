@@ -1,0 +1,73 @@
+/* Grandstander-Regular*/
+@font-face {
+    font-family: 'Grandstander';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('/fonts/grandstander/Grandstander-Regular.woff2') format('woff2'), url('/fonts/grandstander/Grandstander-Regular.woff') format('woff');
+
+}
+/* Grandstander-ExtraBold*/
+@font-face {
+    font-family: 'Grandstander';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 800;
+    src: url('/fonts/grandstander/Grandstander-ExtraBold.woff2') format('woff2'), url('/fonts/grandstander/Grandstander-ExtraBold.woff') format('woff');
+
+}
+/* Grandstander-Black*/
+@font-face {
+    font-family: 'Grandstander';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 900;
+    src: url('/fonts/grandstander/Grandstander-Black.woff2') format('woff2'), url('/fonts/grandstander/Grandstander-Black.woff') format('woff');
+
+}
+
+/* OwenPro-Light*/
+@font-face {
+    font-family: 'Owen Pro';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300;
+    src: url('/fonts/owen-pro/OwenPro-Light.woff2') format('woff2'), url('/fonts/owen-pro/OwenPro-Light.woff') format('woff');
+
+}
+/* OwenPro-Regular*/
+@font-face {
+    font-family: 'Owen Pro';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url('/fonts/owen-pro/OwenPro-Regular.woff2') format('woff2'), url('/fonts/owen-pro/OwenPro-Regular.woff') format('woff');
+
+}
+/* OwenPro-Medium*/
+@font-face {
+    font-family: 'Owen Pro';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 500;
+    src: url('/fonts/owen-pro/OwenPro-Medium.woff2') format('woff2'), url('/fonts/owen-pro/OwenPro-Medium.woff') format('woff');
+
+}
+/* OwenPro-Bold*/
+@font-face {
+    font-family: 'Owen Pro';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 700;
+    src: url('/fonts/owen-pro/OwenPro-Bold.woff2') format('woff2'), url('/fonts/owen-pro/OwenPro-Bold.woff') format('woff');
+
+}
+/* OwenPro-Heavy*/
+@font-face {
+    font-family: 'Owen Pro';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 800;
+    src: url('/fonts/owen-pro/OwenPro-Heavy.woff2') format('woff2'), url('/fonts/owen-pro/OwenPro-Heavy.woff') format('woff');
+
+}
