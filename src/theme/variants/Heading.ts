@@ -5,6 +5,7 @@ export const Heading: ComponentSingleStyleConfig = {
   variants: {
     caps: {
       textTransform: 'uppercase',
+      fontVariant: 'discretionary-ligatures',
     },
   },
   defaultProps: {

@@ -31,7 +31,7 @@ export default function Intro() {
         style={{ willChange, y: moveY }}
       >
         <Text pt={24} pb={14} fontSize="f3xl">
-          <Box as="span" textStyle="highlight" _hover={{ bg: 'orange.200' }}>
+          <Box as="span" textStyle="highlight" _hover={{ bg: 'accent.200' }}>
             Alphazoo
           </Box>{' '}
           is an early learning app for kids to practise the English Alphabets with a variety of

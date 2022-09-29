@@ -7,20 +7,21 @@ import { AIrow, JQrow, RZrow } from '~src/data/glyphs'
 import { LearnLetters } from './LearnLetters'
 
 export function LearnLettersBoard() {
-  const [bodyBg, boardBg] = useToken('colors', ['yellow.100', 'blackAlpha.900'])
+  const [bodyBg, boardBg] = useToken('colors', ['background', 'black'])
   const { animeBg } = useAnimeBg()
 
   const stripScrollBodyRef = useRef(null)
 
   const { scrollYProgress } = useScroll({
     target: stripScrollBodyRef,
+    offset: ['start 0.5', '0.5 end'],
   })
 
   const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
 
-  const x = useTransform(yScroll, [0, 0.125, 1], ['25vw', '5vw', '-280vw'])
+  const x = useTransform(yScroll, [0, 0.25, 1], ['30vw', '5vw', '-300vw'])
   const opacity = useTransform(yScroll, [0, 0.125, 0.875, 1], [0, 1, 1, 0.5])
-  const bg = useTransform(yScroll, [0, 0.125, 0.875, 1], [bodyBg, boardBg, boardBg, bodyBg])
+  const bg = useTransform(yScroll, [0, 0.05, 0.95, 1], [bodyBg, boardBg, boardBg, bodyBg])
 
   useEffect(() => {
     const unsubscribe = bg.onChange((val) => {
@@ -36,8 +37,6 @@ export function LearnLettersBoard() {
     <MotionBox
       ref={stripScrollBodyRef}
       h="400vw"
-      my="-50vw"
-      py="50vw"
       initial={{ opacity: 0, y: 400 }}
       whileInView={{ opacity: 1, y: 0 }}
       // @ts-expect-error from chakra-ui official docs
