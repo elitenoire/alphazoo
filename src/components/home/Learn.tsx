@@ -23,7 +23,7 @@ export default function Learn() {
 
   useEffect(() => {
     const unsubscribe = yScroll.onChange((val) => {
-      setPlay(val > 0.5)
+      setPlay(val > 0.45)
     })
 
     return () => {

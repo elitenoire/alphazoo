@@ -14,14 +14,14 @@ export function LearnLettersBoard() {
 
   const { scrollYProgress } = useScroll({
     target: stripScrollBodyRef,
-    offset: ['start 0.5', '0.5 end'],
+    offset: ['start start', 'end end'],
   })
 
   const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
 
-  const x = useTransform(yScroll, [0, 0.25, 1], ['30vw', '5vw', '-300vw'])
-  const opacity = useTransform(yScroll, [0, 0.125, 0.875, 1], [0, 1, 1, 0.5])
-  const bg = useTransform(yScroll, [0, 0.05, 0.95, 1], [bodyBg, boardBg, boardBg, bodyBg])
+  const x = useTransform(yScroll, [0.1, 1], ['30vw', '-280vw'])
+  const opacity = useTransform(yScroll, [0, 0.025, 0.925, 1], [0, 1, 1, 0.5])
+  const bg = useTransform(yScroll, [0, 0.025, 0.95, 1], [bodyBg, boardBg, boardBg, bodyBg])
 
   useEffect(() => {
     const unsubscribe = bg.onChange((val) => {
@@ -36,11 +36,12 @@ export function LearnLettersBoard() {
   return (
     <MotionBox
       ref={stripScrollBodyRef}
-      h="400vw"
-      initial={{ opacity: 0, y: 400 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      h="300vw"
+      initial={{ y: 400 }}
+      whileInView={{ y: 0 }}
+      viewport={{ margin: '0px 0px -50% 0px' }}
       // @ts-expect-error from chakra-ui official docs
-      transition={{ duration: 0.65, delay: 0.5 }}
+      transition={{ duration: 0.65 }}
     >
       <Flex pos="sticky" top={0} align="center" overflow="hidden" minH="100vh">
         <MotionFlex minW={0} style={{ x, opacity }}>
