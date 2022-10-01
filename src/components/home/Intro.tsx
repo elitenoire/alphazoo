@@ -90,6 +90,13 @@ export default function Intro() {
             </MagneticBox>
           </MotionBox>
         </Flex>
+        <Text mt={14} fontSize="f3xl" textAlign="center">
+          Did you know kids learn best through{' '}
+          <Box as="strong" color="brand.500" fontWeight={500}>
+            play
+          </Box>
+          ?
+        </Text>
       </motion.div>
     </Container>
   )
