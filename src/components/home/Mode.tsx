@@ -30,24 +30,26 @@ export default function Mode() {
   const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
 
   const moveY = useTransform(yScroll, [0, 1], [-100, -400])
+  const scale = useTransform(yScroll, [0, 0.2], [0.875, 1])
 
   return (
     <MotionFlex
       ref={modeRef}
       pos="relative"
       justifyContent="center"
-      mx={7}
+      mx={[1, 7]}
       pt={24}
       pb={16}
       bg="accent.400"
       borderRadius="4em"
-      style={{ willChange, y: moveY }}
+      overflow="hidden"
+      style={{ willChange, y: moveY, scale }}
     >
-      <Box pos="relative" zIndex={1} w="full" px={4}>
-        <Heading color="accent.900" fontSize="f5xl" textAlign="center">
+      <Box pos="relative" zIndex={1} w="full" mx="inherit">
+        <Heading color="accent.900" fontSize={['f4xl', 'f5xl']} textAlign="center">
           Learn + Play
         </Heading>
-        <Text px={6} color="accent.50" fontSize="fxl" textAlign="center">
+        <Text px={2} color="accent.50" fontSize="fxl" textAlign="center">
           Two fun and easy educational modes for kids to enjoy.
         </Text>
         <Flex justify="space-around" wrap="wrap" rowGap={6} columnGap={4} mt={10} mb={14}>
@@ -76,7 +78,6 @@ export default function Mode() {
               <Button
                 w="55%"
                 color="accent.500"
-                bg="accent.50"
                 borderRadius="full"
                 shadow="2xl"
                 _hover={{
@@ -84,9 +85,9 @@ export default function Mode() {
                   transform: 'translateY(-2px)',
                 }}
                 _active={{
-                  bg: 'accent.200',
+                  bgColor: 'accent.200',
                 }}
-                transition="all 0.25s ease-in-out"
+                bgColor="accent.50"
                 colorScheme="accent"
                 size="lg"
               >
@@ -121,11 +122,11 @@ export default function Mode() {
                 borderRadius="full"
                 shadow="2xl"
                 _hover={{
-                  bg: 'brand.600',
+                  bgColor: 'brand.600',
                   boxShadow: 'lg',
                   transform: 'translateY(-2px)',
                 }}
-                transition="all 0.25s ease-in-out"
+                bgColor="brand.500"
                 size="lg"
               >
                 Play
