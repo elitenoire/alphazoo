@@ -7,34 +7,30 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.0.9",
-    "@chakra-ui/react": "^2.3.1",
-    "@chakra-ui/theme-tools": "^2.0.7",
+    "@chakra-ui/react": "^2.3.4",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@fontsource/grandstander": "^4.5.8",
     "@fontsource/mitr": "^4.5.8",
-    "@fontsource/wendy-one": "^4.5.9",
-    "@newhighsco/next-plugin-svgr": "^3.0.58",
-    "framer-motion": "^7.2.1",
-    "next": "^12.3.0",
+    "@newhighsco/next-plugin-svgr": "^3.0.61",
+    "framer-motion": "^7.5.1",
+    "next": "^12.3.1",
     "next-seo": "^5.5.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "use-resize-observer": "^9.0.2"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^18.0.6",
-    "@types/react": "^18.0.15",
+    "@types/node": "^18.7.23",
+    "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "eslint": "8.20.0",
-    "eslint-config-next": "12.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "eslint-config-next": "^12.3.1",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-chakra-ui": "^0.7.0",
+    "eslint-plugin-chakra-ui": "^0.7.4",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
-    "typescript": "^4.7.4"
+    "typescript": "^4.8.4"
   }
 }
