@@ -18,10 +18,9 @@ const space = tokenTransform<TChakraSpace>(baseTheme.space)
 const sizes = tokenTransform<TChakraSize>(baseTheme.sizes)
 
 const fonts = {
-  // heading: '"Wendy One", system-ui, sans-serif',
   body: '"Owen Pro", system-ui, sans-serif',
+  heading: '"Grandstander", system-ui, sans-serif',
   title: '"Mitr", system-ui, sans-serif',
-  heading: '"Grandstander", cursive',
 }
 
 const breakpoints = {
@@ -94,7 +93,7 @@ const theme = extendTheme(
     },
     textStyles: {
       alt: {
-        fontFeatureSettings: 'ss01',
+        fontFeatureSettings: '"ss01"',
       },
       liga: {
         fontVariant: 'discretionary-ligatures',
