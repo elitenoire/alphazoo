@@ -7,7 +7,7 @@ type TChakraToken<T> = Record<string | number, string | T[keyof T]>
 
 const remToEm = (value: string) => value.replace('rem', 'em')
 
-const tokenTransform = <T>(token: T) =>
+const tokenTransform = <T extends object>(token: T) =>
   Object.keys(token).reduce<TChakraToken<T>>((acc, key) => {
     const value = token[key as keyof T]
     acc[key] = typeof value === 'string' ? remToEm(value) : value

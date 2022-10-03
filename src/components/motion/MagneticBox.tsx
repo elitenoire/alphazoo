@@ -1,4 +1,11 @@
-import { ReactNode, MouseEvent, cloneElement, Children as RC, isValidElement } from 'react'
+import {
+  ReactNode,
+  ReactElement,
+  MouseEvent,
+  cloneElement,
+  Children as RC,
+  isValidElement,
+} from 'react'
 import { useTransform, useSpring, MotionValue, useMotionTemplate } from 'framer-motion'
 import { Box, BoxProps } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
@@ -33,7 +40,12 @@ export const MagneticBox = ({ children, ...rest }: MagneticProps) => {
     <Box {...rest} onMouseLeave={reset} onMouseMove={handleMouse}>
       <MotionBox style={{ transform }}>
         {RC.map(children, (child) =>
-          isValidElement(child) ? cloneElement(child, { x: xMove, y: yMove }) : child
+          isValidElement(child)
+            ? cloneElement(child as ReactElement, {
+                x: xMove,
+                y: yMove,
+              })
+            : child
         )}
       </MotionBox>
     </Box>
