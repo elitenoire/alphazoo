@@ -1,20 +1,30 @@
+import { ReactNode, MouseEvent, createContext, useContext } from 'react'
 import {
-  ReactNode,
-  ReactElement,
-  MouseEvent,
-  cloneElement,
-  Children as RC,
-  isValidElement,
-} from 'react'
-import { useTransform, useSpring, MotionValue, useMotionTemplate } from 'framer-motion'
+  MotionProps,
+  useTransform,
+  useSpring,
+  MotionValue,
+  motionValue,
+  useMotionTemplate,
+} from 'framer-motion'
 import { Box, BoxProps } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
+
+import type { Merge } from '~/types/merge'
 
 interface MagneticProps extends BoxProps {
   children: ReactNode
 }
+interface MagneticParallaxProps extends Merge<MagneticProps, MotionProps> {
+  speed?: number
+}
 
 const config = { stiffness: 100, damping: 10 }
+
+const MagneticContext = createContext({
+  x: motionValue(0),
+  y: motionValue(0),
+})
 
 export const MagneticBox = ({ children, ...rest }: MagneticProps) => {
   const x = useSpring(0.5, config) as MotionValue<number>
@@ -37,17 +47,45 @@ export const MagneticBox = ({ children, ...rest }: MagneticProps) => {
   }
 
   return (
-    <Box {...rest} onMouseLeave={reset} onMouseMove={handleMouse}>
-      <MotionBox style={{ transform }}>
-        {RC.map(children, (child) =>
-          isValidElement(child)
-            ? cloneElement(child as ReactElement, {
-                x: xMove,
-                y: yMove,
-              })
-            : child
-        )}
-      </MotionBox>
-    </Box>
+    <MagneticContext.Provider value={{ x: xMove, y: yMove }}>
+      <Box {...rest} onMouseLeave={reset} onMouseMove={handleMouse}>
+        <MotionBox
+          style={{ transform }}
+          // Use hook instead as x & y comes with px unit causing wrong transform
+          // transformTemplate={({ x, y }) => `translate(${x}em,${y}em)`}
+        >
+          {children}
+        </MotionBox>
+      </Box>
+    </MagneticContext.Provider>
   )
 }
+
+function MagneticBoxParallax({
+  speed = 0.2,
+  style,
+  children,
+  transition,
+  ...rest
+}: MagneticParallaxProps) {
+  const { x, y } = useContext(MagneticContext)
+
+  const xMove = useTransform(x, (v) => v * speed)
+  const yMove = useTransform(y, (v) => v * speed)
+
+  const transform = useMotionTemplate`translate(${xMove}em,${yMove}em)`
+
+  return (
+    <MotionBox
+      // @ts-expect-error from official chakra-ui docs
+      // override chakra-ui transition with framer motion's own
+      transition={transition}
+      style={{ ...style, transform }}
+      {...rest}
+    >
+      {children}
+    </MotionBox>
+  )
+}
+
+MagneticBox.Parallax = MagneticBoxParallax

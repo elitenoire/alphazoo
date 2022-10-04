@@ -1,6 +1,5 @@
-import { useEffect, forwardRef, ForwardRefRenderFunction, ReactNode, ComponentProps } from 'react'
+import { forwardRef, ForwardRefRenderFunction, ReactNode, ComponentProps } from 'react'
 import dynamic from 'next/dynamic'
-import { motion, useMotionValue, MotionValue, useMotionTemplate } from 'framer-motion'
 import { AspectRatioProps, AspectRatio, Box, Heading, useToken } from '@chakra-ui/react'
 
 const animalsMap = {
@@ -29,46 +28,15 @@ interface AnimalHeadProps extends AspectRatioProps {
   size?: string | number
   title?: string
   fill?: string
-  x?: MotionValue<number>
-  y?: MotionValue<number>
   children?: ReactNode
 }
 
 const AnimalHeadBase: ForwardRefRenderFunction<HTMLDivElement, AnimalHeadProps> = (
-  {
-    animal,
-    size = '2xs',
-    title,
-    bg = 'yellow.200',
-    fill = 'blackAlpha.50',
-    x,
-    y,
-    children,
-    ...rest
-  },
+  { animal, size = '2xs', title, bg = 'yellow.200', fill = 'blackAlpha.50', children, ...rest },
   ref
 ) => {
   const haloFill = useToken('colors', fill, 'transparent')
   const AnimalSVG = animalsMap[animal]
-
-  const _x = useMotionValue(0)
-  const _y = useMotionValue(0)
-
-  const transform = useMotionTemplate`translate(${_x}em,${_y}em)`
-
-  useEffect(() => {
-    const unsubX = x?.onChange((v) => {
-      _x.set(v / 5)
-    })
-    const unsubY = y?.onChange((v) => {
-      _y.set(v / 5)
-    })
-
-    return () => {
-      unsubX?.()
-      unsubY?.()
-    }
-  }, [_x, _y, x, y])
 
   return (
     <AspectRatio ref={ref} w="full" maxW={size} ratio={1} {...rest}>
@@ -79,9 +47,7 @@ const AnimalHeadBase: ForwardRefRenderFunction<HTMLDivElement, AnimalHeadProps> 
         </Heading>
         {(title || children) && (
           <Heading as="p" pos="absolute" bottom="-0.5em" size="4xl">
-            <motion.span style={{ transform, display: 'inline-block' }}>
-              {children ?? title}
-            </motion.span>
+            {children ?? title}
           </Heading>
         )}
       </Box>

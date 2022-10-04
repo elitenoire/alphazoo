@@ -51,7 +51,7 @@ export default function Intro() {
           >
             <MagneticBox p={[2, 8]}>
               <AnimalHead animal="tiger" size="full" bg="orange.200">
-                Grrr
+                <MagneticBox.Parallax>Grrr</MagneticBox.Parallax>
               </AnimalHead>
             </MagneticBox>
           </MotionBox>
@@ -68,7 +68,7 @@ export default function Intro() {
           >
             <MagneticBox p={[2, 8]}>
               <AnimalHead animal="lion" size="full">
-                Roar
+                <MagneticBox.Parallax>Roar</MagneticBox.Parallax>
               </AnimalHead>
             </MagneticBox>
           </MotionBox>
@@ -85,7 +85,7 @@ export default function Intro() {
           >
             <MagneticBox p={[2, 8]}>
               <AnimalHead animal="bear" size="full" bg="red.100">
-                Growl
+                <MagneticBox.Parallax>Growl</MagneticBox.Parallax>
               </AnimalHead>
             </MagneticBox>
           </MotionBox>
