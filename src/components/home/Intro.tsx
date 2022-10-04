@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, ReactNode } from 'react'
 import {
   useTransform,
   useWillChange,
@@ -9,7 +9,39 @@ import {
 } from 'framer-motion'
 import { Box, Container, Flex, Text } from '@chakra-ui/react'
 import { MotionBox, MagneticBox } from '~components/motion'
-import { AnimalHead } from '~components/AnimalHead'
+import { AnimalHead, AnimalHeadType } from '~components/AnimalHead'
+
+interface MotionAnimalProps {
+  animal: AnimalHeadType
+  bg?: string
+  shift?: boolean
+  children: ReactNode
+}
+
+function MotionAnimal({ animal, bg, shift, children }: MotionAnimalProps) {
+  const dir = shift ? 1 : -1
+  return (
+    <MotionBox
+      pos="relative"
+      w="full"
+      maxW={['2xs', 'sm']}
+      left={[null, null, `${dir * 15}%`, null, `${dir * 20}%`]}
+      // @ts-expect-error from chakra-ui official docs
+      transition={{ type: 'spring', duration: 1 }}
+      initial={{ opacity: 0, scale: 0.4 }}
+      viewport={{ margin: '0px 0px -10% 0px' }}
+      whileInView={{ opacity: 1, scale: 1 }}
+    >
+      <MagneticBox p={[2, 8]}>
+        <AnimalHead animal={animal} size="full" bg={bg}>
+          <MagneticBox.Parallax as="span" display="inline-block">
+            {children}
+          </MagneticBox.Parallax>
+        </AnimalHead>
+      </MagneticBox>
+    </MotionBox>
+  )
+}
 
 export default function Intro() {
   const willChange = useWillChange()
@@ -38,57 +70,15 @@ export default function Intro() {
           animals.
         </Text>
         <Flex align="center" direction="column" rowGap={[60, null, 32]} columnGap={8} py={10}>
-          <MotionBox
-            pos="relative"
-            w="full"
-            maxW={['2xs', 'sm']}
-            left={[null, null, '-15%', null, '-20%']}
-            // @ts-expect-error from chakra-ui official docs
-            transition={{ type: 'spring', duration: 1 }}
-            initial={{ opacity: 0, scale: 0.4 }}
-            viewport={{ margin: '0px 0px -10% 0px' }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <MagneticBox p={[2, 8]}>
-              <AnimalHead animal="tiger" size="full" bg="orange.200">
-                <MagneticBox.Parallax>Grrr</MagneticBox.Parallax>
-              </AnimalHead>
-            </MagneticBox>
-          </MotionBox>
-          <MotionBox
-            pos="relative"
-            w="full"
-            maxW={['2xs', 'sm']}
-            left={[null, null, '15%', null, '20%']}
-            // @ts-expect-error from chakra-ui official docs
-            transition={{ type: 'spring', duration: 1 }}
-            initial={{ opacity: 0, scale: 0.4 }}
-            viewport={{ margin: '0px 0px -10% 0px' }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <MagneticBox p={[2, 8]}>
-              <AnimalHead animal="lion" size="full">
-                <MagneticBox.Parallax>Roar</MagneticBox.Parallax>
-              </AnimalHead>
-            </MagneticBox>
-          </MotionBox>
-          <MotionBox
-            pos="relative"
-            w="full"
-            maxW={['2xs', 'sm']}
-            left={[null, null, '-15%', null, '-20%']}
-            // @ts-expect-error from chakra-ui official docs
-            transition={{ type: 'spring', duration: 1 }}
-            initial={{ opacity: 0, scale: 0.4 }}
-            viewport={{ margin: '0px 0px -10% 0px' }}
-            whileInView={{ opacity: 1, scale: 1 }}
-          >
-            <MagneticBox p={[2, 8]}>
-              <AnimalHead animal="bear" size="full" bg="red.100">
-                <MagneticBox.Parallax>Growl</MagneticBox.Parallax>
-              </AnimalHead>
-            </MagneticBox>
-          </MotionBox>
+          <MotionAnimal animal="tiger" bg="orange.200">
+            Grrr
+          </MotionAnimal>
+          <MotionAnimal animal="lion" shift>
+            Roar
+          </MotionAnimal>
+          <MotionAnimal animal="bear" bg="red.100">
+            Growl
+          </MotionAnimal>
         </Flex>
         <Text mt={14} fontSize="f3xl" textAlign="center">
           Did you know kids learn best through{' '}

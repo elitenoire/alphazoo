@@ -23,8 +23,10 @@ const animalsMap = {
   ),
 }
 
+export type AnimalHeadType = keyof typeof animalsMap
+
 interface AnimalHeadProps extends AspectRatioProps {
-  animal: keyof typeof animalsMap
+  animal: AnimalHeadType
   size?: string | number
   title?: string
   fill?: string

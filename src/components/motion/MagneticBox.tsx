@@ -1,5 +1,6 @@
-import { ReactNode, MouseEvent, createContext, useContext } from 'react'
+import { ReactNode, ReactHTML, MouseEvent, createContext, useContext } from 'react'
 import {
+  motion,
   MotionProps,
   useTransform,
   useSpring,
@@ -15,8 +16,9 @@ import type { Merge } from '~/types/merge'
 interface MagneticProps extends BoxProps {
   children: ReactNode
 }
-interface MagneticParallaxProps extends Merge<MagneticProps, MotionProps> {
+interface MagneticParallaxProps extends Merge<Omit<MagneticProps, 'as'>, MotionProps> {
   speed?: number
+  as?: keyof ReactHTML
 }
 
 const config = { stiffness: 100, damping: 10 }
@@ -66,6 +68,7 @@ function MagneticBoxParallax({
   style,
   children,
   transition,
+  as,
   ...rest
 }: MagneticParallaxProps) {
   const { x, y } = useContext(MagneticContext)
@@ -77,6 +80,8 @@ function MagneticBoxParallax({
 
   return (
     <MotionBox
+      {...(as && { as: motion(as) })}
+      // as={motion(as)}
       // @ts-expect-error from official chakra-ui docs
       // override chakra-ui transition with framer motion's own
       transition={transition}
