@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useInView, useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
-import { Box, Heading, Text, Button, useToken } from '@chakra-ui/react'
-import { MotionBox, MotionFlex, MagneticBox } from '~components/motion'
+import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
+import { MotionBox, MagneticBox } from '~components/motion'
 
 import { ReactComponent as BackdropSVG } from '~public/img/plx-01-backdrop.svg'
 
@@ -52,14 +52,14 @@ export default function Hero() {
   const frontAnimalsX = useTransform(mouseX, (v) => v / 25)
 
   return (
-    <MotionFlex
+    <Flex
       ref={heroBgRef}
       pos="relative"
+      align="center"
+      justify="center"
       overflow="hidden"
       w="100%"
       h="130vh"
-      justifyContent="center"
-      alignItems="center"
       minH="31.25em"
       onMouseMove={function (event) {
         const offsetX = event.clientX - window.innerWidth / 2
@@ -71,13 +71,18 @@ export default function Hero() {
         backAnimalsY.set(-offsetY / 15)
         frontAnimalsY.set(-offsetY / 15)
       }}
-      style={{
-        borderBottomLeftRadius: radius,
-        borderBottomRightRadius: radius,
-        scaleX,
-      }}
     >
-      <Box pos="absolute" w="inherit" h="inherit">
+      <MotionBox
+        pos="absolute"
+        w="inherit"
+        h="inherit"
+        overflow="hidden"
+        style={{
+          borderBottomLeftRadius: radius,
+          borderBottomRightRadius: radius,
+          scaleX,
+        }}
+      >
         <Box
           as={BackdropSVG}
           pos="absolute"
@@ -136,7 +141,7 @@ export default function Hero() {
           bgPos="center"
           style={{ x: bottomFoliageX, y: bottomFoliageY }}
         />
-      </Box>
+      </MotionBox>
       <MotionBox
         pos="relative"
         mb="30vh"
@@ -188,6 +193,6 @@ export default function Hero() {
           </Button>
         </MagneticBox>
       </MotionBox>
-    </MotionFlex>
+    </Flex>
   )
 }
