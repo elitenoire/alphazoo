@@ -7,7 +7,7 @@ import {
   motion,
   MotionValue,
 } from 'framer-motion'
-import { Box, Container, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { MotionBox, MagneticBox } from '~components/motion'
 import { AnimalHead, AnimalHeadType } from '~components/AnimalHead'
 
@@ -57,37 +57,29 @@ export default function Intro() {
   const moveY = useTransform(yScroll, [0, 1], [0, -600])
 
   return (
-    <Container ref={introRef} maxW="container.lg">
-      <motion.div
-        // animate={{ y: moveY }}
-        style={{ willChange, y: moveY }}
-      >
-        <Text pt={24} pb={14} fontSize="f3xl">
-          <Box as="span" textStyle="highlight" _hover={{ bg: 'accent.200' }}>
-            Alphazoo
-          </Box>{' '}
-          is an early learning app for kids to practise the English Alphabets with a variety of
-          animals.
-        </Text>
-        <Flex align="center" direction="column" rowGap={[60, null, 32]} columnGap={8} py={10}>
-          <MotionAnimal animal="tiger" bg="orange.200">
-            Grrr
-          </MotionAnimal>
-          <MotionAnimal animal="lion" shift>
-            Roar
-          </MotionAnimal>
-          <MotionAnimal animal="bear" bg="red.100">
-            Growl
-          </MotionAnimal>
-        </Flex>
-        <Text mt={14} fontSize="f3xl" textAlign="center">
-          Did you know kids learn best through{' '}
-          <Box as="strong" color="brand.500" fontWeight={500}>
-            play
-          </Box>
-          ?
-        </Text>
-      </motion.div>
-    </Container>
+    <motion.div
+      ref={introRef}
+      // animate={{ y: moveY }}
+      style={{ willChange, y: moveY }}
+    >
+      <Text pt={24} pb={14} fontSize="f3xl">
+        <Box as="span" textStyle="highlight" _hover={{ bg: 'accent.200' }}>
+          Alphazoo
+        </Box>{' '}
+        is an early learning app for kids to practise the English Alphabets with a variety of
+        animals.
+      </Text>
+      <Flex align="center" direction="column" rowGap={[60, null, 32]} columnGap={8} py={10}>
+        <MotionAnimal animal="tiger" bg="orange.200">
+          Grrr
+        </MotionAnimal>
+        <MotionAnimal animal="lion" shift>
+          Roar
+        </MotionAnimal>
+        <MotionAnimal animal="bear" bg="red.100">
+          Growl
+        </MotionAnimal>
+      </Flex>
+    </motion.div>
   )
 }
