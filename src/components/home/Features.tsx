@@ -50,9 +50,7 @@ export default function Features() {
         </List>
         <MotionPop display="inline-block" mt={12}>
           <MagneticBox p={4}>
-            <Button borderRadius="full" size="lg">
-              Explore the App
-            </Button>
+            <Button>Explore the App</Button>
           </MagneticBox>
         </MotionPop>
       </Box>

@@ -38,7 +38,7 @@ export default function Mode() {
         pt={24}
         pb={16}
         bg="accent.400"
-        borderRadius="4em"
+        rounded="4em"
         overflow="hidden"
         style={{ scale }}
       >
@@ -75,7 +75,6 @@ export default function Mode() {
                 <Button
                   w="55%"
                   color="accent.500"
-                  borderRadius="full"
                   shadow="2xl"
                   _hover={{
                     boxShadow: 'lg',
@@ -86,7 +85,6 @@ export default function Mode() {
                   }}
                   bgColor="accent.50"
                   colorScheme="accent"
-                  size="lg"
                 >
                   Learn
                 </Button>
@@ -116,7 +114,6 @@ export default function Mode() {
                 <PlaySvg zIndex={1} pos="relative" />
                 <Button
                   w="55%"
-                  borderRadius="full"
                   shadow="2xl"
                   _hover={{
                     bgColor: 'brand.600',
@@ -124,7 +121,6 @@ export default function Mode() {
                     transform: 'translateY(-2px)',
                   }}
                   bgColor="brand.500"
-                  size="lg"
                 >
                   Play
                 </Button>

@@ -18,7 +18,7 @@ export default function Home() {
         </MotionScroll>
       </Container>
       <Learn />
-      <Container maxW="1680px">
+      <Container maxW="container.max">
         <MotionScroll distance={400} mt="-100">
           <Mode />
         </MotionScroll>

@@ -40,7 +40,7 @@ export function LearnLetters({ letters }: LearnLettersProps) {
                     py="0.125em"
                     fontSize="0.5em"
                     bg={glyph.color}
-                    borderRadius="50em"
+                    rounded="full"
                   >
                     {glyph.name}
                   </Text>
@@ -61,7 +61,6 @@ export function LearnLetters({ letters }: LearnLettersProps) {
                   py="0.1em"
                   color="transparent"
                   lineHeight="none"
-                  borderRadius="5px"
                   _hover={{
                     color: 'white',
                     transform: 'scale(1.5)',

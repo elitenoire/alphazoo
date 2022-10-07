@@ -104,18 +104,6 @@ const theme = extendTheme(
         px: '8px',
       },
     },
-    semanticTokens: {
-      colors: {
-        // background: 'yellow.100',
-        // text: {
-        //   default: 'gray.800',
-        //   _dark: '#ade3b8',
-        // },
-      },
-      // radii: {
-      //   button: '12px',
-      // },
-    },
     colors: {
       brandAlt: {
         50: '#e8f9f1',
@@ -169,12 +157,17 @@ const theme = extendTheme(
       text: baseTheme.colors.gray[800],
       black: '#121113',
     },
+    sizes: {
+      ...sizes,
+      container: {
+        max: '1680px',
+      },
+    },
     components,
     fonts,
     fontSizes,
     breakpoints,
     space,
-    sizes,
   },
   withDefaultColorScheme({ colorScheme: 'brand' })
 )

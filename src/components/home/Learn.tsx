@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
-import { Box, AspectRatio, Flex, Heading, Text, Container } from '@chakra-ui/react'
+import { Box, AspectRatio, Flex, Heading, Container } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MotionBoyDoodle, MotionGirlDoodle } from '~components/motion'
 
 import { LearnLettersBoard } from './LearnLettersBoard'
@@ -33,7 +33,7 @@ export default function Learn() {
 
   return (
     <section>
-      <Container as="header" maxW="1680px" p={0}>
+      <Container as="header" maxW="container.max" p={0}>
         <MotionBox>
           <Heading
             maxW="container.lg"
@@ -58,8 +58,7 @@ export default function Learn() {
           pos="relative"
           mb={[null, null, null, 20]}
           bg="brand.500"
-          borderTopLeftRadius="85vmin"
-          borderTopRightRadius="85vmin"
+          roundedTop="85vmin"
           style={{
             borderBottomLeftRadius: radius,
             borderBottomRightRadius: radius,
@@ -67,7 +66,7 @@ export default function Learn() {
         >
           <Flex pos="absolute" top={0} left={0} align="flex-start" w="full" h="full">
             <AspectRatio pos="sticky" top={0} w="full" ratio={1}>
-              <MotionFlex borderRadius="50%" bg="secondary.200" style={{ scale: girlScale }}>
+              <MotionFlex rounded="50%" bg="secondary.200" style={{ scale: girlScale }}>
                 <Box w="40%">
                   <MotionGirlDoodle play={play} />
                 </Box>

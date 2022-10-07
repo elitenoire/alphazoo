@@ -1,4 +1,4 @@
-import { forwardRef, ForwardRefRenderFunction, ReactNode, ComponentProps } from 'react'
+import { forwardRef, ForwardRefRenderFunction, ComponentProps } from 'react'
 import dynamic from 'next/dynamic'
 import { AspectRatioProps, AspectRatio, Box, Heading, useToken } from '@chakra-ui/react'
 
@@ -30,7 +30,6 @@ interface AnimalHeadProps extends AspectRatioProps {
   size?: string | number
   title?: string
   fill?: string
-  children?: ReactNode
 }
 
 const AnimalHeadBase: ForwardRefRenderFunction<HTMLDivElement, AnimalHeadProps> = (
@@ -42,7 +41,7 @@ const AnimalHeadBase: ForwardRefRenderFunction<HTMLDivElement, AnimalHeadProps> 
 
   return (
     <AspectRatio ref={ref} w="full" maxW={size} ratio={1} {...rest}>
-      <Box overflow="initial !important" bg={bg} borderRadius="full">
+      <Box overflow="initial !important" bg={bg} rounded="full">
         <AnimalSVG width="70%" fill={haloFill} />
         <Heading as="p" pos="absolute" top="-0.25em" opacity={0.9} size="2xl">
           {animal}

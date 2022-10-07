@@ -1,5 +1,12 @@
 import { useRef } from 'react'
-import { useInView, useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
+import {
+  useInView,
+  useTransform,
+  useScroll,
+  useSpring,
+  useWillChange,
+  MotionValue,
+} from 'framer-motion'
 import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
 import { MotionBox, MagneticBox } from '~components/motion'
 
@@ -25,6 +32,7 @@ export default function Hero() {
 
   const heroBgRef = useRef(null)
   const isInView = useInView(heroBgRef)
+  const willChange = useWillChange()
 
   // Animate animals on scroll
   const { scrollY } = useScroll()
@@ -146,8 +154,12 @@ export default function Hero() {
         pos="relative"
         mb="30vh"
         textAlign="center"
+        sx={{
+          backfaceVisibility: 'hidden',
+        }}
         animate={{ y: '0', opacity: 1, transition: spring }}
         initial={{ y: '5%', opacity: 0 }}
+        style={{ willChange }}
       >
         <Heading
           as="h1"
@@ -176,7 +188,6 @@ export default function Hero() {
             h="6em"
             p={3}
             color="text"
-            borderRadius="50%"
             shadow="2xl"
             _hover={{
               bgColor: 'secondary.50',
@@ -187,6 +198,7 @@ export default function Hero() {
             }}
             whiteSpace="normal"
             bgColor="secondary.50"
+            rounded="50%"
           >
             Scroll Down
           </Button>
