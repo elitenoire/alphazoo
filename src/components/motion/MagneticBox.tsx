@@ -1,7 +1,7 @@
-import { ReactNode, ReactHTML, MouseEvent, createContext, useContext } from 'react'
+import { createContext, useContext } from 'react'
+import type { ReactHTML, MouseEvent, ComponentProps } from 'react'
 import {
   motion,
-  MotionProps,
   useTransform,
   useSpring,
   MotionValue,
@@ -11,16 +11,6 @@ import {
 import { Box, BoxProps } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
 
-import type { Merge } from '~/types/merge'
-
-interface MagneticProps extends BoxProps {
-  children: ReactNode
-}
-interface MagneticParallaxProps extends Merge<Omit<MagneticProps, 'as'>, MotionProps> {
-  speed?: number
-  as?: keyof ReactHTML
-}
-
 const config = { stiffness: 100, damping: 10 }
 
 const MagneticContext = createContext({
@@ -28,7 +18,12 @@ const MagneticContext = createContext({
   y: motionValue(0),
 })
 
-export const MagneticBox = ({ children, ...rest }: MagneticProps) => {
+interface MagneticParallaxProps extends ComponentProps<typeof MotionBox> {
+  speed?: number
+  as?: keyof ReactHTML
+}
+
+export const MagneticBox = ({ children, ...rest }: BoxProps) => {
   const x = useSpring(0.5, config) as MotionValue<number>
   const y = useSpring(0.5, config) as MotionValue<number>
 
@@ -63,14 +58,13 @@ export const MagneticBox = ({ children, ...rest }: MagneticProps) => {
   )
 }
 
-function MagneticBoxParallax({
+const MagneticBoxParallax = ({
   speed = 0.2,
   style,
   children,
-  transition,
   as,
   ...rest
-}: MagneticParallaxProps) {
+}: MagneticParallaxProps) => {
   const { x, y } = useContext(MagneticContext)
 
   const xMove = useTransform(x, (v) => v * speed)
@@ -79,15 +73,7 @@ function MagneticBoxParallax({
   const transform = useMotionTemplate`translate(${xMove}em,${yMove}em)`
 
   return (
-    <MotionBox
-      {...(as && { as: motion(as) })}
-      // as={motion(as)}
-      // @ts-expect-error from official chakra-ui docs
-      // override chakra-ui transition with framer motion's own
-      transition={transition}
-      style={{ ...style, transform }}
-      {...rest}
-    >
+    <MotionBox {...(as && { as: motion(as) })} style={{ ...style, transform }} {...rest}>
       {children}
     </MotionBox>
   )

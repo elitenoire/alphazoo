@@ -16,6 +16,26 @@ export const MotionFlex = chakra(motion.div, {
   },
 })
 
+export const MotionSpan = chakra(motion.span, config)
+
 export const MotionHeading = chakra(motion.h2, config)
 
 export const MotionText = chakra(motion.p, config)
+
+/**
+ * Quirks in chakra-ui + framer-motion integration
+ *
+ */
+
+// ***** Does not support the ref prop
+
+// type MotionBoxProps = Merge<BoxProps, MotionProps>
+// type MotionBoxProps = Merge<BoxProps, MotionProps> & { ref?: React.Ref<any> }
+
+// ****** For both, color prop type matches framer motion
+// ****** instead of chakra-ui
+
+// type MotionBoxProps = Merge<HTMLChakraProps<'div'>, HTMLMotionProps<'div'>>
+// type MotionBoxProps = Merge<BoxProps, HTMLMotionProps<'div'>>
+
+// export const MotionBox: React.FC<MotionBoxProps> = motion(Box)
