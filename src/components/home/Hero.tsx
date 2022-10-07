@@ -150,6 +150,7 @@ export default function Hero() {
         initial={{ y: '5%', opacity: 0 }}
       >
         <Heading
+          as="h1"
           sx={{
             WebkitTextStrokeWidth: '0.0425em',
             WebkitTextStrokeColor: black,
@@ -167,9 +168,7 @@ export default function Hero() {
           Alphazoo for kids!
         </Heading>
         <Text fontSize="f2xl" fontWeight={700} opacity={0.825}>
-          {/* The #1 ABCs app */}
           #1 Animal ABCs app
-          {/* Learn Animal ABCs */}
         </Text>
         <MagneticBox display="inline-block" p={4} mt={2}>
           <Button

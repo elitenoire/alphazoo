@@ -1,5 +1,6 @@
 import { Box, Container } from '@chakra-ui/react'
 import { AnimatableBackground } from '~components/AnimatableBackground'
+import { MotionScroll } from '~components/motion'
 import Hero from '~components/home/Hero'
 import Intro from '~components/home/Intro'
 import Features from '~components/home/Features'
@@ -11,11 +12,17 @@ export default function Home() {
     <AnimatableBackground>
       <Hero />
       <Container maxW="container.lg">
-        <Intro />
-        <Features />
+        <MotionScroll distance={800} mb="-600">
+          <Intro />
+          <Features />
+        </MotionScroll>
       </Container>
       <Learn />
-      <Mode />
+      <Container maxW="1680px">
+        <MotionScroll distance={400} mt="-100">
+          <Mode />
+        </MotionScroll>
+      </Container>
       <Box h="500vh" />
     </AnimatableBackground>
   )

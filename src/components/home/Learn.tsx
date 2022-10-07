@@ -32,15 +32,27 @@ export default function Learn() {
   }, [yScroll])
 
   return (
-    <>
-      <Container maxW="1680px" p={0}>
-        <Text maxW="container.lg" mx="auto" my={14} px={2} fontSize="f3xl" textAlign="center">
-          Did you know kids learn best through{' '}
-          <Box as="strong" color="brand.500" fontWeight={500}>
-            play
-          </Box>
-          ?
-        </Text>
+    <section>
+      <Container as="header" maxW="1680px" p={0}>
+        <MotionBox>
+          <Heading
+            maxW="container.lg"
+            mt={14}
+            mb={24}
+            mx="auto"
+            px={2}
+            fontSize="f3xl"
+            fontWeight={500}
+            textAlign="center"
+            variant="body"
+          >
+            Did you know kids learn best through{' '}
+            <Box as="strong" color="brand.500">
+              play
+            </Box>
+            ?
+          </Heading>
+        </MotionBox>
         <MotionBox
           ref={learnRef}
           pos="relative"
@@ -74,6 +86,7 @@ export default function Learn() {
             </Flex>
           </Flex>
           <Heading
+            as="h3"
             pos="relative"
             zIndex={1}
             maxW="600px"
@@ -89,6 +102,6 @@ export default function Learn() {
         </MotionBox>
       </Container>
       <LearnLettersBoard />
-    </>
+    </section>
   )
 }
