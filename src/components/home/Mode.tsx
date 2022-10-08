@@ -35,20 +35,22 @@ export default function Mode() {
         pos="relative"
         justifyContent="center"
         mx={[1, 7]}
-        pt={24}
+        pt={[12, 24]}
         pb={16}
         bg="accent.400"
-        rounded="4em"
+        rounded={['2em', '4em']}
         overflow="hidden"
         style={{ scale }}
       >
-        <Box pos="relative" zIndex={1} w="full" mx="inherit" textAlign="center">
-          <Heading color="accent.900" fontSize={['f4xl', 'f5xl']}>
-            Learn + Play
-          </Heading>
-          <Text maxW="2xs" mx="auto" px={2} color="accent.50" fontSize={['fxl', null, 'f2xl']}>
-            Two fun and easy educational modes for kids to enjoy.
-          </Text>
+        <Box pos="relative" zIndex={1} w="full">
+          <Box as="header" px={6} textAlign={[null, 'center']}>
+            <Heading color="accent.900" fontSize={['f4xl', 'f5xl']}>
+              Learn + Play
+            </Heading>
+            <Text maxW="2xs" mx="auto" color="accent.50" fontSize={['fxl', null, 'f2xl']}>
+              Two fun and easy educational modes for kids to enjoy.
+            </Text>
+          </Box>
           <Flex justify="space-around" wrap="wrap" rowGap={6} columnGap={4} mt={10} mb={14}>
             <MagneticBox p={2}>
               <MotionFlex

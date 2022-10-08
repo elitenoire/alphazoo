@@ -17,7 +17,7 @@ export default function Features() {
       <Heading color="brand.500" fontSize="f5xl">
         Made for Fun
       </Heading>
-      <Text fontSize="f3xl">
+      <Text fontSize={['f2xl', null, null, null, 'f3xl']}>
         We offer fun activities & games for kids to grow their knowledge and develop their cognitive
         skills.
       </Text>

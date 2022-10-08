@@ -82,8 +82,8 @@ export default function Hero() {
     >
       <MotionBox
         pos="absolute"
-        w="inherit"
-        h="inherit"
+        w="full"
+        h="full"
         overflow="hidden"
         style={{
           borderBottomLeftRadius: radius,
@@ -152,7 +152,7 @@ export default function Hero() {
       </MotionBox>
       <MotionBox
         pos="relative"
-        mb="30vh"
+        mb="20vh"
         textAlign="center"
         sx={{
           backfaceVisibility: 'hidden',
@@ -168,7 +168,7 @@ export default function Hero() {
             WebkitTextStrokeColor: black,
           }}
           textStyle="alt"
-          maxW="4.8625em"
+          maxW="4.5em"
           fontSize={['f6xl', null, null, 'f5xl']}
           fontWeight={900}
           lineHeight="none"

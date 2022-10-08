@@ -1,7 +1,11 @@
 import type { ReactNode } from 'react'
-import { Box, Flex, Text, VisuallyHidden } from '@chakra-ui/react'
+import { Box, Flex, Text, VisuallyHidden, chakra } from '@chakra-ui/react'
 import { MotionPop, MagneticBox } from '~components/motion'
 import { AnimalHead, AnimalHeadType } from '~components/AnimalHead'
+
+import { ReactComponent as TreeSvg } from '~public/img/tree.svg'
+
+const ChakraTree = chakra(TreeSvg)
 
 interface MotionAnimalProps {
   animal: AnimalHeadType
@@ -32,15 +36,28 @@ const MotionAnimal = ({ animal, bg, shift, children }: MotionAnimalProps) => {
 
 export default function Intro() {
   return (
-    <section>
+    <Box as="section" mb={20} pt={56}>
       <VisuallyHidden as="h2">Introducing Alphazoo</VisuallyHidden>
-      <Text pt={24} fontSize="f3xl">
-        <Box as="span" textStyle="highlight" _hover={{ bg: 'accent.200' }}>
+      <Text fontSize={['f2xl', null, null, null, 'f3xl']}>
+        <Box as="span" textStyle="highlight" _hover={{ bgColor: 'secondary.200' }}>
           Alphazoo
         </Box>{' '}
         is an early learning app for kids to practise the English Alphabets with a variety of
         animals.
       </Text>
+      <Box
+        pos="sticky"
+        top={40}
+        display={['none', 'block']}
+        overflow="hidden"
+        h="120vh"
+        minH="md"
+        maxH="4xl"
+        mx="-1em"
+        pt="20vh"
+      >
+        <ChakraTree h="100%" mx="auto" fill="brand.500" opacity={0.15} />
+      </Box>
       <Flex align="center" direction="column" rowGap={[40, null, 32]} columnGap={8} pt={24} pb={48}>
         <MotionAnimal animal="tiger" bg="orange.200">
           Grrr
@@ -52,6 +69,6 @@ export default function Intro() {
           Growl
         </MotionAnimal>
       </Flex>
-    </section>
+    </Box>
   )
 }

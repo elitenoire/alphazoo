@@ -99,9 +99,9 @@ const theme = extendTheme(
         fontVariant: 'discretionary-ligatures',
       },
       highlight: {
-        bg: 'brandAlt.200',
-        borderRadius: '8px',
-        px: '8px',
+        bgColor: 'brandAlt.200',
+        borderRadius: 'lg',
+        px: 1,
       },
     },
     colors: {

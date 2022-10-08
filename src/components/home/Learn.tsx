@@ -41,7 +41,7 @@ export default function Learn() {
             mb={24}
             mx="auto"
             px={2}
-            fontSize="f3xl"
+            fontSize={['f2xl', 'f3xl']}
             fontWeight={500}
             textAlign="center"
             variant="body"
