@@ -3,7 +3,7 @@
         <img width="600" src="./public/brand/gh-cover.svg" alt="Alphazoo banner" title="Alphazoo ABC app" />
     </a>
 
-## 🦓🐼🐨🐵🐗🐯🦊🐙🦉🐸🦚🐲🦒🐱🦁🐻🐋🦄
+## 🦓🐼🐵🐻🐯🦊🐙🦉🐸🐲🐱🦁🐋🦄
 
 ### Animal Alphabets - Easy and Fun.
 

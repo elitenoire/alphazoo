@@ -1,14 +1,13 @@
 /** @type {import('next-seo').DefaultSeoProps} */
 const defaultSEOConfig = {
-  title: 'Alphazoo',
   titleTemplate: '%s | Alphazoo - ABC English App',
-  defaultTitle: 'Alphazoo',
-  description: 'Practise your English ABCs with a variety of animals.',
+  defaultTitle: 'Alphazoo - ABC English App',
+  description: 'The #1 educational app for kids to learn the English Alphabets in a funtastic way.',
   canonical: 'https://alphazoo.vercel.app',
   openGraph: {
     url: 'https://alphazoo.vercel.app',
     title: 'Alphazoo',
-    description: 'Practise your English ABCs with a variety of animals.',
+    description: '#1 Animal ABCs app for kids to learn the English Alphabets.',
     images: [
       {
         url: 'https://alphazoo.vercel.app/static/og-image.png',
