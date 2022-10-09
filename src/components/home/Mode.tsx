@@ -63,7 +63,7 @@ export default function Mode() {
                 alignItems="center"
                 justifyContent="center"
                 flexDir="column"
-                gap={5}
+                gap={4}
                 w="xs"
                 h="xs"
                 _hover={{
@@ -73,7 +73,7 @@ export default function Mode() {
                 <Box pos="absolute" top={0} w="full" opacity={0.5} transition="opacity 0.2s">
                   <SquircleBgSvg fill={squircleBg} />
                 </Box>
-                <LearnSvg zIndex={1} pos="relative" />
+                <LearnSvg zIndex={1} pos="relative" w="80%" />
                 <Button
                   w="55%"
                   color="accent.500"
@@ -113,7 +113,7 @@ export default function Mode() {
                 <Box pos="absolute" top={0} w="full" opacity={0.5} transition="opacity 0.2s">
                   <SquircleBgSvg fill={squircleBg} />
                 </Box>
-                <PlaySvg zIndex={1} pos="relative" />
+                <PlaySvg zIndex={1} pos="relative" w="80%" />
                 <Button
                   w="55%"
                   shadow="2xl"

@@ -36,10 +36,10 @@ const MotionAnimal = ({ animal, bg, shift, children }: MotionAnimalProps) => {
 
 export default function Intro() {
   return (
-    <Box as="section" mb={20} pt={56}>
+    <Box as="section" mb={[null, 20]} pt={56}>
       <VisuallyHidden as="h2">Introducing Alphazoo</VisuallyHidden>
       <Text fontSize={['f2xl', null, null, null, 'f3xl']}>
-        <Box as="span" textStyle="highlight" _hover={{ bgColor: 'secondary.200' }}>
+        <Box as="strong" color="brand.500">
           Alphazoo
         </Box>{' '}
         is an early learning app for kids to practise the English Alphabets with a variety of
