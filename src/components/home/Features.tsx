@@ -49,7 +49,7 @@ export default function Features() {
           </ListItem>
         </List>
         <MotionPop display="inline-block" mt={12}>
-          <MagneticBox p={4}>
+          <MagneticBox>
             <Button>Explore the App</Button>
           </MagneticBox>
         </MotionPop>

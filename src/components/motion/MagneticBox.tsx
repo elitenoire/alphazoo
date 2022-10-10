@@ -45,7 +45,7 @@ export const MagneticBox = ({ children, ...rest }: BoxProps) => {
 
   return (
     <MagneticContext.Provider value={{ x: xMove, y: yMove }}>
-      <Box {...rest} onMouseLeave={reset} onMouseMove={handleMouse}>
+      <Box p={[null, 4]} {...rest} onMouseLeave={reset} onMouseMove={handleMouse}>
         <MotionBox
           style={{ transform }}
           // Use hook instead as x & y comes with px unit causing wrong transform

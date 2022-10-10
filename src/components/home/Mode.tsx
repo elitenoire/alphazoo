@@ -1,15 +1,12 @@
 import { useRef } from 'react'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
-import { Box, Flex, Heading, Text, Button, chakra, useToken } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
 import { MotionFlex, MagneticBox } from '~components/motion'
 
 import { ReactComponent as SquircleBgSvg } from '~public/img/bg-squircle.svg'
-import { ReactComponent as Learn } from '~public/img/learn.svg'
-import { ReactComponent as Play } from '~public/img/play.svg'
+import { ReactComponent as LearnSvg } from '~public/img/learn.svg'
+import { ReactComponent as PlaySvg } from '~public/img/play.svg'
 import { ReactComponent as PandaSvg } from '~public/img/panda.svg'
-
-const LearnSvg = chakra(Learn)
-const PlaySvg = chakra(Play)
 
 const item = {
   hidden: (i: number) => ({ opacity: 0, x: i * 20 }),
@@ -52,80 +49,90 @@ export default function Mode() {
             </Text>
           </Box>
           <Flex justify="space-around" wrap="wrap" rowGap={6} columnGap={4} mt={10} mb={14}>
-            <MagneticBox p={2}>
+            <MagneticBox flex={['1 1 100%', '1 1 45%']} mx={[2, 0]}>
               <MotionFlex
                 variants={item}
                 custom={-1}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ amount: 0.3 }}
+                flexDir="column"
                 pos="relative"
                 alignItems="center"
                 justifyContent="center"
-                flexDir="column"
-                gap={4}
-                w="xs"
-                h="xs"
+                w="full"
+                h="full"
+                maxW="xs"
+                maxH="xs"
+                m="auto"
                 _hover={{
-                  '& > div': { opacity: 0.85 },
+                  '& > div:first-of-type': { opacity: 0.85 },
                 }}
               >
-                <Box pos="absolute" top={0} w="full" opacity={0.5} transition="opacity 0.2s">
+                <Box w="full" opacity={0.5} transition="opacity 0.2s">
                   <SquircleBgSvg fill={squircleBg} />
                 </Box>
-                <LearnSvg zIndex={1} pos="relative" w="80%" />
-                <Button
-                  w="55%"
-                  color="accent.500"
-                  shadow="2xl"
-                  _hover={{
-                    boxShadow: 'lg',
-                    transform: 'translateY(-2px)',
-                  }}
-                  _active={{
-                    bgColor: 'accent.200',
-                  }}
-                  bgColor="accent.50"
-                  colorScheme="accent"
-                >
-                  Learn
-                </Button>
+                <Box pos="absolute" w="80%" textAlign="center">
+                  <LearnSvg />
+                  <Button
+                    w="55%"
+                    mt={2}
+                    color="accent.500"
+                    shadow="2xl"
+                    _hover={{
+                      boxShadow: 'lg',
+                      transform: 'translateY(-2px)',
+                    }}
+                    _active={{
+                      bgColor: 'accent.200',
+                    }}
+                    bgColor="accent.50"
+                    colorScheme="accent"
+                  >
+                    Learn
+                  </Button>
+                </Box>
               </MotionFlex>
             </MagneticBox>
-            <MagneticBox p={2}>
+            <MagneticBox flex={['1 1 100%', '1 1 45%']} mx={[2, 0]}>
               <MotionFlex
                 variants={item}
                 custom={1}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ amount: 0.35 }}
+                flexDir="column"
                 pos="relative"
                 alignItems="center"
                 justifyContent="center"
-                flexDir="column"
-                gap={4}
-                w="xs"
-                h="xs"
+                w="full"
+                h="full"
+                maxW="xs"
+                maxH="xs"
+                m="auto"
                 _hover={{
-                  '& > div': { opacity: 0.85 },
+                  '& > div:first-of-type': { opacity: 0.85 },
                 }}
               >
-                <Box pos="absolute" top={0} w="full" opacity={0.5} transition="opacity 0.2s">
+                <Box w="full" opacity={0.5} transition="opacity 0.2s">
                   <SquircleBgSvg fill={squircleBg} />
                 </Box>
-                <PlaySvg zIndex={1} pos="relative" w="80%" />
-                <Button
-                  w="55%"
-                  shadow="2xl"
-                  _hover={{
-                    bgColor: 'brand.600',
-                    boxShadow: 'lg',
-                    transform: 'translateY(-2px)',
-                  }}
-                  bgColor="brand.500"
-                >
-                  Play
-                </Button>
+                <Box pos="absolute" w="80%" textAlign="center">
+                  <PlaySvg />
+                  <Button
+                    w="55%"
+                    mt={2}
+                    shadow="2xl"
+                    _hover={{
+                      bgColor: 'brand.600',
+                      boxShadow: 'lg',
+                      transform: 'translateY(-2px)',
+                    }}
+                    bgColor="brand.500"
+                  >
+                    Play
+                  </Button>
+                </Box>
               </MotionFlex>
             </MagneticBox>
           </Flex>
