@@ -55,6 +55,9 @@ const fontSizes = {
   f4xl: 'clamp(3.05rem, 4.05vw + 1.75rem, 5rem)',
   f5xl: 'clamp(3.81rem, 5.93vw + 1.92rem, 6.66rem)',
   f6xl: 'clamp(4.77rem, 8.57vw + 2.03rem, 8.88rem)',
+  f7xl: 'clamp(5.96rem, 12.24vw + 2.04rem, 11.84rem)',
+  f8xl: 'clamp(7.45rem, 17.35vw + 1.9rem, 15.78rem)',
+  f9xl: 'clamp(9.31rem, 24.42vw + 1.5rem, 21.03rem)',
 }
 
 const theme = extendTheme(
@@ -128,6 +131,7 @@ const theme = extendTheme(
         700: '#0e8750',
         800: '#116a42',
         900: '#105738',
+        dark: '#0c412a',
       },
       secondary: {
         50: '#fffaeb',
