@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
 import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
 import { MotionFlex, MagneticBox } from '~components/motion'
+import { HOMEPAGE_IDS } from '~src/constants'
 
 import { ReactComponent as SquircleBgSvg } from '~public/img/bg-squircle.svg'
 import { ReactComponent as LearnSvg } from '~public/img/learn.svg'
@@ -26,7 +27,7 @@ export default function Mode() {
   const [squircleBg] = useToken('colors', ['accent.200'])
 
   return (
-    <section>
+    <section aria-labelledby={HOMEPAGE_IDS.mode}>
       <MotionFlex
         ref={modeRef}
         pos="relative"
@@ -40,8 +41,8 @@ export default function Mode() {
         style={{ scale }}
       >
         <Box pos="relative" zIndex={1} w="full">
-          <Box as="header" px={6} textAlign={[null, 'center']}>
-            <Heading color="accent.900" fontSize={['f4xl', 'f5xl']}>
+          <Box px={6} textAlign={[null, 'center']}>
+            <Heading color="accent.900" fontSize={['f4xl', 'f5xl']} id={HOMEPAGE_IDS.mode}>
               Learn + Play
             </Heading>
             <Text maxW="2xs" mx="auto" color="accent.50" fontSize={['fxl', null, 'f2xl']}>
@@ -62,8 +63,8 @@ export default function Mode() {
                 justifyContent="center"
                 w="full"
                 h="full"
-                maxW="xs"
-                maxH="xs"
+                maxW={['xs', null, null, null, null, 'md']}
+                maxH={['xs', null, null, null, null, 'md']}
                 m="auto"
                 _hover={{
                   '& > div:first-of-type': { opacity: 0.85 },
@@ -107,8 +108,8 @@ export default function Mode() {
                 justifyContent="center"
                 w="full"
                 h="full"
-                maxW="xs"
-                maxH="xs"
+                maxW={['xs', null, null, null, null, 'md']}
+                maxH={['xs', null, null, null, null, 'md']}
                 m="auto"
                 _hover={{
                   '& > div:first-of-type': { opacity: 0.85 },

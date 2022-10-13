@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
 import { Box, AspectRatio, Flex, Heading, Container } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MotionBoyDoodle, MotionGirlDoodle } from '~components/motion'
-
+import { HOMEPAGE_IDS } from '~src/constants'
 import { LearnLettersBoard } from './LearnLettersBoard'
 
 import { ReactComponent as HeartTrioSvg } from '~public/img/dd-heart-1.svg'
@@ -32,27 +32,24 @@ export default function Learn() {
   }, [yScroll])
 
   return (
-    <section>
+    <section aria-labelledby={HOMEPAGE_IDS.learn}>
       <Container as="header" maxW="container.max" p={0}>
-        <MotionBox>
-          <Heading
-            maxW="container.lg"
-            mt={14}
-            mb={24}
-            mx="auto"
-            px={2}
-            fontSize={['f2xl', 'f3xl']}
-            fontWeight={500}
-            textAlign="center"
-            variant="body"
-          >
-            Did you know kids learn best through{' '}
-            <Box as="strong" color="brand.500">
-              play
-            </Box>
-            ?
-          </Heading>
-        </MotionBox>
+        <Heading
+          maxW="container.lg"
+          mb={28}
+          mx="auto"
+          px={2}
+          fontSize={['f2xl', 'f3xl']}
+          fontWeight={500}
+          textAlign="center"
+          variant="body"
+        >
+          Did you know kids learn best through{' '}
+          <Box as="strong" color="brand.500">
+            play
+          </Box>
+          ?
+        </Heading>
         <MotionBox
           ref={learnRef}
           pos="relative"
@@ -95,6 +92,7 @@ export default function Learn() {
             pb={32}
             fontSize="f5xl"
             textAlign={['center', null, 'right']}
+            id={HOMEPAGE_IDS.learn}
           >
             Let&apos;s Learn Together
           </Heading>

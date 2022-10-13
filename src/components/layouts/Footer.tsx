@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { useScroll, useSpring, useTransform } from 'framer-motion'
 import { MotionBox } from '~components/motion'
+import { SITE_CONFIG } from '~src/constants'
 
 import { ReactComponent as CliqueSvg } from '~public/img/clique.svg'
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
@@ -53,7 +54,7 @@ export default function Footer() {
         color="brand.600"
         bgGradient="linear(brand.900 5px, black)"
       >
-        <Container maxW="container.max">
+        <Container gridTemplateRows="auto 1fr" display="grid" maxW="container.max" minH="inherit">
           <Text
             as="small"
             align="center"
@@ -74,6 +75,7 @@ export default function Footer() {
           </Text>
           <Flex
             ref={containerRef}
+            justify="flex-end"
             direction="column"
             rowGap={[32, null, 16]}
             pt={12}
@@ -125,14 +127,13 @@ export default function Footer() {
                   }}
                   bgColor="brand.dark"
                   rounded="3xl"
-                  // bgColor="blackAlpha.100"
                   title="Give a Github Star!"
                   transitionDuration="0.2s"
                   transitionProperty="background-color,border-color"
                   transitionTimingFunction="ease-in-out"
                 >
                   <Text fontSize={['2xl', null, '3xl']}>
-                    <LinkOverlay href="https://github.com/elitenoire/alphazoo" isExternal>
+                    <LinkOverlay href={SITE_CONFIG.githubLink} isExternal>
                       <Box as="span" display="block" color="brand.200">
                         Pssst...
                       </Box>{' '}
@@ -172,7 +173,14 @@ export default function Footer() {
               borderBottomWidth="4px"
             >
               <NextLink href="/" passHref>
-                <Link gap={4} display="flex" w="full" maxW="3xs" _hover={{ color: 'brand.400' }}>
+                <Link
+                  gap={4}
+                  display="flex"
+                  w="full"
+                  maxW="3xs"
+                  _hover={{ color: 'brand.400' }}
+                  aria-label={SITE_CONFIG.appName}
+                >
                   <BrandLogo flex={1} fill="currentcolor" />
                   <BrandLogoName flex={2.5} fill="currentcolor" />
                 </Link>
@@ -189,7 +197,7 @@ export default function Footer() {
                   }}
                   aria-label="Github Page"
                   bgColor="whiteAlpha.50"
-                  href="https://github.com/elitenoire/alphazoo"
+                  href={SITE_CONFIG.githubLink}
                   icon={<Icon as={GithubSvg} fill="currentcolor" />}
                   isExternal
                   size="md"
@@ -206,7 +214,7 @@ export default function Footer() {
                   }}
                   aria-label="Contact Me"
                   bgColor="whiteAlpha.50"
-                  href="mailto:evathecoderr@outlook.com?subject=REF From Alphazoo"
+                  href={`mailto:evathecoderr@outlook.com?subject=REF From ${SITE_CONFIG.appName.toUpperCase()}`}
                   icon={<Icon as={MailSvg} fill="currentcolor" />}
                   isExternal
                   size="md"

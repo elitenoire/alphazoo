@@ -9,6 +9,7 @@ import {
 } from 'framer-motion'
 import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
 import { MotionBox, MagneticBox } from '~components/motion'
+import { SITE_CONFIG } from '~src/constants'
 
 import { ReactComponent as BackdropSVG } from '~public/img/plx-01-backdrop.svg'
 
@@ -177,7 +178,7 @@ export default function Hero() {
           opacity={0.95}
           wordBreak="break-all"
         >
-          Alphazoo for kids!
+          {`${SITE_CONFIG.appFullName}!`}
         </Heading>
         <Text fontSize="f2xl" fontWeight={700} opacity={0.825}>
           #1 Animal ABCs app
