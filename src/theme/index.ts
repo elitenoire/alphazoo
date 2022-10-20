@@ -94,6 +94,24 @@ const theme = extendTheme(
         },
       },
     },
+    layerStyles: {
+      showScroll: {
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        WebkitOverflowScrolling: 'touch',
+      },
+      hideScroll: {
+        overflow: '-moz-scrollbars-none',
+        MsOverflowStyle: 'none',
+        scrollbarWidth: 'none',
+        '::-webkit-scrollbar': {
+          width: '0 !important',
+          display: 'none',
+          background: 'transparent',
+        },
+        cursor: 'grab',
+      },
+    },
     textStyles: {
       alt: {
         fontFeatureSettings: '"ss01"',

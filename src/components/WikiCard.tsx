@@ -27,26 +27,30 @@ export const WikiCard = ({
 
   return (
     <MotionFlex
-      alignItems="center"
+      flex="0 0 auto"
+      alignItems={isOpen ? 'center' : 'flex-end'}
       py={4}
-      px={2}
+      px={3}
       borderWidth="0.2875em"
       borderColor="whiteAlpha.800"
+      boxShadow="sm"
       bg={bg ?? `${brand}.200`}
       color={color ?? `${brand}.900`}
+      cursor="pointer"
       {...rest}
       layout
-      initial={{ borderRadius: 100 }}
-      animate={{ borderRadius: isOpen ? 30 : 100 }}
+      initial={{ borderRadius: 150 }}
+      animate={{ borderRadius: isOpen ? 40 : 150 }}
       // @ts-expect-error from chakra-ui official docs
       transition={{ duration: 0.8, type: 'spring' }}
       onClick={toggleOpen}
     >
-      <MotionBox
-        layout="position"
+      <MotionFlex
         pos="relative"
-        textAlign="center"
+        flexDir="column"
+        alignItems="center"
         w="7.25em"
+        layout="position"
         initial={{ left: '0%' }}
         animate={{ left: isOpen ? '-10%' : '0%' }}
         // @ts-expect-error from chakra-ui official docs
@@ -55,7 +59,7 @@ export const WikiCard = ({
         {children}
         <AnimatePresence mode="popLayout">
           {!isOpen && (
-            <MotionBox
+            <MotionFlex
               key={animal}
               layout
               initial={{ opacity: 0, scale: 0.85 }}
@@ -69,10 +73,10 @@ export const WikiCard = ({
               <Heading as="h3" color={titleColor ?? `${brand}.700`} fontSize="fxl">
                 {animal}
               </Heading>
-            </MotionBox>
+            </MotionFlex>
           )}
         </AnimatePresence>
-      </MotionBox>
+      </MotionFlex>
       {isOpen && (
         <MotionBox
           layout
