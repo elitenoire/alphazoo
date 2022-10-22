@@ -1,25 +1,27 @@
-import { LayoutGroup } from 'framer-motion'
-import { Box, Flex, Text, Heading, chakra } from '@chakra-ui/react'
+import { useState } from 'react'
+import NextImage from 'next/future/image'
+import { AspectRatio, Box, Flex, Text, Heading, chakra } from '@chakra-ui/react'
 import { WikiCard } from '~components/WikiCard'
 import { HOMEPAGE_IDS } from '~src/constants'
+import { homeWikis } from '~/src/data/homeWiki'
 
 import { ReactComponent as QuestionSvg } from '~public/img/question.svg'
 import { ReactComponent as QaAnimalsSvg } from '~public/img/qa-animals.svg'
-import { ReactComponent as QaGiraffe } from '~public/img/qa-giraffe.svg'
-import { ReactComponent as QaChameleon } from '~public/img/qa-chameleon.svg'
-import { ReactComponent as QaWhale } from '~public/img/qa-whale.svg'
-import { ReactComponent as QaTiger } from '~public/img/qa-tiger.svg'
-import { ReactComponent as QaFlamingo } from '~public/img/qa-flamingo.svg'
-import { ReactComponent as QaPanda } from '~public/img/qa-panda.svg'
 
-const ChakraQa = chakra(QuestionSvg)
+const QaQuestion = chakra(QuestionSvg)
 const QaAnimals = chakra(QaAnimalsSvg)
 
 export default function FunWiki() {
+  const [expanded, setExpanded] = useState<false | number>(0)
+
+  const handleExpanded = (i: false | number) => () => {
+    setExpanded((state) => (i === state ? false : i))
+  }
+
   return (
     <Box as="section" pos="relative" pt={16} pb={40} aria-labelledby={HOMEPAGE_IDS.wiki}>
       <Box pos="relative" zIndex={1} px={4} textAlign="right">
-        <Heading color="brand.500" fontSize="f5xl" id={HOMEPAGE_IDS.wiki}>
+        <Heading color="colorScheme.500" fontSize="f5xl" id={HOMEPAGE_IDS.wiki}>
           Wiki Fun!
         </Heading>
         <Text fontSize="f2xl">Did you know that?</Text>
@@ -30,7 +32,7 @@ export default function FunWiki() {
         top={[0, null, '-4', null, '-7']}
         right={4}
       />
-      <ChakraQa
+      <QaQuestion
         display={['none', null, 'block']}
         pos="absolute"
         width="30%"
@@ -55,41 +57,21 @@ export default function FunWiki() {
         // pt={8}
         // pb={6}
       >
-        <LayoutGroup>
-          <WikiCard animal="tiger" wiki="No two tigers have the same stripes">
-            <QaTiger />
-          </WikiCard>
-          <WikiCard brand="yellow" animal="giraffe" wiki="Babies stand ~30 minutes after birth">
-            <QaGiraffe />
-          </WikiCard>
+        {homeWikis.map(({ animal, wiki, colorScheme, tintBg, img, imgRatio }, i) => (
           <WikiCard
-            brand="green"
-            bg="green.100"
-            animal="chameleon"
-            wiki="Chameleons can move their eyes separately"
+            key={animal}
+            expand={expanded === i}
+            onClick={handleExpanded(i)}
+            animal={animal}
+            wiki={wiki}
+            colorScheme={colorScheme}
+            {...(tintBg && { bg: `${colorScheme}.100` })}
           >
-            <QaChameleon />
+            <AspectRatio w="100%" ratio={imgRatio}>
+              <NextImage src={img} alt={`${animal} illustration`} fill />
+            </AspectRatio>
           </WikiCard>
-          <WikiCard
-            brand="blue"
-            bg="blue.100"
-            animal="whale"
-            wiki="Blue whales are the largest on Earth"
-          >
-            <QaWhale />
-          </WikiCard>
-          <WikiCard
-            brand="pink"
-            bg="pink.100"
-            animal="flamingo"
-            wiki="They get their pink color from their food"
-          >
-            <QaFlamingo />
-          </WikiCard>
-          <WikiCard brand="blackAlpha" animal="Panda" wiki="Pandas eat a lot of bamboo per day">
-            <QaPanda />
-          </WikiCard>
-        </LayoutGroup>
+        ))}
       </Flex>
     </Box>
   )

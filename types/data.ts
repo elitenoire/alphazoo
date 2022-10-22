@@ -1,3 +1,5 @@
+import { ChakraColorHues } from '~types/theme'
+
 export type Alphabet =
   | 'A'
   | 'B'
@@ -38,3 +40,12 @@ type EmojiGlyph = {
 }
 
 export type GlyphType = EmojiGlyph | LetterGlyph
+
+export type WikiType = {
+  animal: string
+  wiki: string
+  img: string
+  imgRatio: number
+  colorScheme: ChakraColorHues
+  tintBg?: boolean
+}
