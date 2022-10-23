@@ -175,7 +175,7 @@ const theme = extendTheme(
         800: '#92261a',
         900: '#762218',
       },
-      background: '#fff1c6', // secondary.100
+      background: '#fffaeb', // secondary.50
       text: baseTheme.colors.gray[800],
       black: '#121113',
     },

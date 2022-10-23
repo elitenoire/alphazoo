@@ -33,7 +33,9 @@ export default function Home() {
           </MotionScroll>
         </Container>
         <Box h="100vh" />
-        <FunWiki />
+        <Container maxW="container.max" px={2}>
+          <FunWiki />
+        </Container>
         <Underline />
         <Cta />
       </main>

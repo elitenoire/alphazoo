@@ -51,7 +51,7 @@ export default function Features() {
         </List>
         <MotionPop display="inline-block" mt={12}>
           <MagneticBox>
-            <Button>Explore the App</Button>
+            <Button>Explore App</Button>
           </MagneticBox>
         </MotionPop>
       </Box>
