@@ -1,6 +1,7 @@
 import { ComponentProps } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { Heading, Text, ThemeTypings } from '@chakra-ui/react'
+import { Heading, Text, Box, ThemeTypings } from '@chakra-ui/react'
+import { ArrowRight1Bold } from 'react-iconsax-icons'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { ChakraColorHues } from '~types/theme'
 
@@ -25,8 +26,11 @@ export const WikiCard = ({
 }: WikiCardProps) => {
   return (
     <MotionFlex
+      layout
+      pos="relative"
       flex="0 0 auto"
       alignItems={expand ? 'center' : 'flex-end'}
+      justifyContent="center"
       py={4}
       px={3}
       borderWidth="0.2875em"
@@ -36,11 +40,15 @@ export const WikiCard = ({
       color={color ?? `${colorScheme}.900`}
       cursor="pointer"
       {...rest}
-      layout
+      _even={{
+        '.ic-ex': {
+          top: 'auto',
+          bottom: '-5',
+        },
+      }}
+      {...(!color && { _hover: { '.ic-ex': { color: `${colorScheme}.500` } } })}
       initial={{ borderRadius: 150 }}
-      animate={{ borderRadius: expand ? 40 : 150 }}
-      // @ts-expect-error from chakra-ui official docs
-      transition={{ duration: 0.8, type: 'spring' }}
+      animate={{ borderRadius: expand ? 40 : 150, transition: { duration: 0.8, type: 'spring' } }}
     >
       <MotionFlex
         pos="relative"
@@ -92,6 +100,23 @@ export const WikiCard = ({
           <Text fontSize="flg">{wiki}</Text>
         </MotionBox>
       )}
+      <MotionBox
+        className="ic-ex"
+        layout="position"
+        pos="absolute"
+        top="-5"
+        w={10}
+        h={10}
+        p={1}
+        rounded="50%"
+        bg="whiteAlpha.500"
+        borderWidth="0.25em"
+        borderColor="white"
+      >
+        <Box transform={expand ? 'rotate(-180deg)' : 'none'} transition="0.4s ease">
+          <ArrowRight1Bold color="currentColor" size="100%" />
+        </Box>
+      </MotionBox>
     </MotionFlex>
   )
 }
