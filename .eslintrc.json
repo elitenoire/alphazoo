@@ -1,32 +1,44 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module",
-    "project": [
-      "./tsconfig.json"
-    ]
-  },
   "extends": [
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:@typescript-eslint/strict",
+    "eslint:recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": [
-    "chakra-ui"
-  ],
-  "rules": {
-    "chakra-ui/props-order": "error",
-    "chakra-ui/props-shorthand": "error",
-    "chakra-ui/require-specific-component": "error"
-  },
   "overrides": [
+    {
+      "files": [
+        "**/*.ts?(x)"
+      ],
+      // extend TypeScript plugins here
+      // instead of outside the `overrides`
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@typescript-eslint/strict",
+        "next/core-web-vitals",
+        "plugin:prettier/recommended"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaFeatures": {
+          "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module",
+        "project": [
+          "./tsconfig.json"
+        ]
+      },
+      "plugins": [
+        "chakra-ui"
+      ],
+      "rules": {
+        "chakra-ui/props-order": "error",
+        "chakra-ui/props-shorthand": "error",
+        "chakra-ui/require-specific-component": "error"
+      }
+    },
     {
       "files": [
         "types/**/*.ts"
