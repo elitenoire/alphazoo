@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
-import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
-import { Flex, useToken } from '@chakra-ui/react'
-import { MotionBox, MotionFlex } from '~components/motion'
+import { useTransform, useScroll, useSpring, MotionValue, useMotionTemplate } from 'framer-motion'
+import { useToken } from '@chakra-ui/react'
+import { MotionBox, MotionFlex, MotionText } from '~components/motion'
 import { useAnimeBg } from '~components/AnimatableBackground'
 import { AIrow, JQrow, RZrow } from '~src/data/glyphs'
 import { LearnLetters } from './LearnLetters'
@@ -22,6 +22,8 @@ export function LearnLettersBoard() {
   const x = useTransform(yScroll, [0.1, 1], ['30vw', '-280vw'])
   const opacity = useTransform(yScroll, [0, 0.025, 0.925, 1], [0, 1, 1, 0.5])
   const bg = useTransform(yScroll, [0, 0.025, 0.95, 1], [bodyBg, boardBg, boardBg, bodyBg])
+  const borderOpacity = useTransform(yScroll, [0.1, 0.2, 0.95, 1], [0, 1, 1, 0])
+  const borderColor = useMotionTemplate`rgba(255,255,255,${borderOpacity})`
 
   useEffect(() => {
     const unsubscribe = bg.onChange((val) => {
@@ -43,13 +45,35 @@ export function LearnLettersBoard() {
       // @ts-expect-error from chakra-ui official docs
       transition={{ duration: 0.65 }}
     >
-      <Flex pos="sticky" top={0} align="center" overflow="hidden" minH="100vh">
+      <MotionFlex
+        pos="sticky"
+        top={0}
+        alignItems="center"
+        overflow="hidden"
+        minH="100vh"
+        borderWidth="3px"
+        style={{ borderColor }}
+      >
+        <MotionText
+          pos="absolute"
+          top={0}
+          left={0}
+          px={2}
+          bg="white"
+          fontWeight={500}
+          fontSize="xs"
+          borderBottomRightRadius="5px"
+          userSelect="none"
+          style={{ opacity: borderOpacity }}
+        >
+          Interactive
+        </MotionText>
         <MotionFlex minW={0} style={{ x, opacity }}>
           <LearnLetters letters={AIrow} />
           <LearnLetters letters={JQrow} />
           <LearnLetters letters={RZrow} />
         </MotionFlex>
-      </Flex>
+      </MotionFlex>
     </MotionBox>
   )
 }
