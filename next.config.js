@@ -23,7 +23,7 @@ function withSvgrConfig() {
   })
 }
 
-module.exports = (_phase, { defaultConfig }) => {
+module.exports = () => {
   const plugins = [withSvgrConfig]
-  return plugins.reduce((acc, plugin) => plugin(acc), { ...defaultConfig, ...nextConfig })
+  return plugins.reduce((acc, plugin) => plugin(acc), nextConfig)
 }
