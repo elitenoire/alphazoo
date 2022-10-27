@@ -1,7 +1,9 @@
 declare module '*.svg' {
-  import { FC, SVGProps } from 'react'
+  import type { FC, SVGProps } from 'react'
+  import type { StaticImageData } from 'next/future/image'
+
   export const ReactComponent: FC<SVGProps<SVGSVGElement>>
 
-  const src: string
-  export default src
+  const content: StaticImageData
+  export default content
 }
