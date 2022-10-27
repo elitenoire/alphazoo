@@ -33,15 +33,15 @@ export default function FunWiki() {
         pos="relative"
         mx={[1, 7]}
         pt={[12, 24]}
-        bg="secondary.100"
+        bg="brand.500"
         rounded={['2em', '4em']}
         style={{ scale }}
       >
-        <Flex align={['flex-start', 'center', 'flex-end']} direction="column" px={8}>
+        <Flex align={['center', null, 'flex-end']} direction="column" px={8}>
           <Box
-            w={['60%', '45%', null, '35%']}
+            w={['90%', '60%', '50%']}
             p={4}
-            bg="blackAlpha.100"
+            bg="blackAlpha.200"
             borderWidth="0.25em"
             borderColor="white"
             shadow="inner"
@@ -50,15 +50,15 @@ export default function FunWiki() {
             <NextImage src={ImgQaAnimals} alt="Cute animal faces" />
           </Box>
           <Heading
-            pt={1}
-            color="secondary.500"
+            pt={2}
+            color="brand.900"
             fontSize={['f4xl', 'f5xl']}
             lineHeight="none"
             id={HOMEPAGE_IDS.wiki}
           >
             Wiki Fun!
           </Heading>
-          <Text fontSize={['fxl', null, 'f2xl']} opacity={0.9}>
+          <Text color="brand.50" fontSize={['fxl', null, 'f2xl']}>
             Did you know that?
           </Text>
         </Flex>
@@ -72,7 +72,6 @@ export default function FunWiki() {
         >
           <NextImage src={ImgQuestion} alt="Question doodle" />
         </Box>
-        {/* <QaQuestion fill="currentcolor" /> */}
         <MotionFlex
           layoutScroll
           pos="relative"
@@ -82,7 +81,7 @@ export default function FunWiki() {
           mt={12}
           px={[4, 6]}
           py={20}
-          bg="blackAlpha.50"
+          bg="blackAlpha.100"
           borderBottomRadius="inherit"
           shadow="inner"
           overflowX="auto"
@@ -110,7 +109,7 @@ export default function FunWiki() {
         <Text fontSize={['fxl', null, 'f2xl']}>...and more</Text>
         <MotionPop delay={0.2} display="inline-block" mt={8}>
           <MagneticBox>
-            <Button colorScheme="secondary">Explore Wikis</Button>
+            <Button>Explore Wikis</Button>
           </MagneticBox>
         </MotionPop>
       </Box>

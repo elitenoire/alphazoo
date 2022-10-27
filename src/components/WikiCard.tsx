@@ -33,20 +33,14 @@ export const WikiCard = ({
       justifyContent="center"
       py={4}
       px={3}
-      borderWidth="0.2875em"
-      borderColor="whiteAlpha.800"
-      boxShadow="sm"
+      borderWidth="5px"
+      borderColor="white"
       bg={bg ?? `${colorScheme}.200`}
       color={color ?? `${colorScheme}.900`}
       cursor="pointer"
       {...rest}
-      _even={{
-        '.ic-ex': {
-          top: 'auto',
-          bottom: '-5',
-        },
-      }}
-      {...(!color && { _hover: { '.ic-ex': { color: `${colorScheme}.500` } } })}
+      _hover={{ boxShadow: '2xl', '.ic-ex': { color: `${colorScheme}.500` } }}
+      transition="box-shadow 0.25s ease-in-out"
       initial={{ borderRadius: 150 }}
       animate={{ borderRadius: expand ? 40 : 150, transition: { duration: 0.8, type: 'spring' } }}
     >
