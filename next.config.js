@@ -1,6 +1,6 @@
-const withSvgr = require('@newhighsco/next-plugin-svgr')
+/** @typedef {import('next').NextConfig} NextConfig */
 
-/** @type {import('next').NextConfig} */
+/** @type {NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   eslint: {
@@ -13,17 +13,56 @@ const nextConfig = {
     },
   },
 }
+/** @type {(nextConfig: NextConfig) => NextConfig} */
+const withSvgr = (nextConfig = {}) => {
+  return {
+    ...nextConfig,
+    webpack(config, options) {
+      const urlLoader = {}
 
-function withSvgrConfig() {
-  return withSvgr({
-    svgrOptions: {
-      typescript: true,
-      titleProp: true,
+      const nextImageLoader = config.module.rules.find(
+        (rule) => rule.loader === 'next-image-loader'
+      )
+
+      if (nextImageLoader) {
+        urlLoader.loader = nextImageLoader.loader
+        urlLoader.options = nextImageLoader.options
+      }
+
+      const svgrLoader = {
+        loader: '@svgr/webpack',
+        options: {
+          typescript: true,
+          titleProp: true,
+          exportType: 'named',
+        },
+      }
+
+      config.module.rules.push({
+        test: /\.svg$/,
+        rules: [
+          {
+            issuer: /\.[jt]sx?$/,
+            use: [svgrLoader],
+          },
+          {
+            dependency: nextImageLoader?.dependency ?? { not: ['url'] },
+            issuer: nextImageLoader?.issuer ?? { not: /\.(css|scss|sass)$/ },
+            use: [urlLoader],
+          },
+        ],
+      })
+
+      if (typeof nextConfig.webpack === 'function') {
+        return nextConfig.webpack(config, options)
+      }
+
+      return config
     },
-  })
+  }
 }
 
 module.exports = () => {
-  const plugins = [withSvgrConfig]
+  const plugins = [withSvgr]
   return plugins.reduce((acc, plugin) => plugin(acc), nextConfig)
 }

@@ -12,7 +12,7 @@
     "@emotion/styled": "^11.10.4",
     "@fontsource/grandstander": "^4.5.8",
     "@fontsource/mitr": "^4.5.8",
-    "framer-motion": "^7.5.1",
+    "framer-motion": "^7.6.1",
     "next": "^12.3.1",
     "next-seo": "^5.5.0",
     "react": "^18.2.0",
@@ -20,7 +20,7 @@
     "react-iconsax-icons": "^1.0.1"
   },
   "devDependencies": {
-    "@newhighsco/next-plugin-svgr": "^3.0.63",
+    "@svgr/webpack": "^6.5.0",
     "@types/node": "^18.11.4",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
