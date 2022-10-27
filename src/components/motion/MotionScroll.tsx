@@ -1,13 +1,12 @@
 import { useRef, ComponentProps } from 'react'
-import { useTransform, useWillChange, useScroll, useSpring, MotionValue } from 'framer-motion'
+import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
 import { MotionBox } from '~components/motion'
 
 interface MotionScrollProps extends ComponentProps<typeof MotionBox> {
   distance?: number
 }
 
-export const MotionScroll = ({ distance = 600, style, ...rest }: MotionScrollProps) => {
-  const willChange = useWillChange()
+export const MotionScroll = ({ distance = 600, style = {}, ...rest }: MotionScrollProps) => {
   const scrollRef = useRef(null)
 
   const { scrollYProgress } = useScroll({
@@ -20,11 +19,6 @@ export const MotionScroll = ({ distance = 600, style, ...rest }: MotionScrollPro
   const moveY = useTransform(yScroll, [0, 1], [0, -distance])
 
   return (
-    <MotionBox
-      {...rest}
-      ref={scrollRef}
-      // animate={{ y: moveY }}
-      style={{ ...style, willChange, y: moveY }}
-    />
+    <MotionBox {...rest} ref={scrollRef} willChange="transform" style={{ ...style, y: moveY }} />
   )
 }
