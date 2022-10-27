@@ -1,17 +1,14 @@
 import { useState, useRef } from 'react'
 import NextImage from 'next/future/image'
-import { useTransform, useScroll, useSpring, LayoutGroup } from 'framer-motion'
-import { AspectRatio, Box, Flex, Text, Heading, Button, chakra } from '@chakra-ui/react'
+import { useTransform, useScroll, useSpring } from 'framer-motion'
+import { AspectRatio, Box, Flex, Text, Heading, Button } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MagneticBox, MotionPop } from '~components/motion'
 import { WikiCard } from '~components/WikiCard'
 import { HOMEPAGE_IDS } from '~src/constants'
 import { homeWikis } from '~/src/data/homeWiki'
 
-import { ReactComponent as QuestionSvg } from '~public/img/question.svg'
-import { ReactComponent as QaAnimalsSvg } from '~public/img/qa-animals.svg'
-// import qaAnimalsUrl from '~public/img/qa-animals.svg'
-const QaQuestion = chakra(QuestionSvg)
-const QaAnimals = chakra(QaAnimalsSvg)
+import ImgQuestion from '~public/img/question.svg'
+import ImgQaAnimals from '~public/img/qa-animals.svg'
 
 export default function FunWiki() {
   const wikiRef = useRef(null)
@@ -41,8 +38,7 @@ export default function FunWiki() {
         style={{ scale }}
       >
         <Flex align={['flex-start', 'center', 'flex-end']} direction="column" px={8}>
-          <QaAnimals width={['60%', '45%', null, '35%']} />
-          {/* <Box
+          <Box
             w={['60%', '45%', null, '35%']}
             p={4}
             bg="blackAlpha.100"
@@ -51,8 +47,8 @@ export default function FunWiki() {
             shadow="inner"
             rounded="full"
           >
-            <NextImage src={qaAnimalsUrl} alt="Cute animal faces" />
-          </Box> */}
+            <NextImage src={ImgQaAnimals} alt="Cute animal faces" />
+          </Box>
           <Heading
             pt={1}
             color="secondary.500"
@@ -66,15 +62,17 @@ export default function FunWiki() {
             Did you know that?
           </Text>
         </Flex>
-        <QaQuestion
-          display={['none', null, 'block']}
+        <Box
           pos="absolute"
-          width="30%"
           top="-10%"
           left="5%"
-          fill="currentcolor"
+          display={['none', null, 'block']}
+          w="30%"
           opacity={0.25}
-        />
+        >
+          <NextImage src={ImgQuestion} alt="Question doodle" />
+        </Box>
+        {/* <QaQuestion fill="currentcolor" /> */}
         <MotionFlex
           layoutScroll
           pos="relative"

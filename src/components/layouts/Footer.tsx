@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import NextImage from 'next/future/image'
 import NextLink from 'next/link'
 import {
   Heading,
@@ -20,17 +21,16 @@ import { SITE_CONFIG } from '~src/constants'
 import { ReactComponent as CliqueSvg } from '~public/img/clique.svg'
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
 import { ReactComponent as LogonameSvg } from '~public/brand/logoname.svg'
-import { ReactComponent as TwoStarSvg } from '~public/img/twostar.svg'
 import { ReactComponent as PawSvg } from '~public/img/paw.svg'
 import { ReactComponent as ArrowSvg } from '~public/img/arrow.svg'
 import { ReactComponent as GithubSvg } from '~public/icons/github.svg'
 import { ReactComponent as MailSvg } from '~public/icons/mail.svg'
 import { ReactComponent as BuyCoffeeSvg } from '~public/icons/buymeacoffee.svg'
+import ImgTwostar from '~public/img/twostar.svg'
 
 const BrandLogo = chakra(LogoSvg)
 const BrandLogoName = chakra(LogonameSvg)
 const ChakraClique = chakra(CliqueSvg)
-const ChakraStar = chakra(TwoStarSvg)
 const ChakraPaw = chakra(PawSvg)
 const ChakraArrow = chakra(ArrowSvg)
 
@@ -140,7 +140,9 @@ export default function Footer() {
                       the animals would love a Github Star!
                     </LinkOverlay>
                   </Text>
-                  <ChakraStar pos="absolute" right={0} w={['20%', null, '23%']} top="-10%" />
+                  <Box pos="absolute" top="-10%" right={0} w={['20%', null, '23%']}>
+                    <NextImage src={ImgTwostar} alt="" />
+                  </Box>
                   <ChakraPaw
                     id="paw-skin"
                     pos="absolute"

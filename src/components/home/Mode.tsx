@@ -1,13 +1,14 @@
 import { useRef } from 'react'
+import NextImage from 'next/future/image'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
 import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
 import { MotionFlex, MagneticBox } from '~components/motion'
 import { HOMEPAGE_IDS } from '~src/constants'
 
 import { ReactComponent as SquircleBgSvg } from '~public/img/bg-squircle.svg'
-import { ReactComponent as LearnSvg } from '~public/img/learn.svg'
-import { ReactComponent as PlaySvg } from '~public/img/play.svg'
-import { ReactComponent as PandaSvg } from '~public/img/panda.svg'
+import ImgLearn from '~public/img/learn.svg'
+import ImgPlay from '~public/img/play.svg'
+import ImgPanda from '~public/img/panda.svg'
 
 const item = {
   hidden: (i: number) => ({ opacity: 0, x: i * 20 }),
@@ -74,7 +75,10 @@ export default function Mode() {
                   <SquircleBgSvg fill={squircleBg} />
                 </Box>
                 <Box pos="absolute" w="80%" textAlign="center">
-                  <LearnSvg />
+                  <NextImage
+                    src={ImgLearn}
+                    alt="Happy girl kneeling infront of a big ABC toy block"
+                  />
                   <Button
                     w="55%"
                     mt={2}
@@ -119,7 +123,10 @@ export default function Mode() {
                   <SquircleBgSvg fill={squircleBg} />
                 </Box>
                 <Box pos="absolute" w="80%" textAlign="center">
-                  <PlaySvg />
+                  <NextImage
+                    src={ImgPlay}
+                    alt="Happy boy sitting infront of a big jigsaw puzzle and holding a red toy car"
+                  />
                   <Button
                     w="55%"
                     mt={2}
@@ -139,7 +146,7 @@ export default function Mode() {
           </Flex>
         </Box>
         <Box pos="absolute" bottom={0} w={['45%', null, '30%']}>
-          <PandaSvg />
+          <NextImage src={ImgPanda} alt="Cute panda torso" />
         </Box>
       </MotionFlex>
     </section>
