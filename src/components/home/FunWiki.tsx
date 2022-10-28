@@ -20,7 +20,7 @@ export default function FunWiki() {
 
   const scale = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.875, 1]), { stiffness: 60 })
 
-  const [expanded, setExpanded] = useState<false | number>(0)
+  const [expanded, setExpanded] = useState<false | number>(false)
 
   const handleExpanded = (i: false | number) => () => {
     setExpanded((state) => (i === state ? false : i))

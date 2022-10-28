@@ -30,10 +30,20 @@ interface AnimalHeadProps extends AspectRatioProps {
   size?: string | number
   title?: string
   fill?: string
+  icon?: boolean
 }
 
 const AnimalHeadBase: ForwardRefRenderFunction<HTMLDivElement, AnimalHeadProps> = (
-  { animal, size = '2xs', title, bg = 'yellow.200', fill = 'blackAlpha.50', children, ...rest },
+  {
+    animal,
+    size = '2xs',
+    title,
+    bg = 'yellow.200',
+    fill = 'blackAlpha.50',
+    icon,
+    children,
+    ...rest
+  },
   ref
 ) => {
   const haloFill = useToken('colors', fill, 'transparent')
@@ -43,13 +53,17 @@ const AnimalHeadBase: ForwardRefRenderFunction<HTMLDivElement, AnimalHeadProps> 
     <AspectRatio ref={ref} w="full" maxW={size} ratio={1} {...rest}>
       <Box overflow="initial !important" bg={bg} rounded="full">
         <AnimalSVG width="70%" fill={haloFill} />
-        <Heading as="p" pos="absolute" top="-0.25em" opacity={0.9} size="2xl">
-          {animal}
-        </Heading>
-        {(title || children) && (
-          <Heading as="p" pos="absolute" bottom="-0.5em" size="4xl">
-            {children ?? title}
-          </Heading>
+        {!icon && (
+          <>
+            <Heading as="p" pos="absolute" top="-0.25em" opacity={0.9} size="2xl">
+              {animal}
+            </Heading>
+            {(title || children) && (
+              <Heading as="p" pos="absolute" bottom="-0.5em" size="4xl">
+                {children ?? title}
+              </Heading>
+            )}
+          </>
         )}
       </Box>
     </AspectRatio>

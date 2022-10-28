@@ -32,6 +32,8 @@ const breakpoints = {
 }
 
 const fontSizes = {
+  '3xs': '0.45em',
+  '2xs': '0.625em',
   xs: '0.75em',
   sm: '0.875em',
   md: '1em',
@@ -66,7 +68,7 @@ const theme = extendTheme(
       global: {
         body: {
           fontSize: 'fmd',
-          lineHeight: 'short',
+          lineHeight: 'shorter',
           bg: 'background',
         },
         '::-webkit-scrollbar': {
