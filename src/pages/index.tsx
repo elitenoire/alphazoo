@@ -7,6 +7,7 @@ import Intro from '~components/home/Intro'
 import Features from '~components/home/Features'
 import Learn from '~components/home/Learn'
 import Mode from '~components/home/Mode'
+import Activity from '~components/home/Activity'
 import FunWiki from '~components/home/FunWiki'
 import Cta from '~components/home/Cta'
 import Header from '~components/layouts/Header'
@@ -32,7 +33,7 @@ export default function Home() {
             <Mode />
           </MotionScroll>
         </Container>
-        <Box h="100vh" />
+        <Activity />
         <Container maxW="container.max" px={2}>
           <FunWiki />
         </Container>
