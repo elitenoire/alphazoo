@@ -31,7 +31,7 @@ export default function FunWiki() {
       <MotionBox
         ref={wikiRef}
         pos="relative"
-        mx={[1, 7]}
+        mx={[null, 1, null, 7]}
         pt={[12, 24]}
         bg="brand.500"
         rounded={['2em', '4em']}

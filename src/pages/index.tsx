@@ -15,26 +15,26 @@ import Footer from '~components/layouts/Footer'
 
 export default function Home() {
   return (
-    <AnimatableBackground>
+    <AnimatableBackground bg="brand.700">
       <Header>
         <Hero />
       </Header>
       <main>
-        <Container maxW="container.lg">
+        <Container maxW="container.max" px={0} color="muted">
           <MotionScroll distance={800} mb="-600">
             <Intro />
             <Features />
           </MotionScroll>
         </Container>
-        <Underline />
+        <Underline fill="secondary.100" />
         <Learn />
-        <Container maxW="container.max" px={2}>
+        <Container maxW="container.max" px={0}>
           <MotionScroll distance={400} mt="-100">
             <Mode />
           </MotionScroll>
         </Container>
         <Activity />
-        <Container maxW="container.max" px={2}>
+        <Container maxW="container.max" px={0}>
           <FunWiki />
         </Container>
         <Underline />

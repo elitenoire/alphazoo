@@ -33,7 +33,7 @@ export default function Mode() {
         ref={modeRef}
         pos="relative"
         justifyContent="center"
-        mx={[1, 7]}
+        mx={[null, 1, null, 7]}
         pt={[12, 24]}
         pb={16}
         bg="accent.400"

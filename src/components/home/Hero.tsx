@@ -97,7 +97,6 @@ export default function Hero() {
           pos="absolute"
           w="100%"
           h="100%"
-          fill="secondary.200"
           preserveAspectRatio="xMidYMid slice"
         />
         <MotionBox

@@ -1,21 +1,23 @@
 import type { ReactNode } from 'react'
-import { Box, Flex, Text, VisuallyHidden, chakra } from '@chakra-ui/react'
+import { useRef, useEffect } from 'react'
+import { useScroll, transform } from 'framer-motion'
+import { Box, Flex, Text, VisuallyHidden, useToken, chakra } from '@chakra-ui/react'
 import { MotionPop, MagneticBox } from '~components/motion'
 import { AnimalHead, AnimalHeadType } from '~components/AnimalHead'
+import { useAnimeBg } from '~components/AnimatableBackground'
 import { HOMEPAGE_IDS, SITE_CONFIG } from '~src/constants'
 
-import { ReactComponent as TreeSvg } from '~public/img/tree.svg'
+import { ReactComponent as ScenerySvg } from '~public/img/scenery.svg'
 
-const ChakraTree = chakra(TreeSvg)
+const ChakraScenery = chakra(ScenerySvg)
 
 interface MotionAnimalProps {
   animal: AnimalHeadType
-  bg?: string
   shift?: boolean
   children: ReactNode
 }
 
-const MotionAnimal = ({ animal, bg, shift, children }: MotionAnimalProps) => {
+const MotionAnimal = ({ animal, shift, children }: MotionAnimalProps) => {
   const dir = shift ? 1 : -1
   return (
     <MotionPop
@@ -25,7 +27,7 @@ const MotionAnimal = ({ animal, bg, shift, children }: MotionAnimalProps) => {
       left={[null, null, `${dir * 15}%`, null, `${dir * 20}%`]}
     >
       <MagneticBox p={[2, 8]}>
-        <AnimalHead animal={animal} size="full" bg={bg}>
+        <AnimalHead animal={animal} size="full" bg="blackAlpha.300" fill="blackAlpha.400">
           <MagneticBox.Parallax as="span" display="inline-block">
             {children}
           </MagneticBox.Parallax>
@@ -36,30 +38,53 @@ const MotionAnimal = ({ animal, bg, shift, children }: MotionAnimalProps) => {
 }
 
 export default function Intro() {
+  const [bodyBg, altBg] = useToken('colors', ['brand.600', 'brand.700'])
+  const { animeBg } = useAnimeBg()
+
+  const sceneRef = useRef(null)
+
+  const { scrollYProgress } = useScroll({
+    target: sceneRef,
+    offset: ['0.25 end', 'end start'],
+  })
+
+  useEffect(() => {
+    const defaultBg = animeBg?.get() ?? altBg
+    const transformer = transform([0, 0.25], [defaultBg, bodyBg])
+
+    const unsubscribe = scrollYProgress.onChange((val) => {
+      animeBg?.set(transformer(val))
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [animeBg, scrollYProgress, bodyBg, altBg])
+
   return (
     <Box as="section" mb={[null, 20]} pt={56} aria-labelledby={HOMEPAGE_IDS.intro}>
       <VisuallyHidden as="h2" id={HOMEPAGE_IDS.intro}>
         Introducing {SITE_CONFIG.appName}
       </VisuallyHidden>
-      <Text fontSize={['f2xl', null, null, null, 'f3xl']}>
-        <Box as="strong" color="brand.500">
-          {SITE_CONFIG.appName}
-        </Box>{' '}
-        is an early learning app for kids to practise the English Alphabets with a variety of
-        animals.
-      </Text>
+      <Box px={[4, null, 8]}>
+        <Text fontSize={['f2xl', null, null, null, 'f3xl']}>
+          <Box as="strong" color="brand.dark">
+            {SITE_CONFIG.appName}
+          </Box>{' '}
+          is an early learning app for kids to practise the English Alphabets with a variety of
+          animals.
+        </Text>
+      </Box>
       <Box
+        ref={sceneRef}
         pos="sticky"
-        top={40}
-        display={['none', 'block']}
+        top={0}
         overflow="hidden"
-        h="120vh"
-        minH="md"
-        maxH="4xl"
-        mx="-1em"
-        pt="20vh"
+        h={['120vh', null, null, 'auto']}
+        minH={['md', null, null, 0]}
+        maxH={['3xl', null, '4xl', 'none']}
       >
-        <ChakraTree h="100%" mx="auto" fill="brand.500" opacity={0.15} />
+        <ChakraScenery h="full" />
       </Box>
       <Flex
         align="center"
@@ -69,15 +94,11 @@ export default function Intro() {
         pt={[24, 0]}
         pb={48}
       >
-        <MotionAnimal animal="tiger" bg="orange.200">
-          Grrr
-        </MotionAnimal>
+        <MotionAnimal animal="tiger">Grrr</MotionAnimal>
         <MotionAnimal animal="lion" shift>
           Roar
         </MotionAnimal>
-        <MotionAnimal animal="bear" bg="red.100">
-          Growl
-        </MotionAnimal>
+        <MotionAnimal animal="bear">Growl</MotionAnimal>
       </Flex>
     </Box>
   )

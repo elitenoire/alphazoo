@@ -153,18 +153,18 @@ const theme = extendTheme(
         900: '#105738',
         dark: '#0c412a',
       },
-      secondary: {
-        50: '#fffaeb',
-        100: '#fff1c6',
-        200: '#ffe188',
-        300: '#ffcb47',
-        400: '#ffb620',
-        500: '#f99307',
-        600: '#dd6c02',
-        700: '#b74a06',
-        800: '#94380c',
-        900: '#7a300d',
-      },
+      // secondary: {
+      //   50: '#fffaeb',
+      //   100: '#fff1c6',
+      //   200: '#ffe188',
+      //   300: '#ffcb47',
+      //   400: '#ffb620',
+      //   500: '#f99307',
+      //   600: '#dd6c02',
+      //   700: '#b74a06',
+      //   800: '#94380c',
+      //   900: '#7a300d',
+      // },
       accent: {
         50: '#fef5ee',
         100: '#fde7d7',
@@ -177,9 +177,11 @@ const theme = extendTheme(
         800: '#92261a',
         900: '#762218',
       },
+      secondary: baseTheme.colors.yellow,
+      muted: '#ebfbcb',
       background: '#fffaeb', // secondary.50
       text: baseTheme.colors.gray[800],
-      black: '#121113',
+      black: '#121113', // #01161e
     },
     sizes: {
       ...sizes,

@@ -39,13 +39,14 @@ export default function Learn() {
           mb={28}
           mx="auto"
           px={2}
+          color="muted"
           fontSize={['f2xl', 'f3xl']}
           fontWeight={500}
           textAlign="center"
           variant="body"
         >
           Did you know kids learn best through{' '}
-          <Box as="strong" color="brand.500">
+          <Box as="strong" color="brand.900">
             play
           </Box>
           ?
@@ -63,7 +64,7 @@ export default function Learn() {
         >
           <Flex pos="absolute" top={0} left={0} align="flex-start" w="full" h="full">
             <AspectRatio pos="sticky" top={0} w="full" ratio={1}>
-              <MotionFlex rounded="50%" bg="secondary.200" style={{ scale: girlScale }}>
+              <MotionFlex rounded="50%" bg="secondary.100" style={{ scale: girlScale }}>
                 <Box w="40%">
                   <MotionGirlDoodle play={play} />
                 </Box>
