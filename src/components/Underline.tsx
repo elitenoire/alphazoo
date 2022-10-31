@@ -5,6 +5,22 @@ import { ReactComponent as UndySvg } from '~public/img/undy.svg'
 
 const ChakraUndy = chakra(UndySvg)
 
-export const Underline = (props: ComponentProps<typeof ChakraUndy>) => {
-  return <ChakraUndy role="separator" fill="brand.400" mb={[40, 60]} {...props} />
+interface UnderlineProps extends ComponentProps<typeof ChakraUndy> {
+  fillTopDots?: string
+  fillBottomDots?: string
+}
+
+export const Underline = ({ fillTopDots, fillBottomDots, ...rest }: UnderlineProps) => {
+  return (
+    <ChakraUndy
+      role="separator"
+      fill="brand.400"
+      mb={[40, 60]}
+      sx={{
+        ...(fillTopDots && { '& .undy_svg__tdots': { fill: fillTopDots } }),
+        ...(fillBottomDots && { '& .undy_svg__bdots': { fill: fillBottomDots } }),
+      }}
+      {...rest}
+    />
+  )
 }

@@ -20,13 +20,13 @@ export default function Home() {
         <Hero />
       </Header>
       <main>
-        <Container maxW="container.max" px={0} color="muted">
+        <Container maxW="container.max" px={0} color="background">
           <MotionScroll distance={800} mb="-600">
             <Intro />
             <Features />
           </MotionScroll>
         </Container>
-        <Underline fill="secondary.100" />
+        <Underline fill="secondary.200" fillTopDots="brand.800" fillBottomDots="brand.900" />
         <Learn />
         <Container maxW="container.max" px={0}>
           <MotionScroll distance={400} mt="-100">
@@ -37,7 +37,7 @@ export default function Home() {
         <Container maxW="container.max" px={0}>
           <FunWiki />
         </Container>
-        <Underline />
+        <Underline fill="brand.500" fillTopDots="secondary.200" fillBottomDots="secondary.300" />
         <Cta />
       </main>
       <Footer />
