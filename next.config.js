@@ -1,4 +1,6 @@
 /** @typedef {import('next').NextConfig} NextConfig */
+const isProd = process.env.NODE_ENV === 'production'
+const removeConsole = isProd ? { exclude: ['error', 'warn'] } : false
 
 /** @type {NextConfig} */
 const nextConfig = {
@@ -8,9 +10,7 @@ const nextConfig = {
   },
   compiler: {
     emotion: true,
-    removeConsole: {
-      exclude: ['error', 'warn'],
-    },
+    removeConsole,
   },
 }
 /** @type {(nextConfig: NextConfig) => NextConfig} */
