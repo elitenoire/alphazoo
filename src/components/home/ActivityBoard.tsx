@@ -1,14 +1,42 @@
+import { useRef, useEffect } from 'react'
 import { Heading, Box, Flex, Text, SimpleGrid } from '@chakra-ui/react'
-import { ActivityBoardCanvas } from './ActivityBoardCanvas'
+import { useScroll, transform } from 'framer-motion'
+import { useToken } from '@chakra-ui/react'
+import { useAnimeBg } from '~components/AnimatableBackground'
+
+// import { ActivityBoardCanvas } from './ActivityBoardCanvas'
 
 export function ActivityBoard() {
+  const [currentBg, newBg] = useToken('colors', ['secondary.200', 'background'])
+  const { animeBg } = useAnimeBg()
+
+  const activityBoardRef = useRef(null)
+
+  const { scrollYProgress } = useScroll({
+    target: activityBoardRef,
+    offset: ['start 0.5', 'end start'],
+  })
+
+  useEffect(() => {
+    const transformer = transform([0, 0.5], [currentBg, newBg])
+
+    const unsubscribe = scrollYProgress.onChange((val) => {
+      animeBg?.set(transformer(val))
+    })
+
+    return () => {
+      unsubscribe()
+    }
+  }, [animeBg, currentBg, newBg, scrollYProgress])
+
   return (
     <Flex
+      ref={activityBoardRef}
       direction={['column', null, null, 'row']}
       columnGap={4}
       px={4}
       py={[12, 24]}
-      bg="secondary.200"
+      bg="secondary.300"
       borderRadius={['2em', '4em']}
     >
       <Box w={[null, null, null, '30%']}>
@@ -44,11 +72,7 @@ export function ActivityBoard() {
             </Box>
             Alphabets
           </Text>
-          <Text
-            maxW={[null, null, '3xs']}
-            fontSize={[null, 'xl']}
-            textAlign={[null, null, 'right', 'left']}
-          >
+          <Text maxW={[null, null, '3xs']} fontSize="xl" textAlign={[null, 'center', 'left']}>
             Discover animals that begin with the selected letter
           </Text>
         </Flex>
@@ -60,7 +84,7 @@ export function ActivityBoard() {
             align="center"
             justify="space-between"
             p={2}
-            bg="orange.200"
+            bg="orange.300"
             borderTopRadius="5px"
           >
             <Flex as="span" direction="column">
@@ -70,7 +94,7 @@ export function ActivityBoard() {
               🦊
             </Box>
           </Flex>
-          <ActivityBoardCanvas />
+          {/* <ActivityBoardCanvas /> */}
         </Box>
         <Box>
           <Flex
@@ -88,7 +112,7 @@ export function ActivityBoard() {
               🐵
             </Box>
           </Flex>
-          <ActivityBoardCanvas />
+          {/* <ActivityBoardCanvas /> */}
         </Box>
         <Box>
           <Flex
@@ -96,7 +120,7 @@ export function ActivityBoard() {
             align="center"
             justify="space-between"
             p={2}
-            bg="green.200"
+            bg="green.300"
             borderTopRadius="5px"
           >
             <Flex as="span" direction="column">
@@ -106,7 +130,7 @@ export function ActivityBoard() {
               🦚
             </Box>
           </Flex>
-          <ActivityBoardCanvas />
+          {/* <ActivityBoardCanvas /> */}
         </Box>
         <Box>
           <Flex
@@ -124,7 +148,7 @@ export function ActivityBoard() {
               🦓
             </Box>
           </Flex>
-          <ActivityBoardCanvas />
+          {/* <ActivityBoardCanvas /> */}
         </Box>
       </SimpleGrid>
     </Flex>

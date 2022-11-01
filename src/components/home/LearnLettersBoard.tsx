@@ -1,5 +1,12 @@
 import { useRef, useEffect } from 'react'
-import { useTransform, useScroll, useSpring, MotionValue, useMotionTemplate } from 'framer-motion'
+import {
+  useScroll,
+  useSpring,
+  MotionValue,
+  useMotionTemplate,
+  useTransform,
+  transform,
+} from 'framer-motion'
 import { useToken } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MotionText } from '~components/motion'
 import { useAnimeBg } from '~components/AnimatableBackground'
@@ -7,7 +14,7 @@ import { AIrow, JQrow, RZrow } from '~src/data/glyphs'
 import { LearnLetters } from './LearnLetters'
 
 export function LearnLettersBoard() {
-  const [bodyBg, boardBg] = useToken('colors', ['background', 'black'])
+  const [currentBg, boardBg, newBg] = useToken('colors', ['brand.600', 'black', 'secondary.200'])
   const { animeBg } = useAnimeBg()
 
   const stripScrollBodyRef = useRef(null)
@@ -21,19 +28,20 @@ export function LearnLettersBoard() {
 
   const x = useTransform(yScroll, [0.1, 1], ['30vw', '-280vw'])
   const opacity = useTransform(yScroll, [0, 0.025, 0.925, 1], [0, 1, 1, 0.5])
-  const bg = useTransform(yScroll, [0, 0.025, 0.95, 1], [bodyBg, boardBg, boardBg, bodyBg])
   const borderOpacity = useTransform(yScroll, [0.1, 0.2, 0.95, 1], [0, 1, 1, 0])
-  const borderColor = useMotionTemplate`rgba(255,255,255,${borderOpacity})`
+  const borderColor = useMotionTemplate`rgba(250,240,137,${borderOpacity})`
 
   useEffect(() => {
-    const unsubscribe = bg.onChange((val) => {
-      animeBg?.set(val)
+    const transformer = transform([0, 0.025, 0.95, 1], [currentBg, boardBg, boardBg, newBg])
+
+    const unsubscribe = yScroll.onChange((val) => {
+      animeBg?.set(transformer(val))
     })
 
     return () => {
       unsubscribe()
     }
-  }, [animeBg, bg])
+  }, [animeBg, boardBg, currentBg, newBg, yScroll])
 
   return (
     <MotionBox
@@ -59,7 +67,7 @@ export function LearnLettersBoard() {
           top={0}
           left={0}
           px={2}
-          bg="white"
+          bg="secondary.200"
           fontWeight={500}
           fontSize="xs"
           borderBottomRightRadius="5px"

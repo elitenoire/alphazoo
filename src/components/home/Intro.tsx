@@ -38,7 +38,7 @@ const MotionAnimal = ({ animal, shift, children }: MotionAnimalProps) => {
 }
 
 export default function Intro() {
-  const [bodyBg, altBg] = useToken('colors', ['brand.600', 'brand.700'])
+  const [currentBg, newBg] = useToken('colors', ['brand.700', 'brand.600'])
   const { animeBg } = useAnimeBg()
 
   const sceneRef = useRef(null)
@@ -49,8 +49,7 @@ export default function Intro() {
   })
 
   useEffect(() => {
-    const defaultBg = animeBg?.get() ?? altBg
-    const transformer = transform([0, 0.25], [defaultBg, bodyBg])
+    const transformer = transform([0, 0.25], [currentBg, newBg])
 
     const unsubscribe = scrollYProgress.onChange((val) => {
       animeBg?.set(transformer(val))
@@ -59,7 +58,7 @@ export default function Intro() {
     return () => {
       unsubscribe()
     }
-  }, [animeBg, scrollYProgress, bodyBg, altBg])
+  }, [animeBg, scrollYProgress, newBg, currentBg])
 
   return (
     <Box as="section" mb={[null, 20]} pt={56} aria-labelledby={HOMEPAGE_IDS.intro}>
@@ -68,7 +67,7 @@ export default function Intro() {
       </VisuallyHidden>
       <Box px={[4, null, 8]}>
         <Text fontSize={['f2xl', null, null, null, 'f3xl']}>
-          <Box as="strong" color="brand.dark">
+          <Box as="strong" color="brand.dark" fontSize="xl" opacity={0.9}>
             {SITE_CONFIG.appName}
           </Box>{' '}
           is an early learning app for kids to practise the English Alphabets with a variety of
