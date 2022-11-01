@@ -1,12 +1,31 @@
-import { Box, Center, Text } from '@chakra-ui/react'
+import { useState, useEffect } from 'react'
+import { Box, Center, Text, useToken } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import { shuffle } from '~/src/utils'
 import type { GlyphType } from '~types/data'
 
+const colorList = [
+  'purple.100',
+  'red.100',
+  'cyan.100',
+  'orange.100',
+  'yellow.100',
+  'teal.100',
+  'pink.100',
+  'green.100',
+  'blue.100',
+]
 interface LearnLettersProps {
   letters: GlyphType[]
 }
 
 export function LearnLetters({ letters }: LearnLettersProps) {
+  const [colors, setColors] = useState(useToken('colors', colorList))
+
+  useEffect(() => {
+    setColors((colors) => shuffle(colors))
+  }, [])
+
   return (
     <Box flex="0 0 100%">
       <Center
@@ -23,6 +42,8 @@ export function LearnLetters({ letters }: LearnLettersProps) {
       >
         {letters.map((glyph, i) => {
           const isEmoji = glyph.type === 'emoji'
+          const len = colors.length
+          const color = colors[((i % len) + len) % len]
           return (
             <Box key={glyph.name} as="li" aria-hidden={isEmoji ? 'true' : undefined}>
               {isEmoji && (
@@ -51,7 +72,7 @@ export function LearnLetters({ letters }: LearnLettersProps) {
                   as="button"
                   sx={{
                     WebkitTextStrokeWidth: '0.1rem',
-                    WebkitTextStrokeColor: 'white',
+                    WebkitTextStrokeColor: color,
                   }}
                   pos="relative"
                   zIndex={2}
@@ -62,7 +83,7 @@ export function LearnLetters({ letters }: LearnLettersProps) {
                   color="transparent"
                   lineHeight="none"
                   _hover={{
-                    color: 'white',
+                    color,
                     transform: 'scale(1.5)',
                   }}
                   _active={{
