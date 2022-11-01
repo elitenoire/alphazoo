@@ -25,7 +25,7 @@ export default function Mode() {
 
   const scale = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.875, 1]), { stiffness: 60 })
 
-  const [squircleBg] = useToken('colors', ['accent.200'])
+  const [squircleBg] = useToken('colors', ['secondary.300'])
 
   return (
     <section aria-labelledby={HOMEPAGE_IDS.mode}>
@@ -33,20 +33,20 @@ export default function Mode() {
         ref={modeRef}
         pos="relative"
         justifyContent="center"
-        mx={[null, 1, null, 7]}
+        mx={[null, 1, null, 5]}
         pt={[12, 24]}
         pb={16}
-        bg="accent.400"
+        bg="background"
         rounded={['2em', '4em']}
         overflow="hidden"
         style={{ scale }}
       >
         <Box pos="relative" zIndex={1} w="full">
           <Box px={6} textAlign={[null, 'center']}>
-            <Heading color="accent.900" fontSize={['f4xl', 'f5xl']} id={HOMEPAGE_IDS.mode}>
+            <Heading color="brand.600" fontSize={['f4xl', 'f5xl']} id={HOMEPAGE_IDS.mode}>
               Learn + Play
             </Heading>
-            <Text maxW="2xs" mx="auto" color="accent.50" fontSize={['fxl', null, 'f2xl']}>
+            <Text maxW="2xs" mx={[null, 'auto']} fontSize={['fxl', null, 'f2xl']} opacity={0.95}>
               Two fun and easy educational modes for kids to enjoy.
             </Text>
           </Box>
@@ -68,10 +68,10 @@ export default function Mode() {
                 maxH={['xs', null, null, null, null, 'md']}
                 m="auto"
                 _hover={{
-                  '& > div:first-of-type': { opacity: 0.85 },
+                  '& > div:first-of-type': { opacity: 0.35 },
                 }}
               >
-                <Box w="full" opacity={0.5} transition="opacity 0.2s">
+                <Box w="full" opacity={0.55} transition="opacity 0.2s">
                   <SquircleBgSvg fill={squircleBg} />
                 </Box>
                 <Box pos="absolute" w="80%" textAlign="center">
@@ -82,17 +82,14 @@ export default function Mode() {
                   <Button
                     w="55%"
                     mt={2}
-                    color="accent.500"
                     shadow="2xl"
                     _hover={{
                       boxShadow: 'lg',
                       transform: 'translateY(-2px)',
                     }}
-                    _active={{
-                      bgColor: 'accent.200',
-                    }}
-                    bgColor="accent.50"
-                    colorScheme="accent"
+                    bgColor="white"
+                    colorScheme="gray"
+                    variant="ghost"
                   >
                     Learn
                   </Button>
@@ -116,10 +113,10 @@ export default function Mode() {
                 maxH={['xs', null, null, null, null, 'md']}
                 m="auto"
                 _hover={{
-                  '& > div:first-of-type': { opacity: 0.85 },
+                  '& > div:first-of-type': { opacity: 0.35 },
                 }}
               >
-                <Box w="full" opacity={0.5} transition="opacity 0.2s">
+                <Box w="full" opacity={0.55} transition="opacity 0.2s">
                   <SquircleBgSvg fill={squircleBg} />
                 </Box>
                 <Box pos="absolute" w="80%" textAlign="center">

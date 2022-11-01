@@ -157,7 +157,7 @@ export default function Footer() {
                       },
                     }}
                   />
-                  <ChakraArrow pos="absolute" left="-2" w={'12%'} bottom="-8%" fill="brand.200" />
+                  <ChakraArrow pos="absolute" left="-2" w={'12%'} bottom="-8%" fill="background" />
                 </LinkBox>
               </MotionBox>
             </Flex>

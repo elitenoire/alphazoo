@@ -45,7 +45,7 @@ export default function Cta() {
       </Heading>
       <MotionPop delay={0.2} display="inline-block" mt={8}>
         <MagneticBox>
-          <Button>Start Learning</Button>
+          <Button color="background">Start Learning</Button>
         </MagneticBox>
       </MotionPop>
     </Box>

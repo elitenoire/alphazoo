@@ -31,7 +31,7 @@ export default function FunWiki() {
       <MotionBox
         ref={wikiRef}
         pos="relative"
-        mx={[null, 1, null, 7]}
+        mx={[null, 1, null, 5]}
         pt={[12, 24]}
         bg="brand.500"
         rounded={['2em', '4em']}
@@ -43,7 +43,7 @@ export default function FunWiki() {
             p={4}
             bg="blackAlpha.200"
             borderWidth="0.25em"
-            borderColor="white"
+            borderColor="background"
             shadow="inner"
             rounded="full"
           >
@@ -58,7 +58,7 @@ export default function FunWiki() {
           >
             Wiki Fun!
           </Heading>
-          <Text color="brand.50" fontSize={['fxl', null, 'f2xl']}>
+          <Text color="background" fontSize={['fxl', null, 'f2xl']}>
             Did you know that?
           </Text>
         </Flex>
@@ -109,7 +109,7 @@ export default function FunWiki() {
         <Text fontSize={['fxl', null, 'f2xl']}>...and more</Text>
         <MotionPop delay={0.2} display="inline-block" mt={8}>
           <MagneticBox>
-            <Button>Explore Wikis</Button>
+            <Button color="background">Explore Wikis</Button>
           </MagneticBox>
         </MotionPop>
       </Box>
