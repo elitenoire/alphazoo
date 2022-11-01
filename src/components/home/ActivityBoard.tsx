@@ -1,7 +1,8 @@
 import { useRef, useEffect } from 'react'
 import { Heading, Box, Flex, Text, SimpleGrid } from '@chakra-ui/react'
-import { useScroll, transform } from 'framer-motion'
+import { useScroll, useSpring, useTransform, transform, MotionValue } from 'framer-motion'
 import { useToken } from '@chakra-ui/react'
+import { MotionFlex } from '~components/motion'
 import { useAnimeBg } from '~components/AnimatableBackground'
 
 // import { ActivityBoardCanvas } from './ActivityBoardCanvas'
@@ -14,8 +15,12 @@ export function ActivityBoard() {
 
   const { scrollYProgress } = useScroll({
     target: activityBoardRef,
-    offset: ['start 0.5', 'end start'],
+    offset: ['start 0.8', 'end start'],
   })
+
+  const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
+  const scale = useTransform(yScroll, [0, 0.2], [0.875, 1])
+  const opacity = useTransform(yScroll, [0, 0.05], [0, 1])
 
   useEffect(() => {
     const transformer = transform([0, 0.5], [currentBg, newBg])
@@ -30,14 +35,16 @@ export function ActivityBoard() {
   }, [animeBg, currentBg, newBg, scrollYProgress])
 
   return (
-    <Flex
+    <MotionFlex
       ref={activityBoardRef}
-      direction={['column', null, null, 'row']}
+      flexDir={['column', null, null, 'row']}
       columnGap={4}
+      mx={[null, 1, null, 5]}
       px={4}
       py={[12, 24]}
       bg="secondary.300"
       borderRadius={['2em', '4em']}
+      style={{ scale, opacity }}
     >
       <Box w={[null, null, null, '30%']}>
         <Flex
@@ -151,6 +158,6 @@ export function ActivityBoard() {
           {/* <ActivityBoardCanvas /> */}
         </Box>
       </SimpleGrid>
-    </Flex>
+    </MotionFlex>
   )
 }

@@ -1,24 +1,31 @@
 import { ComponentProps } from 'react'
+import type { Variants } from 'framer-motion'
 import { MotionBox } from '~components/motion'
 
-const pop = {
-  hidden: { opacity: 0, scale: 0.4 },
-  visible: (d: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { type: 'spring', duration: 1, delay: d },
-  }),
-}
-
-interface MotionPopProps extends ComponentProps<typeof MotionBox> {
+interface CustomVariantProps {
+  factor?: number
   delay?: number
 }
 
-export const MotionPop = ({ delay, ...rest }: MotionPopProps) => {
+interface MotionPopProps extends ComponentProps<typeof MotionBox>, CustomVariantProps {}
+
+const pop: Variants = {
+  hidden: ({ factor }: CustomVariantProps) => ({
+    opacity: 0,
+    scale: factor ?? 0.4,
+  }),
+  visible: ({ delay }: CustomVariantProps) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { type: 'spring', duration: 1, delay },
+  }),
+}
+
+export const MotionPop = ({ delay, factor, ...rest }: MotionPopProps) => {
   return (
     <MotionBox
       {...rest}
-      {...(delay && { custom: delay })}
+      custom={{ factor, delay }}
       variants={pop}
       initial="hidden"
       whileInView="visible"

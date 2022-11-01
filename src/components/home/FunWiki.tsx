@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import NextImage from 'next/future/image'
-import { useTransform, useScroll, useSpring } from 'framer-motion'
+import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
 import { AspectRatio, Box, Flex, Text, Heading, Button, Link } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MagneticBox, MotionPop } from '~components/motion'
 import { WikiCard } from '~components/WikiCard'
@@ -18,7 +18,9 @@ export default function FunWiki() {
     offset: ['start 0.8', '0.8 start'],
   })
 
-  const scale = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.875, 1]), { stiffness: 60 })
+  const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
+  const scale = useTransform(yScroll, [0, 0.2], [0.875, 1])
+  const opacity = useTransform(yScroll, [0, 0.05], [0, 1])
 
   const [expanded, setExpanded] = useState<false | number>(false)
 
@@ -27,7 +29,7 @@ export default function FunWiki() {
   }
 
   return (
-    <Box as="section" my={56} aria-labelledby={HOMEPAGE_IDS.wiki}>
+    <Box as="section" mt={[20, null, 28]} mb={56} aria-labelledby={HOMEPAGE_IDS.wiki}>
       <MotionBox
         ref={wikiRef}
         pos="relative"
@@ -35,7 +37,7 @@ export default function FunWiki() {
         pt={[12, 24]}
         bg="brand.500"
         rounded={['2em', '4em']}
-        style={{ scale }}
+        style={{ scale, opacity }}
       >
         <Flex align={['center', null, 'flex-end']} direction="column" px={8}>
           <Text
@@ -89,6 +91,7 @@ export default function FunWiki() {
         <MotionFlex
           layoutScroll
           pos="relative"
+          justifyContent="space-evenly"
           zIndex={1}
           minH="21em"
           gap={[4, 8]}

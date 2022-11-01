@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import NextImage from 'next/future/image'
-import { useTransform, useScroll, useSpring } from 'framer-motion'
+import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
 import { Box, Flex, Heading, Text, Button, Link, useToken } from '@chakra-ui/react'
 import { MotionFlex, MagneticBox } from '~components/motion'
 import { HOMEPAGE_IDS } from '~src/constants'
@@ -23,7 +23,9 @@ export default function Mode() {
     offset: ['start 0.8', '0.8 start'],
   })
 
-  const scale = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.875, 1]), { stiffness: 60 })
+  const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
+  const scale = useTransform(yScroll, [0, 0.2], [0.875, 1])
+  const opacity = useTransform(yScroll, [0, 0.05], [0, 1])
 
   const [squircleBg] = useToken('colors', ['secondary.300'])
 
@@ -39,7 +41,7 @@ export default function Mode() {
         bg="background"
         rounded={['2em', '4em']}
         overflow="hidden"
-        style={{ scale }}
+        style={{ scale, opacity }}
       >
         <Box pos="relative" zIndex={1} w="full">
           <Box px={6} textAlign={[null, 'center']}>
