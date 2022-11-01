@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import NextImage from 'next/future/image'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
-import { AspectRatio, Box, Flex, Text, Heading, Button } from '@chakra-ui/react'
+import { AspectRatio, Box, Flex, Text, Heading, Button, Link } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MagneticBox, MotionPop } from '~components/motion'
 import { WikiCard } from '~components/WikiCard'
 import { HOMEPAGE_IDS } from '~src/constants'
@@ -38,6 +38,20 @@ export default function FunWiki() {
         style={{ scale }}
       >
         <Flex align={['center', null, 'flex-end']} direction="column" px={8}>
+          <Text
+            as="small"
+            align="center"
+            display="block"
+            mr={[null, null, '10%']}
+            opacity={0.15}
+            _hover={{ opacity: 0.4 }}
+          >
+            Artwork by{' '}
+            <Link fontWeight="bold" href="https://www.vecteezy.com/members/freeject" isExternal>
+              @lincungstudio
+            </Link>
+            .
+          </Text>
           <Box
             w={['90%', '60%', '50%']}
             p={4}

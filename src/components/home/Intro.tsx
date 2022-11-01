@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useRef, useEffect } from 'react'
 import { useScroll, transform } from 'framer-motion'
-import { Box, Flex, Text, VisuallyHidden, useToken, chakra } from '@chakra-ui/react'
+import { Box, Flex, Text, VisuallyHidden, Link, useToken, chakra } from '@chakra-ui/react'
 import { MotionPop, MagneticBox } from '~components/motion'
 import { AnimalHead, AnimalHeadType } from '~components/AnimalHead'
 import { useAnimeBg } from '~components/AnimatableBackground'
@@ -84,6 +84,30 @@ export default function Intro() {
         maxH={['3xl', null, '4xl', 'none']}
       >
         <ChakraScenery h="full" />
+        <Text
+          as="small"
+          pos="absolute"
+          right={1}
+          bottom="27%"
+          align="right"
+          maxW="2xs"
+          opacity={0.1}
+          _hover={{ opacity: 0.4 }}
+        >
+          Artworks by{' '}
+          <Link href="https://www.vecteezy.com/members/wawau9615931" isExternal variant="footer">
+            @wawausetya
+          </Link>
+          ,{' '}
+          <Link href="https://www.freepik.com/author/gstudioimagen" isExternal variant="footer">
+            @gstudioimagen
+          </Link>
+          ,{' '}
+          <Link href="https://www.vecteezy.com/members/doodervector" isExternal variant="footer">
+            @Dooder
+          </Link>
+          .
+        </Text>
       </Box>
       <Flex
         align="center"

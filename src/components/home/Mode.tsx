@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import NextImage from 'next/future/image'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
-import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Button, Link, useToken } from '@chakra-ui/react'
 import { MotionFlex, MagneticBox } from '~components/motion'
 import { HOMEPAGE_IDS } from '~src/constants'
 
@@ -146,6 +146,17 @@ export default function Mode() {
           <NextImage src={ImgPanda} alt="Cute panda torso" />
         </Box>
       </MotionFlex>
+      <Text as="small" align="center" display="block" opacity={0.15} _hover={{ opacity: 0.4 }}>
+        Artworks by{' '}
+        <Link fontWeight="bold" href="https://www.vecteezy.com/members/studiogstock" isExternal>
+          @studiogstock
+        </Link>
+        ,{' '}
+        <Link fontWeight="bold" href="https://www.freepik.com/author/freepik" isExternal>
+          @freepik
+        </Link>
+        .
+      </Text>
     </section>
   )
 }
