@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useCallback } from 'react'
 import {
   useInView,
   useTransform,
@@ -60,6 +60,20 @@ export default function Hero() {
   const backAnimalsX = useTransform(mouseX, (v) => v / 20)
   const frontAnimalsX = useTransform(mouseX, (v) => v / 25)
 
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const offsetX = e.clientX - window.innerWidth / 2
+      const offsetY = e.clientY - window.innerWidth / 2
+
+      mouseX.set(-offsetX)
+      mouseY.set(offsetY)
+
+      backAnimalsY.set(-offsetY / 15)
+      frontAnimalsY.set(-offsetY / 15)
+    },
+    [backAnimalsY, frontAnimalsY, mouseX, mouseY]
+  )
+
   return (
     <Flex
       ref={heroBgRef}
@@ -70,16 +84,7 @@ export default function Hero() {
       w="100%"
       h="130vh"
       minH="31.25em"
-      onMouseMove={function (event) {
-        const offsetX = event.clientX - window.innerWidth / 2
-        const offsetY = event.clientY - window.innerWidth / 2
-
-        mouseX.set(-offsetX)
-        mouseY.set(offsetY)
-
-        backAnimalsY.set(-offsetY / 15)
-        frontAnimalsY.set(-offsetY / 15)
-      }}
+      onMouseMove={handleMouseMove}
     >
       <MotionBox
         pos="absolute"
