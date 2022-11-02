@@ -1,16 +1,14 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
 import { Box, AspectRatio, Flex, Heading, Container } from '@chakra-ui/react'
-import { MotionBox, MotionFlex, MotionBoyDoodle, MotionGirlDoodle } from '~components/motion'
+import { MotionBox, MotionFlex } from '~components/motion'
 import { HOMEPAGE_IDS } from '~src/constants'
 import { LearnLettersBoard } from './LearnLettersBoard'
 
-import { ReactComponent as HeartTrioSvg } from '~public/img/dd-heart-1.svg'
-import { ReactComponent as HeartDuoSvg } from '~public/img/dd-heart-2.svg'
+import { ReactComponent as BeeSvg } from '~public/img/bee.svg'
 
 export default function Learn() {
   const learnRef = useRef(null)
-  const [play, setPlay] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: learnRef,
@@ -20,16 +18,6 @@ export default function Learn() {
   const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
   const girlScale = useTransform(yScroll, [0, 0.35], [0.4, 0.85])
   const radius = useTransform(yScroll, [0.35, 0.75], ['0vmin', '85vmin'])
-
-  useEffect(() => {
-    const unsubscribe = yScroll.onChange((val) => {
-      setPlay(val > 0.45)
-    })
-
-    return () => {
-      unsubscribe()
-    }
-  }, [yScroll])
 
   return (
     <section aria-labelledby={HOMEPAGE_IDS.learn}>
@@ -65,22 +53,24 @@ export default function Learn() {
           <Flex pos="absolute" top={0} left={0} align="flex-start" w="full" h="full">
             <AspectRatio pos="sticky" top={0} w="full" ratio={1}>
               <MotionFlex rounded="50%" bg="secondary.200" style={{ scale: girlScale }}>
-                <Box w="40%">
-                  <MotionGirlDoodle play={play} />
-                </Box>
-                <Box w="16%" pt="30%">
-                  <HeartTrioSvg />
-                </Box>
+                <MotionBox
+                  w="50%"
+                  whileInView={{
+                    // Toggle transforms for a different circular motion
+                    x: [0, -80, 80, 0, -80, 0, 0, 80, 0, 0],
+                    y: [0, 80, -80, 0, 0, 80, 0, 0, -80, 0],
+                    rotate: [0, 15, -15, 0, 15, -15, 0],
+                    // rotate: [0, 360],
+                    transition: { repeat: Infinity, repeatType: 'reverse', duration: 10 },
+                  }}
+                  // transformTemplate={({ rotate }) =>
+                  //   `rotate(${rotate}) translateX(80px) rotate(-${rotate})`
+                  // }
+                >
+                  <BeeSvg />
+                </MotionBox>
               </MotionFlex>
             </AspectRatio>
-            <Flex pos="absolute" bottom={0} align="center" justify="flex-end" w="full">
-              <Box w="12%" maxW="5.5em">
-                <HeartDuoSvg />
-              </Box>
-              <Box w="30%" maxW="14em">
-                <MotionBoyDoodle />
-              </Box>
-            </Flex>
           </Flex>
           <Heading
             as="h3"
