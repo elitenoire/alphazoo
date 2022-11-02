@@ -1,38 +1,55 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
+import NextImage from 'next/future/image'
 import {
   useScroll,
   useSpring,
   MotionValue,
   useMotionTemplate,
   useTransform,
+  useAnimationControls,
   transform,
 } from 'framer-motion'
-import { useToken } from '@chakra-ui/react'
-import { MotionBox, MotionFlex, MotionText } from '~components/motion'
+import { Box, useToken } from '@chakra-ui/react'
+import { MotionSpan, MotionBox, MotionFlex, MotionText } from '~components/motion'
 import { useAnimeBg } from '~components/AnimatableBackground'
 import { AIrow, JQrow, RZrow } from '~src/data/glyphs'
 import { LearnLetters } from './LearnLetters'
 
+import { ReactComponent as PandySvg } from '~public/img/pandy.svg'
+import ImgPeepers from '~public/img/peepers.svg'
+
 export function LearnLettersBoard() {
   const [currentBg, boardBg, newBg] = useToken('colors', ['brand.600', 'black', 'secondary.200'])
   const { animeBg } = useAnimeBg()
+  const peepersMotion = useAnimationControls()
 
   const stripScrollBodyRef = useRef(null)
 
   const { scrollYProgress } = useScroll({
     target: stripScrollBodyRef,
-    offset: ['start start', 'end end'],
+    offset: ['start 0.2', 'end end'],
   })
 
   const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
 
-  const x = useTransform(yScroll, [0.1, 1], ['30vw', '-280vw'])
-  const opacity = useTransform(yScroll, [0, 0.025, 0.925, 1], [0, 1, 1, 0.5])
-  const borderOpacity = useTransform(yScroll, [0.1, 0.2, 0.95, 1], [0, 1, 1, 0])
+  const x = useTransform(yScroll, [0.2, 1], ['50vw', '-280vw'])
+  const opacity = useTransform(yScroll, [0.22, 0.32, 0.925, 1], [0, 1, 1, 0.5])
+  const stickyOpacity = useTransform(yScroll, [0, 0.22, 0.95, 1], [1, 0.2, 0.2, 0.95])
+  const borderOpacity = useTransform(yScroll, [0.22, 0.32, 0.95, 1], [0, 1, 1, 0])
   const borderColor = useMotionTemplate`rgba(250,240,137,${borderOpacity})`
+  const bubbleMove = useTransform(yScroll, [0, 0.2], [60, -15])
+
+  const handleMouseMove = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      const offsetX = event.clientX - window.innerWidth / 2
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      peepersMotion.start({ x: Math.max(offsetX / 5, 5) }, { type: 'spring', stiffness: 60 })
+    },
+    [peepersMotion]
+  )
 
   useEffect(() => {
-    const transformer = transform([0, 0.025, 0.95, 1], [currentBg, boardBg, boardBg, newBg])
+    const transformer = transform([0, 0.2, 0.95, 1], [currentBg, boardBg, boardBg, newBg])
 
     const unsubscribe = yScroll.onChange((val) => {
       animeBg?.set(transformer(val))
@@ -44,15 +61,7 @@ export function LearnLettersBoard() {
   }, [animeBg, boardBg, currentBg, newBg, yScroll])
 
   return (
-    <MotionBox
-      ref={stripScrollBodyRef}
-      h="300vw"
-      initial={{ y: 400 }}
-      whileInView={{ y: 0 }}
-      viewport={{ margin: '0px 0px -50% 0px' }}
-      // @ts-expect-error from chakra-ui official docs
-      transition={{ duration: 0.65 }}
-    >
+    <Box ref={stripScrollBodyRef} h="300vw" mt={32}>
       <MotionFlex
         pos="sticky"
         top={0}
@@ -61,6 +70,7 @@ export function LearnLettersBoard() {
         minH="100vh"
         borderWidth="3px"
         style={{ borderColor }}
+        onMouseMove={handleMouseMove}
       >
         <MotionText
           pos="absolute"
@@ -76,12 +86,50 @@ export function LearnLettersBoard() {
         >
           Interactive
         </MotionText>
-        <MotionFlex minW={0} style={{ x, opacity }}>
+        <MotionBox
+          pos="absolute"
+          zIndex={2}
+          w={[null, '20%', null, '10%']}
+          right={0}
+          bottom={0}
+          animate={peepersMotion}
+          style={{ opacity: borderOpacity }}
+        >
+          <NextImage src={ImgPeepers} alt="Cute animals faces peeping" />
+        </MotionBox>
+        <MotionFlex minW={0} zIndex={1} style={{ x, opacity }}>
           <LearnLetters letters={AIrow} />
           <LearnLetters letters={JQrow} />
           <LearnLetters letters={RZrow} />
         </MotionFlex>
+        <MotionFlex
+          pos="absolute"
+          flexDir={['column', null, null, 'row']}
+          alignItems={['center', null, null, 'flex-start']}
+          justifyContent="center"
+          pt={1}
+          inset={0}
+          style={{ opacity: stickyOpacity }}
+        >
+          <MotionBox
+            pos={[null, null, null, 'absolute']}
+            top={4}
+            right={1}
+            px={3}
+            py={1}
+            color="background"
+            fontFamily="title"
+            fontSize="6vw"
+            bg="text"
+            userSelect="none"
+            rounded="50% 50% 10% 90% / 70% 60% 40% 30%"
+            style={{ y: bubbleMove }}
+          >
+            <MotionSpan style={{ opacity: stickyOpacity }}>ABC</MotionSpan>
+          </MotionBox>
+          <PandySvg fill="currentColor" />
+        </MotionFlex>
       </MotionFlex>
-    </MotionBox>
+    </Box>
   )
 }
