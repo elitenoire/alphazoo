@@ -79,7 +79,7 @@ export default function Intro() {
         pos="sticky"
         top={0}
         overflow="hidden"
-        h={['120vh', null, null, 'auto']}
+        h={['120vmax', null, null, 'auto']}
         minH={['md', null, null, 0]}
         maxH={['3xl', null, '4xl', 'none']}
       >
