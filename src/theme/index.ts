@@ -142,11 +142,11 @@ const theme = extendTheme(
         dark: '#0c412a',
       },
       secondary: baseTheme.colors.yellow,
+      accent: baseTheme.colors.purple,
       background: baseTheme.colors.yellow[100],
       text: baseTheme.colors.gray[800],
       highlight: '#a0f8b5',
       muted: '#ebfbcb',
-      accent: '#f07642', // #f5a87c
       black: '#121113', // #01161e
     },
     sizes: {

@@ -87,9 +87,10 @@ export function LearnLettersBoard() {
           Interactive
         </MotionText>
         <MotionBox
+          display={['none', 'block']}
           pos="absolute"
           zIndex={2}
-          w={[null, '20%', null, '10%']}
+          w={['20%', null, '10%']}
           right={0}
           bottom={0}
           animate={peepersMotion}

@@ -10,7 +10,7 @@ export const AlphabetBubble = ({ bg, children, ...rest }: ComponentProps<typeof 
     offset: ['end end', 'start start'],
   })
   const scale = useTransform(scrollYProgress, [0, 0.5, 0.7, 1], [0.75, 1, 1, 0.85])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0, 1, 1, 0.95, 1])
+  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.5, 0.8, 1], [0, 1, 1, 0.95, 1])
   return (
     <MotionBox {...rest} ref={ref} style={{ scale, opacity }}>
       <Box overflow="hidden" px={1} py={4} bg={bg} rounded="full">

@@ -91,7 +91,7 @@ export default function FunWiki() {
         <MotionFlex
           layoutScroll
           pos="relative"
-          justifyContent="space-evenly"
+          // justifyContent="space-evenly"
           zIndex={1}
           minH="21em"
           gap={[4, 8]}
