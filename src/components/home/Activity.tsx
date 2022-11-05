@@ -1,9 +1,13 @@
+import NextImage from 'next/future/image'
 import type { Variants } from 'framer-motion'
-import { Heading, Box, Flex, List, ListItem, Text } from '@chakra-ui/react'
-import { MotionBox, MotionText, MotionSpan } from '~components/motion'
+import { Heading, Box, Flex, List, ListItem } from '@chakra-ui/react'
+import { MotionBox, MotionText, MotionSpan, MotionScroll } from '~components/motion'
+import { ActivityCloud } from './ActivityCloud'
 import { AlphabetBubble } from './AlphabetBubble'
 import { ActivityBoard } from './ActivityBoard'
 import { HOMEPAGE_IDS } from '~src/constants'
+
+import ImgPanda from '~public/img/happypanda.svg'
 
 const slideList: Variants = {
   hidden: {
@@ -31,89 +35,119 @@ const slideUpItem: Variants = {
 
 export default function Activity() {
   return (
-    <Box as="section" mt={-28} aria-labelledby={HOMEPAGE_IDS.activity}>
-      <Box p={4}>
-        <Box pos="relative" maxW="md" mb={28} mx={['auto', null, 0]}>
-          <Heading
-            overflow="hidden"
-            color="secondary.500"
-            fontSize="f5xl"
-            lineHeight={0.85}
-            letterSpacing="-0.035em"
-            wordBreak="break-word"
-            id={HOMEPAGE_IDS.activity}
-          >
-            <MotionSpan display="block" initial="hidden" whileInView="visible" variants={slideList}>
-              <MotionSpan display="flex" flexWrap="wrap" alignItems="center" variants={slideInItem}>
-                Pure{' '}
-                <Box as="span" ml={1} p={1} fontSize="xs" bg="red.400" rounded="50%">
-                  😋
-                </Box>{' '}
+    <Box as="section" mt={-8} aria-labelledby={HOMEPAGE_IDS.activity}>
+      <MotionScroll distance={300}>
+        <Flex direction="column" columnGap={8} px={4}>
+          <Box pos="relative" maxW="md" mx={['auto', null, 0]} pb={[20, null, 60]}>
+            <Heading
+              overflow="hidden"
+              color="secondary.500"
+              fontSize="f5xl"
+              lineHeight={0.85}
+              letterSpacing="-0.035em"
+              wordBreak="break-word"
+              id={HOMEPAGE_IDS.activity}
+            >
+              <MotionSpan
+                display="block"
+                initial="hidden"
+                whileInView="visible"
+                variants={slideList}
+                viewport={{ once: true }}
+              >
+                <MotionSpan
+                  display="flex"
+                  flexWrap="wrap"
+                  alignItems="center"
+                  variants={slideInItem}
+                >
+                  Pure{' '}
+                  <Box as="span" ml={1} p={1} fontSize="xs" bg="red.400" rounded="50%">
+                    😋
+                  </Box>{' '}
+                </MotionSpan>
+                <MotionSpan
+                  display="flex"
+                  flexWrap="wrap"
+                  alignItems="center"
+                  variants={slideInItem}
+                >
+                  Animal{' '}
+                  <Box as="span" ml={1} p={1} fontSize="xs" bg="orange.400" rounded="50%">
+                    😸
+                  </Box>{' '}
+                </MotionSpan>
+                <MotionSpan display="block" variants={slideInItem}>
+                  Fun .
+                </MotionSpan>
               </MotionSpan>
-              <MotionSpan display="flex" flexWrap="wrap" alignItems="center" variants={slideInItem}>
-                Animal{' '}
-                <Box as="span" ml={1} p={1} fontSize="xs" bg="orange.400" rounded="50%">
-                  😸
-                </Box>{' '}
-              </MotionSpan>
-              <MotionSpan display="block" variants={slideInItem}>
-                Fun .
-              </MotionSpan>
-            </MotionSpan>
-          </Heading>
-          <MotionBox
-            pos={{ md: 'absolute' }}
-            top={{ md: '70%' }}
-            left={{ md: '50%' }}
-            custom={0.45}
-            initial="hidden"
-            whileInView="visible"
-            variants={slideList}
-          >
-            <MotionText
-              sx={{
-                ':before': {
-                  content: '""',
-                  pos: 'absolute',
-                  bg: 'secondary.400',
-                  bottom: 0,
-                  width: '100%',
-                  height: '110%',
-                  borderRadius: '2.5px',
-                  transform: 'rotate(-2.5deg) translateX(-5%)',
-                  zIndex: -1,
-                },
-              }}
-              pos="relative"
+            </Heading>
+            <MotionBox
+              pos={{ md: 'absolute' }}
+              top={{ md: '50%' }}
+              left={{ md: '50%' }}
               zIndex={1}
-              w={{ md: '3xs' }}
-              mt={[4, null, 3]}
-              fontSize="fxl"
-              lineHeight={{ md: 1.1 }}
-              variants={slideUpItem}
+              custom={0.5}
+              initial="hidden"
+              whileInView="visible"
+              variants={slideList}
+              viewport={{ once: true }}
             >
-              Go on a fun adventure and experience the alphabet like never before.
-            </MotionText>
-            <MotionText textAlign="right" fontSize="fxl" fontWeight={700} variants={slideUpItem}>
-              <Box as="span" p={1} color="background" bg="brand.500" rounded="2.5px">
-                awesome really!
-              </Box>
-            </MotionText>
-            <MotionText
-              textAlign="center"
-              fontSize="fxl"
-              fontWeight={700}
-              lineHeight={2.5}
-              variants={slideUpItem}
-            >
-              <Box as="span" px={3} py={1} color="background" bg="accent.300" rounded="2.5px">
-                asdfjkl;
-              </Box>
-            </MotionText>
-          </MotionBox>
-        </Box>
-      </Box>
-
+              <MotionText
+                sx={{
+                  ':before': {
+                    content: '""',
+                    pos: 'absolute',
+                    bg: 'secondary.400',
+                    bottom: 0,
+                    width: '100%',
+                    height: '110%',
+                    borderRadius: '2.5px',
+                    transform: 'rotate(-2.5deg) translateX(-5%)',
+                    zIndex: -1,
+                  },
+                }}
+                pos="relative"
+                zIndex={1}
+                w={{ md: '3xs' }}
+                mt={[8, null, 3]}
+                fontSize="fxl"
+                lineHeight={{ md: 1.1 }}
+                variants={slideUpItem}
+              >
+                Go on a fun adventure and experience the alphabet like never before.
+              </MotionText>
+              <MotionText textAlign="right" fontSize="fxl" fontWeight={700} variants={slideUpItem}>
+                <Box as="span" p={1} color="background" bg="brand.500" rounded="2.5px">
+                  awesome really!
+                </Box>
+              </MotionText>
+              <MotionText
+                textAlign="center"
+                fontSize="fxl"
+                fontWeight={700}
+                lineHeight={2.5}
+                variants={slideUpItem}
+              >
+                <Box as="span" px={3} py={1} color="background" bg="accent.300" rounded="2.5px">
+                  asdfjkl;
+                </Box>
+              </MotionText>
+            </MotionBox>
+          </Box>
+          <Box
+            pos="sticky"
+            top={20}
+            order={{ lg: -1 }}
+            w={['70%', null, '50%', '40%']}
+            mr={['auto', null, null, 0]}
+            ml="auto"
+          >
+            <NextImage src={ImgPanda} alt="Happy panda in front of a bamboo plant" />
+          </Box>
+          <ActivityCloud />
+        </Flex>
+      </MotionScroll>
       {/* make container or give bounding padding */}
       <List mb={8} fontFamily="title" spacing={16}>
         <ListItem pos="sticky" zIndex={1} top={4} overflow="hidden">
