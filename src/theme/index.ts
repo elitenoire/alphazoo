@@ -66,6 +66,9 @@ const theme = extendTheme(
   {
     styles: {
       global: {
+        html: {
+          scrollBehavior: 'smooth',
+        },
         body: {
           fontSize: 'fmd',
           lineHeight: 'shorter',

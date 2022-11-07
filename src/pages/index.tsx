@@ -1,7 +1,8 @@
-import { Box, Container } from '@chakra-ui/react'
+import { Container } from '@chakra-ui/react'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import { MotionScroll } from '~components/motion'
 import { Underline } from '~components/Underline'
+import { BackToTop } from '../components/BackToTop'
 import Hero from '~components/home/Hero'
 import Intro from '~components/home/Intro'
 import Features from '~components/home/Features'
@@ -39,6 +40,7 @@ export default function Home() {
         </Container>
         <Underline fill="brand.500" fillTopDots="secondary.200" fillBottomDots="secondary.300" />
         <Cta />
+        <BackToTop />
       </main>
       <Footer />
     </AnimatableBackground>

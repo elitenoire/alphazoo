@@ -103,6 +103,7 @@ export default function FunWiki() {
           shadow="inner"
           overflowX="auto"
           overflowY="hidden"
+          // scrollSnapType="x mandatory"
           layerStyle="hideScroll"
         >
           {homeWikis.map(({ animal, wiki, colorScheme, tintBg, img, imgRatio }, i) => (
@@ -113,6 +114,7 @@ export default function FunWiki() {
               animal={animal}
               wiki={wiki}
               colorScheme={colorScheme}
+              // scrollSnapAlign="center"
               {...(tintBg && { bg: `${colorScheme}.100` })}
             >
               <AspectRatio w="100%" ratio={imgRatio}>

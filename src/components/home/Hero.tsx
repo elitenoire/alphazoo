@@ -9,7 +9,7 @@ import {
 } from 'framer-motion'
 import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
 import { MotionBox, MagneticBox } from '~components/motion'
-import { SITE_CONFIG } from '~src/constants'
+import { SITE_CONFIG, HOMEPAGE_IDS } from '~src/constants'
 
 import { ReactComponent as BackdropSVG } from '~public/img/plx-01-backdrop.svg'
 
@@ -72,6 +72,14 @@ export default function Hero() {
       frontAnimalsY.set(-offsetY / 15)
     },
     [backAnimalsY, frontAnimalsY, mouseX, mouseY]
+  )
+
+  const scrollTo = useCallback(
+    (id: string) => () => {
+      const $element = document.getElementById(id)
+      $element?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    },
+    []
   )
 
   return (
@@ -204,6 +212,7 @@ export default function Hero() {
             }}
             whiteSpace="normal"
             bgColor="secondary.50"
+            onClick={scrollTo(HOMEPAGE_IDS.intro)}
             rounded="50%"
           >
             Scroll Down
