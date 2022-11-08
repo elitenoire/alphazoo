@@ -66,6 +66,9 @@ const theme = extendTheme(
   {
     styles: {
       global: {
+        '*': {
+          WebkitTapHighlightColor: 'transparent',
+        },
         html: {
           scrollBehavior: 'smooth',
         },

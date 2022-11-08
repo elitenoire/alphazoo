@@ -67,7 +67,7 @@ export default function Intro() {
       </VisuallyHidden>
       <Box px={[4, null, 8]}>
         <Text fontSize={['f2xl', null, null, null, 'f3xl']}>
-          <Box as="strong" color="brand.dark" fontSize="xl" opacity={0.9}>
+          <Box as="strong" px="0.3em" color="brand.900" bg="secondary.300" rounded="0.3em">
             {SITE_CONFIG.appName}
           </Box>{' '}
           is an early learning app for kids to practise the English Alphabets with a variety of

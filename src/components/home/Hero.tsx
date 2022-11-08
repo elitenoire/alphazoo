@@ -86,6 +86,7 @@ export default function Hero() {
     <Flex
       ref={heroBgRef}
       pos="relative"
+      zIndex={1}
       align="center"
       justify="center"
       overflow="hidden"
