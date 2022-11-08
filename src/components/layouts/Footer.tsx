@@ -45,7 +45,7 @@ export default function Footer() {
   const y = useSpring(useTransform(scrollYProgress, [0.1, 0.35], [50, -30]), { stiffness: 60 })
 
   return (
-    <Box as="footer" pos="relative" zIndex={1}>
+    <Box as="footer" pos="relative" zIndex={1} mt="-100vh">
       <ChakraClique />
       <Box
         overflow="hidden"
