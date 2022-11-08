@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import NextImage from 'next/future/image'
 import type { Variants } from 'framer-motion'
 import { Heading, Box, Flex, List, ListItem } from '@chakra-ui/react'
@@ -34,9 +35,10 @@ const slideUpItem: Variants = {
 }
 
 export default function Activity() {
+  const containerRef = useRef(null)
   return (
-    <Box as="section" mt={-8} aria-labelledby={HOMEPAGE_IDS.activity}>
-      <MotionScroll distance={300}>
+    <MotionBox ref={containerRef} as="section" mt={-8} aria-labelledby={HOMEPAGE_IDS.activity}>
+      <MotionScroll position="relative" distance={300} zIndex="docked">
         <Flex direction="column" columnGap={8} px={4}>
           <Box pos="relative" maxW="md" mx={['auto', null, 0]} pb={[20, null, 60]}>
             <Heading
@@ -145,26 +147,26 @@ export default function Activity() {
           >
             <NextImage src={ImgPanda} alt="Happy panda in front of a bamboo plant" />
           </Box>
-          <ActivityCloud />
+          <ActivityCloud dragConstraints={containerRef} />
         </Flex>
       </MotionScroll>
       {/* make container or give bounding padding */}
-      <List mb={8} fontFamily="title" spacing={16}>
-        <ListItem pos="sticky" zIndex={1} top={4} overflow="hidden">
+      <List mb={8} fontFamily="title" pointerEvents="none" spacing={16}>
+        <ListItem pos="sticky" top={4} overflow="hidden">
           <AlphabetBubble bg="orange.200">AaBbCcDdEeFf</AlphabetBubble>
         </ListItem>
-        <ListItem pos="sticky" zIndex={2} top={12} overflow="hidden">
+        <ListItem pos="sticky" top={12} overflow="hidden">
           <AlphabetBubble bg="pink.200">GgHhIiJjKkLlMm</AlphabetBubble>
         </ListItem>
-        <ListItem pos="sticky" zIndex={3} top={20} overflow="hidden">
+        <ListItem pos="sticky" top={20} overflow="hidden">
           <AlphabetBubble bg="green.200">NnOoPpQqRrSsTt</AlphabetBubble>
         </ListItem>
-        <ListItem pos="sticky" zIndex={4} top={28} overflow="hidden">
+        <ListItem pos="sticky" top={28} overflow="hidden">
           <AlphabetBubble bg="purple.200">UuVvWwXxYyZz</AlphabetBubble>
         </ListItem>
         <ListItem h={32} aria-hidden="true" />
       </List>
       <ActivityBoard />
-    </Box>
+    </MotionBox>
   )
 }
