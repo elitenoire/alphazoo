@@ -62,6 +62,10 @@ const fontSizes = {
   f9xl: 'clamp(9.31rem, 24.42vw + 1.5rem, 21.03rem)',
 }
 
+const zIndices = {
+  max: 9999,
+}
+
 const theme = extendTheme(
   {
     styles: {
@@ -164,6 +168,7 @@ const theme = extendTheme(
     components,
     fonts,
     fontSizes,
+    zIndices,
     breakpoints,
     space,
   },
