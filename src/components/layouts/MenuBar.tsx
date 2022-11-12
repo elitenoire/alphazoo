@@ -1,10 +1,10 @@
-import { useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import NextLink from 'next/link'
 import { useAnimationControls, useScroll, useVelocity, Variants } from 'framer-motion'
 import { Flex, Link, IconButton } from '@chakra-ui/react'
+import { VolumeHighBold, MusicBold } from 'react-iconsax-icons'
 import { MotionFlex } from '~components/motion'
 import { SITE_CONFIG } from '~src/constants'
-import { VolumeHighBold, MusicBold } from 'react-iconsax-icons'
 
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
 
@@ -24,8 +24,8 @@ const barBg: Variants = {
 export default function MenuBar() {
   const velocityThreshold = 100
 
-  const isAtTopRef = useRef(true)
-  const isScrollingBackRef = useRef(false)
+  const [isAtTop, setIsAtTop] = useState(true)
+  const [isScrollingBack, setIsScrollingBack] = useState(false)
   const barMotion = useAnimationControls()
 
   const { scrollY } = useScroll()
@@ -33,25 +33,16 @@ export default function MenuBar() {
 
   useEffect(() => {
     const unSubScrollY = scrollY.onChange((y) => {
-      isAtTopRef.current = y <= 0
+      setIsAtTop(y <= 0)
     })
 
     const unSubVelocity = scrollVelocity.onChange((v) => {
       if (v > 0) {
-        isScrollingBackRef.current = false
+        setIsScrollingBack(false)
       }
       if (v < -velocityThreshold) {
-        isScrollingBackRef.current = true
+        setIsScrollingBack(true)
       }
-      const isScrollingBack = isScrollingBackRef.current
-      const isAtTop = isAtTopRef.current
-
-      barMotion.set(!isAtTop && isScrollingBack ? 'fixed' : 'unfixed')
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      barMotion.start({
-        y: isAtTop || isScrollingBack ? 0 : '-100%',
-        transition: { duration: 0.2, ease: 'easeInOut' },
-      })
     })
 
     return () => {
@@ -59,6 +50,15 @@ export default function MenuBar() {
       unSubScrollY()
     }
   }, [scrollY, scrollVelocity, barMotion])
+
+  useEffect(() => {
+    barMotion.set(!isAtTop && isScrollingBack ? 'fixed' : 'unfixed')
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    barMotion.start({
+      y: isAtTop || isScrollingBack ? 0 : '-100%',
+      transition: { duration: 0.2, ease: 'easeInOut' },
+    })
+  }, [barMotion, isAtTop, isScrollingBack])
 
   return (
     <MotionFlex
