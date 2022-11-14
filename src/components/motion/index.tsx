@@ -1,6 +1,7 @@
 export * from './motion'
 export * from './MotionScroll'
 export * from './MotionPop'
+export * from './MotionBurger'
 export * from './MagneticBox'
 export * from './MotionBoyDoodle'
 export * from './MotionGirlDoodle'
