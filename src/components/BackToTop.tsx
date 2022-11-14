@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, AnimatePresence } from 'framer-motion'
 import { IconButton, Box, BoxProps } from '@chakra-ui/react'
 import { ArrowUpBold } from 'react-iconsax-icons'
 
@@ -14,6 +14,7 @@ export const BackToTop = ({
   ...rest
 }: BackToTopProps) => {
   const [show, setShow] = useState(false)
+  const { scrollY } = useScroll()
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({
@@ -24,18 +25,14 @@ export const BackToTop = ({
   }, [])
 
   useEffect(() => {
-    const toggleShow = () => {
-      if (window.scrollY > threshold) {
-        setShow(true)
-      } else {
-        setShow(false)
-      }
+    const unSubscribe = scrollY.onChange((latest) => {
+      setShow(latest > threshold)
+    })
+
+    return () => {
+      unSubscribe()
     }
-
-    window.addEventListener('scroll', toggleShow)
-
-    return () => window.removeEventListener('scroll', toggleShow)
-  }, [threshold])
+  }, [scrollY, threshold])
 
   return (
     <AnimatePresence>

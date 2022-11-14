@@ -43,7 +43,7 @@ export function ActivityBoard() {
       px={4}
       py={[12, 24]}
       bg="secondary.300"
-      borderRadius={['2em', '4em']}
+      rounded={['card', 'bigCard']}
       style={{ scale, opacity }}
     >
       <Box w={[null, null, null, '30%']}>

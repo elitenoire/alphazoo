@@ -214,7 +214,7 @@ export default function Hero() {
             whiteSpace="normal"
             bgColor="secondary.50"
             onClick={scrollTo(HOMEPAGE_IDS.intro)}
-            rounded="50%"
+            rounded="circle"
           >
             Scroll Down
           </Button>

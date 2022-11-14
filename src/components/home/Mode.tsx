@@ -39,7 +39,7 @@ export default function Mode() {
         pt={[12, 24]}
         pb={16}
         bg="background"
-        rounded={['2em', '4em']}
+        rounded={['card', 'bigCard']}
         overflow="hidden"
         style={{ scale, opacity }}
       >

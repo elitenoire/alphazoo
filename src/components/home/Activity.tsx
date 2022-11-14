@@ -64,7 +64,7 @@ export default function Activity() {
                   variants={slideInItem}
                 >
                   Pure{' '}
-                  <Box as="span" ml={1} p={1} fontSize="xs" bg="red.400" rounded="50%">
+                  <Box as="span" ml={1} p={1} fontSize="xs" bg="red.400" rounded="circle">
                     😋
                   </Box>{' '}
                 </MotionSpan>
@@ -75,7 +75,7 @@ export default function Activity() {
                   variants={slideInItem}
                 >
                   Animal{' '}
-                  <Box as="span" ml={1} p={1} fontSize="xs" bg="orange.400" rounded="50%">
+                  <Box as="span" ml={1} p={1} fontSize="xs" bg="orange.400" rounded="circle">
                     😸
                   </Box>{' '}
                 </MotionSpan>
@@ -104,7 +104,7 @@ export default function Activity() {
                     bottom: 0,
                     width: '100%',
                     height: '110%',
-                    borderRadius: '2.5px',
+                    rounded: 'xtiny',
                     transform: 'rotate(-2.5deg) translateX(-5%)',
                     zIndex: -1,
                   },
@@ -120,7 +120,7 @@ export default function Activity() {
                 Go on a fun adventure and experience the alphabet like never before.
               </MotionText>
               <MotionText textAlign="right" fontSize="fxl" fontWeight={700} variants={slideUpItem}>
-                <Box as="span" p={1} color="background" bg="brand.500" rounded="2.5px">
+                <Box as="span" p={1} color="background" bg="brand.500" rounded="xtiny">
                   awesome really!
                 </Box>
               </MotionText>
@@ -131,7 +131,7 @@ export default function Activity() {
                 lineHeight={2.5}
                 variants={slideUpItem}
               >
-                <Box as="span" px={3} py={1} color="background" bg="accent.300" rounded="2.5px">
+                <Box as="span" px={3} py={1} color="background" bg="accent.300" rounded="xtiny">
                   asdfjkl;
                 </Box>
               </MotionText>

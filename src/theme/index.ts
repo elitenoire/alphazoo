@@ -62,6 +62,14 @@ const fontSizes = {
   f9xl: 'clamp(9.31rem, 24.42vw + 1.5rem, 21.03rem)',
 }
 
+const radii = {
+  xtiny: 2.5,
+  tiny: 5,
+  circle: '50%',
+  card: '2em',
+  bigCard: '4em',
+}
+
 const zIndices = {
   max: 9999,
 }
@@ -168,6 +176,7 @@ const theme = extendTheme(
     components,
     fonts,
     fontSizes,
+    radii,
     zIndices,
     breakpoints,
     space,

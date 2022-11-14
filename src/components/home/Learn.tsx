@@ -52,7 +52,7 @@ export default function Learn() {
         >
           <Flex pos="absolute" top={0} left={0} align="flex-start" w="full" h="full">
             <AspectRatio pos="sticky" top={0} w="full" ratio={1}>
-              <MotionFlex rounded="50%" bg="secondary.200" style={{ scale: girlScale }}>
+              <MotionFlex rounded="circle" bg="secondary.200" style={{ scale: girlScale }}>
                 <MotionBox
                   w="50%"
                   whileInView={{

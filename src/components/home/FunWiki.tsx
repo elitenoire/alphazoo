@@ -36,7 +36,7 @@ export default function FunWiki() {
         mx={[null, 1, null, 5]}
         pt={[12, 24]}
         bg="brand.500"
-        rounded={['2em', '4em']}
+        rounded={['card', 'bigCard']}
         style={{ scale, opacity }}
       >
         <Flex align={['center', null, 'flex-end']} direction="column" px={8}>
