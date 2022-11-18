@@ -39,7 +39,7 @@ export const BackToTop = ({
       {show && (
         <Box
           pos="fixed"
-          zIndex="tooltip"
+          zIndex="backtotop"
           right={['1em', null, '2em']}
           bottom={['1em', null, '2em']}
           {...rest}

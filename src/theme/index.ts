@@ -71,7 +71,12 @@ const radii = {
 }
 
 const zIndices = {
-  max: 9999,
+  max: 9990,
+  backtotop: 9995,
+  supermax: 9997,
+  menuoverlay: 9998,
+  menubar: 9999,
+  zen: 10000,
 }
 
 const theme = extendTheme(

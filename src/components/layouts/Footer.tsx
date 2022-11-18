@@ -233,7 +233,7 @@ export default function Footer() {
                   }}
                   aria-label="Support Me"
                   bgColor="whiteAlpha.50"
-                  href="https://www.buymeacoffee.com/elitenoire"
+                  href={SITE_CONFIG.supportLink}
                   icon={<Icon as={BuyCoffeeSvg} fill="currentcolor" />}
                   isExternal
                   size="md"
@@ -243,7 +243,7 @@ export default function Footer() {
 
               <Text align={['center', null, 'right']} w="full">
                 &copy; {new Date().getFullYear()}. Made with love by{' '}
-                <Link href="https://github.com/elitenoire" isExternal variant="footer">
+                <Link href={SITE_CONFIG.repoOwnerLink} isExternal variant="footer">
                   elitenoire
                 </Link>
               </Text>
