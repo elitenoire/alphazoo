@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import MenuBar from './MenuBar'
+import SiteMenu from './SiteMenu'
 
 interface HeaderProps {
   children: ReactNode
@@ -8,7 +8,7 @@ interface HeaderProps {
 export default function Header({ children }: HeaderProps) {
   return (
     <header>
-      <MenuBar />
+      <SiteMenu />
       {children}
     </header>
   )

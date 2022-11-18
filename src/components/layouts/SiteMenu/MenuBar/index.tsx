@@ -1,8 +1,8 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import NextLink from 'next/link'
 import type { Variants } from 'framer-motion'
 import { useAnimationControls, useScroll, useVelocity, AnimatePresence } from 'framer-motion'
-import { Box, Flex, Link, useToken } from '@chakra-ui/react'
+import { Box, Flex, Link, useToken, useModalContext } from '@chakra-ui/react'
 import { MotionFlex, MotionBox, MotionSpan, MotionBurger } from '~components/motion'
 import { SITE_CONFIG } from '~src/constants'
 
@@ -25,14 +25,18 @@ const barBg: Variants = {
   },
 }
 
+type ModalContextExtended = ReturnType<typeof useModalContext> & {
+  toggleOpen: () => void
+}
+
 export default function MenuBar() {
   const velocityThreshold = 100
 
   const [fullRadius] = useToken('radii', ['full'])
+  const { isOpen, toggleOpen } = useModalContext() as ModalContextExtended
 
   const [isAtTop, setIsAtTop] = useState(true)
   const [isScrollingBack, setIsScrollingBack] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
 
   const whenFixed = !isAtTop && isScrollingBack
   const whenVisible = isAtTop || isScrollingBack
@@ -40,10 +44,6 @@ export default function MenuBar() {
   const barMotion = useAnimationControls()
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
-
-  const toggleOpen = useCallback(() => {
-    setIsOpen((_open) => !_open)
-  }, [])
 
   useEffect(() => {
     const unSubScrollY = scrollY.onChange((y) => {
@@ -66,20 +66,20 @@ export default function MenuBar() {
   }, [scrollY, scrollVelocity, barMotion])
 
   useEffect(() => {
-    barMotion.set(whenFixed ? 'fixed' : 'unfixed')
+    barMotion.set(whenFixed && !isOpen ? 'fixed' : 'unfixed')
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     barMotion.start({
       y: whenVisible ? 0 : '-100%',
       transition: { duration: 0.2, ease: 'easeInOut' },
     })
-  }, [barMotion, whenFixed, whenVisible])
+  }, [barMotion, whenFixed, whenVisible, isOpen])
 
   return (
     <MotionFlex
       pos="fixed"
       top={0}
       left={0}
-      zIndex="max"
+      zIndex="menubar"
       alignItems="center"
       justifyContent="space-between"
       w="100%"
