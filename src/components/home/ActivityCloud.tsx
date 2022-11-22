@@ -1,7 +1,7 @@
 import NextImage from 'next/future/image'
 import { Variants, DraggableProps } from 'framer-motion'
 import { MotionBox, MotionFlex } from '~components/motion'
-import { useIsLargeAndAbove } from '~/src/hooks/mediaQueries'
+import { useIsLargeAndAbove, useIsSmallAndAbove } from '~/src/hooks/mediaQueries'
 
 import ImgWow from '~public/img/cloud-wow.svg'
 import ImgStar from '~public/img/cloud-star.svg'
@@ -28,15 +28,16 @@ const item: Variants = {
     x: 0,
     y: isLg ? -200 : 0,
   }),
-  visible: ({ isLg, pos }) => ({
+  visible: ({ isLg, isSm, pos }) => ({
     opacity: 1,
-    x: isLg ? 0 : `${150 * pos}%`,
+    x: isLg ? 0 : `${(isSm ? 150 : 70) * pos}%`,
     y: isLg ? 250 + 25 * pos : 0,
     transition: { type: 'spring', duration: 1 },
   }),
 }
 
 export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragConstraints'>) => {
+  const [isSm] = useIsSmallAndAbove()
   const [isLg] = useIsLargeAndAbove()
 
   return (
@@ -45,7 +46,7 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
       zIndex={1}
       flexDir={['column', null, null, 'row']}
       justifyContent={{ lg: 'center' }}
-      maxW={[32, '15vw', null, 'none']}
+      maxW={['35vw', '20vw', null, 'none']}
       w="100%"
       mx="auto"
       pb={{ lg: 64 }}
@@ -64,7 +65,7 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
         w="100%"
         maxW={{ lg: '15vw' }}
         cursor="grab"
-        custom={{ isLg, pos: 1 }}
+        custom={{ isLg, isSm, pos: 1 }}
         variants={item}
         drag
         dragElastic={false}
@@ -75,9 +76,9 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
       </MotionBox>
       <MotionBox
         w="100%"
-        maxW={[null, '15vw']}
+        maxW={{ lg: '15vw' }}
         cursor="grab"
-        custom={{ isLg, pos: -1 }}
+        custom={{ isLg, isSm, pos: -1 }}
         variants={item}
         drag
         dragElastic={false}
@@ -88,9 +89,9 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
       </MotionBox>
       <MotionBox
         w="100%"
-        maxW={[null, '15vw']}
+        maxW={{ lg: '15vw' }}
         cursor="grab"
-        custom={{ isLg, pos: 1 }}
+        custom={{ isLg, isSm, pos: 1 }}
         variants={item}
         drag
         dragElastic={false}
@@ -101,9 +102,9 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
       </MotionBox>
       <MotionBox
         w="100%"
-        maxW={[null, '15vw']}
+        maxW={{ lg: '15vw' }}
         cursor="grab"
-        custom={{ isLg, pos: -1 }}
+        custom={{ isLg, isSm, pos: -1 }}
         variants={item}
         drag
         dragElastic={false}
