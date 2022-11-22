@@ -45,11 +45,11 @@ export default function Footer() {
   const y = useSpring(useTransform(scrollYProgress, [0.1, 0.35], [50, -30]), { stiffness: 60 })
 
   return (
-    <Box as="footer" pos="relative" zIndex={1} mt="-100vh">
+    <Flex as="footer" pos="relative" zIndex={1} direction="column" minH="100vh" mt="-100vh">
       <ChakraClique />
       <Box
+        flex={1}
         overflow="hidden"
-        minH="75vh"
         mt="-5px"
         color="brand.600"
         bgGradient="linear(brand.900 5px, black)"
@@ -251,6 +251,6 @@ export default function Footer() {
           </Flex>
         </Container>
       </Box>
-    </Box>
+    </Flex>
   )
 }
