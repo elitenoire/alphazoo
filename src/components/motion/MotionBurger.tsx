@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, useAnimationControls, Variants } from 'framer-motion'
 
 const topPath: Variants = {
@@ -17,19 +17,24 @@ export const MotionBurger = ({ open }: { open: boolean }) => {
   const topPathMotion = useAnimationControls()
   const bottomPathMotion = useAnimationControls()
 
+  const initialMotionRef = useRef(false)
+
   useEffect(() => {
     const openSequence = async () => {
       try {
         await Promise.all([topPathMotion.start('middle'), bottomPathMotion.start('middle')])
         await Promise.all([topPathMotion.start('open'), bottomPathMotion.start('open')])
+        initialMotionRef.current = true
       } catch (err) {
         console.warn(err)
       }
     }
     const closeSequence = async () => {
       try {
-        await Promise.all([topPathMotion.start('middle'), bottomPathMotion.start('middle')])
-        await Promise.all([topPathMotion.start('closed'), bottomPathMotion.start('closed')])
+        if (initialMotionRef.current) {
+          await Promise.all([topPathMotion.start('middle'), bottomPathMotion.start('middle')])
+          await Promise.all([topPathMotion.start('closed'), bottomPathMotion.start('closed')])
+        }
       } catch (err) {
         console.warn(err)
       }

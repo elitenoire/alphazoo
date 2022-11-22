@@ -15,7 +15,10 @@ export const SoundsButton = ({ whenFixed }: { whenFixed: boolean }) => {
   const ariaLabel = `Sounds ${enable ? 'Off' : 'On'}`
 
   return (
-    <motion.div key={Number(enable)} animate={{ rotate: 360, transition: { duration: 0.3 } }}>
+    <motion.div
+      initial={false}
+      animate={{ rotate: enable ? 360 : 0, transition: { duration: 0.3 } }}
+    >
       <MenuIconButton
         whenFixed={whenFixed}
         aria-label={ariaLabel}
