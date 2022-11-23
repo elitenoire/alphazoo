@@ -4,6 +4,7 @@ import { Variants } from 'framer-motion'
 import { Box, Flex, List, ListItem, Link, useModalContext } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
 import { SITE_CONFIG } from '~src/constants'
+import { MenuAudioPanel } from './MenuAudioPanel'
 import { MenuFaces } from './MenuFaces'
 
 import { ReactComponent as GithubSvg } from '~public/icons/github.svg'
@@ -26,7 +27,7 @@ const menuOverlay: Variants = {
   },
 }
 
-export const Menu = () => {
+export default function Menu() {
   const { isOpen, getDialogProps } = useModalContext()
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
   const dialogProps = getDialogProps() as any
@@ -127,7 +128,9 @@ export const Menu = () => {
             </ListItem>
           </List>
         </Box>
-        <Box w={[null, null, '40%']} h={20} bg="brand.700"></Box>
+        <Box w={[null, null, '40%']} h={40} bg="brand.700">
+          <MenuAudioPanel />
+        </Box>
       </Flex>
       <MenuFaces hovered={hovered} animate={isOpen} />
       <Link
@@ -138,11 +141,13 @@ export const Menu = () => {
         h={10}
         p={2}
         bg="background"
+        _hover={{ transform: 'scale(1.5)' }}
         aria-label="Support Me"
         href={SITE_CONFIG.supportLink}
         isExternal
         roundedTop="circle"
         title="Support Me"
+        transitionDuration="normal"
       >
         <BuyCoffeeSvg fill="currentColor" />
       </Link>
@@ -154,11 +159,13 @@ export const Menu = () => {
         h={10}
         p={2}
         bg="background"
+        _hover={{ transform: 'scale(1.5)' }}
         aria-label="Github Page"
         href={SITE_CONFIG.githubLink}
         isExternal
         roundedTop="circle"
         title="Github Page"
+        transitionDuration="normal"
       >
         <GithubSvg fill="currentColor" />
       </Link>

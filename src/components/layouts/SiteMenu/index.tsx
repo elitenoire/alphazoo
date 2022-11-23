@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { ModalFocusScope, useModalContext } from '@chakra-ui/react'
-import MenuBar from '~/src/components/layouts/SiteMenu/MenuBar'
+import MenuBar from './MenuBar'
+import Menu from './Menu'
 import { SiteMenuProvider } from './context'
-import { Menu } from './Menu'
 
 interface FocusGuardProps {
   children: ReactNode

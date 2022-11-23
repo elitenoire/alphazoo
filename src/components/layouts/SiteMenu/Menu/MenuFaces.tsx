@@ -41,6 +41,7 @@ export const MenuFaces = ({ animate, hovered }: MenuFacesProps) => {
       alignItems="flex-end"
       w="100%"
       px={[10, null, null, '15%']}
+      overflow="hidden"
       animate={animate ? 'in' : 'out'}
       variants={faceList}
       sx={{
