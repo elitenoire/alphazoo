@@ -6,8 +6,7 @@ import { Box, Flex, Link, useToken, useModalContext } from '@chakra-ui/react'
 import { MotionFlex, MotionBox, MotionSpan, MotionBurger } from '~components/motion'
 import { SITE_CONFIG } from '~src/constants'
 
-import { MusicButton } from './MusicButton'
-import { SoundsButton } from './SoundsButton'
+import { MusicButton, SoundsButton } from './MenuAudioButtons'
 
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
 import { ReactComponent as LogonameSvg } from '~public/brand/logoname.svg'

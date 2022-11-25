@@ -36,8 +36,6 @@ interface MenuFacesProps {
 export const MenuFaces = ({ animate, hovered }: MenuFacesProps) => {
   return (
     <MotionFlex
-      pos="absolute"
-      bottom={0}
       alignItems="flex-end"
       w="100%"
       px={[10, null, null, '15%']}
