@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import NextLink from 'next/link'
-import type { Variants } from 'framer-motion'
 import { useAnimationControls, useScroll, useVelocity, AnimatePresence } from 'framer-motion'
 import { Box, Flex, Link, useToken, useModalContext } from '@chakra-ui/react'
 import { MotionFlex, MotionBox, MotionSpan, MotionBurger } from '~components/motion'
@@ -10,19 +9,7 @@ import { MusicButton, SoundsButton } from './MenuAudioButtons'
 
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
 import { ReactComponent as LogonameSvg } from '~public/brand/logoname.svg'
-
-const barBg: Variants = {
-  unfixed: {
-    backgroundImage: 'none',
-    backgroundSize: 0,
-    backdropFilter: 'none',
-  },
-  fixed: {
-    backgroundImage: 'radial-gradient(rgba(0, 0, 0, 0) 1px, rgba(0,0,0,0.08) 1px)',
-    backgroundSize: '0.2em 0.2em',
-    backdropFilter: 'blur(3px)',
-  },
-}
+import { menuBarBg } from './variants'
 
 type ModalContextExtended = ReturnType<typeof useModalContext> & {
   toggleOpen: () => void
@@ -86,7 +73,7 @@ export default function MenuBar() {
       py={3}
       px={[4, null, 8]}
       animate={barMotion}
-      variants={barBg}
+      variants={menuBarBg}
     >
       <NextLink href="/" passHref>
         <Link

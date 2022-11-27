@@ -1,31 +1,14 @@
 import { useState, useCallback } from 'react'
-import NextLink from 'next/link'
-import { Variants } from 'framer-motion'
-import { Box, Flex, List, ListItem, Link, useModalContext } from '@chakra-ui/react'
+import { Box, Flex, Link, useModalContext } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
 import { SITE_CONFIG } from '~src/constants'
+import { MenuLinks } from './MenuLinks'
 import { MenuAudioPanel } from './MenuAudioPanel'
 import { MenuFaces } from './MenuFaces'
+import { menuOverlay } from './variants'
 
 import { ReactComponent as GithubSvg } from '~public/icons/github.svg'
 import { ReactComponent as BuyCoffeeSvg } from '~public/icons/buymeacoffee.svg'
-
-const menuOverlay: Variants = {
-  in: {
-    visibility: 'visible',
-    pointerEvents: 'auto',
-    clipPath: 'ellipse(150% 110% at 50% 0)',
-    transition: { duration: 0.7, ease: [0.32, 0.72, 0, 1] },
-  },
-  out: {
-    clipPath: 'ellipse(50% 0% at 50% 0)',
-    transition: { duration: 0.7, ease: [0.32, 0.72, 0, 1], delay: 0.25 },
-    transitionEnd: {
-      visibility: 'hidden',
-      pointerEvents: 'none',
-    },
-  },
-}
 
 export default function Menu() {
   const { isOpen, getDialogProps } = useModalContext()
@@ -57,7 +40,7 @@ export default function Menu() {
       {...dialogProps}
     >
       <Flex direction="column" rowGap={4} minH="100%">
-        <Box pos="relative" zIndex={1} flex={1} overflow="hidden" pt={20} px={8}>
+        <Box pos="relative" zIndex={1} flex={1} overflow="hidden" pt={[20, null, null, 14]} px={8}>
           <Flex
             align="center"
             direction={['column', null, null, 'row-reverse']}
@@ -65,81 +48,14 @@ export default function Menu() {
             columnGap={10}
           >
             <Box as="nav" flex={{ lg: 1 }}>
-              <List
-                sx={{
-                  counterReset: 'sitemenu',
-                  ':hover a': {
-                    opacity: 0.4,
-                  },
-                  li: {
-                    position: 'relative',
-                    counterIncrement: 'sitemenu',
-                  },
-                  a: {
-                    display: 'inline-block',
-                    borderBottom: '3px solid currentColor',
-                    fontWeight: 'bold',
-                    fontSize: 'f2xl',
-                    pt: 1,
-                    transformOrigin: 'left bottom',
-                    ':before': {
-                      content: 'counters(sitemenu, "", decimal-leading-zero)',
-                      mr: 8,
-                      fontSize: '0.35em',
-                      opacity: 0.5,
-                    },
-                    ':hover': {
-                      textDecoration: 'none',
-                      opacity: '1 !important',
-                      color: 'brand.900',
-                      transform: 'scale(1.125)',
-                    },
-                  },
-                }}
-              >
-                <ListItem>
-                  <NextLink href="/" passHref>
-                    <Link onMouseEnter={onHoverStart(1)} onMouseLeave={onHoverEnd}>
-                      Home
-                    </Link>
-                  </NextLink>
-                </ListItem>
-                <ListItem>
-                  <NextLink href="/" passHref>
-                    <Link onMouseEnter={onHoverStart(2)} onMouseLeave={onHoverEnd}>
-                      Learn
-                    </Link>
-                  </NextLink>
-                </ListItem>
-                <ListItem>
-                  <NextLink href="/" passHref>
-                    <Link onMouseEnter={onHoverStart(3)} onMouseLeave={onHoverEnd}>
-                      Play
-                    </Link>
-                  </NextLink>
-                </ListItem>
-                <ListItem>
-                  <NextLink href="/" passHref>
-                    <Link onMouseEnter={onHoverStart(4)} onMouseLeave={onHoverEnd}>
-                      Wiki
-                    </Link>
-                  </NextLink>
-                </ListItem>
-                <ListItem>
-                  <NextLink href="/" passHref>
-                    <Link onMouseEnter={onHoverStart(5)} onMouseLeave={onHoverEnd}>
-                      Profile
-                    </Link>
-                  </NextLink>
-                </ListItem>
-              </List>
+              <MenuLinks onHoverStart={onHoverStart} onHoverEnd={onHoverEnd} />
             </Box>
             <Box w={['100%', null, null, '37.5%']} maxW={[null, 'sm', null, 'none']}>
-              <MenuAudioPanel animate={isOpen} />
+              <MenuAudioPanel />
             </Box>
           </Flex>
         </Box>
-        <MenuFaces hovered={hovered} animate={isOpen} />
+        <MenuFaces hovered={hovered} />
       </Flex>
       <Link
         pos="fixed"
