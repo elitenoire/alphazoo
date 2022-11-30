@@ -51,6 +51,20 @@ export const listItem: Variants = {
   out: { x: '5%', opacity: 0, transition: { duration: 0.3 } },
 }
 
+export const navItem: Variants = {
+  in: {
+    transform: 'translateX(0%)',
+    opacity: 1,
+    transition: { duration: 0.35 },
+    transitionEnd: { transform: 'none' },
+  },
+  out: {
+    transform: 'translateX(10%)',
+    opacity: 0,
+    transition: { duration: 0.3 },
+  },
+}
+
 export const faceItem: Variants = {
   in: { y: 0, transition: { duration: 0.3 } },
   out: { y: '100%' },

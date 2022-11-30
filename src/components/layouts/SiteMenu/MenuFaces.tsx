@@ -65,8 +65,7 @@ export const MenuFaces = ({ hovered }: MenuFacesProps) => {
         border="3px solid currentColor"
         borderBottomWidth={0}
         borderTopRadius="full"
-        paddingLeft={hovered === ROUTE_3.id ? '16px' : 0}
-        paddingRight={hovered === ROUTE_3.id ? '16px' : 0}
+        paddingLeft={hovered === ROUTE_3.id ? '32px' : 0}
         variants={faceItem}
       >
         <MotionSpan layout="position" display="block">
@@ -81,7 +80,7 @@ export const MenuFaces = ({ hovered }: MenuFacesProps) => {
         border="3px solid currentColor"
         borderBottomWidth={0}
         borderTopRadius="full"
-        paddingRight={hovered === ROUTE_4.id ? '32px' : 0}
+        paddingLeft={hovered === ROUTE_4.id ? '32px' : 0}
         variants={faceItem}
       >
         <MotionSpan layout="position" display="block">
