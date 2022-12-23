@@ -18,7 +18,7 @@ import { useScroll, useSpring, useTransform } from 'framer-motion'
 import { MotionBox } from '~components/motion'
 import { SITE_CONFIG } from '~src/constants'
 
-import { ReactComponent as CliqueSvg } from '~public/img/clique.svg'
+import ImgClique, { ReactComponent as CliqueSvg } from '~public/img/clique.svg'
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
 import { ReactComponent as LogonameSvg } from '~public/brand/logoname.svg'
 import { ReactComponent as PawSvg } from '~public/img/paw.svg'
@@ -47,6 +47,9 @@ export default function Footer() {
   return (
     <Flex as="footer" pos="relative" zIndex={1} direction="column" minH="100vh" mt="-100vh">
       <ChakraClique />
+      {/* <Box w="100%">
+        <NextImage fill src={ImgClique} alt="Cute animals looking over a green hill" />
+      </Box> */}
       <Box
         flex={1}
         overflow="hidden"
