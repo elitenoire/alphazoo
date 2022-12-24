@@ -96,7 +96,7 @@ export function LearnLettersBoard() {
           animate={peepersMotion}
           style={{ opacity: borderOpacity }}
         >
-          <NextImage src={ImgPeepers} alt="Cute animals faces peeping" />
+          <NextImage src={ImgPeepers} alt="Cute animals faces peeping" unoptimized />
         </MotionBox>
         <MotionFlex minW={0} zIndex={1} style={{ x, opacity }}>
           <LearnLetters letters={AIrow} />

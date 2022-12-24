@@ -23,7 +23,7 @@ export default function Features() {
           <ListItem flexGrow={1} flexShrink={1} flexBasis={['100%', null, '50%']}>
             <MotionPop>
               <Box maxW="15em" mx="auto" bg="blackAlpha.200" rounded="circle">
-                <NextImage src={ImgAbc} alt="Colorful ABC toy blocks" />
+                <NextImage src={ImgAbc} alt="Colorful ABC toy blocks" unoptimized />
               </Box>
               <Text mt={1} fontSize="fxl" fontWeight={500}>
                 English Letters
@@ -33,7 +33,7 @@ export default function Features() {
           <ListItem flexGrow={1} flexShrink={1} flexBasis={['100%', '50%']}>
             <MotionPop delay={0.1}>
               <Box maxW="15em" mx="auto" bg="blackAlpha.200" rounded="circle">
-                <NextImage src={ImgXylo} alt="Colorful xylophone toy" />
+                <NextImage src={ImgXylo} alt="Colorful xylophone toy" unoptimized />
               </Box>
               <Text mt={1} fontSize="fxl" fontWeight={500}>
                 Phonics
@@ -43,7 +43,7 @@ export default function Features() {
           <ListItem flexGrow={1} flexShrink={1} flexBasis={['100%', '50%']}>
             <MotionPop delay={0.15}>
               <Box maxW="15em" mx="auto" bg="blackAlpha.200" rounded="circle">
-                <NextImage src={ImgDino} alt="Cute green dinosaur doodle" />
+                <NextImage src={ImgDino} alt="Cute green dinosaur doodle" unoptimized />
               </Box>
               <Text mt={1} fontSize="fxl" fontWeight={500}>
                 Animal Wiki
@@ -53,7 +53,7 @@ export default function Features() {
           <ListItem flexGrow={1} flexShrink={1} flexBasis={['100%', null, '50%']}>
             <MotionPop delay={0.2}>
               <Box maxW="15em" mx="auto" bg="blackAlpha.200" rounded="circle">
-                <NextImage src={ImgRobot} alt="Colorful toy robot" />
+                <NextImage src={ImgRobot} alt="Colorful toy robot" unoptimized />
               </Box>
               <Text mt={1} fontSize="fxl" fontWeight={500}>
                 Puzzle

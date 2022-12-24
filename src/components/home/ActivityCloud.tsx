@@ -72,7 +72,7 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
         whileDrag={{ zIndex: 9999 }}
         dragConstraints={dragConstraints}
       >
-        <NextImage src={ImgWow} alt="Wow text in cute cloud" />
+        <NextImage src={ImgWow} alt="Wow text in cute cloud" unoptimized />
       </MotionBox>
       <MotionBox
         w="100%"
@@ -85,7 +85,7 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
         whileDrag={{ zIndex: 9999 }}
         dragConstraints={dragConstraints}
       >
-        <NextImage src={ImgStar} alt="#1 text in cute star" />
+        <NextImage src={ImgStar} alt="#1 text in cute star" unoptimized />
       </MotionBox>
       <MotionBox
         w="100%"
@@ -98,7 +98,7 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
         whileDrag={{ zIndex: 9999 }}
         dragConstraints={dragConstraints}
       >
-        <NextImage src={ImgFun} alt="Fun text in cute chat bubble eyes" />
+        <NextImage src={ImgFun} alt="Fun text in cute chat bubble eyes" unoptimized />
       </MotionBox>
       <MotionBox
         w="100%"
@@ -111,7 +111,7 @@ export const ActivityCloud = ({ dragConstraints }: Pick<DraggableProps, 'dragCon
         whileDrag={{ zIndex: 9999 }}
         dragConstraints={dragConstraints}
       >
-        <NextImage src={ImgSmiley} alt="Cute smiley emoji with heart eyes" />
+        <NextImage src={ImgSmiley} alt="Cute smiley emoji with heart eyes" unoptimized />
       </MotionBox>
     </MotionFlex>
   )

@@ -80,6 +80,7 @@ export default function Mode() {
                   <NextImage
                     src={ImgLearn}
                     alt="Happy girl kneeling infront of a big ABC toy block"
+                    unoptimized
                   />
                   <Button
                     w="55%"
@@ -125,6 +126,7 @@ export default function Mode() {
                   <NextImage
                     src={ImgPlay}
                     alt="Happy boy sitting infront of a big jigsaw puzzle and holding a red toy car"
+                    unoptimized
                   />
                   <Button
                     w="55%"
@@ -145,7 +147,7 @@ export default function Mode() {
           </Flex>
         </Box>
         <Box pos="absolute" bottom={0} w={['45%', null, '30%']}>
-          <NextImage src={ImgPanda} alt="Cute panda torso" />
+          <NextImage src={ImgPanda} alt="Cute panda torso" unoptimized />
         </Box>
       </MotionFlex>
       <Text as="small" align="center" display="block" opacity={0.15} _hover={{ opacity: 0.4 }}>
