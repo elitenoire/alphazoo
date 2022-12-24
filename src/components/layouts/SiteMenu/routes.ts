@@ -30,16 +30,16 @@ export const routes = [
     name: 'Wiki',
     url: ROUTES.wiki,
     color: 'pink.200',
-    img: '/img/badge-panda.svg',
-    imgAlt: 'cute panda bear',
+    img: '/img/badge-owl.svg',
+    imgAlt: 'cute owl',
   },
   {
     id: 5,
     name: 'Profile',
     url: ROUTES.profile,
     color: 'green.400',
-    img: '/img/badge-octo.svg',
-    imgAlt: 'cute octopus',
+    img: '/img/badge-unicorn.svg',
+    imgAlt: 'cute unicorn',
   },
 ]
 
