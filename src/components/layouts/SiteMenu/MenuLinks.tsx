@@ -63,7 +63,13 @@ export const MenuLinks = ({ onHoverStart, onHoverEnd }: MenuLinksProps) => {
               {route.name}
             </Link>
           </NextLink>
-          <Box pos="absolute" top="50%" left="60%" transform="translate(-50%,-50%)">
+          <Box
+            pos="absolute"
+            top="50%"
+            left="60%"
+            display={['none', null, null, 'block']}
+            transform="translate(-50%,-50%)"
+          >
             <Circle
               p={6}
               opacity={0}

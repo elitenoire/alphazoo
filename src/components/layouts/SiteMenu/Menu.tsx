@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import NextImage from 'next/future/image'
 import { Box, Flex, Link, useModalContext } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
 import { SITE_CONFIG } from '~src/constants'
@@ -9,6 +10,7 @@ import { menuOverlay } from './variants'
 
 import { ReactComponent as GithubSvg } from '~public/icons/github.svg'
 import { ReactComponent as BuyCoffeeSvg } from '~public/icons/buymeacoffee.svg'
+import branchUrl from '~public/img/menu-branch.svg'
 
 export default function Menu() {
   const { isOpen, getDialogProps } = useModalContext()
@@ -39,7 +41,7 @@ export default function Menu() {
       variants={menuOverlay}
       {...dialogProps}
     >
-      <Flex direction="column" rowGap={4} minH="100%">
+      <Flex pos="relative" zIndex={1} direction="column" rowGap={4} minH="100%">
         <Box pos="relative" zIndex={1} flex={1} overflow="hidden" pt={[20, null, null, 14]} px={8}>
           <Flex
             align="center"
@@ -93,6 +95,9 @@ export default function Menu() {
       >
         <GithubSvg fill="currentColor" />
       </Link>
+      <Box pos="fixed" top={0} right={0} w={['80%', null, '50%']} opacity={0.2}>
+        <NextImage src={branchUrl} alt="" unoptimized />
+      </Box>
     </MotionBox>
   )
 }
