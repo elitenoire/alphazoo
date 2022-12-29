@@ -1,0 +1,38 @@
+import create from 'zustand'
+import { persist } from 'zustand/middleware'
+import { SOUND_SETTINGS } from '~src/constants'
+
+interface SoundStore {
+  music: boolean
+  musicVolume: number
+  soundPhonics: boolean
+  soundPhonicsVolume: number
+  soundEffects: boolean
+  soundEffectsVolume: number
+  toggleMusic: () => void
+  toggleSoundPhonics: () => void
+  toggleSoundEffects: () => void
+  setMusicVolume: (volume: number) => void
+  setSoundPhonicsVolume: (volume: number) => void
+  setSoundEffectsVolume: (volume: number) => void
+}
+
+export const useSoundStore = create<SoundStore>()(
+  persist(
+    (set, get) => ({
+      music: true,
+      soundEffects: true,
+      soundPhonics: true,
+      musicVolume: SOUND_SETTINGS.normalVolumeMusic,
+      soundEffectsVolume: SOUND_SETTINGS.normalVolumeSound,
+      soundPhonicsVolume: SOUND_SETTINGS.normalVolumeSound,
+      toggleMusic: () => set({ music: !get().music }),
+      toggleSoundPhonics: () => set({ soundPhonics: !get().soundPhonics }),
+      toggleSoundEffects: () => set({ soundEffects: !get().soundEffects }),
+      setMusicVolume: (volume) => set({ musicVolume: volume }),
+      setSoundPhonicsVolume: (volume) => set({ soundPhonicsVolume: volume }),
+      setSoundEffectsVolume: (volume) => set({ soundEffectsVolume: volume }),
+    }),
+    { name: SOUND_SETTINGS.storeName }
+  )
+)
