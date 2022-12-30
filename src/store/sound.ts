@@ -1,8 +1,9 @@
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import { SOUND_SETTINGS } from '~src/constants'
+import { createSelectors } from './selectors'
 
-interface SoundStore {
+export interface SoundState {
   music: boolean
   musicVolume: number
   soundPhonics: boolean
@@ -17,22 +18,24 @@ interface SoundStore {
   setSoundEffectsVolume: (volume: number) => void
 }
 
-export const useSoundStore = create<SoundStore>()(
-  persist(
-    (set, get) => ({
-      music: true,
-      soundEffects: true,
-      soundPhonics: true,
-      musicVolume: SOUND_SETTINGS.normalVolumeMusic,
-      soundEffectsVolume: SOUND_SETTINGS.normalVolumeSound,
-      soundPhonicsVolume: SOUND_SETTINGS.normalVolumeSound,
-      toggleMusic: () => set({ music: !get().music }),
-      toggleSoundPhonics: () => set({ soundPhonics: !get().soundPhonics }),
-      toggleSoundEffects: () => set({ soundEffects: !get().soundEffects }),
-      setMusicVolume: (volume) => set({ musicVolume: volume }),
-      setSoundPhonicsVolume: (volume) => set({ soundPhonicsVolume: volume }),
-      setSoundEffectsVolume: (volume) => set({ soundEffectsVolume: volume }),
-    }),
-    { name: SOUND_SETTINGS.storeName }
+export const useSoundStore = createSelectors(
+  create<SoundState>()(
+    persist(
+      (set, get) => ({
+        music: true,
+        soundEffects: true,
+        soundPhonics: true,
+        musicVolume: SOUND_SETTINGS.normalVolumeMusic,
+        soundEffectsVolume: SOUND_SETTINGS.normalVolumeSound,
+        soundPhonicsVolume: SOUND_SETTINGS.normalVolumeSound,
+        toggleMusic: () => set({ music: !get().music }),
+        toggleSoundPhonics: () => set({ soundPhonics: !get().soundPhonics }),
+        toggleSoundEffects: () => set({ soundEffects: !get().soundEffects }),
+        setMusicVolume: (volume) => set({ musicVolume: volume }),
+        setSoundPhonicsVolume: (volume) => set({ soundPhonicsVolume: volume }),
+        setSoundEffectsVolume: (volume) => set({ soundEffectsVolume: volume }),
+      }),
+      { name: SOUND_SETTINGS.storeName }
+    )
   )
 )

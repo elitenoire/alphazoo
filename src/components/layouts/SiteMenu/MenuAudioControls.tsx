@@ -8,7 +8,13 @@ import {
   SliderFilledTrack,
   SliderThumb,
 } from '@chakra-ui/react'
-import { MusicButton, SoundsButton, AudioButtonProps } from './MenuAudioButtons'
+import { useSoundStore } from '~/src/store'
+import {
+  MusicButton,
+  SoundFxButton,
+  SoundPhonicsButton,
+  AudioButtonProps,
+} from './MenuAudioButtons'
 
 interface AudioControlProps {
   id: string
@@ -33,7 +39,7 @@ const AudioControl = ({
 
   const handleChangeEnd = useCallback(
     (val: number) => {
-      onChangeEnd?.(val)
+      onChangeEnd?.(val / 100)
     },
     [onChangeEnd]
   )
@@ -74,27 +80,46 @@ const AudioControl = ({
 }
 
 export const MusicControl = () => {
-  return <AudioControl id="music-control" initialValue={30} label="Music" control={MusicButton} />
+  const volume = useSoundStore.use.musicVolume()
+  const setVolume = useSoundStore.use.setMusicVolume()
+
+  return (
+    <AudioControl
+      id="music-control"
+      initialValue={volume * 100}
+      label="Music"
+      control={MusicButton}
+      onChangeEnd={setVolume}
+    />
+  )
 }
 
 export const SoundPhonicsControl = () => {
+  const volume = useSoundStore.use.soundPhonicsVolume()
+  const setVolume = useSoundStore.use.setSoundPhonicsVolume()
+
   return (
     <AudioControl
       id="sound-phonics-control"
-      initialValue={30}
+      initialValue={volume * 100}
       label="Sound (Phonics)"
-      control={SoundsButton}
+      control={SoundPhonicsButton}
+      onChangeEnd={setVolume}
     />
   )
 }
 
 export const SoundEffectsControl = () => {
+  const volume = useSoundStore.use.soundEffectsVolume()
+  const setVolume = useSoundStore.use.setSoundEffectsVolume()
+
   return (
     <AudioControl
       id="sound-effects-control"
-      initialValue={30}
+      initialValue={volume * 100}
       label="Sound (Effects)"
-      control={SoundsButton}
+      control={SoundFxButton}
+      onChangeEnd={setVolume}
     />
   )
 }
