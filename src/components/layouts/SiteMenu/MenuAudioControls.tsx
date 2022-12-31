@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import {
   Text,
   Grid,
@@ -18,7 +18,7 @@ import {
 
 interface AudioControlProps {
   id: string
-  initialValue: number
+  value: number
   label: string
   control: (props: AudioButtonProps) => JSX.Element
   onChangeEnd?: (val: number) => void
@@ -26,12 +26,12 @@ interface AudioControlProps {
 
 const AudioControl = ({
   id,
-  initialValue,
+  value: initialValue = 0.5,
   label,
   control: Control,
   onChangeEnd,
 }: AudioControlProps) => {
-  const [value, setValue] = useState(initialValue)
+  const [value, setValue] = useState(initialValue * 100)
 
   const handleChange = useCallback((val: number) => {
     setValue(val)
@@ -43,6 +43,12 @@ const AudioControl = ({
     },
     [onChangeEnd]
   )
+
+  useEffect(() => {
+    if (initialValue >= 0) {
+      setValue(initialValue * 100)
+    }
+  }, [initialValue])
 
   return (
     <Grid
@@ -63,6 +69,8 @@ const AudioControl = ({
           colorScheme="secondary"
           onChange={handleChange}
           onChangeEnd={handleChangeEnd}
+          step={1}
+          value={value}
         >
           <SliderTrack h={2} bg="blackAlpha.300" rounded="full">
             <SliderFilledTrack bg="currentColor" />
@@ -83,10 +91,12 @@ export const MusicControl = () => {
   const volume = useSoundStore.use.musicVolume()
   const setVolume = useSoundStore.use.setMusicVolume()
 
+  console.log({ mVolume: volume })
+
   return (
     <AudioControl
       id="music-control"
-      initialValue={volume * 100}
+      value={volume}
       label="Music"
       control={MusicButton}
       onChangeEnd={setVolume}
@@ -101,7 +111,7 @@ export const SoundPhonicsControl = () => {
   return (
     <AudioControl
       id="sound-phonics-control"
-      initialValue={volume * 100}
+      value={volume}
       label="Sound (Phonics)"
       control={SoundPhonicsButton}
       onChangeEnd={setVolume}
@@ -116,7 +126,7 @@ export const SoundEffectsControl = () => {
   return (
     <AudioControl
       id="sound-effects-control"
-      initialValue={volume * 100}
+      value={volume}
       label="Sound (Effects)"
       control={SoundFxButton}
       onChangeEnd={setVolume}
