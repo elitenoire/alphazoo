@@ -117,6 +117,9 @@ const theme = extendTheme(
         '::-moz-selection': {
           bg: 'brand.300',
         },
+        '.w-full': {
+          width: '100%',
+        },
       },
     },
     layerStyles: {
