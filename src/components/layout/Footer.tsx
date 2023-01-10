@@ -34,7 +34,102 @@ const ChakraClique = chakra(CliqueSvg)
 const ChakraPaw = chakra(PawSvg)
 const ChakraArrow = chakra(ArrowSvg)
 
-export default function Footer() {
+export interface FooterProps {
+  full?: boolean
+}
+
+const FooterBase = () => {
+  return (
+    <Flex
+      align="center"
+      justify="center"
+      wrap={['wrap', null, 'nowrap']}
+      direction={['column', 'row']}
+      rowGap={4}
+      columnGap={8}
+      py={4}
+      borderStyle="dashed"
+      borderColor={['transparent', null, 'brand.900']}
+      borderTopWidth="4px"
+      borderBottomWidth="4px"
+    >
+      <NextLink href="/" passHref>
+        <Link
+          gap={4}
+          display="flex"
+          w="full"
+          maxW="3xs"
+          _hover={{ color: 'brand.400' }}
+          aria-label={SITE_CONFIG.appName}
+        >
+          <BrandLogo flex={1} fill="currentcolor" />
+          <BrandLogoName flex={2.5} fill="currentcolor" />
+        </Link>
+      </NextLink>
+      <Flex justify="center" wrap={['wrap', null, 'nowrap']} gap={[2, null, null, 4]}>
+        <IconButton
+          as={Link}
+          color="inherit"
+          _hover={{
+            color: 'brand.300',
+          }}
+          _active={{
+            bgColor: 'whiteAlpha.100',
+          }}
+          aria-label="Github Page"
+          bgColor="whiteAlpha.50"
+          href={SITE_CONFIG.githubLink}
+          icon={<Icon as={GithubSvg} fill="currentcolor" />}
+          isExternal
+          size="md"
+          title="Github Page"
+        />
+        <IconButton
+          as={Link}
+          color="inherit"
+          _hover={{
+            color: 'brand.300',
+          }}
+          _active={{
+            bgColor: 'whiteAlpha.100',
+          }}
+          aria-label="Contact Me"
+          bgColor="whiteAlpha.50"
+          href={`mailto:evathecoderr@outlook.com?subject=REF From ${SITE_CONFIG.appName.toUpperCase()}`}
+          icon={<Icon as={MailSvg} fill="currentcolor" />}
+          isExternal
+          size="md"
+          title="Contact Me"
+        />
+        <IconButton
+          as={Link}
+          color="inherit"
+          _hover={{
+            color: 'brand.300',
+          }}
+          _active={{
+            bgColor: 'whiteAlpha.100',
+          }}
+          aria-label="Support Me"
+          bgColor="whiteAlpha.50"
+          href={SITE_CONFIG.supportLink}
+          icon={<Icon as={BuyCoffeeSvg} fill="currentcolor" />}
+          isExternal
+          size="md"
+          title="Support Me"
+        />
+      </Flex>
+      <Text align={['center', null, 'right']} w="full">
+        &copy; {new Date().getFullYear()}. Made with love by{' '}
+        <Link href={SITE_CONFIG.repoOwnerLink} isExternal variant="footer">
+          elitenoire
+        </Link>
+      </Text>
+    </Flex>
+  )
+}
+
+export const Footer = ({ full }: FooterProps) => {
   const containerRef = useRef(null)
 
   const { scrollYProgress } = useScroll({
@@ -44,11 +139,11 @@ export default function Footer() {
 
   const y = useSpring(useTransform(scrollYProgress, [0.1, 0.35], [50, -30]), { stiffness: 60 })
 
-  return (
+  return full ? (
     <Flex as="footer" pos="relative" zIndex={1} direction="column" minH="100vh" mt="-100vh">
       <ChakraClique />
       {/* <Box w="100%">
-        <NextImage fill src={ImgClique} alt="Cute animals looking over a green hill" />
+        <NextImage fill src={ImgClique} alt="Cute animals looking over a green hill" unoptimized />
       </Box> */}
       <Box
         flex={1}
@@ -144,7 +239,7 @@ export default function Footer() {
                     </LinkOverlay>
                   </Text>
                   <Box pos="absolute" top="-10%" right={0} w={['20%', null, '23%']}>
-                    <NextImage src={ImgTwostar} alt="" />
+                    <NextImage src={ImgTwostar} alt="" unoptimized />
                   </Box>
                   <ChakraPaw
                     id="paw-skin"
@@ -164,96 +259,16 @@ export default function Footer() {
                 </LinkBox>
               </MotionBox>
             </Flex>
-            <Flex
-              align="center"
-              justify="center"
-              wrap={['wrap', null, 'nowrap']}
-              direction={['column', 'row']}
-              rowGap={4}
-              columnGap={8}
-              py={4}
-              borderStyle="dashed"
-              borderColor={['transparent', null, 'brand.900']}
-              borderTopWidth="4px"
-              borderBottomWidth="4px"
-            >
-              <NextLink href="/" passHref>
-                <Link
-                  gap={4}
-                  display="flex"
-                  w="full"
-                  maxW="3xs"
-                  _hover={{ color: 'brand.400' }}
-                  aria-label={SITE_CONFIG.appName}
-                >
-                  <BrandLogo flex={1} fill="currentcolor" />
-                  <BrandLogoName flex={2.5} fill="currentcolor" />
-                </Link>
-              </NextLink>
-              <Flex justify="center" wrap={['wrap', null, 'nowrap']} gap={[2, null, null, 4]}>
-                <IconButton
-                  as={Link}
-                  color="inherit"
-                  _hover={{
-                    color: 'brand.300',
-                  }}
-                  _active={{
-                    bgColor: 'whiteAlpha.100',
-                  }}
-                  aria-label="Github Page"
-                  bgColor="whiteAlpha.50"
-                  href={SITE_CONFIG.githubLink}
-                  icon={<Icon as={GithubSvg} fill="currentcolor" />}
-                  isExternal
-                  size="md"
-                  title="Github Page"
-                />
-                <IconButton
-                  as={Link}
-                  color="inherit"
-                  _hover={{
-                    color: 'brand.300',
-                  }}
-                  _active={{
-                    bgColor: 'whiteAlpha.100',
-                  }}
-                  aria-label="Contact Me"
-                  bgColor="whiteAlpha.50"
-                  href={`mailto:evathecoderr@outlook.com?subject=REF From ${SITE_CONFIG.appName.toUpperCase()}`}
-                  icon={<Icon as={MailSvg} fill="currentcolor" />}
-                  isExternal
-                  size="md"
-                  title="Contact Me"
-                />
-                <IconButton
-                  as={Link}
-                  color="inherit"
-                  _hover={{
-                    color: 'brand.300',
-                  }}
-                  _active={{
-                    bgColor: 'whiteAlpha.100',
-                  }}
-                  aria-label="Support Me"
-                  bgColor="whiteAlpha.50"
-                  href={SITE_CONFIG.supportLink}
-                  icon={<Icon as={BuyCoffeeSvg} fill="currentcolor" />}
-                  isExternal
-                  size="md"
-                  title="Support Me"
-                />
-              </Flex>
-
-              <Text align={['center', null, 'right']} w="full">
-                &copy; {new Date().getFullYear()}. Made with love by{' '}
-                <Link href={SITE_CONFIG.repoOwnerLink} isExternal variant="footer">
-                  elitenoire
-                </Link>
-              </Text>
-            </Flex>
+            <FooterBase />
           </Flex>
         </Container>
       </Box>
     </Flex>
+  ) : (
+    <Box as="footer" pt={12} pb={[8, null, 14]} px={[null, 4]} bg="black">
+      <Container maxW="container.max">
+        <FooterBase />
+      </Container>
+    </Box>
   )
 }
