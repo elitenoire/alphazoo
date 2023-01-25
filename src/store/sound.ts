@@ -1,5 +1,5 @@
-import create from 'zustand'
-import { persist } from 'zustand/middleware'
+import { create } from 'zustand'
+import { persist, subscribeWithSelector } from 'zustand/middleware'
 import { SOUND_SETTINGS } from '~src/constants'
 import { createSelectors } from './selectors'
 
@@ -23,25 +23,27 @@ export interface SoundState {
 
 export const useSoundStore = createSelectors(
   create<SoundState>()(
-    persist(
-      (set, get) => ({
-        music: true,
-        soundEffects: true,
-        soundPhonics: true,
-        musicVolume: SOUND_SETTINGS.normalVolumeMusic,
-        soundEffectsVolume: SOUND_SETTINGS.normalVolumeSound,
-        soundPhonicsVolume: SOUND_SETTINGS.normalVolumeSound,
-        toggleMusic: () => set({ music: !get().music }),
-        toggleSoundPhonics: () => set({ soundPhonics: !get().soundPhonics }),
-        toggleSoundEffects: () => set({ soundEffects: !get().soundEffects }),
-        setMusic: (state) => set({ music: state }),
-        setSoundPhonics: (state) => set({ soundPhonics: state }),
-        setSoundEffects: (state) => set({ soundEffects: state }),
-        setMusicVolume: (volume) => set({ musicVolume: volume }),
-        setSoundPhonicsVolume: (volume) => set({ soundPhonicsVolume: volume }),
-        setSoundEffectsVolume: (volume) => set({ soundEffectsVolume: volume }),
-      }),
-      { name: SOUND_SETTINGS.storeName }
+    subscribeWithSelector(
+      persist(
+        (set, get) => ({
+          music: true,
+          soundEffects: true,
+          soundPhonics: true,
+          musicVolume: SOUND_SETTINGS.normalVolumeMusic,
+          soundEffectsVolume: SOUND_SETTINGS.normalVolumeSound,
+          soundPhonicsVolume: SOUND_SETTINGS.normalVolumeSound,
+          toggleMusic: () => set({ music: !get().music }),
+          toggleSoundPhonics: () => set({ soundPhonics: !get().soundPhonics }),
+          toggleSoundEffects: () => set({ soundEffects: !get().soundEffects }),
+          setMusic: (state) => set({ music: state }),
+          setSoundPhonics: (state) => set({ soundPhonics: state }),
+          setSoundEffects: (state) => set({ soundEffects: state }),
+          setMusicVolume: (volume) => set({ musicVolume: volume }),
+          setSoundPhonicsVolume: (volume) => set({ soundPhonicsVolume: volume }),
+          setSoundEffectsVolume: (volume) => set({ soundEffectsVolume: volume }),
+        }),
+        { name: SOUND_SETTINGS.storeName }
+      )
     )
   )
 )
