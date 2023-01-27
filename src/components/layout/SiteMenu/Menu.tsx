@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react'
 import NextImage from 'next/future/image'
-import { Box, Flex, Link, useModalContext } from '@chakra-ui/react'
+import { Box, Flex, useModalContext } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
+import { SfxLink } from '~components/sfx'
 import { SITE_CONFIG } from '~src/constants'
 import { MenuLinks } from './MenuLinks'
 import { MenuAudioPanel } from './MenuAudioPanel'
@@ -59,7 +60,7 @@ export default function Menu() {
         </Box>
         <MenuFaces hovered={hovered} />
       </Flex>
-      <Link
+      <SfxLink
         pos="fixed"
         bottom={0}
         left={0}
@@ -76,8 +77,8 @@ export default function Menu() {
         transitionDuration="normal"
       >
         <BuyCoffeeSvg fill="currentColor" />
-      </Link>
-      <Link
+      </SfxLink>
+      <SfxLink
         pos="fixed"
         right={0}
         bottom={0}
@@ -94,7 +95,7 @@ export default function Menu() {
         transitionDuration="normal"
       >
         <GithubSvg fill="currentColor" />
-      </Link>
+      </SfxLink>
       <Box pos="fixed" top={0} right={0} w={['80%', null, '50%']} opacity={0.2}>
         <NextImage src={branchUrl} alt="" unoptimized />
       </Box>

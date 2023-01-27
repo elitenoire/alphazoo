@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
 import NextLink from 'next/link'
 import { useAnimationControls, useScroll, useVelocity, AnimatePresence } from 'framer-motion'
-import { Box, Flex, Link, useToken, useModalContext } from '@chakra-ui/react'
+import { Box, Flex, useToken, useModalContext } from '@chakra-ui/react'
 import { MotionFlex, MotionBox, MotionSpan, MotionBurger } from '~components/motion'
+import { SfxLink } from '~components/sfx'
 import { SITE_CONFIG } from '~src/constants'
 
 import { MusicButton, SoundFxButton } from './MenuAudioButtons'
+import { menuBarBg } from './variants'
 
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
 import { ReactComponent as LogonameSvg } from '~public/brand/logoname.svg'
-import { menuBarBg } from './variants'
 
 type ModalContextExtended = ReturnType<typeof useModalContext> & {
   toggleOpen: () => void
@@ -32,11 +33,11 @@ export default function MenuBar() {
   const scrollVelocity = useVelocity(scrollY)
 
   useEffect(() => {
-    const unSubScrollY = scrollY.onChange((y) => {
+    const unSubScrollY = scrollY.on('change', (y) => {
       setIsAtTop(y <= 0)
     })
 
-    const unSubVelocity = scrollVelocity.onChange((v) => {
+    const unSubVelocity = scrollVelocity.on('change', (v) => {
       if (v > 0) {
         setIsScrollingBack(false)
       }
@@ -76,7 +77,7 @@ export default function MenuBar() {
       variants={menuBarBg}
     >
       <NextLink href="/" passHref>
-        <Link
+        <SfxLink
           alignItems="center"
           gap={2}
           display="flex"
@@ -115,7 +116,7 @@ export default function MenuBar() {
               </MotionSpan>
             )}
           </AnimatePresence>
-        </Link>
+        </SfxLink>
       </NextLink>
 
       <MotionFlex

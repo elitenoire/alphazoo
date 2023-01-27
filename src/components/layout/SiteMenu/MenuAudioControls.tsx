@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 import { useState, useCallback, useEffect } from 'react'
 import {
   Text,
@@ -20,7 +21,8 @@ interface AudioControlProps {
   id: string
   value: number
   label: string
-  control: (props: AudioButtonProps) => JSX.Element
+  // control: (props: AudioButtonProps) => JSX.Element
+  control: ComponentType<AudioButtonProps>
   onChangeEnd?: (val: number) => void
 }
 
@@ -90,8 +92,6 @@ const AudioControl = ({
 export const MusicControl = () => {
   const volume = useSoundStore.use.musicVolume()
   const setVolume = useSoundStore.use.setMusicVolume()
-
-  console.log({ mVolume: volume })
 
   return (
     <AudioControl

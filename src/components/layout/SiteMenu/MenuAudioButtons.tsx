@@ -3,11 +3,12 @@ import { motion } from 'framer-motion'
 import useSound from 'use-sound'
 import { IconButton, IconButtonProps, useToken } from '@chakra-ui/react'
 import { MusicBold, VolumeHighBold, VolumeSlashBold } from 'react-iconsax-icons'
+import { useSoundStore } from '~/src/store'
+import { useGeneralSfx } from '~/src/context/sfx'
+
 import { ReactComponent as MusicSlashBold } from '~public/icons/musicslash.svg'
 import { ReactComponent as HearingOutline } from '~public/icons/hearing.svg'
 import { ReactComponent as HearingSlashOutline } from '~public/icons/hearingslash.svg'
-import { useSoundStore } from '~/src/store'
-import useHoverSfx from '~/src/hooks/useHoverSfx'
 
 type MenuIconButtonProps = Omit<IconButtonProps, 'aria-label'> & {
   whenFixed?: boolean
@@ -37,7 +38,7 @@ const MenuAudioButton = ({
   const disabledColor = useToken('colors', 'blackAlpha.700', 'rgba(0,0,0,0.65)')
   const [enable, setEnable] = useState(initialEnable ?? true)
 
-  const playOnHover = useHoverSfx()
+  const { playHover } = useGeneralSfx()
 
   const toggleAudio = useCallback(() => {
     setEnable((_enable) => !_enable)
@@ -72,7 +73,7 @@ const MenuAudioButton = ({
         {...rest}
         aria-label={ariaLabel}
         onClick={toggleAudio}
-        onMouseEnter={playOnHover}
+        onMouseEnter={playHover}
         title={ariaLabel}
       >
         {enable ? iconOn : iconOff}
@@ -92,6 +93,7 @@ export const MusicButton = ({ iconSize = '65%', label = 'Music', ...rest }: Audi
   const prevVolumeRef = useRef(soundVolume)
 
   const volume = useSoundStore.use.soundEffectsVolume()
+
   const [playOff] = useSound('./sounds/music-off.mp3', { volume })
   const [playOn] = useSound('./sounds/music-on.mp3', { volume })
 
@@ -142,6 +144,7 @@ export const SoundFxButton = ({
   const prevVolumeRef = useRef(soundVolume)
 
   const volume = soundVolume || prevVolumeRef.current
+
   const [playOff] = useSound('./sounds/sfx-off.mp3', { volume })
   const [playOn] = useSound('./sounds/sfx-on.mp3', { volume })
 
@@ -192,6 +195,7 @@ export const SoundPhonicsButton = ({
   const prevVolumeRef = useRef(soundVolume)
 
   const volume = useSoundStore.use.soundEffectsVolume()
+
   const [playOff] = useSound('./sounds/sfx-off.mp3', { volume })
   const [playOn] = useSound('./sounds/sfx-on.mp3', { volume })
 
