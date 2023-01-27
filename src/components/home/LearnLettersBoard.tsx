@@ -1,4 +1,5 @@
-import { useRef, useEffect, useCallback } from 'react'
+import type { MouseEvent } from 'react'
+import { useRef, useCallback } from 'react'
 import NextImage from 'next/future/image'
 import {
   useScroll,
@@ -11,7 +12,7 @@ import {
 } from 'framer-motion'
 import { Box, useToken } from '@chakra-ui/react'
 import { MotionSpan, MotionBox, MotionFlex, MotionText } from '~components/motion'
-import { useAnimeBg } from '~components/AnimatableBackground'
+import { useAnimeBg } from '~src/hooks/useAnimeBg'
 import { AIrow, JQrow, RZrow } from '~src/data/glyphs'
 import { LearnLetters } from './LearnLetters'
 
@@ -20,7 +21,6 @@ import ImgPeepers from '~public/img/peepers.svg'
 
 export function LearnLettersBoard() {
   const [currentBg, boardBg, newBg] = useToken('colors', ['brand.600', 'black', 'secondary.200'])
-  const { animeBg } = useAnimeBg()
   const peepersMotion = useAnimationControls()
 
   const stripScrollBodyRef = useRef(null)
@@ -39,8 +39,10 @@ export function LearnLettersBoard() {
   const borderColor = useMotionTemplate`rgba(250,240,137,${borderOpacity})`
   const bubbleMove = useTransform(yScroll, [0, 0.2], [60, -15])
 
+  const bgTransformer = transform([0, 0.2, 0.95, 1], [currentBg, boardBg, boardBg, newBg])
+
   const handleMouseMove = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
+    (event: MouseEvent<HTMLDivElement>) => {
       const offsetX = event.clientX - window.innerWidth / 2
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       peepersMotion.start({ x: Math.max(offsetX / 5, 5) }, { type: 'spring', stiffness: 60 })
@@ -48,17 +50,7 @@ export function LearnLettersBoard() {
     [peepersMotion]
   )
 
-  useEffect(() => {
-    const transformer = transform([0, 0.2, 0.95, 1], [currentBg, boardBg, boardBg, newBg])
-
-    const unsubscribe = yScroll.onChange((val) => {
-      animeBg?.set(transformer(val))
-    })
-
-    return () => {
-      unsubscribe()
-    }
-  }, [animeBg, boardBg, currentBg, newBg, yScroll])
+  useAnimeBg(yScroll, bgTransformer)
 
   return (
     <Box ref={stripScrollBodyRef} h="300vw" mt={32}>

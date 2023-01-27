@@ -1,28 +1,18 @@
-import { createContext, useContext, ReactNode } from 'react'
-import { motion, useMotionValue, MotionValue } from 'framer-motion'
+import type { PropsWithChildren } from 'react'
+import { motion, useMotionValue } from 'framer-motion'
 import { useToken } from '@chakra-ui/react'
-
-interface TAnimeBg {
-  animeBg?: MotionValue<string>
-}
-
-export const AnimeBgContext = createContext<TAnimeBg>({})
-
-export const useAnimeBg = () => useContext(AnimeBgContext)
+import { AnimeBgContextProvider } from '~src/context/animeBg'
 
 export const AnimatableBackground = ({
   bg = 'background',
   children,
-}: {
-  bg?: string
-  children: ReactNode
-}) => {
+}: PropsWithChildren<{ bg?: string }>) => {
   const initialBg = useToken('colors', bg, 'white')
   const backgroundColor = useMotionValue(initialBg)
 
   return (
-    <AnimeBgContext.Provider value={{ animeBg: backgroundColor }}>
+    <AnimeBgContextProvider value={{ animeBg: backgroundColor }}>
       <motion.div style={{ backgroundColor }}>{children}</motion.div>
-    </AnimeBgContext.Provider>
+    </AnimeBgContextProvider>
   )
 }

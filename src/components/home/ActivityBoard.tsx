@@ -1,15 +1,14 @@
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { Heading, Box, Flex, Text, SimpleGrid } from '@chakra-ui/react'
 import { useScroll, useSpring, useTransform, transform, MotionValue } from 'framer-motion'
 import { useToken } from '@chakra-ui/react'
 import { MotionFlex } from '~components/motion'
-import { useAnimeBg } from '~components/AnimatableBackground'
+import { useAnimeBg } from '~src/hooks/useAnimeBg'
 
 // import { ActivityBoardCanvas } from './ActivityBoardCanvas'
 
 export function ActivityBoard() {
   const [currentBg, newBg] = useToken('colors', ['secondary.200', 'background'])
-  const { animeBg } = useAnimeBg()
 
   const activityBoardRef = useRef(null)
 
@@ -22,17 +21,9 @@ export function ActivityBoard() {
   const scale = useTransform(yScroll, [0, 0.2], [0.875, 1])
   const opacity = useTransform(yScroll, [0, 0.05], [0, 1])
 
-  useEffect(() => {
-    const transformer = transform([0, 0.5], [currentBg, newBg])
+  const transformer = transform([0, 0.5], [currentBg, newBg])
 
-    const unsubscribe = scrollYProgress.onChange((val) => {
-      animeBg?.set(transformer(val))
-    })
-
-    return () => {
-      unsubscribe()
-    }
-  }, [animeBg, currentBg, newBg, scrollYProgress])
+  useAnimeBg(scrollYProgress, transformer)
 
   return (
     <MotionFlex

@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { useScroll, transform } from 'framer-motion'
 import { Box, Flex, Text, VisuallyHidden, Link, useToken, chakra } from '@chakra-ui/react'
 import { MotionPop, MagneticBox } from '~components/motion'
 import { AnimalHead, AnimalHeadType } from '~components/AnimalHead'
-import { useAnimeBg } from '~components/AnimatableBackground'
+import { useAnimeBg } from '~src/hooks/useAnimeBg'
 import { HOMEPAGE_IDS, SITE_CONFIG } from '~src/constants'
 
 import { ReactComponent as ScenerySvg } from '~public/img/scenery.svg'
@@ -39,7 +39,6 @@ const MotionAnimal = ({ animal, shift, children }: MotionAnimalProps) => {
 
 export default function Intro() {
   const [currentBg, newBg] = useToken('colors', ['brand.700', 'brand.600'])
-  const { animeBg } = useAnimeBg()
 
   const sceneRef = useRef(null)
 
@@ -48,17 +47,9 @@ export default function Intro() {
     offset: ['0.25 end', 'end start'],
   })
 
-  useEffect(() => {
-    const transformer = transform([0, 0.25], [currentBg, newBg])
+  const transformer = transform([0, 0.25], [currentBg, newBg])
 
-    const unsubscribe = scrollYProgress.onChange((val) => {
-      animeBg?.set(transformer(val))
-    })
-
-    return () => {
-      unsubscribe()
-    }
-  }, [animeBg, scrollYProgress, newBg, currentBg])
+  useAnimeBg(scrollYProgress, transformer)
 
   return (
     <Box as="section" mb={[null, 20]} pt={56} aria-labelledby={HOMEPAGE_IDS.intro}>
