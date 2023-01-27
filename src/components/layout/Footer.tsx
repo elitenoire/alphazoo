@@ -10,12 +10,12 @@ import {
   LinkBox,
   LinkOverlay,
   Icon,
-  IconButton,
   Text,
   chakra,
 } from '@chakra-ui/react'
 import { useScroll, useSpring, useTransform } from 'framer-motion'
 import { MotionBox } from '~components/motion'
+import { SfxLink, SfxIconButton } from '~components/sfx'
 import { SITE_CONFIG } from '~src/constants'
 
 import ImgClique, { ReactComponent as CliqueSvg } from '~public/img/clique.svg'
@@ -54,7 +54,7 @@ const FooterBase = () => {
       borderBottomWidth="4px"
     >
       <NextLink href="/" passHref>
-        <Link
+        <SfxLink
           gap={4}
           display="flex"
           w="full"
@@ -64,10 +64,10 @@ const FooterBase = () => {
         >
           <BrandLogo flex={1} fill="currentcolor" />
           <BrandLogoName flex={2.5} fill="currentcolor" />
-        </Link>
+        </SfxLink>
       </NextLink>
       <Flex justify="center" wrap={['wrap', null, 'nowrap']} gap={[2, null, null, 4]}>
-        <IconButton
+        <SfxIconButton
           as={Link}
           color="inherit"
           _hover={{
@@ -84,7 +84,7 @@ const FooterBase = () => {
           size="md"
           title="Github Page"
         />
-        <IconButton
+        <SfxIconButton
           as={Link}
           color="inherit"
           _hover={{
@@ -101,7 +101,7 @@ const FooterBase = () => {
           size="md"
           title="Contact Me"
         />
-        <IconButton
+        <SfxIconButton
           as={Link}
           color="inherit"
           _hover={{

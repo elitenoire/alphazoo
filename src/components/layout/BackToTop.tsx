@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
-import { motion, useScroll, AnimatePresence } from 'framer-motion'
+import { useState, useCallback } from 'react'
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import { IconButton, Box, BoxProps } from '@chakra-ui/react'
 import { ArrowUpBold } from 'react-iconsax-icons'
+import { useGeneralSfx } from '~/src/context/sfx'
 
 interface BackToTopProps extends BoxProps {
   threshold?: number
@@ -15,24 +16,25 @@ export const BackToTop = ({
 }: BackToTopProps) => {
   const [show, setShow] = useState(false)
   const { scrollY } = useScroll()
+  const { playAscend, playHover } = useGeneralSfx()
 
-  const scrollToTop = useCallback(() => {
+  const handleClick = useCallback(() => {
+    playAscend?.()
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: 'smooth',
     })
-  }, [])
+  }, [playAscend])
 
-  useEffect(() => {
-    const unSubscribe = scrollY.onChange((latest) => {
+  const updateShow = useCallback(
+    (latest: number) => {
       setShow(latest > threshold)
-    })
+    },
+    [threshold]
+  )
 
-    return () => {
-      unSubscribe()
-    }
-  }, [scrollY, threshold])
+  useMotionValueEvent(scrollY, 'change', updateShow)
 
   return (
     <AnimatePresence>
@@ -63,7 +65,8 @@ export const BackToTop = ({
               }}
               aria-label="Back to Top"
               icon={<ArrowUpBold color="currentColor" size="100%" />}
-              onClick={scrollToTop}
+              onClick={handleClick}
+              onMouseEnter={playHover}
               size="lg"
               title="Back to Top"
               transitionDuration="0.25s"

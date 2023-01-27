@@ -7,8 +7,9 @@ import {
   useWillChange,
   MotionValue,
 } from 'framer-motion'
-import { Box, Flex, Heading, Text, Button, useToken } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, useToken } from '@chakra-ui/react'
 import { MotionBox, MagneticBox } from '~components/motion'
+import { SfxButton } from '~components/sfx'
 import { SITE_CONFIG, HOMEPAGE_IDS } from '~src/constants'
 
 import { ReactComponent as BackdropSVG } from '~public/img/plx-01-backdrop.svg'
@@ -198,7 +199,7 @@ export default function Hero() {
           #1 Animal ABCs app
         </Text>
         <MagneticBox display="inline-block" p={4} mt={2}>
-          <Button
+          <SfxButton
             w="6em"
             h="6em"
             p={3}
@@ -217,7 +218,7 @@ export default function Hero() {
             rounded="circle"
           >
             Scroll Down
-          </Button>
+          </SfxButton>
         </MagneticBox>
       </MotionBox>
     </Flex>

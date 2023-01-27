@@ -1,5 +1,6 @@
-import { Heading, Box, Button } from '@chakra-ui/react'
+import { Heading, Box } from '@chakra-ui/react'
 import { MotionSpan, MotionPop, MagneticBox } from '~components/motion'
+import { SfxButton } from '~components/sfx'
 
 const slide = {
   hidden: { opacity: 0, y: '100%' },
@@ -45,7 +46,7 @@ export default function Cta() {
       </Heading>
       <MotionPop delay={0.2} display="inline-block" mt={8}>
         <MagneticBox>
-          <Button color="background">Start Learning</Button>
+          <SfxButton color="background">Start Learning</SfxButton>
         </MagneticBox>
       </MotionPop>
     </Box>

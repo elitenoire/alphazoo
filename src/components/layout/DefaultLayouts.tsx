@@ -1,12 +1,12 @@
 import type { PropsWithChildren, ReactNode, ReactElement } from 'react'
+import { GeneralSoundProvider, HomeSoundProvider } from '~/src/context/sfx'
 import { AnimatableBackground } from '~components/AnimatableBackground'
-import { HomeSoundProvider } from './SoundProviders'
 import { BackToTop } from './BackToTop'
 import { Footer, FooterProps } from './Footer'
 import { Header } from './Header'
 
 interface DefaultLayoutProps extends FooterProps {
-  provider: (prop: PropsWithChildren) => JSX.Element
+  provider: (props: PropsWithChildren) => JSX.Element
   children: ReactNode
   headerContent?: ReactNode
   bg?: string
@@ -24,16 +24,18 @@ const DefaultLayout = ({
   children,
 }: DefaultLayoutProps) => {
   return (
-    <Provider>
+    <GeneralSoundProvider>
       <AnimatableBackground bg={bg}>
         <Header>{headerContent}</Header>
         <main>
-          {children}
-          {!hideBackToTop && <BackToTop />}
+          <Provider>
+            {children}
+            {!hideBackToTop && <BackToTop />}
+          </Provider>
         </main>
         {!hideFooter && <Footer full={full} />}
       </AnimatableBackground>
-    </Provider>
+    </GeneralSoundProvider>
   )
 }
 

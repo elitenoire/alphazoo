@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react'
 /**
  * Random shuffle an Array
  *
@@ -13,4 +14,18 @@ export const shuffle = <T>(array: T[]) => {
     newArray[j] = temp
   }
   return newArray
+}
+
+/**
+ * Returns the display name of a React component. Falls back to 'Component'.
+ *
+ * @param component React component
+ *
+ */
+export const getDisplayName = <P>(component: ComponentType<P>): string => {
+  if (typeof component === 'string') {
+    return component
+  }
+
+  return (component.displayName ?? component.name) || 'Component'
 }
