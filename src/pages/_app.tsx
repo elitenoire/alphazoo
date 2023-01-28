@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 import { DefaultSeo } from 'next-seo'
 import { ReactElement, ReactNode } from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
+import { getDefaultLayout } from '~components/layout/DefaultLayouts'
 
 import SEO from '~/next-seo.config'
 
@@ -21,7 +22,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout ?? getDefaultLayout
   return (
     <ChakraProvider theme={theme}>
       <DefaultSeo {...SEO} />

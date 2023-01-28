@@ -265,7 +265,7 @@ export const Footer = ({ full }: FooterProps) => {
       </Box>
     </Flex>
   ) : (
-    <Box as="footer" pt={12} pb={[8, null, 14]} px={[null, 4]} bg="black">
+    <Box as="footer" pt={12} pb={[8, null, 14]} px={[null, 4]} color="brand.600" bg="black">
       <Container maxW="container.max">
         <FooterBase />
       </Container>

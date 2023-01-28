@@ -1,4 +1,5 @@
 import type { ComponentType, PropsWithChildren, ReactNode, ReactElement } from 'react'
+import { Fragment } from 'react'
 import { GeneralSoundProvider, HomeSoundProvider } from '~/src/context/sfx'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import { BackToTop } from './BackToTop'
@@ -38,6 +39,10 @@ const DefaultLayout = ({
       </AnimatableBackground>
     </GeneralSoundProvider>
   )
+}
+
+export const getDefaultLayout = (page: ReactElement) => {
+  return <DefaultLayout provider={Fragment}>{page}</DefaultLayout>
 }
 
 export const getHomeLayout = (page: ReactElement) => {
