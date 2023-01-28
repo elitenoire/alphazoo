@@ -1,3 +1,4 @@
+import type { PropsWithChildren } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import type { ThemeTypings } from '@chakra-ui/react'
 import { Heading, Text, Box } from '@chakra-ui/react'
@@ -24,7 +25,7 @@ export const WikiCard = ({
   titleColor,
   children,
   ...rest
-}: WikiCardProps) => {
+}: PropsWithChildren<WikiCardProps>) => {
   return (
     <MotionFlex
       layout

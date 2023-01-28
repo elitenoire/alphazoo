@@ -1,10 +1,11 @@
-import type { MotionBoxProps } from '~components/motion'
+import type { PropsWithChildren } from 'react'
 import { useRef } from 'react'
 import { useScroll, useTransform } from 'framer-motion'
 import { Box, Text } from '@chakra-ui/react'
+import type { MotionBoxProps } from '~components/motion'
 import { MotionBox } from '~components/motion'
 
-export const AlphabetBubble = ({ bg, children, ...rest }: MotionBoxProps) => {
+export const AlphabetBubble = ({ bg, children, ...rest }: PropsWithChildren<MotionBoxProps>) => {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
