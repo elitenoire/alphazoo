@@ -1,5 +1,5 @@
-// https://chakra-ui.com/guides/integrations/with-framer
-
+// https://chakra-ui.com/getting-started/with-framer
+import type { ComponentProps } from 'react'
 import { chakra, shouldForwardProp, ChakraStyledOptions } from '@chakra-ui/react'
 import { isValidMotionProp, motion } from 'framer-motion'
 
@@ -21,6 +21,12 @@ export const MotionSpan = chakra(motion.span, config)
 export const MotionHeading = chakra(motion.h2, config)
 
 export const MotionText = chakra(motion.p, config)
+
+export type MotionBoxProps = ComponentProps<typeof MotionBox>
+export type MotionFlexProps = ComponentProps<typeof MotionFlex>
+export type MotionSpanProps = ComponentProps<typeof MotionSpan>
+export type MotionHeadingProps = ComponentProps<typeof MotionHeading>
+export type MotionTextProps = ComponentProps<typeof MotionText>
 
 /**
  * Quirks in chakra-ui + framer-motion integration

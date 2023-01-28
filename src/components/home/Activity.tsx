@@ -1,12 +1,12 @@
+import type { Variants } from 'framer-motion'
 import { useRef } from 'react'
 import NextImage from 'next/future/image'
-import type { Variants } from 'framer-motion'
 import { Heading, Box, Flex, List, ListItem } from '@chakra-ui/react'
 import { MotionBox, MotionText, MotionSpan, MotionScroll } from '~components/motion'
+import { HOMEPAGE_IDS } from '~src/constants'
 import { ActivityCloud } from './ActivityCloud'
 import { AlphabetBubble } from './AlphabetBubble'
 import { ActivityBoard } from './ActivityBoard'
-import { HOMEPAGE_IDS } from '~src/constants'
 
 import ImgPanda from '~public/img/happypanda.svg'
 

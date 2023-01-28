@@ -1,6 +1,7 @@
+import type { MotionValue } from 'framer-motion'
 import { useRef } from 'react'
 import { Heading, Box, Flex, Text, SimpleGrid } from '@chakra-ui/react'
-import { useScroll, useSpring, useTransform, transform, MotionValue } from 'framer-motion'
+import { useScroll, useSpring, useTransform, transform } from 'framer-motion'
 import { useToken } from '@chakra-ui/react'
 import { MotionFlex } from '~components/motion'
 import { useAnimeBg } from '~src/hooks/useAnimeBg'

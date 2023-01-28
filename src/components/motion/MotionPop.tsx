@@ -1,5 +1,5 @@
-import { ComponentProps } from 'react'
 import type { Variants } from 'framer-motion'
+import type { MotionBoxProps } from '~components/motion'
 import { MotionBox } from '~components/motion'
 
 interface CustomVariantProps {
@@ -7,7 +7,7 @@ interface CustomVariantProps {
   delay?: number
 }
 
-interface MotionPopProps extends ComponentProps<typeof MotionBox>, CustomVariantProps {}
+interface MotionPopProps extends MotionBoxProps, CustomVariantProps {}
 
 const pop: Variants = {
   hidden: ({ factor }: CustomVariantProps) => ({

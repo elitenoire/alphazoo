@@ -1,6 +1,8 @@
-import { forwardRef, ForwardRefRenderFunction, ComponentProps } from 'react'
+import type { ForwardRefRenderFunction, ComponentProps } from 'react'
+import { forwardRef } from 'react'
 import dynamic from 'next/dynamic'
-import { AspectRatioProps, AspectRatio, Box, Heading, useToken } from '@chakra-ui/react'
+import type { AspectRatioProps } from '@chakra-ui/react'
+import { AspectRatio, Box, Heading, useToken } from '@chakra-ui/react'
 
 const animalsMap = {
   bear: dynamic<ComponentProps<'svg'>>(() =>

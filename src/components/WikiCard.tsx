@@ -1,11 +1,12 @@
-import { ComponentProps } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { Heading, Text, Box, ThemeTypings } from '@chakra-ui/react'
+import type { ThemeTypings } from '@chakra-ui/react'
+import { Heading, Text, Box } from '@chakra-ui/react'
 import { ArrowRight1Bold } from 'react-iconsax-icons'
+import type { MotionFlexProps } from '~components/motion'
 import { MotionBox, MotionFlex } from '~components/motion'
-import { ChakraColorHues } from '~types/theme'
+import type { ChakraColorHues } from '~types/theme'
 
-interface WikiCardProps extends ComponentProps<typeof MotionFlex> {
+interface WikiCardProps extends MotionFlexProps {
   animal: string
   wiki: string
   expand?: boolean

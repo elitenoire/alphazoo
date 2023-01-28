@@ -1,14 +1,10 @@
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
 import { ModalFocusScope, useModalContext } from '@chakra-ui/react'
 import MenuBar from './MenuBar'
 import Menu from './Menu'
 import { SiteMenuProvider } from './context'
 
-interface FocusGuardProps {
-  children: ReactNode
-}
-
-const FocusGuard = ({ children }: FocusGuardProps) => {
+const FocusGuard = ({ children }: PropsWithChildren) => {
   const { getDialogContainerProps } = useModalContext()
   const containerProps = getDialogContainerProps()
 

@@ -1,5 +1,6 @@
+import type { MotionValue } from 'framer-motion'
 import { useRef } from 'react'
-import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
+import { useTransform, useScroll, useSpring } from 'framer-motion'
 import { Box, AspectRatio, Flex, Heading, Container } from '@chakra-ui/react'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { HOMEPAGE_IDS } from '~src/constants'

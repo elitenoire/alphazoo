@@ -1,13 +1,14 @@
+import type { Variants } from 'framer-motion'
 import { Heading, Box } from '@chakra-ui/react'
 import { MotionSpan, MotionPop, MagneticBox } from '~components/motion'
 import { SfxButton } from '~components/sfx'
 
-const slide = {
+const slide: Variants = {
   hidden: { opacity: 0, y: '100%' },
-  visible: (d = 0) => ({
+  visible: (d: number) => ({
     opacity: 1,
     y: '0%',
-    transition: { type: 'spring', duration: 1, delay: d },
+    transition: { type: 'spring', duration: 1, delay: d || 0 },
   }),
 }
 

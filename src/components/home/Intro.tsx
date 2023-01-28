@@ -1,9 +1,10 @@
-import type { ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
+import type { AnimalHeadType } from '~components/AnimalHead'
 import { useRef } from 'react'
 import { useScroll, transform } from 'framer-motion'
 import { Box, Flex, Text, VisuallyHidden, Link, useToken, chakra } from '@chakra-ui/react'
 import { MotionPop, MagneticBox } from '~components/motion'
-import { AnimalHead, AnimalHeadType } from '~components/AnimalHead'
+import { AnimalHead } from '~components/AnimalHead'
 import { useAnimeBg } from '~src/hooks/useAnimeBg'
 import { HOMEPAGE_IDS, SITE_CONFIG } from '~src/constants'
 
@@ -14,10 +15,9 @@ const ChakraScenery = chakra(ScenerySvg)
 interface MotionAnimalProps {
   animal: AnimalHeadType
   shift?: boolean
-  children: ReactNode
 }
 
-const MotionAnimal = ({ animal, shift, children }: MotionAnimalProps) => {
+const MotionAnimal = ({ animal, shift, children }: PropsWithChildren<MotionAnimalProps>) => {
   const dir = shift ? 1 : -1
   return (
     <MotionPop

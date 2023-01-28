@@ -1,12 +1,6 @@
+import type { MotionValue } from 'framer-motion'
 import { useRef, useCallback } from 'react'
-import {
-  useInView,
-  useTransform,
-  useScroll,
-  useSpring,
-  useWillChange,
-  MotionValue,
-} from 'framer-motion'
+import { useInView, useTransform, useScroll, useSpring, useWillChange } from 'framer-motion'
 import { Box, Flex, Heading, Text, useToken } from '@chakra-ui/react'
 import { MotionBox, MagneticBox } from '~components/motion'
 import { SfxButton } from '~components/sfx'
@@ -29,6 +23,7 @@ function useFloatSpring(
   const vt = useTransform(value, (v) => (inView ? v / speed : 0))
   return useSpring(vt, { stiffness })
 }
+
 export default function Hero() {
   const [black] = useToken('colors', ['black'])
 

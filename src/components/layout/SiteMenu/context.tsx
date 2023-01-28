@@ -1,11 +1,8 @@
-import { useState, useCallback, ReactNode } from 'react'
+import type { PropsWithChildren } from 'react'
+import { useState, useCallback } from 'react'
 import { ModalContextProvider, useModal } from '@chakra-ui/react'
 
-interface SiteMenuProviderProps {
-  children: ReactNode
-}
-
-export const SiteMenuProvider = ({ children }: SiteMenuProviderProps) => {
+export const SiteMenuProvider = ({ children }: PropsWithChildren) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleOpen = useCallback(() => {

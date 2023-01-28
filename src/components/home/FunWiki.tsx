@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react'
+import type { MotionValue } from 'framer-motion'
+import { useState, useCallback, useRef } from 'react'
 import NextImage from 'next/future/image'
-import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
+import { useTransform, useScroll, useSpring } from 'framer-motion'
 import { AspectRatio, Box, Flex, Text, Heading, Button, Link } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MagneticBox, MotionPop } from '~components/motion'
 import { WikiCard } from '~components/WikiCard'
@@ -24,9 +25,12 @@ export default function FunWiki() {
 
   const [expanded, setExpanded] = useState<false | number>(false)
 
-  const handleExpanded = (i: false | number) => () => {
-    setExpanded((state) => (i === state ? false : i))
-  }
+  const handleExpanded = useCallback(
+    (i: false | number) => () => {
+      setExpanded((state) => (i === state ? false : i))
+    },
+    []
+  )
 
   return (
     <Box as="section" mt={[20, null, 28]} mb={56} aria-labelledby={HOMEPAGE_IDS.wiki}>

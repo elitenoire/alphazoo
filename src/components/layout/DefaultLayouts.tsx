@@ -1,12 +1,13 @@
-import type { PropsWithChildren, ReactNode, ReactElement } from 'react'
+import type { ComponentType, PropsWithChildren, ReactNode, ReactElement } from 'react'
 import { GeneralSoundProvider, HomeSoundProvider } from '~/src/context/sfx'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import { BackToTop } from './BackToTop'
-import { Footer, FooterProps } from './Footer'
+import type { FooterProps } from './Footer'
+import { Footer } from './Footer'
 import { Header } from './Header'
 
 interface DefaultLayoutProps extends FooterProps {
-  provider: (props: PropsWithChildren) => JSX.Element
+  provider: ComponentType<PropsWithChildren>
   children: ReactNode
   headerContent?: ReactNode
   bg?: string

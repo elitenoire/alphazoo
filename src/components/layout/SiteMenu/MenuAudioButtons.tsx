@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import useSound from 'use-sound'
-import { IconButton, IconButtonProps, useToken } from '@chakra-ui/react'
+import type { IconButtonProps } from '@chakra-ui/react'
+import { IconButton, useToken } from '@chakra-ui/react'
 import { MusicBold, VolumeHighBold, VolumeSlashBold } from 'react-iconsax-icons'
 import { useSoundStore } from '~/src/store'
 import { useGeneralSfx } from '~/src/context/sfx'
@@ -10,7 +11,7 @@ import { ReactComponent as MusicSlashBold } from '~public/icons/musicslash.svg'
 import { ReactComponent as HearingOutline } from '~public/icons/hearing.svg'
 import { ReactComponent as HearingSlashOutline } from '~public/icons/hearingslash.svg'
 
-type MenuIconButtonProps = Omit<IconButtonProps, 'aria-label'> & {
+interface MenuIconButtonProps extends Omit<IconButtonProps, 'aria-label'> {
   whenFixed?: boolean
   label?: string
 }

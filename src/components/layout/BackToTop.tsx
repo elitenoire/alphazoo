@@ -1,6 +1,7 @@
+import type { BoxProps } from '@chakra-ui/react'
 import { useState, useCallback } from 'react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
-import { IconButton, Box, BoxProps } from '@chakra-ui/react'
+import { IconButton, Box } from '@chakra-ui/react'
 import { ArrowUpBold } from 'react-iconsax-icons'
 import { useGeneralSfx } from '~/src/context/sfx'
 

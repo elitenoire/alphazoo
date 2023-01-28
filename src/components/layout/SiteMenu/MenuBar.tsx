@@ -16,9 +16,9 @@ type ModalContextExtended = ReturnType<typeof useModalContext> & {
   toggleOpen: () => void
 }
 
-export default function MenuBar() {
-  const velocityThreshold = 100
+const velocityThreshold = 100
 
+export default function MenuBar() {
   const [fullRadius] = useToken('radii', ['full'])
   const { isOpen, toggleOpen } = useModalContext() as ModalContextExtended
 
@@ -50,7 +50,7 @@ export default function MenuBar() {
       unSubVelocity()
       unSubScrollY()
     }
-  }, [scrollY, scrollVelocity, barMotion])
+  }, [scrollY, scrollVelocity])
 
   useEffect(() => {
     barMotion.set(whenFixed && !isOpen ? 'fixed' : 'unfixed')

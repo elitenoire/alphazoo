@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 import { chakra } from '@chakra-ui/react'
 
 import { ReactComponent as UndySvg } from '~public/img/undy.svg'

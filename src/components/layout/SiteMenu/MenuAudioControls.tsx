@@ -21,7 +21,6 @@ interface AudioControlProps {
   id: string
   value: number
   label: string
-  // control: (props: AudioButtonProps) => JSX.Element
   control: ComponentType<AudioButtonProps>
   onChangeEnd?: (val: number) => void
 }

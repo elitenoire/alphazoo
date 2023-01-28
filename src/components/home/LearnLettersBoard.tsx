@@ -1,10 +1,10 @@
 import type { MouseEvent } from 'react'
+import type { MotionValue } from 'framer-motion'
 import { useRef, useCallback } from 'react'
 import NextImage from 'next/future/image'
 import {
   useScroll,
   useSpring,
-  MotionValue,
   useMotionTemplate,
   useTransform,
   useAnimationControls,
@@ -39,7 +39,7 @@ export function LearnLettersBoard() {
   const borderColor = useMotionTemplate`rgba(250,240,137,${borderOpacity})`
   const bubbleMove = useTransform(yScroll, [0, 0.2], [60, -15])
 
-  const bgTransformer = transform([0, 0.2, 0.95, 1], [currentBg, boardBg, boardBg, newBg])
+  const transformer = transform([0, 0.2, 0.95, 1], [currentBg, boardBg, boardBg, newBg])
 
   const handleMouseMove = useCallback(
     (event: MouseEvent<HTMLDivElement>) => {
@@ -50,7 +50,7 @@ export function LearnLettersBoard() {
     [peepersMotion]
   )
 
-  useAnimeBg(yScroll, bgTransformer)
+  useAnimeBg(yScroll, transformer)
 
   return (
     <Box ref={stripScrollBodyRef} h="300vw" mt={32}>

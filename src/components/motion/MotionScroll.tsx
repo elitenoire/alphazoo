@@ -1,8 +1,10 @@
-import { useRef, ComponentProps } from 'react'
-import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
+import type { MotionValue } from 'framer-motion'
+import type { MotionBoxProps } from '~components/motion'
+import { useRef } from 'react'
+import { useTransform, useScroll, useSpring } from 'framer-motion'
 import { MotionBox } from '~components/motion'
 
-interface MotionScrollProps extends ComponentProps<typeof MotionBox> {
+interface MotionScrollProps extends MotionBoxProps {
   distance?: number
 }
 

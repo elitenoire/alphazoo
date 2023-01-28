@@ -1,6 +1,7 @@
+import type { MotionValue, Variants } from 'framer-motion'
 import { useRef } from 'react'
 import NextImage from 'next/future/image'
-import { useTransform, useScroll, useSpring, MotionValue } from 'framer-motion'
+import { useTransform, useScroll, useSpring } from 'framer-motion'
 import { Box, Flex, Heading, Text, Button, Link, useToken } from '@chakra-ui/react'
 import { MotionFlex, MagneticBox } from '~components/motion'
 import { HOMEPAGE_IDS } from '~src/constants'
@@ -10,7 +11,7 @@ import ImgLearn from '~public/img/learn.svg'
 import ImgPlay from '~public/img/play.svg'
 import ImgPanda from '~public/img/panda.svg'
 
-const item = {
+const item: Variants = {
   hidden: (i: number) => ({ opacity: 0, x: i * 20 }),
   show: { opacity: 1, x: 0, transition: { duration: 0.5 } },
 }

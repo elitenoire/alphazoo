@@ -1,14 +1,10 @@
-import { createContext, useContext } from 'react'
-import type { ReactHTML, MouseEvent, ComponentProps } from 'react'
-import {
-  motion,
-  useTransform,
-  useSpring,
-  MotionValue,
-  motionValue,
-  useMotionTemplate,
-} from 'framer-motion'
-import { Box, BoxProps } from '@chakra-ui/react'
+import type { ReactHTML, MouseEvent } from 'react'
+import type { MotionValue } from 'framer-motion'
+import type { BoxProps } from '@chakra-ui/react'
+import type { MotionBoxProps } from '~components/motion'
+import { createContext, useContext, useCallback } from 'react'
+import { motion, useTransform, useSpring, motionValue, useMotionTemplate } from 'framer-motion'
+import { Box } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
 
 const config = { stiffness: 100, damping: 10 }
@@ -18,7 +14,7 @@ const MagneticContext = createContext({
   y: motionValue(0),
 })
 
-interface MagneticParallaxProps extends ComponentProps<typeof MotionBox> {
+interface MagneticParallaxProps extends MotionBoxProps {
   speed?: number
   as?: keyof ReactHTML
 }
@@ -32,16 +28,19 @@ export const MagneticBox = ({ children, ...rest }: BoxProps) => {
 
   const transform = useMotionTemplate`translate(${xMove}em,${yMove}em)`
 
-  const handleMouse = (e: MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    x.set((e.clientX - rect.left) / e.currentTarget.clientWidth)
-    y.set((e.clientY - rect.top) / e.currentTarget.clientHeight)
-  }
+  const handleMouse = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect()
+      x.set((e.clientX - rect.left) / e.currentTarget.clientWidth)
+      y.set((e.clientY - rect.top) / e.currentTarget.clientHeight)
+    },
+    [x, y]
+  )
 
-  const reset = () => {
+  const reset = useCallback(() => {
     x.set(0.5)
     y.set(0.5)
-  }
+  }, [x, y])
 
   return (
     <MagneticContext.Provider value={{ x: xMove, y: yMove }}>
