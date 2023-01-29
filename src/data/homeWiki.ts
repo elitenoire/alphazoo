@@ -1,4 +1,4 @@
-import { WikiType } from '~types/data'
+import type { WikiType } from '~types/data'
 
 export const homeWikis: WikiType[] = [
   {

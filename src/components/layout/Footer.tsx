@@ -16,7 +16,7 @@ import {
 import { useScroll, useSpring, useTransform } from 'framer-motion'
 import { MotionBox } from '~components/motion'
 import { SfxLink, SfxIconButton } from '~components/sfx'
-import { SITE_CONFIG } from '~src/constants'
+import { ROUTES, SITE_CONFIG } from '~src/constants'
 
 import ImgClique, { ReactComponent as CliqueSvg } from '~public/img/clique.svg'
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
@@ -53,7 +53,7 @@ const FooterBase = () => {
       borderTopWidth="4px"
       borderBottomWidth="4px"
     >
-      <NextLink href="/" passHref>
+      <NextLink href={ROUTES.home} passHref>
         <SfxLink
           gap={4}
           display="flex"

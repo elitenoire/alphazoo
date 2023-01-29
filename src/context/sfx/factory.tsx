@@ -1,4 +1,5 @@
-import { createContext, useContext, PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import { createContext, useContext } from 'react'
 import { useCreateSfx, SFX, ContextSFX } from '~/src/hooks/useCreateSfx'
 
 const createSfxContext = <T extends SFX<T>>() => {

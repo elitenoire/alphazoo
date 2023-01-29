@@ -1,13 +1,13 @@
-import { PropsWithChildren } from 'react'
-import useSound from 'use-sound'
+import type { PropsWithChildren } from 'react'
 import type { ReturnedValue } from 'use-sound/dist/types'
+import useSound from 'use-sound'
 import { useBackgroundMusic } from '~/src/hooks/useBackgroundMusic'
 import { createSfxProvider } from './factory'
 
 interface GeneralSFX {
   click: ReturnedValue
   hover: ReturnedValue
-  open: ReturnedValue
+  pop: ReturnedValue
   ascend: ReturnedValue
 }
 
@@ -33,10 +33,10 @@ export { useGeneralSfx, useHomeSfx, useLearnSfx, usePlaySfx, useProfileSfx, useW
 export const GeneralSoundProvider = ({ children }: PropsWithChildren) => {
   const hover = useSound('./sounds/hover.mp3')
   const click = useSound('./sounds/click.mp3')
-  const open = useSound('./sounds/open.mp3')
+  const pop = useSound('./sounds/pop.mp3')
   const ascend = useSound('./sounds/ascend.mp3')
 
-  const sfx = { hover, click, open, ascend }
+  const sfx = { hover, click, pop, ascend }
 
   return <GeneralSfxProvider sfx={sfx}>{children}</GeneralSfxProvider>
 }
