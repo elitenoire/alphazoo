@@ -1,7 +1,9 @@
+import NextLink from 'next/link'
 import type { Variants } from 'framer-motion'
 import { Heading, Box } from '@chakra-ui/react'
 import { MotionSpan, MotionPop, MagneticBox } from '~components/motion'
 import { SfxButton } from '~components/sfx'
+import { ROUTES } from '~/src/constants'
 
 const slide: Variants = {
   hidden: { opacity: 0, y: '100%' },
@@ -47,7 +49,11 @@ export default function Cta() {
       </Heading>
       <MotionPop delay={0.2} display="inline-block" mt={8}>
         <MagneticBox>
-          <SfxButton color="background">Start Learning</SfxButton>
+          <NextLink href={ROUTES.learn} passHref>
+            <SfxButton as="a" color="background">
+              Start Learning
+            </SfxButton>
+          </NextLink>
         </MagneticBox>
       </MotionPop>
     </Box>

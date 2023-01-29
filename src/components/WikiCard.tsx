@@ -1,10 +1,12 @@
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, MouseEvent } from 'react'
+import { useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import type { ThemeTypings } from '@chakra-ui/react'
 import { Heading, Text, Box } from '@chakra-ui/react'
 import { ArrowRight1Bold } from 'react-iconsax-icons'
 import type { MotionFlexProps } from '~components/motion'
 import { MotionBox, MotionFlex } from '~components/motion'
+import { useGeneralSfx } from '~src/context/sfx'
 import type { ChakraColorHues } from '~types/theme'
 
 interface WikiCardProps extends MotionFlexProps {
@@ -23,9 +25,20 @@ export const WikiCard = ({
   color,
   expand,
   titleColor,
+  onClick,
   children,
   ...rest
 }: PropsWithChildren<WikiCardProps>) => {
+  const { playClick } = useGeneralSfx()
+
+  const handleClick = useCallback(
+    (e: MouseEvent<HTMLDivElement>) => {
+      playClick?.()
+      onClick?.(e)
+    },
+    [onClick, playClick]
+  )
+
   return (
     <MotionFlex
       layout
@@ -40,6 +53,7 @@ export const WikiCard = ({
       bg={bg ?? `${colorScheme}.200`}
       color={color ?? `${colorScheme}.900`}
       cursor="pointer"
+      onClick={handleClick}
       {...rest}
       _hover={{ boxShadow: '2xl', '.ic-ex': { color: `${colorScheme}.500` } }}
       transition="box-shadow 0.25s ease-in-out"

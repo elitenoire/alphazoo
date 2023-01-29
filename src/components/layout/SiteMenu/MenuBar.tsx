@@ -3,8 +3,8 @@ import NextLink from 'next/link'
 import { useAnimationControls, useScroll, useVelocity, AnimatePresence } from 'framer-motion'
 import { Box, Flex, useToken, useModalContext } from '@chakra-ui/react'
 import { MotionFlex, MotionBox, MotionSpan, MotionBurger } from '~components/motion'
-import { SfxLink } from '~components/sfx'
-import { SITE_CONFIG } from '~src/constants'
+import { SfxLink, SfxButton } from '~components/sfx'
+import { ROUTES, SITE_CONFIG } from '~src/constants'
 
 import { MusicButton, SoundFxButton } from './MenuAudioButtons'
 import { menuBarBg } from './variants'
@@ -69,6 +69,7 @@ export default function MenuBar() {
       zIndex="menubar"
       alignItems="center"
       justifyContent="space-between"
+      pointerEvents="none"
       w="100%"
       minH={[14, 16]}
       py={3}
@@ -76,11 +77,12 @@ export default function MenuBar() {
       animate={barMotion}
       variants={menuBarBg}
     >
-      <NextLink href="/" passHref>
+      <NextLink href={ROUTES.home} passHref>
         <SfxLink
           alignItems="center"
           gap={2}
           display="flex"
+          pointerEvents="auto"
           _hover={{
             '& > span:first-of-type': {
               shadow: '0 0 0 5px rgba(255,255,255,0.15)',
@@ -124,6 +126,7 @@ export default function MenuBar() {
         alignItems="center"
         gap={2}
         p={1}
+        pointerEvents="auto"
         bg={whenFixed ? 'background' : 'whiteAlpha.900'}
         shadow="xl"
         initial={{ borderRadius: fullRadius }}
@@ -133,9 +136,9 @@ export default function MenuBar() {
           <SoundFxButton whenFixed={whenFixed} />
         </Flex>
         <MotionBox layout initial={{ borderRadius: fullRadius }}>
-          <Flex
-            as="button"
-            align="center"
+          <SfxButton
+            display="flex"
+            alignItems="center"
             gap={1}
             fontWeight="medium"
             textTransform="uppercase"
@@ -144,7 +147,10 @@ export default function MenuBar() {
               bg: whenFixed ? 'secondary.300' : 'brand.200',
               transform: 'scale(0.95)',
             }}
-            appearance="none"
+            px={0}
+            variant="ghost"
+            color="inherit"
+            size="md"
             transition="transform 0.2s"
             onClick={toggleOpen}
             rounded="inherit"
@@ -155,7 +161,7 @@ export default function MenuBar() {
             <MotionSpan layout w={10} h={10} p={2} bg="brand.300" rounded="circle">
               <MotionBurger open={isOpen} />
             </MotionSpan>
-          </Flex>
+          </SfxButton>
         </MotionBox>
       </MotionFlex>
     </MotionFlex>

@@ -1,11 +1,13 @@
-import type { MotionValue } from 'framer-motion'
 import { useState, useCallback, useRef } from 'react'
+import NextLink from 'next/link'
 import NextImage from 'next/future/image'
+import type { MotionValue } from 'framer-motion'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
-import { AspectRatio, Box, Flex, Text, Heading, Button, Link } from '@chakra-ui/react'
+import { AspectRatio, Box, Flex, Text, Heading, Link } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MagneticBox, MotionPop } from '~components/motion'
 import { WikiCard } from '~components/WikiCard'
-import { HOMEPAGE_IDS } from '~src/constants'
+import { SfxButton } from '~components/sfx'
+import { HOMEPAGE_IDS, ROUTES } from '~src/constants'
 import { homeWikis } from '~/src/data/homeWiki'
 
 import ImgQuestion from '~public/img/question.svg'
@@ -132,7 +134,11 @@ export default function FunWiki() {
         <Text fontSize={['fxl', null, 'f2xl']}>...and more</Text>
         <MotionPop delay={0.2} display="inline-block" mt={8}>
           <MagneticBox>
-            <Button color="background">Explore Wikis</Button>
+            <NextLink href={ROUTES.wiki} passHref>
+              <SfxButton as="a" color="background">
+                Explore Wikis
+              </SfxButton>
+            </NextLink>
           </MagneticBox>
         </MotionPop>
       </Box>

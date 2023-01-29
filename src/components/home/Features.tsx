@@ -1,7 +1,9 @@
+import NextLink from 'next/link'
 import NextImage from 'next/future/image'
-import { Heading, Box, List, ListItem, Text, Button } from '@chakra-ui/react'
+import { Heading, Box, List, ListItem, Text } from '@chakra-ui/react'
 import { MotionPop, MagneticBox } from '~components/motion'
-import { HOMEPAGE_IDS } from '~src/constants'
+import { SfxButton } from '~components/sfx'
+import { HOMEPAGE_IDS, ROUTES } from '~src/constants'
 
 import ImgDino from '~public/img/dino.svg'
 import ImgAbc from '~public/img/abc.svg'
@@ -63,15 +65,18 @@ export default function Features() {
         </List>
         <MotionPop display="inline-block" mt={20}>
           <MagneticBox>
-            <Button
-              color="text"
-              bg="secondary.200"
-              _hover={{ bg: 'secondary.300' }}
-              _active={{ bg: 'secondary.400' }}
-              colorScheme="secondary"
-            >
-              Explore App
-            </Button>
+            <NextLink href={ROUTES.learn} passHref>
+              <SfxButton
+                as="a"
+                color="text"
+                bg="secondary.200"
+                _hover={{ bg: 'secondary.300' }}
+                _active={{ bg: 'secondary.400' }}
+                colorScheme="secondary"
+              >
+                Explore App
+              </SfxButton>
+            </NextLink>
           </MagneticBox>
         </MotionPop>
       </Box>

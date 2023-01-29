@@ -1,10 +1,12 @@
-import type { MotionValue, Variants } from 'framer-motion'
 import { useRef } from 'react'
+import NextLink from 'next/link'
 import NextImage from 'next/future/image'
+import type { MotionValue, Variants } from 'framer-motion'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
-import { Box, Flex, Heading, Text, Button, Link, useToken } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Link, useToken } from '@chakra-ui/react'
 import { MotionFlex, MagneticBox } from '~components/motion'
-import { HOMEPAGE_IDS } from '~src/constants'
+import { SfxButton } from '~components/sfx'
+import { HOMEPAGE_IDS, ROUTES } from '~src/constants'
 
 import { ReactComponent as SquircleBgSvg } from '~public/img/bg-squircle.svg'
 import ImgLearn from '~public/img/learn.svg'
@@ -83,20 +85,23 @@ export default function Mode() {
                     alt="Happy girl kneeling infront of a big ABC toy block"
                     unoptimized
                   />
-                  <Button
-                    w="55%"
-                    mt={2}
-                    shadow="2xl"
-                    _hover={{
-                      boxShadow: 'lg',
-                      transform: 'translateY(-2px)',
-                    }}
-                    bgColor="white"
-                    colorScheme="gray"
-                    variant="ghost"
-                  >
-                    Learn
-                  </Button>
+                  <NextLink href={ROUTES.learn} passHref>
+                    <SfxButton
+                      as="a"
+                      w="55%"
+                      mt={2}
+                      shadow="2xl"
+                      _hover={{
+                        boxShadow: 'lg',
+                        transform: 'translateY(-2px)',
+                      }}
+                      bgColor="white"
+                      colorScheme="gray"
+                      variant="ghost"
+                    >
+                      Learn
+                    </SfxButton>
+                  </NextLink>
                 </Box>
               </MotionFlex>
             </MagneticBox>
@@ -129,19 +134,22 @@ export default function Mode() {
                     alt="Happy boy sitting infront of a big jigsaw puzzle and holding a red toy car"
                     unoptimized
                   />
-                  <Button
-                    w="55%"
-                    mt={2}
-                    shadow="2xl"
-                    _hover={{
-                      bgColor: 'brand.600',
-                      boxShadow: 'lg',
-                      transform: 'translateY(-2px)',
-                    }}
-                    bgColor="brand.500"
-                  >
-                    Play
-                  </Button>
+                  <NextLink href={ROUTES.play} passHref>
+                    <SfxButton
+                      as="a"
+                      w="55%"
+                      mt={2}
+                      shadow="2xl"
+                      _hover={{
+                        bgColor: 'brand.600',
+                        boxShadow: 'lg',
+                        transform: 'translateY(-2px)',
+                      }}
+                      bgColor="brand.500"
+                    >
+                      Play
+                    </SfxButton>
+                  </NextLink>
                 </Box>
               </MotionFlex>
             </MagneticBox>
