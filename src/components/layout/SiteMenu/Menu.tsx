@@ -42,8 +42,18 @@ export default function Menu() {
       variants={menuOverlay}
       {...dialogProps}
     >
-      <Flex pos="relative" zIndex={1} direction="column" rowGap={4} minH="100%">
-        <Box pos="relative" zIndex={1} flex={1} overflow="hidden" pt={[20, null, null, 14]} px={8}>
+      <Box
+        pos="fixed"
+        top={0}
+        right={0}
+        w={['80%', null, '50%']}
+        opacity={0.2}
+        pointerEvents="none"
+      >
+        <NextImage src={branchUrl} alt="" unoptimized />
+      </Box>
+      <Flex direction="column" rowGap={4} minH="100%">
+        <Box flex={1} overflow="hidden" pt={[20, null, null, 14]} px={8}>
           <Flex
             align="center"
             direction={['column', null, null, 'row-reverse']}
@@ -96,9 +106,6 @@ export default function Menu() {
       >
         <GithubSvg fill="currentColor" />
       </SfxLink>
-      <Box pos="fixed" top={0} right={0} w={['80%', null, '50%']} opacity={0.2}>
-        <NextImage src={branchUrl} alt="" unoptimized />
-      </Box>
     </MotionBox>
   )
 }
