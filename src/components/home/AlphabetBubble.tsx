@@ -8,6 +8,7 @@ import { useGeneralSfx } from '~/src/context/sfx'
 
 export const AlphabetBubble = ({ bg, children, ...rest }: PropsWithChildren<MotionBoxProps>) => {
   const ref = useRef(null)
+  const playedRef = useRef(false)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['end end', 'start start'],
@@ -19,8 +20,12 @@ export const AlphabetBubble = ({ bg, children, ...rest }: PropsWithChildren<Moti
 
   const playSfx = useCallback(
     (y: number) => {
-      if (y === 0.5) {
+      if (y <= 0 || y >= 1) {
+        playedRef.current = false
+      }
+      if (!playedRef.current && y >= 0.1 && y <= 0.5) {
         playPop?.()
+        playedRef.current = true
       }
     },
     [playPop]
