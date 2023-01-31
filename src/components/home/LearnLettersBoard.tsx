@@ -90,7 +90,7 @@ export function LearnLettersBoard() {
         >
           <NextImage src={ImgPeepers} alt="Cute animals faces peeping" unoptimized />
         </MotionBox>
-        <MotionFlex minW={0} zIndex={1} style={{ x, opacity }}>
+        <MotionFlex minW={0} minH="inherit" zIndex={1} style={{ x, opacity }}>
           <LearnLetters letters={AIrow} />
           <LearnLetters letters={JQrow} />
           <LearnLetters letters={RZrow} />

@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react'
-import { Box, Center, Text, useToken } from '@chakra-ui/react'
+import type { PropsWithChildren, KeyboardEvent } from 'react'
+import { useState, useEffect, useCallback, useRef, useImperativeHandle, forwardRef } from 'react'
+import { Box, Flex, Center, Text, useToken } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import type { Alphabet, GlyphType } from '~types/data'
+import type { PlayFunction } from 'use-sound/dist/types'
+import { useGeneralSfx } from '~/src/context/sfx'
+import { usePhonics } from '~/src/hooks/usePhonics'
 import { shuffle } from '~/src/utils'
-import type { GlyphType } from '~types/data'
 
 const colorList = [
   'purple.100',
@@ -15,19 +19,98 @@ const colorList = [
   'green.100',
   'blue.100',
 ]
-interface LearnLettersProps {
-  letters: GlyphType[]
+interface LearnLettersProps<T extends GlyphType[]> {
+  letters: T
+}
+interface LetterProps {
+  glyph: Alphabet
+  color: string
+}
+interface LetterRef {
+  play: PlayFunction
+}
+type PlayLettersRef<T extends GlyphType[]> = {
+  [K in T[number]['name']]?: LetterRef
 }
 
-export function LearnLetters({ letters }: LearnLettersProps) {
+const Letter = forwardRef<LetterRef, PropsWithChildren<LetterProps>>(
+  ({ children, glyph, color }, ref) => {
+    const { playHover } = useGeneralSfx()
+    const [play] = usePhonics(`./sounds/alphabets/${glyph.toLowerCase()}.mp3`)
+
+    const handleClick = useCallback(() => {
+      play()
+    }, [play])
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        play,
+      }),
+      [play]
+    )
+
+    return (
+      <Text
+        as="button"
+        sx={{
+          WebkitTextStrokeWidth: '0.1rem',
+          WebkitTextStrokeColor: color,
+        }}
+        pos="relative"
+        zIndex={2}
+        align="center"
+        display="flex"
+        px="0.2em"
+        py="0.1em"
+        color="transparent"
+        lineHeight="none"
+        _hover={{
+          color,
+          transform: 'scale(1.5)',
+        }}
+        _active={{
+          transform: 'scale(1)',
+        }}
+        transition="transform 0.2s, color 0.2s"
+        onClick={handleClick}
+        onMouseEnter={playHover}
+      >
+        {children}
+      </Text>
+    )
+  }
+)
+
+Letter.displayName = 'Letter'
+
+export function LearnLetters<T extends GlyphType[]>({ letters }: LearnLettersProps<T>) {
+  const playLettersRef = useRef<PlayLettersRef<T>>({})
   const [colors, setColors] = useState(useToken('colors', colorList))
+
+  const getRef = useCallback(
+    (glyph: Alphabet) => (elm: LetterRef) => {
+      playLettersRef.current[glyph as keyof PlayLettersRef<T>] = elm
+    },
+    []
+  )
+
+  const handleKeyDown = useCallback(({ key }: KeyboardEvent<HTMLDivElement>) => {
+    const letterRef = playLettersRef.current[key.toUpperCase() as keyof PlayLettersRef<T>]
+    letterRef?.play()
+  }, [])
 
   useEffect(() => {
     setColors((colors) => shuffle(colors))
   }, [])
 
   return (
-    <Box flex="0 0 100%">
+    <Flex
+      flex="0 0 100%"
+      _focusVisible={{ outline: 'none' }}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
       <Center
         as="ul"
         flexWrap="wrap"
@@ -40,12 +123,12 @@ export function LearnLetters({ letters }: LearnLettersProps) {
         whiteSpace="nowrap"
         listStyleType="none"
       >
-        {letters.map((glyph, i) => {
-          const isEmoji = glyph.type === 'emoji'
+        {letters.map(({ name, type, ...emojiColor }, i) => {
+          const isEmoji = type === 'emoji'
           const len = colors.length
-          const color = colors[((i % len) + len) % len]
+          const randomColor = colors[((i % len) + len) % len]
           return (
-            <Box key={glyph.name} as="li" aria-hidden={isEmoji ? 'true' : undefined}>
+            <Box key={name} as="li" aria-hidden={isEmoji ? 'true' : undefined}>
               {isEmoji && (
                 <motion.div
                   whileInView={{
@@ -60,44 +143,22 @@ export function LearnLetters({ letters }: LearnLettersProps) {
                     px="0.5em"
                     py="0.125em"
                     fontSize="0.5em"
-                    bg={glyph.color}
+                    bg={'color' in emojiColor ? emojiColor.color : undefined}
                     rounded="full"
                   >
-                    {glyph.name}
+                    {name}
                   </Text>
                 </motion.div>
               )}
               {!isEmoji && (
-                <Text
-                  as="button"
-                  sx={{
-                    WebkitTextStrokeWidth: '0.1rem',
-                    WebkitTextStrokeColor: color,
-                  }}
-                  pos="relative"
-                  zIndex={2}
-                  align="center"
-                  display="flex"
-                  px="0.2em"
-                  py="0.1em"
-                  color="transparent"
-                  lineHeight="none"
-                  _hover={{
-                    color,
-                    transform: 'scale(1.5)',
-                  }}
-                  _active={{
-                    transform: 'scale(1)',
-                  }}
-                  transition="transform 0.2s, color 0.2s"
-                >
-                  {glyph.name}
-                </Text>
+                <Letter ref={getRef(name as Alphabet)} color={randomColor} glyph={name as Alphabet}>
+                  {name}
+                </Letter>
               )}
             </Box>
           )
         })}
       </Center>
-    </Box>
+    </Flex>
   )
 }
