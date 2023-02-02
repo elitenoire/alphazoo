@@ -2,9 +2,9 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import useSound from 'use-sound'
 import type { IconButtonProps } from '@chakra-ui/react'
-import { IconButton, useToken } from '@chakra-ui/react'
+import { IconButton, Box, useToken } from '@chakra-ui/react'
 import { MusicBold, VolumeHighBold, VolumeSlashBold } from 'react-iconsax-icons'
-import { useSoundStore } from '~/src/store'
+import { useSoundHydration, useSoundStore } from '~/src/store'
 import { useGeneralSfx } from '~/src/context/sfx'
 
 import { ReactComponent as MusicSlashBold } from '~public/icons/musicslash.svg'
@@ -39,6 +39,7 @@ const MenuAudioButton = ({
   const disabledColor = useToken('colors', 'blackAlpha.700', 'rgba(0,0,0,0.65)')
   const [enable, setEnable] = useState(initialEnable ?? true)
 
+  const hydrated = useSoundHydration()
   const { playHover } = useGeneralSfx()
 
   const toggleAudio = useCallback(() => {
@@ -51,6 +52,10 @@ const MenuAudioButton = ({
   useEffect(() => {
     setEnable((_enable) => initialEnable ?? _enable)
   }, [initialEnable])
+
+  if (!hydrated) {
+    return <Box w={12} h={12} />
+  }
 
   return (
     <motion.div

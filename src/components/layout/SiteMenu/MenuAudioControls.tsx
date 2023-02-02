@@ -9,7 +9,7 @@ import {
   SliderFilledTrack,
   SliderThumb,
 } from '@chakra-ui/react'
-import { useSoundStore } from '~/src/store'
+import { useSoundStore, useSoundHydration } from '~/src/store'
 import {
   MusicButton,
   SoundFxButton,
@@ -32,6 +32,7 @@ const AudioControl = ({
   control: Control,
   onChangeEnd,
 }: AudioControlProps) => {
+  const hydrated = useSoundHydration()
   const [value, setValue] = useState(initialValue * 100)
 
   const handleChange = useCallback((val: number) => {
@@ -65,23 +66,25 @@ const AudioControl = ({
         <Text fontWeight={500}>{label}</Text>
       </GridItem>
       <GridItem gridArea="slider">
-        <Slider
-          aria-labelledby={id}
-          colorScheme="secondary"
-          onChange={handleChange}
-          onChangeEnd={handleChangeEnd}
-          step={1}
-          value={value}
-        >
-          <SliderTrack h={2} bg="blackAlpha.300" rounded="full">
-            <SliderFilledTrack bg="currentColor" />
-          </SliderTrack>
-          <SliderThumb boxSize={5} />
-        </Slider>
+        {hydrated && (
+          <Slider
+            aria-labelledby={id}
+            colorScheme="secondary"
+            onChange={handleChange}
+            onChangeEnd={handleChangeEnd}
+            step={1}
+            value={value}
+          >
+            <SliderTrack h={2} bg="blackAlpha.300" rounded="full">
+              <SliderFilledTrack bg="currentColor" />
+            </SliderTrack>
+            <SliderThumb boxSize={5} />
+          </Slider>
+        )}
       </GridItem>
       <GridItem gridArea="value">
         <Text align="center" w="3ch" fontSize="f2xl">
-          {value}
+          {hydrated ? value : ''}
         </Text>
       </GridItem>
     </Grid>
