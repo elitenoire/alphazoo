@@ -7,15 +7,14 @@ export type StoreWithPersist<S> = UseBoundStore<Mutate<StoreApi<S>, [['zustand/p
 /**
  * hooks to check if the value from persisted storage has been hydrated to zustand store
  *
- * @param store StoreWithPersistMiddleware
+ * @param store StoreWithPersist
  * @returns
  */
 
-// export const useStoreHydration = <S>(
 export const useStoreHydration = <S, P extends StoreWithPersist<S> = StoreWithPersist<S>>(
   store: WithSelectors<P>
 ) => {
-  const [hydrated, setHydrated] = useState(store.persist.hasHydrated)
+  const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
     const unsubFinishHydration = store.persist.onFinishHydration(() => setHydrated(true))

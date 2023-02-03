@@ -1,13 +1,9 @@
 import { create } from 'zustand'
 import { persist, subscribeWithSelector } from 'zustand/middleware'
 import { SOUND_SETTINGS } from '~src/constants'
-import { useStoreHydration, StoreWithPersist } from '~src/hooks/useStoreHydration'
+import { useStoreHydration } from '~src/hooks/useStoreHydration'
 import { createSelectors } from './selectors'
 
-interface HydratedState {
-  _hasHydrated: boolean
-  setHasHydrated: (state: boolean) => void
-}
 export interface SoundState {
   music: boolean
   musicVolume: number
@@ -27,7 +23,7 @@ export interface SoundState {
 }
 
 export const useSoundStore = createSelectors(
-  create<SoundState & HydratedState>()(
+  create<SoundState>()(
     subscribeWithSelector(
       persist(
         (set, get) => ({
@@ -46,14 +42,9 @@ export const useSoundStore = createSelectors(
           setMusicVolume: (volume) => set({ musicVolume: volume }),
           setSoundPhonicsVolume: (volume) => set({ soundPhonicsVolume: volume }),
           setSoundEffectsVolume: (volume) => set({ soundEffectsVolume: volume }),
-          _hasHydrated: false,
-          setHasHydrated: (state) => set({ _hasHydrated: state }),
         }),
         {
           name: SOUND_SETTINGS.storeName,
-          onRehydrateStorage: () => (state) => {
-            state?.setHasHydrated(true)
-          },
         }
       )
     )
@@ -61,5 +52,5 @@ export const useSoundStore = createSelectors(
 )
 
 export const useSoundHydration = () => {
-  return useStoreHydration<SoundState & HydratedState>(useSoundStore)
+  return useStoreHydration<SoundState>(useSoundStore)
 }
