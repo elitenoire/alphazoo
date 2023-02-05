@@ -1,3 +1,4 @@
+import type { PropsWithChildren } from 'react'
 import type { MotionValue } from 'framer-motion'
 import { useRef } from 'react'
 import { Heading, Box, Flex, Text, SimpleGrid } from '@chakra-ui/react'
@@ -6,9 +7,40 @@ import { useToken } from '@chakra-ui/react'
 import { MotionFlex } from '~components/motion'
 import { useAnimeBg } from '~src/hooks/useAnimeBg'
 
+import { activities } from '~/src/data/activity'
+
 // import { ActivityBoardCanvas } from './ActivityBoardCanvas'
 
-export function ActivityBoard() {
+export function ActivityGrid() {
+  return (
+    <SimpleGrid flex={[null, null, null, 1]} py={12} columns={[1, 2]} spacing={4}>
+      {activities.map(({ name, icon, color, alphabet }, idx) => {
+        return (
+          <Box key={`${name}-${idx}`}>
+            <Flex
+              as="h4"
+              align="center"
+              justify="space-between"
+              p={2}
+              bg={color}
+              borderTopRadius="5px"
+            >
+              <Flex as="span" direction="column">
+                Letters <Heading as="span">{name}</Heading>
+              </Flex>{' '}
+              <Box as="span" p={2} fontSize="2xl" bg="white" rounded="full">
+                {icon}
+              </Box>
+            </Flex>
+            {/* <ActivityBoardCanvas /> */}
+          </Box>
+        )
+      })}
+    </SimpleGrid>
+  )
+}
+
+export function ActivityBoard({ children }: PropsWithChildren) {
   const [currentBg, newBg] = useToken('colors', ['secondary.200', 'background'])
 
   const activityBoardRef = useRef(null)
@@ -76,80 +108,7 @@ export function ActivityBoard() {
           </Text>
         </Flex>
       </Box>
-      <SimpleGrid flex={[null, null, null, 1]} py={12} columns={[1, 2]} spacing={4}>
-        <Box>
-          <Flex
-            as="h4"
-            align="center"
-            justify="space-between"
-            p={2}
-            bg="orange.300"
-            borderTopRadius="5px"
-          >
-            <Flex as="span" direction="column">
-              Letters <Heading as="span">A-F</Heading>
-            </Flex>{' '}
-            <Box as="span" p={2} fontSize="2xl" bg="white" rounded="full">
-              🦊
-            </Box>
-          </Flex>
-          {/* <ActivityBoardCanvas /> */}
-        </Box>
-        <Box>
-          <Flex
-            as="h4"
-            align="center"
-            justify="space-between"
-            p={2}
-            bg="pink.200"
-            borderTopRadius="5px"
-          >
-            <Flex as="span" direction="column">
-              Letters <Heading as="span">G-M</Heading>
-            </Flex>{' '}
-            <Box as="span" p={2} fontSize="2xl" bg="white" rounded="full">
-              🐵
-            </Box>
-          </Flex>
-          {/* <ActivityBoardCanvas /> */}
-        </Box>
-        <Box>
-          <Flex
-            as="h4"
-            align="center"
-            justify="space-between"
-            p={2}
-            bg="green.300"
-            borderTopRadius="5px"
-          >
-            <Flex as="span" direction="column">
-              Letters <Heading as="span">N-T</Heading>
-            </Flex>{' '}
-            <Box as="span" p={2} fontSize="2xl" bg="white" rounded="full">
-              🦚
-            </Box>
-          </Flex>
-          {/* <ActivityBoardCanvas /> */}
-        </Box>
-        <Box>
-          <Flex
-            as="h4"
-            align="center"
-            justify="space-between"
-            p={2}
-            bg="purple.200"
-            borderTopRadius="5px"
-          >
-            <Flex as="span" direction="column">
-              Letters <Heading as="span">U-Z</Heading>
-            </Flex>{' '}
-            <Box as="span" p={2} fontSize="2xl" bg="white" rounded="full">
-              🦓
-            </Box>
-          </Flex>
-          {/* <ActivityBoardCanvas /> */}
-        </Box>
-      </SimpleGrid>
+      {children}
     </MotionFlex>
   )
 }

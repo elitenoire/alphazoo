@@ -6,7 +6,7 @@ import { MotionBox, MotionText, MotionSpan, MotionScroll } from '~components/mot
 import { HOMEPAGE_IDS } from '~src/constants'
 import { ActivityCloud } from './ActivityCloud'
 import { AlphabetBubble } from './AlphabetBubble'
-import { ActivityBoard } from './ActivityBoard'
+import { ActivityBoard, ActivityGrid } from './ActivityBoard'
 
 import ImgPanda from '~public/img/happypanda.svg'
 
@@ -166,7 +166,9 @@ export default function Activity() {
         </ListItem>
         <ListItem h={32} aria-hidden="true" />
       </List>
-      <ActivityBoard />
+      <ActivityBoard>
+        <ActivityGrid />
+      </ActivityBoard>
     </MotionBox>
   )
 }
