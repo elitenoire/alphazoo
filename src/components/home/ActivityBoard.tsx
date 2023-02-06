@@ -1,9 +1,9 @@
 import type { PropsWithChildren } from 'react'
 import type { MotionValue } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import { Heading, Box, Flex, Text, SimpleGrid } from '@chakra-ui/react'
-import { useScroll, useSpring, useTransform, transform } from 'framer-motion'
-import { useToken } from '@chakra-ui/react'
+import { useScroll, useSpring, useTransform, transform, useInView } from 'framer-motion'
+import { useToken, Portal } from '@chakra-ui/react'
 import { MotionFlex } from '~components/motion'
 import { useAnimeBg } from '~src/hooks/useAnimeBg'
 
@@ -12,31 +12,74 @@ import { activities } from '~/src/data/activity'
 // import { ActivityBoardCanvas } from './ActivityBoardCanvas'
 
 export function ActivityGrid() {
+  const gridRef = useRef(null)
+  const inView = useInView(gridRef)
+
+  const [selected, setSelected] = useState()
+
+  const show = inView // && selected
+
+  const onSelect = useCallback((alpha) => {
+    setSelected(alpha)
+  }, [])
+
+  // reset when not in view
+  useEffect(() => {
+    if (!inView) {
+      setSelected(undefined)
+    }
+  }, [inView])
+
   return (
-    <SimpleGrid flex={[null, null, null, 1]} py={12} columns={[1, 2]} spacing={4}>
-      {activities.map(({ name, icon, color, alphabet }, idx) => {
-        return (
-          <Box key={`${name}-${idx}`}>
-            <Flex
-              as="h4"
-              align="center"
-              justify="space-between"
-              p={2}
-              bg={color}
-              borderTopRadius="5px"
-            >
-              <Flex as="span" direction="column">
-                Letters <Heading as="span">{name}</Heading>
-              </Flex>{' '}
-              <Box as="span" p={2} fontSize="2xl" bg="white" rounded="full">
-                {icon}
-              </Box>
-            </Flex>
-            {/* <ActivityBoardCanvas /> */}
+    <>
+      <SimpleGrid ref={gridRef} flex={[null, null, null, 1]} py={12} columns={[1, 2]} spacing={4}>
+        {activities.map(({ name, icon, color, alphabet }, idx) => {
+          return (
+            <Box key={`${name}-${idx}`}>
+              <Flex
+                as="h4"
+                align="center"
+                justify="space-between"
+                p={2}
+                bg={color}
+                borderTopRadius="5px"
+              >
+                <Flex as="span" direction="column">
+                  Letters <Heading as="span">{name}</Heading>
+                </Flex>{' '}
+                <Box as="span" p={2} fontSize="2xl" bg="white" rounded="full">
+                  {icon}
+                </Box>
+              </Flex>
+              {/* <ActivityBoardCanvas /> */}
+            </Box>
+          )
+        })}
+      </SimpleGrid>
+      <Portal>
+        <MotionFlex
+          pos="fixed"
+          bottom={0}
+          left={0}
+          zIndex="max"
+          alignItems="center"
+          justifyContent="space-between"
+          w="100%"
+          minH={[14, 16]}
+          py={3}
+          px={[4, null, 8]}
+          bg="black"
+          initial={{ y: '100%' }}
+          animate={{ y: show ? '0%' : '100%' }}
+          // @ts-expect-error from chakra-ui official docs
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+        >
+          <Box color="white" bg="brand.dark">
+            ALPHABETS
           </Box>
-        )
-      })}
-    </SimpleGrid>
+        </MotionFlex>
+      </Portal>
+    </>
   )
 }
 
