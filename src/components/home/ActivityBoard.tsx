@@ -1,15 +1,37 @@
 import type { PropsWithChildren } from 'react'
-import type { MotionValue } from 'framer-motion'
+import type { MotionValue, Variants } from 'framer-motion'
 import { useRef, useState, useCallback, useEffect } from 'react'
 import { Heading, Box, Flex, Text, SimpleGrid } from '@chakra-ui/react'
-import { useScroll, useSpring, useTransform, transform, useInView } from 'framer-motion'
-import { useToken, Portal } from '@chakra-ui/react'
-import { MotionFlex } from '~components/motion'
+import {
+  useScroll,
+  useSpring,
+  useTransform,
+  transform,
+  useInView,
+  AnimatePresence,
+} from 'framer-motion'
+import { useToken, Portal, keyframes } from '@chakra-ui/react'
+import { MotionFlex, MotionBox } from '~components/motion'
 import { useAnimeBg } from '~src/hooks/useAnimeBg'
 
 import { activities } from '~/src/data/activity'
 
 // import { ActivityBoardCanvas } from './ActivityBoardCanvas'
+
+const scroll = keyframes`
+from {
+  transform: translateX(0)
+}
+to {
+  transform: translateX(calc(-100% - 1em))
+}
+`
+const marquee = `${scroll} 14s linear infinite`
+
+const slide: Variants = {
+  up: { y: '0%' },
+  down: { y: '100%' },
+}
 
 export function ActivityGrid() {
   const gridRef = useRef(null)
@@ -19,9 +41,12 @@ export function ActivityGrid() {
 
   const show = inView // && selected
 
-  const onSelect = useCallback((alpha) => {
-    setSelected(alpha)
-  }, [])
+  const handleSelect = useCallback(
+    (color: string) => (alpha) => {
+      setSelected({ ...alpha, color })
+    },
+    []
+  )
 
   // reset when not in view
   useEffect(() => {
@@ -56,29 +81,85 @@ export function ActivityGrid() {
           )
         })}
       </SimpleGrid>
-      <Portal>
-        <MotionFlex
-          pos="fixed"
-          bottom={0}
-          left={0}
-          zIndex="max"
-          alignItems="center"
-          justifyContent="space-between"
-          w="100%"
-          minH={[14, 16]}
-          py={3}
-          px={[4, null, 8]}
-          bg="black"
-          initial={{ y: '100%' }}
-          animate={{ y: show ? '0%' : '100%' }}
-          // @ts-expect-error from chakra-ui official docs
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-        >
-          <Box color="white" bg="brand.dark">
-            ALPHABETS
-          </Box>
-        </MotionFlex>
-      </Portal>
+      <AnimatePresence>
+        {show && (
+          <Portal>
+            <MotionFlex
+              pos="fixed"
+              bottom={0}
+              left={0}
+              zIndex="max"
+              alignItems="center"
+              justifyContent="space-between"
+              w="100%"
+              minH={[14, 16]}
+              py={3}
+              bg="black"
+              color="orange.300"
+              cursor="pointer"
+              _hover={{ bg: 'brand.dark' }}
+              variants={slide}
+              initial="down"
+              animate="up"
+              exit="down"
+              // @ts-expect-error from chakra-ui official docs
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
+            >
+              <MotionBox
+                pos="absolute"
+                top="-35%"
+                left={8}
+                p={2}
+                zIndex={1}
+                bg="inherit"
+                rounded="full"
+                variants={slide}
+                initial="down"
+                animate="up"
+                exit="down"
+                // @ts-expect-error from chakra-ui official docs
+                transition={{ type: 'spring', duration: 0.5 }}
+              >
+                <Box
+                  as="span"
+                  display="block"
+                  p={2}
+                  fontSize="2xl"
+                  bg="background"
+                  rounded="inherit"
+                >
+                  🦊
+                </Box>
+              </MotionBox>
+              <Flex pos="relative" gap={4} overflow="hidden" w="200%">
+                <Flex
+                  align="center"
+                  justify="space-around"
+                  flexShrink={0}
+                  gap={4}
+                  minW="full"
+                  animation={marquee}
+                >
+                  <Heading as="p">Antelope</Heading>
+                  <Heading as="span">🍂</Heading>
+                  <Heading as="p">Alligator</Heading>
+                  <Heading as="span">🍀</Heading>
+                  <Heading as="p">Ant</Heading>
+                  <Heading as="span">🍁</Heading>
+                </Flex>
+                <Flex justify="space-around" flexShrink={0} gap={4} minW="full" animation={marquee}>
+                  <Heading as="p">Antelope</Heading>
+                  <Heading as="span">🍂</Heading>
+                  <Heading as="p">Alligator</Heading>
+                  <Heading as="span">🍀</Heading>
+                  <Heading as="p">Ant</Heading>
+                  <Heading as="span">🍁</Heading>
+                </Flex>
+              </Flex>
+            </MotionFlex>
+          </Portal>
+        )}
+      </AnimatePresence>
     </>
   )
 }
