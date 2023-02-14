@@ -1,6 +1,6 @@
 import type { ComponentType, PropsWithChildren, ReactNode, ReactElement } from 'react'
 import { Fragment } from 'react'
-import { GeneralSoundProvider, HomeSoundProvider } from '~/src/context/sfx'
+import { GeneralSoundProvider, HomeSoundProvider, LearnSoundProvider } from '~/src/context/sfx'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import { BackToTop } from './BackToTop'
 import type { FooterProps } from './Footer'
@@ -48,6 +48,14 @@ export const getDefaultLayout = (page: ReactElement) => {
 export const getHomeLayout = (page: ReactElement) => {
   return (
     <DefaultLayout provider={HomeSoundProvider} bg="brand.700" full>
+      {page}
+    </DefaultLayout>
+  )
+}
+
+export const getLearnLayout = (page: ReactElement) => {
+  return (
+    <DefaultLayout provider={LearnSoundProvider} bg="orange.300">
       {page}
     </DefaultLayout>
   )
