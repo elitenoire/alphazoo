@@ -120,6 +120,9 @@ const theme = extendTheme(
         '.w-full': {
           width: '100%',
         },
+        '.object-cover': {
+          objectFit: 'cover',
+        },
       },
     },
     layerStyles: {
