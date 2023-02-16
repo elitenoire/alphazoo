@@ -13,6 +13,8 @@ import {
 } from 'matter-js'
 import { Box } from '@chakra-ui/react'
 
+import { activities } from '~/src/data/activity'
+
 const TH = 20
 
 export function ActivityBoardCanvas() {
@@ -20,8 +22,11 @@ export function ActivityBoardCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const cw = sceneRef.current?.clientWidth
-    const ch = sceneRef.current?.clientHeight
+    const cw = sceneRef.current?.clientWidth ?? 0
+    const ch = sceneRef.current?.clientHeight ?? 0
+
+    console.log({ cw, ch })
+
     // create engine
     const engine = Engine.create()
     const world = engine.world
@@ -48,22 +53,44 @@ export function ActivityBoardCanvas() {
 
     Composite.add(world, [roof, wallL, wallR, floor])
 
-    for (let i = 0; i < 5; i++) {
-      const circle = Bodies.circle(150, 0, 10, {
+    const LENGTH = activities[0].alphabet.length // 5
+    const SCALE_FACTOR = 0.25
+    const radius = Math.floor(Math.sqrt((cw * ch * SCALE_FACTOR) / (LENGTH * Math.PI)))
+
+    // for (let i = 0; i < 5; i++) {
+    //   const circle = Bodies.circle(cw / 2, 0, radius, {
+    //     friction: 0.3,
+    //     frictionAir: 0.00001,
+    //     restitution: 0.8,
+    //     render: {
+    //       fillStyle: 'yellow',
+    //       // sprite: {
+    //       //   texture: './img/',
+    //       //   xScale: 1,
+    //       //   yScale: 1,
+    //       // },
+    //     },
+    //   })
+    //   Composite.add(world, circle)
+    // }
+
+    const balls = activities[0].alphabet.map((alpha) =>
+      Bodies.circle(cw / 2, 0, radius, {
         friction: 0.3,
         frictionAir: 0.00001,
         restitution: 0.8,
         render: {
-          fillStyle: 'yellow',
-          // sprite: {
-          //   texture: './img/',
-          //   xScale: 1,
-          //   yScale: 1,
-          // },
+          fillStyle: 'white',
+          sprite: {
+            texture: `./img/glyphs/${alpha.name}.svg`,
+            xScale: 1,
+            yScale: 1,
+          },
         },
       })
-      Composite.add(world, circle)
-    }
+    )
+
+    Composite.add(world, balls)
 
     const mouse = Mouse.create(render.canvas)
     const mouseConstraint = MouseConstraint.create(engine, {
@@ -80,12 +107,17 @@ export function ActivityBoardCanvas() {
 
     mouseConstraint.mouse.element.removeEventListener(
       'mousewheel',
+      // @ts-expect-error mousewheel
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       mouseConstraint.mouse.mousewheel
     )
     mouseConstraint.mouse.element.removeEventListener(
       'DOMMouseScroll',
+      // @ts-expect-error mousewheel
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       mouseConstraint.mouse.mousewheel
     )
+    // Mouse.clearSourceEvents(mouse)
 
     // Events.on(mouseConstraint, 'startdrag', (e) => {
     //   // choose alphaball in fixed footer
@@ -99,11 +131,17 @@ export function ActivityBoardCanvas() {
     Runner.run(runner, engine)
 
     const handleResize = () => {
-      const cw = sceneRef.current?.clientWidth
-      const ch = sceneRef.current?.clientHeight
+      const cw = sceneRef.current?.clientWidth ?? 0
+      const ch = sceneRef.current?.clientHeight ?? 0
       // set canvas size to new values
       render.canvas.width = cw
       render.canvas.height = ch
+      // render.bounds.max.x = cw
+      // render.bounds.max.y = ch
+      // render.options.width = cw
+      // render.options.height = ch
+
+      // console.log({ cw, ch })
 
       Body.setPosition(floor, Vector.create(cw / 2, ch + TH / 2))
       Body.setPosition(wallR, Vector.create(cw + TH / 2, ch / 2))
