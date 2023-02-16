@@ -41,12 +41,12 @@ export function ActivityGrid() {
 
   const show = inView // && selected
 
-  const handleSelect = useCallback(
-    (color: string) => (alpha) => {
-      setSelected({ ...alpha, color })
-    },
-    []
-  )
+  // const handleSelect = useCallback(
+  //   (color: string) => (alpha) => {
+  //     setSelected({ ...alpha, color })
+  //   },
+  //   []
+  // )
 
   // reset when not in view
   useEffect(() => {
