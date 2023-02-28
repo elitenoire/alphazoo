@@ -28,7 +28,7 @@ const container: Variants = {
   out: {
     transition: {
       when: 'beforeChildren',
-      staggerChildren: 0.35,
+      staggerChildren: 0.3,
       staggerDirection: -1,
     },
   },
@@ -56,12 +56,7 @@ const list: Variants = {
       staggerChildren: 0.08,
     },
   },
-  out: {
-    transition: {
-      when: 'beforeChildren',
-      staggerChildren: 0.08,
-    },
-  },
+  out: {},
 }
 
 const item: Variants = {
@@ -80,11 +75,13 @@ const item: Variants = {
 const alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
 export default function Learn() {
-  const [start, setStart] = useState(false)
+  const [started, setStarted] = useState(false)
   const [gridReady, setGridReady] = useState(false)
 
+  const showGrid = started && gridReady
+
   const handleClick = useCallback(() => {
-    setStart(true)
+    setStarted(true)
   }, [])
 
   const handleExit = useCallback(() => {
@@ -97,7 +94,7 @@ export default function Learn() {
         <NextImage className="object-cover" fill src={ImgTrunks} alt="" unoptimized />
       </Box>
       <AnimatePresence>
-        {!start && (
+        {!started && (
           <MotionBox
             pos="absolute"
             w={['50%', null, null, '45%']}
@@ -113,7 +110,7 @@ export default function Learn() {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {!start && (
+        {!started && (
           <MotionBox
             pos="absolute"
             w={['40%', null, null, '30%']}
@@ -130,15 +127,14 @@ export default function Learn() {
         )}
       </AnimatePresence>
       <AnimatePresence onExitComplete={handleExit}>
-        {!start && (
+        {!started && (
           <MotionFlex
-            pos="relative"
-            zIndex={1}
+            pos="absolute"
             alignItems="center"
             justifyContent="center"
             flexDirection="column"
             w="full"
-            h="inherit"
+            inset={0}
             px={4}
             variants={container}
             initial="out"
@@ -146,21 +142,23 @@ export default function Learn() {
             exit="out"
           >
             <Flex
-              as="p"
               align="flex-start"
               direction="column"
-              gap={1}
+              gap={3}
               fontFamily="title"
               fontSize={['flg', 'fxl']}
             >
               <MotionSpan
                 px={3}
                 py={2}
-                color="orange.500"
-                bg="yellow.200"
+                color="orange.400"
+                bg="whiteAlpha.900"
+                boxShadow="xl"
                 borderRadius="full"
+                border="3px solid"
                 variants={appear}
                 custom={2.75}
+                willChange="opacity"
               >
                 <Box as="span" fontSize="2xl">
                   Hi!{' '}
@@ -169,11 +167,14 @@ export default function Learn() {
               <MotionSpan
                 px={3}
                 py={2}
-                color="orange.500"
-                bg="yellow.200"
+                color="orange.400"
+                bg="whiteAlpha.900"
+                boxShadow="xl"
                 borderRadius="3xl"
+                border="3px solid"
                 variants={appear}
                 custom={2}
+                willChange="opacity"
               >
                 Our friends are waiting to meet you.
               </MotionSpan>
@@ -182,13 +183,16 @@ export default function Learn() {
               my={6}
               px={3}
               py={2}
-              color="orange.500"
+              color="orange.400"
+              bg="whiteAlpha.900"
               fontFamily="title"
               fontSize={['flg', 'fxl']}
-              bg="yellow.200"
+              boxShadow="2xl"
               borderRadius="3xl"
+              border="3px solid"
               variants={appear}
               custom={1}
+              willChange="opacity"
             >
               Learn our names while having fun.
             </MotionText>
@@ -202,63 +206,70 @@ export default function Learn() {
           </MotionFlex>
         )}
       </AnimatePresence>
-      <AnimatePresence>
-        {start && gridReady && (
-          <Box pos="relative" zIndex={1} px={8} py={16}>
-            <SlideFade in>
-              <Heading textAlign="center">
-                Learn the{' '}
-                <Box
-                  as="span"
-                  p={1}
-                  color="orange.500"
-                  fontSize="xl"
-                  lineHeight="none"
-                  bg="yellow.200"
-                  borderRadius="full"
-                >
-                  26
-                </Box>{' '}
-                Alphabets
-              </Heading>
-            </SlideFade>
-            <MotionList
-              display="grid"
-              sx={{
-                '--gap': '1.25em',
-                '--size': '6.25em',
-                '--max-column': '9',
-              }}
-              placeContent="center"
-              pt={8}
-              gap="var(--gap)"
-              gridAutoRows="var(--size)"
-              gridTemplateColumns="repeat(auto-fit, min(max(100% / var(--max-column) - var(--gap), var(--size)), 100%))"
-              variants={list}
-              initial="out"
-              animate="in"
-            >
-              {alphabets.map((alphabet, idx) => (
-                <MotionListItem
-                  key={idx}
+      <AnimatePresence initial={false}>
+        <Box
+          pos="relative"
+          zIndex={1}
+          pt={24}
+          pb={16}
+          px={8}
+          visibility={showGrid ? 'visible' : 'hidden'}
+        >
+          <SlideFade in={showGrid} offsetY="100%">
+            <Heading textAlign="center">
+              Learn the{' '}
+              <Box
+                as="span"
+                p={1}
+                color="orange.400"
+                fontSize="xl"
+                lineHeight="none"
+                bg="whiteAlpha.800"
+                borderRadius="full"
+              >
+                26
+              </Box>{' '}
+              Alphabets
+            </Heading>
+          </SlideFade>
+          <MotionList
+            display="grid"
+            sx={{
+              '--gap': '1.25em',
+              '--size': '6.25em',
+              '--max-column': '8',
+            }}
+            placeContent="center"
+            pt={8}
+            gap="var(--gap)"
+            gridTemplateColumns="repeat(auto-fit, min(max(100% / var(--max-column) - var(--gap), var(--size)), 100%))"
+            variants={list}
+            initial="out"
+            animate={showGrid ? 'in' : 'out'}
+          >
+            {alphabets.map((alphabet) => (
+              <MotionListItem key={alphabet} variants={item}>
+                {/* Extra wrapper because of https://github.com/framer/motion/issues/1197 */}
+                <MotionBox
                   whileTap={{ scale: 0.95 }}
                   whileHover={{
                     scale: 1.1,
-                    transition: { type: 'spring', duration: 0.2, stiffness: 200 },
+                    transition: { type: 'spring', stiffness: 200 },
                   }}
-                  variants={item}
                 >
                   <NextLink href={`${ROUTES.learn}/${alphabet}`} passHref>
                     <SfxLink
                       display="flex"
                       position="relative"
                       justifyContent="center"
-                      bg="orange.100"
+                      bg="white"
                       h="full"
                       borderRadius="md"
-                      p={2}
+                      p="15%"
+                      boxShadow="sm"
+                      _hover={{ boxShadow: 'xl' }}
                     >
-                      <AspectRatio w="100%" ratio={1}>
+                      <AspectRatio as="span" display="block" w="100%" ratio={1}>
                         <NextImage
                           src={`./img/glyphs/${alphabet.toUpperCase()}.svg`}
                           alt={`Animal letter ${alphabet}`}
@@ -268,11 +279,11 @@ export default function Learn() {
                       </AspectRatio>
                     </SfxLink>
                   </NextLink>
-                </MotionListItem>
-              ))}
-            </MotionList>
-          </Box>
-        )}
+                </MotionBox>
+              </MotionListItem>
+            ))}
+          </MotionList>
+        </Box>
       </AnimatePresence>
     </Box>
   )

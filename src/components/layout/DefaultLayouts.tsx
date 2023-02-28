@@ -55,7 +55,7 @@ export const getHomeLayout = (page: ReactElement) => {
 
 export const getLearnLayout = (page: ReactElement) => {
   return (
-    <DefaultLayout provider={LearnSoundProvider} bg="orange.300">
+    <DefaultLayout provider={LearnSoundProvider} bg="orange.200">
       {page}
     </DefaultLayout>
   )
