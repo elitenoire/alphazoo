@@ -1,5 +1,6 @@
 import type { ComponentType, PropsWithChildren, ReactNode, ReactElement } from 'react'
 import { Fragment } from 'react'
+import { Grid } from '@chakra-ui/react'
 import { GeneralSoundProvider, HomeSoundProvider, LearnSoundProvider } from '~/src/context/sfx'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import { BackToTop } from './BackToTop'
@@ -28,14 +29,16 @@ const DefaultLayout = ({
   return (
     <GeneralSoundProvider>
       <AnimatableBackground bg={bg}>
-        <Header>{headerContent}</Header>
-        <main>
-          <Provider>
-            {children}
-            {!hideBackToTop && <BackToTop />}
-          </Provider>
-        </main>
-        {!hideFooter && <Footer full={full} />}
+        <Grid templateRows="auto 1fr auto" minH="100vh">
+          <Header>{headerContent}</Header>
+          <main>
+            <Provider>
+              {children}
+              {!hideBackToTop && <BackToTop />}
+            </Provider>
+          </main>
+          {!hideFooter && <Footer full={full} />}
+        </Grid>
       </AnimatableBackground>
     </GeneralSoundProvider>
   )
