@@ -20,7 +20,7 @@ const velocityThreshold = 100
 
 export default function MenuBar() {
   const [fullRadius] = useToken('radii', ['full'])
-  const { isOpen, toggleOpen } = useModalContext() as ModalContextExtended
+  const { isOpen, toggleOpen, onClose } = useModalContext() as ModalContextExtended
 
   const [isAtTop, setIsAtTop] = useState(true)
   const [isScrollingBack, setIsScrollingBack] = useState(false)
@@ -91,6 +91,7 @@ export default function MenuBar() {
           }}
           aria-label={`${SITE_CONFIG.appName}: Home for Animal ABCs`}
           title={`${SITE_CONFIG.appName}: Home for Animal ABCs`}
+          onClick={onClose}
         >
           <Box
             as="span"
