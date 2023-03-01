@@ -29,7 +29,7 @@ const DefaultLayout = ({
   return (
     <GeneralSoundProvider>
       <AnimatableBackground bg={bg}>
-        <Grid templateRows="auto 1fr auto" minH="100vh">
+        <Grid templateRows="auto 1fr auto" templateColumns="minmax(0,1fr)" minH="100vh">
           <Header>{headerContent}</Header>
           <main>
             <Provider>
