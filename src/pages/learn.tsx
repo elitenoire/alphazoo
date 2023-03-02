@@ -1,14 +1,25 @@
-import NextLink from 'next/link'
 import NextImage from 'next/future/image'
 import { useState, useCallback } from 'react'
-import { Flex, Box, Heading, List, ListItem, AspectRatio, SlideFade } from '@chakra-ui/react'
+import {
+  Flex,
+  Box,
+  Heading,
+  List,
+  ListItem,
+  AspectRatio,
+  SlideFade,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalCloseButton,
+  ModalFooter,
+} from '@chakra-ui/react'
 import type { Variants } from 'framer-motion'
 import type { ListProps, ListItemProps } from '@chakra-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MotionBox, MotionText, MotionSpan, MagneticBox, MotionFlex } from '~components/motion'
 import { SfxButton, SfxLink } from '~components/sfx'
 import { getLearnLayout } from '~components/layout/DefaultLayouts'
-import { ROUTES } from '~src/constants'
 
 import { ReactComponent as LeftPandaSvg } from '~public/img/bg-panda-l.svg'
 import { ReactComponent as RightPandaSvg } from '~public/img/bg-panda-r.svg'
@@ -74,9 +85,60 @@ const item: Variants = {
 
 const alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
+interface AlphabetModalProps {
+  selected: string | null
+  onClose: () => void
+}
+
+const AlphabetModal = ({ onClose, selected }: AlphabetModalProps) => {
+  return (
+    <AnimatePresence>
+      {selected && (
+        <Modal isOpen={!!selected} motionPreset="none" onClose={onClose} size="full">
+          <ModalContent pos="relative" overflow="hidden" bg="transparent">
+            <MotionBox
+              pos="absolute"
+              inset={0}
+              bg="red.500"
+              initial={{ x: '-100%' }}
+              animate={{ x: '0%' }}
+              exit={{ x: '-100%' }}
+              // @ts-expect-error from chakra-ui official docs
+              transition={{ duration: 0.4 }}
+            />
+            <ModalCloseButton zIndex={5} />
+            <ModalBody
+              pos="relative"
+              zIndex={1}
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+            >
+              <MotionBox layoutId="">
+                <AspectRatio w="80vmin" ratio={1}>
+                  <NextImage
+                    src={`./img/glyphs/${selected.toUpperCase()}.svg`}
+                    alt={`Animal letter ${selected}`}
+                    fill
+                    unoptimized
+                  />
+                </AspectRatio>
+              </MotionBox>
+            </ModalBody>
+            <ModalFooter pos="relative" zIndex={1}>
+              <ModalCloseButton zIndex={5} />
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
+    </AnimatePresence>
+  )
+}
+
 export default function Learn() {
   const [started, setStarted] = useState(false)
   const [gridReady, setGridReady] = useState(false)
+  const [selected, setSelected] = useState<string | null>(null)
 
   const showGrid = started && gridReady
 
@@ -87,6 +149,17 @@ export default function Learn() {
   const handleExit = useCallback(() => {
     setGridReady(true)
   }, [])
+
+  const handleClose = useCallback(() => {
+    setSelected(null)
+  }, [])
+
+  const select = useCallback(
+    (alpha: string) => () => {
+      setSelected(alpha)
+    },
+    []
+  )
 
   return (
     <Flex
@@ -257,34 +330,46 @@ export default function Learn() {
                     transition: { type: 'spring', stiffness: 200 },
                   }}
                 >
-                  <NextLink href={`${ROUTES.learn}/${alphabet}`} passHref>
-                    <SfxLink
-                      display="flex"
-                      position="relative"
-                      justifyContent="center"
-                      bg="white"
-                      h="full"
-                      borderRadius="md"
-                      p="10%"
-                      boxShadow="sm"
-                      _hover={{ boxShadow: 'xl' }}
-                    >
-                      <AspectRatio as="span" display="block" w="100%" ratio={1}>
-                        <NextImage
-                          src={`./img/glyphs/${alphabet.toUpperCase()}.svg`}
-                          alt={`Animal letter ${alphabet}`}
-                          fill
-                          unoptimized
-                        />
-                      </AspectRatio>
-                    </SfxLink>
-                  </NextLink>
+                  <SfxLink
+                    as="button"
+                    type="button"
+                    display="flex"
+                    position="relative"
+                    justifyContent="center"
+                    bg="white"
+                    h="full"
+                    w="full"
+                    borderRadius="md"
+                    p="10%"
+                    boxShadow="sm"
+                    _hover={{ boxShadow: 'xl' }}
+                    appearance="none"
+                    onClick={select(alphabet)}
+                  >
+                    <AspectRatio as="span" display="block" w="100%" ratio={1}>
+                      <NextImage
+                        src={`./img/glyphs/${alphabet.toUpperCase()}.svg`}
+                        alt={`Animal letter ${alphabet}`}
+                        fill
+                        unoptimized
+                      />
+                    </AspectRatio>
+                  </SfxLink>
                 </MotionBox>
               </MotionListItem>
             ))}
           </MotionList>
         </Box>
       </AnimatePresence>
+      <AlphabetModal
+        // isOpen={showGrid}
+        selected={selected}
+        onClose={handleClose}
+      />
+      {/* <AnimatePresence>
+        {selected && (
+        )}
+      </AnimatePresence> */}
     </Flex>
   )
 }
