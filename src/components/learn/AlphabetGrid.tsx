@@ -1,17 +1,45 @@
 import NextImage from 'next/future/image'
-import { useState, useCallback } from 'react'
+import type { PropsWithChildren } from 'react'
+import { useState, useCallback, useRef, useImperativeHandle, forwardRef } from 'react'
 import { Box, Heading, List, ListItem, AspectRatio, SlideFade } from '@chakra-ui/react'
 import type { Variants } from 'framer-motion'
 import type { ListProps, ListItemProps, AspectRatioProps } from '@chakra-ui/react'
+import type { PlayFunction } from 'use-sound/dist/types'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MotionBox } from '~components/motion'
 import { SfxLink } from '~components/sfx'
+import { usePhonics } from '~/src/hooks/usePhonics'
 
 import { AlphabetModal } from '~components/learn/AlphabetModal'
 
 const MotionList = motion<ListProps>(List)
 const MotionListItem = motion<ListItemProps>(ListItem)
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
+
+interface SoundRef {
+  play: PlayFunction
+}
+
+interface SoundRegisterProps {
+  glyph: string
+}
+
+const SoundRegister = forwardRef<SoundRef, PropsWithChildren<SoundRegisterProps>>(
+  ({ children, glyph }, ref) => {
+    const [play] = usePhonics(`./sounds/alphabets/${glyph.toLowerCase()}.mp3`)
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        play,
+      }),
+      [play]
+    )
+
+    return <>{children}</>
+  }
+)
+SoundRegister.displayName = 'SoundRegister'
 
 const list: Variants = {
   in: {
@@ -38,6 +66,7 @@ const item: Variants = {
 
 const alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('')
 
+type AlphabetSounds = Record<string, SoundRef>
 interface AlphabetGridProps {
   show: boolean
 }
@@ -45,13 +74,28 @@ interface AlphabetGridProps {
 export default function AlphabetGrid({ show }: AlphabetGridProps) {
   const [selected, setSelected] = useState<string | null>(null)
 
+  const alphabetSoundsRef = useRef<AlphabetSounds>({})
+
+  const getRef = useCallback(
+    (alphabet: string) => (elm: SoundRef) => {
+      alphabetSoundsRef.current[alphabet] = elm
+    },
+    []
+  )
+
+  const handlePlay = useCallback(() => {
+    if (selected) {
+      alphabetSoundsRef.current[selected].play()
+    }
+  }, [selected])
+
   const handleClose = useCallback(() => {
     setSelected(null)
   }, [])
 
   const select = useCallback(
-    (alpha: string) => () => {
-      setSelected(alpha)
+    (alphabet: string) => () => {
+      setSelected(alphabet)
     },
     []
   )
@@ -112,44 +156,46 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                     transition: { type: 'spring', stiffness: 200 },
                   }}
                 >
-                  <SfxLink
-                    as="button"
-                    type="button"
-                    display="flex"
-                    position="relative"
-                    justifyContent="center"
-                    bg="white"
-                    h="full"
-                    w="full"
-                    borderRadius="md"
-                    p="10%"
-                    boxShadow="sm"
-                    _hover={{ boxShadow: 'xl' }}
-                    appearance="none"
-                    onClick={select(alphabet)}
-                  >
-                    <MotionAspectRatio
-                      layoutId={`learn-${alphabet}`}
-                      as="span"
-                      display="block"
-                      w="100%"
-                      ratio={1}
+                  <SoundRegister ref={getRef(alphabet)} glyph={alphabet}>
+                    <SfxLink
+                      as="button"
+                      type="button"
+                      display="flex"
+                      position="relative"
+                      justifyContent="center"
+                      bg="white"
+                      h="full"
+                      w="full"
+                      borderRadius="md"
+                      p="10%"
+                      boxShadow="sm"
+                      _hover={{ boxShadow: 'xl' }}
+                      appearance="none"
+                      onClick={select(alphabet)}
                     >
-                      <NextImage
-                        src={`./img/glyphs/${alphabet.toUpperCase()}.svg`}
-                        alt={`Animal letter ${alphabet}`}
-                        fill
-                        unoptimized
-                      />
-                    </MotionAspectRatio>
-                  </SfxLink>
+                      <MotionAspectRatio
+                        layoutId={`learn-${alphabet}`}
+                        as="span"
+                        display="block"
+                        w="100%"
+                        ratio={1}
+                      >
+                        <NextImage
+                          src={`./img/glyphs/${alphabet.toUpperCase()}.svg`}
+                          alt={`Animal letter ${alphabet}`}
+                          fill
+                          unoptimized
+                        />
+                      </MotionAspectRatio>
+                    </SfxLink>
+                  </SoundRegister>
                 </MotionBox>
               </MotionListItem>
             ))}
           </MotionList>
         </Box>
       </AnimatePresence>
-      <AlphabetModal selected={selected} onClose={handleClose} />
+      <AlphabetModal selected={selected} onClose={handleClose} playSound={handlePlay} />
     </>
   )
 }

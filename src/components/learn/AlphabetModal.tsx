@@ -1,28 +1,20 @@
 import NextImage from 'next/future/image'
-import { useCallback } from 'react'
 import { AspectRatio, Modal, ModalBody, ModalContent, ModalFooter } from '@chakra-ui/react'
 import type { AspectRatioProps } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { AddLinear, ArrowRightLinear, PlayBold } from 'react-iconsax-icons'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { SfxIconButton } from '~components/sfx'
-import { usePhonics } from '~/src/hooks/usePhonics'
 
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
 
 interface AlphabetModalProps {
   selected: string | null
+  playSound: () => void
   onClose: () => void
 }
 
-export const AlphabetModal = ({ onClose, selected }: AlphabetModalProps) => {
-  const src = selected ? `./sounds/alphabets/${selected}.mp3` : ''
-  const [play] = usePhonics(src)
-
-  const playSound = useCallback(() => {
-    play()
-  }, [play])
-
+export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalProps) => {
   return (
     <Modal isOpen={!!selected} motionPreset="none" onClose={onClose} size="full">
       <ModalContent
