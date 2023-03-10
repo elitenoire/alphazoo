@@ -1,4 +1,4 @@
-import { ChakraColorHues } from '~types/theme'
+import type { ChakraColorHues } from '~types/theme'
 
 export type Alphabet =
   | 'A'
@@ -48,4 +48,10 @@ export type WikiType = {
   imgRatio: number
   colorScheme: ChakraColorHues
   tintBg?: boolean
+}
+
+export type AlphabetType = {
+  numeral: number
+  name: Alphabet
+  bg: string
 }

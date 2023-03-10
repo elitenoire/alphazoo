@@ -1,20 +1,27 @@
 import NextImage from 'next/future/image'
-import { AspectRatio, Modal, ModalBody, ModalContent, ModalFooter } from '@chakra-ui/react'
 import type { AspectRatioProps } from '@chakra-ui/react'
+import { Box, AspectRatio, Modal, ModalBody, ModalContent, ModalFooter } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { AddLinear, ArrowRightLinear, PlayBold } from 'react-iconsax-icons'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { SfxIconButton } from '~components/sfx'
 
+import { settings, Animations } from './variants'
+
+import type { AlphabetType } from '~/types/data'
+
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
 
 interface AlphabetModalProps {
-  selected: string | null
+  selected: AlphabetType | null
   playSound: () => void
   onClose: () => void
 }
 
 export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalProps) => {
+  const modalBg = selected?.bg ?? 'orange.200'
+  const idx = (selected?.numeral ?? 1) % settings.length
+
   return (
     <Modal isOpen={!!selected} motionPreset="none" onClose={onClose} size="full">
       <ModalContent
@@ -26,7 +33,7 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
         <MotionBox
           pos="absolute"
           inset={0}
-          bg="orange.200"
+          bg={modalBg}
           initial={{ x: '-100%' }}
           animate={{ x: '0%' }}
           exit={{ x: '-100%' }}
@@ -41,25 +48,65 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
           display="flex"
         >
           {selected && (
-            <MotionAspectRatio
-              layoutId={`learn-${selected}`}
-              w={{ base: '80vmin', lg: '70vmin' }}
-              ratio={1}
-              // https://github.com/framer/motion/issues/1524
-              // temp fix for shared layout portal issue (enter animation)
-              initial={{ scale: 0.25, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              // @ts-expect-error from chakra-ui official docs
-              transition={{ duration: 0.6 }}
-              onAnimationComplete={playSound}
-            >
-              <NextImage
-                src={`./img/glyphs/${selected.toUpperCase()}.svg`}
-                alt={`Animal letter ${selected}`}
-                fill
-                unoptimized
-              />
-            </MotionAspectRatio>
+            <Box pos="relative">
+              <MotionAspectRatio
+                layoutId={`learn-${selected.name}`}
+                w={{ base: '80vmin', lg: '70vmin' }}
+                ratio={1}
+                // https://github.com/framer/motion/issues/1524
+                // temp fix for shared layout portal issue (enter animation)
+                initial={{ scale: 0.25, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                // @ts-expect-error from chakra-ui official docs
+                transition={{ duration: 0.6 }}
+                onAnimationComplete={playSound}
+              >
+                <NextImage
+                  src={`./img/glyphs/${selected.name.toUpperCase()}.svg`}
+                  alt={`Animal letter ${selected.name}`}
+                  fill
+                  unoptimized
+                />
+              </MotionAspectRatio>
+              <MotionBox
+                bg={modalBg}
+                sx={{
+                  img: {
+                    mixBlendMode: 'soft-light',
+                    objectFit: 'contain',
+                    objectPosition: 'bottom',
+                  },
+                }}
+                pos="absolute"
+                w="35%"
+                h="35%"
+                zIndex={-1}
+                initial="out"
+                animate={['in', settings[idx].left.animate]}
+                exit="out"
+                variants={Animations}
+                {...settings[idx].left.props}
+              >
+                <NextImage fill src={`./img/${settings[idx].left.img}`} alt="" unoptimized />
+              </MotionBox>
+              <MotionBox
+                bg={modalBg}
+                sx={{
+                  img: { mixBlendMode: 'overlay', objectFit: 'contain', objectPosition: 'top' },
+                }}
+                pos="absolute"
+                w="35%"
+                h="35%"
+                zIndex={-1}
+                initial="out"
+                animate={['in', settings[idx].right.animate]}
+                exit="out"
+                variants={Animations}
+                {...settings[idx].right.props}
+              >
+                <NextImage fill src={`./img/${settings[idx].right.img}`} alt="" unoptimized />
+              </MotionBox>
+            </Box>
           )}
         </ModalBody>
         <ModalFooter pos="relative" zIndex={1} justifyContent="center">
@@ -73,9 +120,10 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
           >
             <SfxIconButton
               shadow="sm"
+              bg="red.500"
+              color="white"
               _hover={{
-                bg: 'red.500',
-                color: 'white',
+                bg: 'red.400',
               }}
               _active={{
                 bg: 'red.600',
@@ -93,9 +141,10 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
             />
             <SfxIconButton
               shadow="sm"
+              bg="blue.500"
+              color="white"
               _hover={{
-                bg: 'blue.500',
-                color: 'white',
+                bg: 'blue.400',
               }}
               _active={{
                 bg: 'blue.600',
@@ -112,9 +161,10 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
             />
             <SfxIconButton
               shadow="sm"
+              bg="brand.500"
+              color="white"
               _hover={{
-                bg: 'brand.500',
-                color: 'white',
+                bg: 'brand.400',
               }}
               _active={{
                 bg: 'brand.600',

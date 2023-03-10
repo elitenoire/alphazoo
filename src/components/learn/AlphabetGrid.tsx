@@ -12,6 +12,11 @@ import { usePhonics } from '~/src/hooks/usePhonics'
 
 import { AlphabetModal } from '~components/learn/AlphabetModal'
 
+// import type { AlphabetType } from '~/types/data'
+import { alphabets } from '~/src/data/alphabets'
+type AlphabetType = (typeof alphabets)[number]
+type GlyphType = AlphabetType['name']
+
 const MotionList = motion<ListProps>(List)
 const MotionListItem = motion<ListItemProps>(ListItem)
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
@@ -21,7 +26,7 @@ interface SoundRef {
 }
 
 interface SoundRegisterProps {
-  glyph: string
+  glyph: GlyphType
 }
 
 const SoundRegister = forwardRef<SoundRef, PropsWithChildren<SoundRegisterProps>>(
@@ -64,20 +69,18 @@ const item: Variants = {
   },
 }
 
-const alphabets = 'abcdefghijklmnopqrstuvwxyz'.split('')
-
-type AlphabetSounds = Record<string, SoundRef>
+type AlphabetSounds = Record<GlyphType, SoundRef>
 interface AlphabetGridProps {
   show: boolean
 }
 
 export default function AlphabetGrid({ show }: AlphabetGridProps) {
-  const [selected, setSelected] = useState<string | null>(null)
+  const [selected, setSelected] = useState<AlphabetType | null>(null)
 
-  const alphabetSoundsRef = useRef<AlphabetSounds>({})
+  const alphabetSoundsRef = useRef<Partial<AlphabetSounds>>({})
 
   const getRef = useCallback(
-    (alphabet: string) => (elm: SoundRef) => {
+    (alphabet: GlyphType) => (elm: SoundRef) => {
       alphabetSoundsRef.current[alphabet] = elm
     },
     []
@@ -85,7 +88,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
 
   const handlePlay = useCallback(() => {
     if (selected) {
-      alphabetSoundsRef.current[selected].play()
+      alphabetSoundsRef.current[selected.name]?.play()
     }
   }, [selected])
 
@@ -94,7 +97,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
   }, [])
 
   const select = useCallback(
-    (alphabet: string) => () => {
+    (alphabet: AlphabetType) => () => {
       setSelected(alphabet)
     },
     []
@@ -146,52 +149,55 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
             initial="out"
             animate={show ? 'in' : 'out'}
           >
-            {alphabets.map((alphabet) => (
-              <MotionListItem key={alphabet} variants={item}>
-                {/* Extra wrapper because of https://github.com/framer/motion/issues/1197 */}
-                <MotionBox
-                  whileTap={{ scale: 0.95 }}
-                  whileHover={{
-                    scale: 1.1,
-                    transition: { type: 'spring', stiffness: 200 },
-                  }}
-                >
-                  <SoundRegister ref={getRef(alphabet)} glyph={alphabet}>
-                    <SfxLink
-                      as="button"
-                      type="button"
-                      display="flex"
-                      position="relative"
-                      justifyContent="center"
-                      bg="white"
-                      h="full"
-                      w="full"
-                      borderRadius="md"
-                      p="10%"
-                      boxShadow="sm"
-                      _hover={{ boxShadow: 'xl' }}
-                      appearance="none"
-                      onClick={select(alphabet)}
-                    >
-                      <MotionAspectRatio
-                        layoutId={`learn-${alphabet}`}
-                        as="span"
-                        display="block"
-                        w="100%"
-                        ratio={1}
+            {alphabets.map((alphabet) => {
+              const { name } = alphabet
+              return (
+                <MotionListItem key={name} variants={item}>
+                  {/* Extra wrapper because of https://github.com/framer/motion/issues/1197 */}
+                  <MotionBox
+                    whileTap={{ scale: 0.95 }}
+                    whileHover={{
+                      scale: 1.1,
+                      transition: { type: 'spring', stiffness: 200 },
+                    }}
+                  >
+                    <SoundRegister ref={getRef(name)} glyph={name}>
+                      <SfxLink
+                        as="button"
+                        type="button"
+                        display="flex"
+                        position="relative"
+                        justifyContent="center"
+                        bg="white"
+                        h="full"
+                        w="full"
+                        borderRadius="md"
+                        p="10%"
+                        boxShadow="sm"
+                        _hover={{ boxShadow: 'xl' }}
+                        appearance="none"
+                        onClick={select(alphabet)}
                       >
-                        <NextImage
-                          src={`./img/glyphs/${alphabet.toUpperCase()}.svg`}
-                          alt={`Animal letter ${alphabet}`}
-                          fill
-                          unoptimized
-                        />
-                      </MotionAspectRatio>
-                    </SfxLink>
-                  </SoundRegister>
-                </MotionBox>
-              </MotionListItem>
-            ))}
+                        <MotionAspectRatio
+                          layoutId={`learn-${name}`}
+                          as="span"
+                          display="block"
+                          w="100%"
+                          ratio={1}
+                        >
+                          <NextImage
+                            src={`./img/glyphs/${name.toUpperCase()}.svg`}
+                            alt={`Animal letter ${name}`}
+                            fill
+                            unoptimized
+                          />
+                        </MotionAspectRatio>
+                      </SfxLink>
+                    </SoundRegister>
+                  </MotionBox>
+                </MotionListItem>
+              )
+            })}
           </MotionList>
         </Box>
       </AnimatePresence>
