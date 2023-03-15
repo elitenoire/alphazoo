@@ -72,9 +72,11 @@ const Letter = forwardRef<LetterRef, PropsWithChildren<LetterProps>>(
         _active={{
           transform: 'scale(1)',
         }}
+        appearance="none"
         transition="transform 0.2s, color 0.2s"
         onClick={handleClick}
         onMouseEnter={playHover}
+        type="button"
       >
         {children}
       </Text>

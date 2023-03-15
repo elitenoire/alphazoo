@@ -10,6 +10,9 @@ export const Heading: ComponentSingleStyleConfig = {
     body: {
       fontFamily: 'body',
     },
+    title: {
+      fontFamily: 'title',
+    },
   },
   defaultProps: {
     variant: 'caps',
