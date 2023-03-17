@@ -12,6 +12,12 @@ const nextConfig = {
     emotion: true,
     removeConsole,
   },
+  modularizeImports: {
+    'react-iconsax-icons': {
+      transform: 'react-iconsax-icons/lib/{{member}}',
+      skipDefaultConversion: true,
+    },
+  },
 }
 /** @type {(nextConfig: NextConfig) => NextConfig} */
 const withSvgr = (nextConfig = {}) => {
