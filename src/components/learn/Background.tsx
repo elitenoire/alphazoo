@@ -1,4 +1,4 @@
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import type { PropsWithChildren } from 'react'
 import { Box } from '@chakra-ui/react'
 import { MotionFlex } from '~components/motion'

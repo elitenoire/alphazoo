@@ -1,6 +1,6 @@
-import { useState, useCallback, useRef } from 'react'
 import NextLink from 'next/link'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
+import { useState, useCallback, useRef } from 'react'
 import type { MotionValue } from 'framer-motion'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
 import { AspectRatio, Box, Flex, Text, Heading, Link } from '@chakra-ui/react'
@@ -134,11 +134,9 @@ export default function FunWiki() {
         <Text fontSize={['fxl', null, 'f2xl']}>...and more</Text>
         <MotionPop delay={0.2} display="inline-block" mt={8}>
           <MagneticBox>
-            <NextLink href={ROUTES.wiki} passHref>
-              <SfxButton as="a" color="background">
-                Explore Wikis
-              </SfxButton>
-            </NextLink>
+            <SfxButton as={NextLink} href={ROUTES.wiki} color="background">
+              Explore Wikis
+            </SfxButton>
           </MagneticBox>
         </MotionPop>
       </Box>

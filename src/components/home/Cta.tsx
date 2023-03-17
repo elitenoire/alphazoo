@@ -49,11 +49,9 @@ export default function Cta() {
       </Heading>
       <MotionPop delay={0.2} display="inline-block" mt={8}>
         <MagneticBox>
-          <NextLink href={ROUTES.learn} passHref>
-            <SfxButton as="a" color="background">
-              Start Learning
-            </SfxButton>
-          </NextLink>
+          <SfxButton as={NextLink} href={ROUTES.learn} color="background">
+            Start Learning
+          </SfxButton>
         </MagneticBox>
       </MotionPop>
     </Box>

@@ -1,5 +1,5 @@
 import type { Variants, DraggableProps } from 'framer-motion'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { useIsLargeAndAbove, useIsSmallAndAbove } from '~/src/hooks/mediaQueries'
 

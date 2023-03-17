@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import { motion } from 'framer-motion'
 import type { ListProps, ListItemProps } from '@chakra-ui/react'
 import { Box, Circle, List, ListItem, AspectRatio, useModalContext } from '@chakra-ui/react'
@@ -62,15 +62,15 @@ export const MenuLinks = ({ onHoverStart, onHoverEnd }: MenuLinksProps) => {
     >
       {routes.map((route) => (
         <MotionListItem key={route.id} variants={navItem}>
-          <NextLink href={route.url} passHref>
-            <SfxLink
-              onClick={onClose}
-              onMouseEnter={onHoverStart(route.id)}
-              onMouseLeave={onHoverEnd}
-            >
-              {route.name}
-            </SfxLink>
-          </NextLink>
+          <SfxLink
+            as={NextLink}
+            href={route.url}
+            onClick={onClose}
+            onMouseEnter={onHoverStart(route.id)}
+            onMouseLeave={onHoverEnd}
+          >
+            {route.name}
+          </SfxLink>
           <Box
             pos="absolute"
             top="50%"

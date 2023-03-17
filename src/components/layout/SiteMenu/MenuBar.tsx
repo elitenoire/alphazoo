@@ -77,50 +77,50 @@ export default function MenuBar() {
       animate={barMotion}
       variants={menuBarBg}
     >
-      <NextLink href={ROUTES.home} passHref>
-        <SfxLink
-          alignItems="center"
-          gap={2}
-          display="flex"
-          pointerEvents="auto"
-          _hover={{
-            '& > span:first-of-type': {
-              shadow: '0 0 0 5px rgba(255,255,255,0.15)',
-              transform: 'scale(0.95) rotate(-45deg)',
-            },
-          }}
-          aria-label={`${SITE_CONFIG.appName}: Home for Animal ABCs`}
-          title={`${SITE_CONFIG.appName}: Home for Animal ABCs`}
-          onClick={onClose}
+      <SfxLink
+        as={NextLink}
+        href={ROUTES.home}
+        alignItems="center"
+        gap={2}
+        display="flex"
+        pointerEvents="auto"
+        _hover={{
+          '& > span:first-of-type': {
+            shadow: '0 0 0 5px rgba(255,255,255,0.15)',
+            transform: 'scale(0.95) rotate(-45deg)',
+          },
+        }}
+        aria-label={`${SITE_CONFIG.appName}: Home for Animal ABCs`}
+        title={`${SITE_CONFIG.appName}: Home for Animal ABCs`}
+        onClick={onClose}
+      >
+        <Box
+          as="span"
+          w={14}
+          p={2}
+          bg="background"
+          borderWidth="5px"
+          borderColor="currentcolor"
+          rounded="circle"
+          transitionDuration="0.2s"
+          transitionProperty="transform,box-shadow"
         >
-          <Box
-            as="span"
-            w={14}
-            p={2}
-            bg="background"
-            borderWidth="5px"
-            borderColor="currentcolor"
-            rounded="circle"
-            transitionDuration="0.2s"
-            transitionProperty="transform,box-shadow"
-          >
-            <LogoSvg fill="currentcolor" />
-          </Box>
-          <AnimatePresence>
-            {isOpen && (
-              <MotionSpan
-                display={['none', 'block']}
-                w={24}
-                initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1, transition: { delay: 0.2, duration: 0.3 } }}
-                exit={{ x: 50, opacity: 0, transition: { duration: 0.3 } }}
-              >
-                <LogonameSvg fill="currentcolor" />
-              </MotionSpan>
-            )}
-          </AnimatePresence>
-        </SfxLink>
-      </NextLink>
+          <LogoSvg fill="currentcolor" />
+        </Box>
+        <AnimatePresence>
+          {isOpen && (
+            <MotionSpan
+              display={['none', 'block']}
+              w={24}
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1, transition: { delay: 0.2, duration: 0.3 } }}
+              exit={{ x: 50, opacity: 0, transition: { duration: 0.3 } }}
+            >
+              <LogonameSvg fill="currentcolor" />
+            </MotionSpan>
+          )}
+        </AnimatePresence>
+      </SfxLink>
 
       <MotionFlex
         layout

@@ -1,7 +1,7 @@
 import type { MouseEvent } from 'react'
 import type { MotionValue } from 'framer-motion'
 import { useRef, useCallback } from 'react'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import {
   useScroll,
   useSpring,

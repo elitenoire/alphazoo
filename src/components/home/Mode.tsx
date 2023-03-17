@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import NextLink from 'next/link'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import type { MotionValue, Variants } from 'framer-motion'
 import { useTransform, useScroll, useSpring } from 'framer-motion'
 import { Box, Flex, Heading, Text, Link, useToken } from '@chakra-ui/react'
@@ -82,26 +82,25 @@ export default function Mode() {
                 <Box pos="absolute" w="80%" textAlign="center">
                   <NextImage
                     src={ImgLearn}
-                    alt="Happy girl kneeling infront of a big ABC toy block"
+                    alt="Happy girl kneeling in front of a big ABC toy block"
                     unoptimized
                   />
-                  <NextLink href={ROUTES.learn} passHref>
-                    <SfxButton
-                      as="a"
-                      w="55%"
-                      mt={2}
-                      shadow="2xl"
-                      _hover={{
-                        boxShadow: 'lg',
-                        transform: 'translateY(-2px)',
-                      }}
-                      bgColor="white"
-                      colorScheme="gray"
-                      variant="ghost"
-                    >
-                      Learn
-                    </SfxButton>
-                  </NextLink>
+                  <SfxButton
+                    as={NextLink}
+                    href={ROUTES.learn}
+                    w="55%"
+                    mt={2}
+                    shadow="2xl"
+                    _hover={{
+                      boxShadow: 'lg',
+                      transform: 'translateY(-2px)',
+                    }}
+                    bgColor="white"
+                    colorScheme="gray"
+                    variant="ghost"
+                  >
+                    Learn
+                  </SfxButton>
                 </Box>
               </MotionFlex>
             </MagneticBox>
@@ -134,22 +133,21 @@ export default function Mode() {
                     alt="Happy boy sitting infront of a big jigsaw puzzle and holding a red toy car"
                     unoptimized
                   />
-                  <NextLink href={ROUTES.play} passHref>
-                    <SfxButton
-                      as="a"
-                      w="55%"
-                      mt={2}
-                      shadow="2xl"
-                      _hover={{
-                        bgColor: 'brand.600',
-                        boxShadow: 'lg',
-                        transform: 'translateY(-2px)',
-                      }}
-                      bgColor="brand.500"
-                    >
-                      Play
-                    </SfxButton>
-                  </NextLink>
+                  <SfxButton
+                    as={NextLink}
+                    href={ROUTES.play}
+                    w="55%"
+                    mt={2}
+                    shadow="2xl"
+                    _hover={{
+                      bgColor: 'brand.600',
+                      boxShadow: 'lg',
+                      transform: 'translateY(-2px)',
+                    }}
+                    bgColor="brand.500"
+                  >
+                    Play
+                  </SfxButton>
                 </Box>
               </MotionFlex>
             </MagneticBox>

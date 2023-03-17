@@ -1,8 +1,9 @@
 import NextLink from 'next/link'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import { NextSeo } from 'next-seo'
 import { Box, Flex, Container, Heading, Text } from '@chakra-ui/react'
 import { SfxLink } from '~components/sfx'
+import { ROUTES } from '~src/constants'
 
 import Img404 from '~public/img/404.svg'
 
@@ -22,11 +23,15 @@ export default function Error404() {
             <Text fontSize={[null, '2xl']}>There is nothing to see here.</Text>
             <Text fontSize={[null, '2xl']}>
               Head back {''}
-              <NextLink href="/" passHref>
-                <SfxLink textStyle="highlight" fontWeight="bold" textTransform="uppercase">
-                  Home.
-                </SfxLink>
-              </NextLink>
+              <SfxLink
+                as={NextLink}
+                href={ROUTES.home}
+                textStyle="highlight"
+                fontWeight="bold"
+                textTransform="uppercase"
+              >
+                Home.
+              </SfxLink>
             </Text>
           </Box>
         </Container>

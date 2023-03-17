@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import NextLink from 'next/link'
 import {
   Heading,
@@ -53,19 +53,19 @@ const FooterBase = () => {
       borderTopWidth="4px"
       borderBottomWidth="4px"
     >
-      <NextLink href={ROUTES.home} passHref>
-        <SfxLink
-          gap={4}
-          display="flex"
-          w="full"
-          maxW="3xs"
-          _hover={{ color: 'brand.400' }}
-          aria-label={SITE_CONFIG.appName}
-        >
-          <BrandLogo flex={1} fill="currentcolor" />
-          <BrandLogoName flex={2.5} fill="currentcolor" />
-        </SfxLink>
-      </NextLink>
+      <SfxLink
+        as={NextLink}
+        href={ROUTES.home}
+        gap={4}
+        display="flex"
+        w="full"
+        maxW="3xs"
+        _hover={{ color: 'brand.400' }}
+        aria-label={SITE_CONFIG.appName}
+      >
+        <BrandLogo flex={1} fill="currentcolor" />
+        <BrandLogoName flex={2.5} fill="currentcolor" />
+      </SfxLink>
       <Flex justify="center" wrap={['wrap', null, 'nowrap']} gap={[2, null, null, 4]}>
         <SfxIconButton
           as={Link}

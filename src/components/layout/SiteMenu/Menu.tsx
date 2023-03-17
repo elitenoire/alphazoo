@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import { Box, Flex, useModalContext } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
 import { SfxLink } from '~components/sfx'
