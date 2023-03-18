@@ -53,5 +53,7 @@ export type WikiType = {
 export type AlphabetType = {
   numeral: number
   name: Alphabet
-  bg: string
+  color: string
+  bg: ChakraColorHues
+  modalBg: string
 }

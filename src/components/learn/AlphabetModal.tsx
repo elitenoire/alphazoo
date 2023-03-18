@@ -1,10 +1,12 @@
-import NextImage from 'next/future/image'
+import NextLink from 'next/link'
+import NextImage from 'next/image'
 import type { AspectRatioProps } from '@chakra-ui/react'
 import { Box, AspectRatio, Modal, ModalBody, ModalContent, ModalFooter } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { AddLinear, ArrowRightLinear, PlayBold } from 'react-iconsax-icons'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { SfxIconButton } from '~components/sfx'
+import { ROUTES } from '~/src/constants'
 
 import { settings, Animations } from './variants'
 
@@ -19,7 +21,7 @@ interface AlphabetModalProps {
 }
 
 export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalProps) => {
-  const modalBg = selected?.bg ?? 'orange.200'
+  const modalBg = selected?.modalBg ?? 'orange.200'
   const idx = (selected?.numeral ?? 1) % settings.length
 
   return (
@@ -160,6 +162,8 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
               onClick={playSound}
             />
             <SfxIconButton
+              as={NextLink}
+              href={`${ROUTES.learn}/${selected?.name.toLowerCase() ?? ''}`}
               shadow="sm"
               bg="brand.500"
               color="white"
