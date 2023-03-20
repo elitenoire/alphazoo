@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import type { Mutate, StoreApi, UseBoundStore } from 'zustand'
 import type { WithSelectors } from '~src/store/selectors'
 
-export type StoreWithPersist<S> = UseBoundStore<Mutate<StoreApi<S>, [['zustand/persist', S]]>>
+export type StoreWithPersist<S, Ps = S> = UseBoundStore<
+  Mutate<StoreApi<S>, [['zustand/persist', Ps]]>
+>
 
 /**
  * hooks to check if the value from persisted storage has been hydrated to zustand store
@@ -11,9 +13,7 @@ export type StoreWithPersist<S> = UseBoundStore<Mutate<StoreApi<S>, [['zustand/p
  * @returns
  */
 
-export const useStoreHydration = <S, P extends StoreWithPersist<S> = StoreWithPersist<S>>(
-  store: WithSelectors<P>
-) => {
+export const useStoreHydration = <S, Ps = S>(store: WithSelectors<StoreWithPersist<S, Ps>>) => {
   const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {

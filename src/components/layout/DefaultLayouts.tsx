@@ -1,12 +1,16 @@
 import type { ComponentType, PropsWithChildren, ReactNode, ReactElement } from 'react'
-import { Fragment } from 'react'
+import { useRouter } from 'next/router'
+import { Fragment, useEffect } from 'react'
 import { Grid } from '@chakra-ui/react'
 import { GeneralSoundProvider, HomeSoundProvider, LearnSoundProvider } from '~/src/context/sfx'
+import { useMotionStore } from '~/src/store'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import { BackToTop } from './BackToTop'
 import type { FooterProps } from './Footer'
 import { Footer } from './Footer'
 import { Header } from './Header'
+
+import { ROUTES } from '~/src/constants'
 
 interface DefaultLayoutProps extends FooterProps {
   provider: ComponentType<PropsWithChildren>
@@ -56,10 +60,52 @@ export const getHomeLayout = (page: ReactElement) => {
   )
 }
 
+const LearnMotionControl = ({ children }: PropsWithChildren) => {
+  const router = useRouter()
+
+  const setInitialMotion = useMotionStore.use.setAllowLearnAlphabetInitialMotion()
+
+  useEffect(() => {
+    // Disable initial bounce motion only when routing
+    // from /learn -> /learn/[id] .
+    // This a small hack to smoothly transition between
+    // the pages as layoutID motion doesn't work in portals
+    const handlerStart = (url: string) => {
+      if (
+        router.pathname === ROUTES.learn &&
+        url.startsWith(ROUTES.learn) &&
+        !!url
+          .split('/')
+          .pop()
+          ?.match(/^[a-z]$/i)
+      ) {
+        setInitialMotion(false)
+      } else {
+        setInitialMotion(true)
+      }
+    }
+
+    // on Error, reset back to initial store value
+    const handlerError = () => {
+      setInitialMotion(true)
+    }
+
+    router.events.on('routeChangeStart', handlerStart)
+    router.events.on('routeChangeError', handlerError)
+
+    return () => {
+      router.events.off('routeChangeStart', handlerStart)
+      router.events.off('routeChangeError', handlerError)
+    }
+  }, [router, setInitialMotion])
+
+  return <>{children}</>
+}
+
 export const getLearnLayout = (page: ReactElement) => {
   return (
     <DefaultLayout provider={LearnSoundProvider} bg="orange.200">
-      {page}
+      <LearnMotionControl>{page}</LearnMotionControl>
     </DefaultLayout>
   )
 }

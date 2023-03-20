@@ -1,6 +1,5 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
-import { ROUTES } from '~src/constants'
 
 export function middleware(req: NextRequest) {
   if (req.nextUrl.pathname === req.nextUrl.pathname.toLocaleLowerCase()) {
@@ -13,5 +12,10 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [`${ROUTES.learn}/:path*`],
+  matcher: ['/learn/:path*'],
 }
+
+// BUG: https://github.com/vercel/next.js/issues/38239
+// New middleware causing 404 page not to be shown for notfound
+// dyanimc routes when client-side navigating
+// Possible fix in v13.2.4-canary.4

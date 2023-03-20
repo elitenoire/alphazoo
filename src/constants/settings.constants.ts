@@ -5,3 +5,7 @@ export const SOUND_SETTINGS = {
   normalVolumeMusic: 0.15,
   normalVolumeSound: 0.65,
 }
+
+export const MOTION_SETTINGS = {
+  storeName: 'motion-settings',
+}

@@ -1,7 +1,9 @@
-import { NextPage } from 'next'
-import { AppProps } from 'next/app'
+import type { NextPage } from 'next'
+import type { AppProps } from 'next/app'
+import type { ReactElement, ReactNode } from 'react'
+import { useRouter } from 'next/router'
 import { DefaultSeo } from 'next-seo'
-import { ReactElement, ReactNode } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import { ChakraProvider } from '@chakra-ui/react'
 import { getDefaultLayout } from '~components/layout/DefaultLayouts'
 
@@ -23,10 +25,12 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? getDefaultLayout
+  const { asPath: key } = useRouter()
+
   return (
     <ChakraProvider theme={theme}>
       <DefaultSeo {...SEO} />
-      {getLayout(<Component {...pageProps} />)}
+      <AnimatePresence>{getLayout(<Component key={key} {...pageProps} />)}</AnimatePresence>
     </ChakraProvider>
   )
 }

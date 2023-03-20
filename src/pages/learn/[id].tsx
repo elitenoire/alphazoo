@@ -1,10 +1,12 @@
 import type { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import NextImage from 'next/image'
-import { useState, useCallback } from 'react'
+import NextLink from 'next/link'
+import { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { AspectRatioProps } from '@chakra-ui/react'
 import { Box, Flex, AspectRatio, VisuallyHidden } from '@chakra-ui/react'
 import { MotionBox, MotionText } from '~components/motion'
+import { useMotionStore } from '~/src/store'
 
 import { getLearnLayout } from '~components/layout/DefaultLayouts'
 
@@ -13,6 +15,7 @@ import { alphabets } from '~/src/data/alphabets'
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
 
 export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const allowInitialMotion = useMotionStore.use.allowLearnAlphabetInitialMotion()
   const [show, setShow] = useState(true)
   const [swap, setSwap] = useState(false)
 
@@ -26,6 +29,12 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
   const handleCompleteLayout = useCallback(() => {
     setSwap(false)
   }, [])
+
+  useEffect(() => {
+    if (!allowInitialMotion) {
+      handleComplete()
+    }
+  }, [allowInitialMotion, handleComplete])
 
   return (
     <Box bg={alphabet ? `${alphabet.bg}.100` : 'white'}>
@@ -47,15 +56,15 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
                 initial={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0, opacity: 0, transition: { duration: 0.3 } }}
               >
-                <MotionAspectRatio
-                  layoutId="letter-swap"
-                  w="full"
-                  ratio={1}
-                  // @ts-expect-error from chakra-ui official docs
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  onLayoutAnimationComplete={handleCompleteLayout}
-                >
-                  {alphabet && (
+                {alphabet && (
+                  <MotionAspectRatio
+                    layoutId="letter-swap"
+                    w="full"
+                    ratio={1}
+                    // @ts-expect-error from chakra-ui official docs
+                    transition={{ duration: 0.6, delay: allowInitialMotion ? 0.5 : 0 }}
+                    onLayoutAnimationComplete={handleCompleteLayout}
+                  >
                     <NextImage
                       src={`/img/glyphs/${alphabet.name.toUpperCase()}.svg`}
                       alt={`Animal letter ${alphabet.name}`}
@@ -63,8 +72,8 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
                       unoptimized
                       priority
                     />
-                  )}
-                </MotionAspectRatio>
+                  </MotionAspectRatio>
+                )}
               </MotionBox>
             ) : (
               <MotionText
@@ -84,16 +93,16 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
         </Flex>
         <Box flex={1}>
           <Box minH="350px" bg="white" borderRadius="3xl">
-            Ant
+            <NextLink href="/learn/t">Ant</NextLink>
           </Box>
           <Box minH="350px" bg="white" borderRadius="3xl">
-            Aligator
+            <NextLink href="/learn/ijk">Aligator</NextLink>
           </Box>
           <Box minH="350px" bg="white" borderRadius="3xl">
-            Antelope
+            <NextLink href="/learn/c">Antelope</NextLink>
           </Box>
         </Box>
-        <AnimatePresence>
+        <AnimatePresence initial={allowInitialMotion}>
           {show && (
             <Flex pos="fixed" zIndex="zen" align="center" justify="center" inset={0}>
               <MotionBox
@@ -103,22 +112,22 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
                 initial={{ x: '0%' }}
                 exit={{ x: '100%' }}
                 // @ts-expect-error from chakra-ui official docs
-                transition={{ duration: 0.4, delay: 0.55 }}
+                transition={{ duration: 0.4, delay: allowInitialMotion ? 0.55 : 0.05 }}
               />
-              <MotionAspectRatio
-                layoutId="letter-swap"
-                w={{ base: '80vmin', lg: '70vmin' }}
-                ratio={1}
-                initial={{ scale: 0.25, opacity: 0 }}
-                animate={{ scale: [null, 1, 1.2, 1], opacity: 1 }}
-                // @ts-expect-error from chakra-ui official docs
-                transition={{
-                  opacity: { duration: 0.3 },
-                  scale: { duration: 1.2 },
-                }}
-                onAnimationComplete={handleComplete}
-              >
-                {alphabet && (
+              {alphabet && (
+                <MotionAspectRatio
+                  layoutId="letter-swap"
+                  w={{ base: '80vmin', lg: '70vmin' }}
+                  ratio={1}
+                  initial={{ scale: 0.25, opacity: 0 }}
+                  animate={{ scale: [null, 1, 1.2, 1], opacity: 1 }}
+                  // @ts-expect-error from chakra-ui official docs
+                  transition={{
+                    opacity: { duration: 0.3 },
+                    scale: { duration: 1.2 },
+                  }}
+                  onAnimationComplete={handleComplete}
+                >
                   <NextImage
                     src={`/img/glyphs/${alphabet.name.toUpperCase()}.svg`}
                     alt={`Animal letter ${alphabet.name}`}
@@ -126,8 +135,8 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
                     unoptimized
                     priority
                   />
-                )}
-              </MotionAspectRatio>
+                </MotionAspectRatio>
+              )}
             </Flex>
           )}
         </AnimatePresence>
