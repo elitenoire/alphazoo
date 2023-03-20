@@ -31,10 +31,10 @@ const BackgroundMusic = ({ src }: { src: string }) => {
 export { useGeneralSfx, useHomeSfx, useLearnSfx, usePlaySfx, useProfileSfx, useWikiSfx }
 
 export const GeneralSoundProvider = ({ children }: PropsWithChildren) => {
-  const hover = useSound('./sounds/hover.mp3')
-  const click = useSound('./sounds/click.mp3')
-  const pop = useSound('./sounds/pop.mp3')
-  const ascend = useSound('./sounds/ascend.mp3')
+  const hover = useSound('/sounds/hover.mp3')
+  const click = useSound('/sounds/click.mp3')
+  const pop = useSound('/sounds/pop.mp3')
+  const ascend = useSound('/sounds/ascend.mp3')
 
   const sfx = { hover, click, pop, ascend }
 
@@ -42,10 +42,10 @@ export const GeneralSoundProvider = ({ children }: PropsWithChildren) => {
 }
 
 export const HomeSoundProvider = ({ children }: PropsWithChildren) => {
-  const descend = useSound('./sounds/descend.mp3')
+  const descend = useSound('/sounds/descend.mp3')
   return (
     <>
-      <BackgroundMusic src="./sounds/bg-music.mp3" />
+      <BackgroundMusic src="/sounds/bg-music.mp3" />
       <HomeSfxProvider sfx={{ descend }}>{children}</HomeSfxProvider>
     </>
   )
@@ -54,7 +54,7 @@ export const HomeSoundProvider = ({ children }: PropsWithChildren) => {
 export const LearnSoundProvider = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <BackgroundMusic src="./sounds/bg-music-learn.mp3" />
+      <BackgroundMusic src="/sounds/bg-music-learn.mp3" />
       <LearnSfxProvider>{children}</LearnSfxProvider>
     </>
   )
@@ -62,7 +62,7 @@ export const LearnSoundProvider = ({ children }: PropsWithChildren) => {
 export const PlaySoundProvider = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <BackgroundMusic src="./sounds/bg-music-play.mp3" />
+      <BackgroundMusic src="/sounds/bg-music-play.mp3" />
       <PlaySfxProvider>{children}</PlaySfxProvider>
     </>
   )
@@ -70,7 +70,7 @@ export const PlaySoundProvider = ({ children }: PropsWithChildren) => {
 export const WikiSoundProvider = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <BackgroundMusic src="./sounds/bg-music-wiki.mp3" />
+      <BackgroundMusic src="/sounds/bg-music-wiki.mp3" />
       <WikiSfxProvider>{children}</WikiSfxProvider>
     </>
   )
@@ -78,7 +78,7 @@ export const WikiSoundProvider = ({ children }: PropsWithChildren) => {
 export const ProfileSoundProvider = ({ children }: PropsWithChildren) => {
   return (
     <>
-      <BackgroundMusic src="./sounds/bg-music-profile.mp3" />
+      <BackgroundMusic src="/sounds/bg-music-profile.mp3" />
       <ProfileSfxProvider>{children}</ProfileSfxProvider>
     </>
   )

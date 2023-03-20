@@ -117,7 +117,7 @@ export default function Hero() {
           h="100%"
           bgSize="cover"
           bgRepeat="no-repeat"
-          bgImg="url('./img/plx-02-topfoliage.svg')"
+          bgImg="url('/img/plx-02-topfoliage.svg')"
           initial={{ y: '-15%', scale: 1.5 }}
           animate={{ y: '0', scale: 1 }}
           // @ts-expect-error from chakra-ui official docs
@@ -131,7 +131,7 @@ export default function Hero() {
           h="100%"
           bgSize="cover"
           bgRepeat="no-repeat"
-          bgImg="url('./img/plx-03-backanimals.svg')"
+          bgImg="url('/img/plx-03-backanimals.svg')"
           bgPos="center"
           animate={{ y: '0', opacity: 1, transition: spring }}
           initial={{ y: '10%', opacity: 0 }}
@@ -144,7 +144,7 @@ export default function Hero() {
           h="100%"
           bgSize="cover"
           bgRepeat="no-repeat"
-          bgImg="url('./img/plx-04-frontanimals.svg')"
+          bgImg="url('/img/plx-04-frontanimals.svg')"
           bgPos="center"
           animate={{ y: '0', scale: 1, opacity: 1, transition: spring }}
           initial={{ y: '10%', scale: 1.3, opacity: 0 }}
@@ -156,7 +156,7 @@ export default function Hero() {
           h="100%"
           bgSize="cover"
           bgRepeat="no-repeat"
-          bgImg="url('./img/plx-05-bottomfoliage.svg')"
+          bgImg="url('/img/plx-05-bottomfoliage.svg')"
           bgPos="center"
           style={{ x: bottomFoliageX, y: bottomFoliageY }}
         />

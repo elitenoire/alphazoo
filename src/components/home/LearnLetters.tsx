@@ -36,7 +36,7 @@ type PlayLettersRef<T extends GlyphType[]> = {
 const Letter = forwardRef<LetterRef, PropsWithChildren<LetterProps>>(
   ({ children, glyph, color }, ref) => {
     const { playHover } = useGeneralSfx()
-    const [play] = usePhonics(`./sounds/alphabets/${glyph.toLowerCase()}.mp3`)
+    const [play] = usePhonics(`/sounds/alphabets/${glyph.toLowerCase()}.mp3`)
 
     const handleClick = useCallback(() => {
       play()

@@ -54,7 +54,7 @@ const MenuAudioButton = ({
   }, [initialEnable])
 
   if (!hydrated) {
-    return <Box w={12} h={12} />
+    return <Box w={10} h={10} bg="blackAlpha.200" borderRadius="circle" />
   }
 
   return (
@@ -100,8 +100,8 @@ export const MusicButton = ({ iconSize = '65%', label = 'Music', ...rest }: Audi
 
   const volume = useSoundStore.use.soundEffectsVolume()
 
-  const [playOff] = useSound('./sounds/music-off.mp3', { volume })
-  const [playOn] = useSound('./sounds/music-on.mp3', { volume })
+  const [playOff] = useSound('/sounds/music-off.mp3', { volume })
+  const [playOn] = useSound('/sounds/music-on.mp3', { volume })
 
   const handleToggle = useCallback(() => {
     if (enable) {
@@ -151,8 +151,8 @@ export const SoundFxButton = ({
 
   const volume = soundVolume || prevVolumeRef.current
 
-  const [playOff] = useSound('./sounds/sfx-off.mp3', { volume })
-  const [playOn] = useSound('./sounds/sfx-on.mp3', { volume })
+  const [playOff] = useSound('/sounds/sfx-off.mp3', { volume })
+  const [playOn] = useSound('/sounds/sfx-on.mp3', { volume })
 
   const handleToggle = useCallback(() => {
     if (enable) {
@@ -202,8 +202,8 @@ export const SoundPhonicsButton = ({
 
   const volume = useSoundStore.use.soundEffectsVolume()
 
-  const [playOff] = useSound('./sounds/sfx-off.mp3', { volume })
-  const [playOn] = useSound('./sounds/sfx-on.mp3', { volume })
+  const [playOff] = useSound('/sounds/sfx-off.mp3', { volume })
+  const [playOn] = useSound('/sounds/sfx-on.mp3', { volume })
 
   const handleToggle = useCallback(() => {
     if (enable) {

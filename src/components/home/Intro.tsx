@@ -22,7 +22,7 @@ interface MotionAnimalProps {
 const MotionAnimal = ({ animal, shift, children }: PropsWithChildren<MotionAnimalProps>) => {
   const dir = shift ? 1 : -1
 
-  const [playAnimalSound] = usePhonics(`./sounds/${animal}.mp3`)
+  const [playAnimalSound] = usePhonics(`/sounds/${animal}.mp3`)
   const { playHover } = useGeneralSfx()
 
   const handleClick = useCallback(() => {

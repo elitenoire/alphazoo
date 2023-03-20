@@ -31,7 +31,7 @@ interface SoundRegisterProps {
 
 const SoundRegister = forwardRef<SoundRef, PropsWithChildren<SoundRegisterProps>>(
   ({ children, glyph }, ref) => {
-    const [play] = usePhonics(`./sounds/alphabets/${glyph.toLowerCase()}.mp3`)
+    const [play] = usePhonics(`/sounds/alphabets/${glyph.toLowerCase()}.mp3`)
 
     useImperativeHandle(
       ref,
@@ -186,7 +186,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                           ratio={1}
                         >
                           <NextImage
-                            src={`./img/glyphs/${name.toUpperCase()}.svg`}
+                            src={`/img/glyphs/${name.toUpperCase()}.svg`}
                             alt={`Animal letter ${name}`}
                             fill
                             unoptimized
