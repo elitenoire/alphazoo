@@ -2,10 +2,10 @@ import type { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } f
 import NextImage from 'next/image'
 import NextLink from 'next/link'
 import { useState, useCallback, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useAnimate } from 'framer-motion'
 import type { AspectRatioProps } from '@chakra-ui/react'
-import { Box, Flex, AspectRatio, VisuallyHidden } from '@chakra-ui/react'
-import { MotionBox, MotionText } from '~components/motion'
+import { Box, Flex, AspectRatio, VisuallyHidden, Heading } from '@chakra-ui/react'
+import { MotionBox, MotionFlex, MotionHeading, MotionPop } from '~components/motion'
 import { useMotionStore } from '~/src/store'
 
 import { getLearnLayout } from '~components/layout/DefaultLayouts'
@@ -16,18 +16,21 @@ const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
 
 export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeof getStaticProps>) {
   const allowInitialMotion = useMotionStore.use.allowLearnAlphabetInitialMotion()
-  const [show, setShow] = useState(true)
+  const [showOverlay, setShowOverlay] = useState(true)
   const [swap, setSwap] = useState(false)
 
-  const title = alphabet ? alphabet.name + alphabet.name.toLowerCase() : ''
+  const [imageScope, animateImage] = useAnimate()
+  const [letterScope, animateLetter] = useAnimate()
+  const [cardScope, animateCard] = useAnimate()
+
+  const title = alphabet ? alphabet.name.toUpperCase() + alphabet.name.toLowerCase() : ''
 
   const handleComplete = useCallback(() => {
-    setShow(false)
-    setSwap(true)
+    setShowOverlay(false)
   }, [])
 
   const handleCompleteLayout = useCallback(() => {
-    setSwap(false)
+    setSwap(true)
   }, [])
 
   useEffect(() => {
@@ -36,74 +39,130 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
     }
   }, [allowInitialMotion, handleComplete])
 
+  useEffect(() => {
+    if (swap) {
+      const enterAnimation = async () => {
+        await animateImage(imageScope.current, { scale: 0, opacity: 0 }, { duration: 0.3 })
+        await animateLetter(letterScope.current, { scale: 1 }, { type: 'spring', stiffness: 100 })
+        await animateCard(cardScope.current, { scale: 1, opacity: 1, y: '0%' }, { duration: 0.35 })
+      }
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      enterAnimation()
+    }
+  }, [animateCard, animateImage, animateLetter, cardScope, imageScope, letterScope, swap])
+
   return (
     <Box bg={alphabet ? `${alphabet.bg}.100` : 'white'}>
-      <VisuallyHidden as="h1">{`Letter ${title}`}</VisuallyHidden>
-      <Flex direction={['column', null, null, 'row']} px={4} py={16}>
+      <VisuallyHidden as="h1">{`Alphabet ${alphabet?.name ?? ''}`}</VisuallyHidden>
+      <Flex direction={['column', null, null, 'row']} rowGap={16} px={4} py={16} bg="inherit">
         <Flex
           pos="sticky"
+          zIndex="max"
           top={0}
           align="center"
           justify="center"
           flex={1}
           h={{ lg: 'calc(100vh - 4em)' }}
+          bg="inherit"
         >
-          <AnimatePresence mode="popLayout">
-            {swap ? (
-              <MotionBox
-                key="image"
-                w={{ base: '25%', lg: '50%' }}
-                initial={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0, opacity: 0, transition: { duration: 0.3 } }}
-              >
-                {alphabet && (
-                  <MotionAspectRatio
-                    layoutId="letter-swap"
-                    w="full"
-                    ratio={1}
-                    // @ts-expect-error from chakra-ui official docs
-                    transition={{ duration: 0.6, delay: allowInitialMotion ? 0.5 : 0 }}
-                    onLayoutAnimationComplete={handleCompleteLayout}
-                  >
-                    <NextImage
-                      src={`/img/glyphs/${alphabet.name.toUpperCase()}.svg`}
-                      alt={`Animal letter ${alphabet.name}`}
-                      fill
-                      unoptimized
-                      priority
-                    />
-                  </MotionAspectRatio>
-                )}
-              </MotionBox>
-            ) : (
-              <MotionText
-                key="text"
-                fontSize="25vw"
-                fontFamily="title"
-                color={alphabet?.color ?? 'inherit'}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                // @ts-expect-error from chakra-ui official docs
-                transition={{ type: 'spring', stiffness: 200, delay: 0.25 }}
-              >
-                {title}
-              </MotionText>
-            )}
-          </AnimatePresence>
+          <MotionHeading
+            ref={letterScope}
+            color={alphabet?.color ?? 'inherit'}
+            fontSize="25vw"
+            lineHeight="none"
+            initial={{ scale: 0 }}
+            fontFamily="title"
+          >
+            {title}
+          </MotionHeading>
+          {!showOverlay && (
+            <Box ref={imageScope} pos="absolute" w={{ base: '25%', lg: '50%' }}>
+              {alphabet && (
+                <MotionAspectRatio
+                  layoutId="letter-swap"
+                  w="full"
+                  ratio={1}
+                  // @ts-expect-error from chakra-ui official docs
+                  transition={{ duration: 0.6, delay: allowInitialMotion ? 0.5 : 0 }}
+                  onLayoutAnimationComplete={handleCompleteLayout}
+                >
+                  <NextImage
+                    src={`/img/glyphs/${alphabet.name.toUpperCase()}.svg`}
+                    alt={`Animal letter ${alphabet.name}`}
+                    fill
+                    unoptimized
+                    priority
+                  />
+                </MotionAspectRatio>
+              )}
+            </Box>
+          )}
         </Flex>
-        <Box flex={1}>
-          <Box minH="350px" bg="white" borderRadius="3xl">
-            <NextLink href="/learn/t">Ant</NextLink>
-          </Box>
-          <Box minH="350px" bg="white" borderRadius="3xl">
-            <NextLink href="/learn/ijk">Aligator</NextLink>
-          </Box>
-          <Box minH="350px" bg="white" borderRadius="3xl">
-            <NextLink href="/learn/c">Antelope</NextLink>
-          </Box>
-        </Box>
+        <Flex align="center" justify="center" flex={1} overflow="hidden">
+          <MotionFlex
+            ref={cardScope}
+            initial={{ scale: 0.5, opacity: 0, y: '10%' }}
+            flexDirection="column"
+            gap={{ base: 16, '2xl': '4vw' }}
+            w="full"
+            px={[null, '5%', '10%']}
+            pt={[8, null, null, 16]}
+          >
+            <MotionPop>
+              <Box textAlign="center" bg="white" borderRadius={{ base: '5em', xl: '5vw' }}>
+                <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
+                  <NextImage
+                    className="object-contain"
+                    src={`/img/animals/ant.svg`}
+                    alt={`Ant`}
+                    fill
+                    unoptimized
+                    priority
+                  />
+                </Box>
+                <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }}>
+                  Ant
+                </Heading>
+              </Box>
+            </MotionPop>
+            <MotionPop>
+              <Box textAlign="center" bg="white" borderRadius={{ base: '5em', xl: '5vw' }}>
+                <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
+                  <NextImage
+                    className="object-contain"
+                    src={`/img/animals/alligator.svg`}
+                    alt={`Alligator`}
+                    fill
+                    unoptimized
+                    priority
+                  />
+                </Box>
+                <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }}>
+                  Alligator
+                </Heading>
+              </Box>
+            </MotionPop>
+            <MotionPop>
+              <Box textAlign="center" bg="white" borderRadius={{ base: '5em', xl: '5vw' }}>
+                <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
+                  <NextImage
+                    className="object-contain"
+                    src={`/img/animals/antelope.svg`}
+                    alt={`Antelope`}
+                    fill
+                    unoptimized
+                    priority
+                  />
+                </Box>
+                <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }}>
+                  Antelope
+                </Heading>
+              </Box>
+            </MotionPop>
+          </MotionFlex>
+        </Flex>
         <AnimatePresence initial={allowInitialMotion}>
-          {show && (
+          {showOverlay && (
             <Flex pos="fixed" zIndex="zen" align="center" justify="center" inset={0}>
               <MotionBox
                 pos="absolute"

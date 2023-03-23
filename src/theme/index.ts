@@ -123,6 +123,9 @@ const theme = extendTheme(
         '.object-cover': {
           objectFit: 'cover',
         },
+        '.object-contain': {
+          objectFit: 'contain',
+        },
       },
     },
     layerStyles: {
