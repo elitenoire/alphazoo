@@ -4,11 +4,13 @@ import NextLink from 'next/link'
 import { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence, useAnimate } from 'framer-motion'
 import type { AspectRatioProps } from '@chakra-ui/react'
-import { Box, Flex, AspectRatio, VisuallyHidden, Heading } from '@chakra-ui/react'
-import { MotionBox, MotionFlex, MotionHeading, MotionPop } from '~components/motion'
+import { Box, Flex, AspectRatio, VisuallyHidden, Heading, Text } from '@chakra-ui/react'
+import { MotionBox, MotionFlex, MotionHeading, MotionPop, MagneticBox } from '~components/motion'
+import { SfxButton } from '~components/sfx'
 import { useMotionStore } from '~/src/store'
+import { ROUTES } from '~/src/constants'
 
-import { getLearnLayout } from '~components/layout/DefaultLayouts'
+import { getLayout } from '~components/layout/AlphabetLayout'
 
 import { alphabets } from '~/src/data/alphabets'
 
@@ -109,7 +111,7 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
             pt={[8, null, null, 16]}
           >
             <MotionPop>
-              <Box textAlign="center" bg="white" borderRadius={{ base: '5em', xl: '5vw' }}>
+              <Box textAlign="center" bg="white" rounded={{ base: '5em', xl: '5vw' }}>
                 <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
                   <NextImage
                     className="object-contain"
@@ -126,7 +128,7 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
               </Box>
             </MotionPop>
             <MotionPop>
-              <Box textAlign="center" bg="white" borderRadius={{ base: '5em', xl: '5vw' }}>
+              <Box textAlign="center" bg="white" rounded={{ base: '5em', xl: '5vw' }}>
                 <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
                   <NextImage
                     className="object-contain"
@@ -143,7 +145,7 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
               </Box>
             </MotionPop>
             <MotionPop>
-              <Box textAlign="center" bg="white" borderRadius={{ base: '5em', xl: '5vw' }}>
+              <Box textAlign="center" bg="white" rounded={{ base: '5em', xl: '5vw' }}>
                 <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
                   <NextImage
                     className="object-contain"
@@ -161,50 +163,85 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
             </MotionPop>
           </MotionFlex>
         </Flex>
-        <AnimatePresence initial={allowInitialMotion}>
-          {showOverlay && (
-            <Flex pos="fixed" zIndex="zen" align="center" justify="center" inset={0}>
-              <MotionBox
-                pos="absolute"
-                inset={0}
-                bg={alphabet?.modalBg ?? 'orange.200'}
-                initial={{ x: '0%' }}
-                exit={{ x: '100%' }}
-                // @ts-expect-error from chakra-ui official docs
-                transition={{ duration: 0.4, delay: allowInitialMotion ? 0.55 : 0.05 }}
-              />
-              {alphabet && (
-                <MotionAspectRatio
-                  layoutId="letter-swap"
-                  w={{ base: '80vmin', lg: '70vmin' }}
-                  ratio={1}
-                  initial={{ scale: 0.25, opacity: 0 }}
-                  animate={{ scale: [null, 1, 1.2, 1], opacity: 1 }}
-                  // @ts-expect-error from chakra-ui official docs
-                  transition={{
-                    opacity: { duration: 0.3 },
-                    scale: { duration: 1.2 },
-                  }}
-                  onAnimationComplete={handleComplete}
-                >
-                  <NextImage
-                    src={`/img/glyphs/${alphabet.name.toUpperCase()}.svg`}
-                    alt={`Animal letter ${alphabet.name}`}
-                    fill
-                    unoptimized
-                    priority
-                  />
-                </MotionAspectRatio>
-              )}
-            </Flex>
-          )}
-        </AnimatePresence>
       </Flex>
+      <Flex direction={['column', null, null, 'row']} rowGap={16} pt={24}>
+        <Box
+          w={['full', null, null, '60%']}
+          minH="md"
+          pt="8vw"
+          pr={[4, 16]}
+          pb={8}
+          pl={[4, 8]}
+          bg={alphabet ? `${alphabet.bg}.200` : 'blackAlpha.100'}
+          roundedTopRight="15vw"
+        >
+          <Heading
+            as="h2"
+            mb={1}
+            color={alphabet ? `${alphabet.bg}.700` : 'inherit'}
+            fontSize="f4xl"
+            variant="body"
+          >
+            Make a Discovery
+          </Heading>
+          <Text maxW="xs" mb={2} fontSize="fxl">
+            Learn about the animals that begin with the Alphabet{' '}
+            <strong>{alphabet?.name ?? ''}</strong>
+          </Text>
+          <SfxButton
+            as={NextLink}
+            href={ROUTES.wiki}
+            variant="ghost"
+            colorScheme={alphabet?.bg ?? 'blackAlpha'}
+            bg="whiteAlpha.900"
+          >
+            Discover
+          </SfxButton>
+        </Box>
+      </Flex>
+      <AnimatePresence initial={allowInitialMotion}>
+        {showOverlay && (
+          <Flex pos="fixed" zIndex="zen" align="center" justify="center" inset={0}>
+            <MotionBox
+              pos="absolute"
+              inset={0}
+              bg={alphabet?.modalBg ?? 'orange.200'}
+              initial={{ x: '0%' }}
+              exit={{ x: '100%' }}
+              // @ts-expect-error from chakra-ui official docs
+              transition={{ duration: 0.4, delay: allowInitialMotion ? 0.55 : 0.05 }}
+            />
+            {alphabet && (
+              <MotionAspectRatio
+                layoutId="letter-swap"
+                w={{ base: '80vmin', lg: '70vmin' }}
+                ratio={1}
+                initial={{ scale: 0.25, opacity: 0 }}
+                animate={{ scale: [null, 1, 1.2, 1], opacity: 1 }}
+                // @ts-expect-error from chakra-ui official docs
+                transition={{
+                  opacity: { duration: 0.3 },
+                  scale: { duration: 1.2 },
+                }}
+                onAnimationComplete={handleComplete}
+              >
+                <NextImage
+                  src={`/img/glyphs/${alphabet.name.toUpperCase()}.svg`}
+                  alt={`Animal letter ${alphabet.name}`}
+                  fill
+                  unoptimized
+                  priority
+                />
+              </MotionAspectRatio>
+            )}
+          </Flex>
+        )}
+      </AnimatePresence>
     </Box>
   )
 }
 
-AlphabetPage.getLayout = getLearnLayout
+AlphabetPage.getLayout = getLayout
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticPaths: GetStaticPaths = async () => {
