@@ -5,10 +5,10 @@ import { Grid } from '@chakra-ui/react'
 import { GeneralSoundProvider, HomeSoundProvider, LearnSoundProvider } from '~/src/context/sfx'
 import { useMotionStore } from '~/src/store'
 import { AnimatableBackground } from '~components/AnimatableBackground'
-import { BackToTop } from './BackToTop'
 import type { FooterProps } from './Footer'
 import { Footer } from './Footer'
 import { Header } from './Header'
+import { BackToTop } from './BackToTop'
 
 import { ROUTES } from '~/src/constants'
 
@@ -19,6 +19,7 @@ interface DefaultLayoutProps extends FooterProps {
   bg?: string
   hideFooter?: boolean
   hideBackToTop?: boolean
+  threshold?: number
 }
 
 const DefaultLayout = ({

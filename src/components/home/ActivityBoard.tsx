@@ -70,7 +70,7 @@ export function ActivityGrid() {
                 borderTopRadius="5px"
               >
                 <Flex as="span" direction="column">
-                  Letters <Heading as="span">{name}</Heading>
+                  Alphabets <Heading as="span">{name}</Heading>
                 </Flex>{' '}
                 <Box as="span" p={2} fontSize="2xl" bg="white" rounded="full">
                   {icon}
@@ -214,8 +214,7 @@ export function ActivityBoard({ children }: PropsWithChildren) {
               px="7px"
               py="5px"
               fontSize="xs"
-              borderWidth="1px"
-              borderColor="currentColor"
+              border="1px solid"
               rounded="full"
             >
               <Box as="span" p={1} bg="white" rounded="inherit">
@@ -228,7 +227,7 @@ export function ActivityBoard({ children }: PropsWithChildren) {
             Alphabets
           </Text>
           <Text maxW={[null, null, '3xs']} fontSize="xl" textAlign={[null, 'center', 'left']}>
-            Discover animals that begin with the selected letter
+            Discover animals that begin with the selected alphabet
           </Text>
         </Flex>
       </Box>

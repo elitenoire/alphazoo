@@ -1,5 +1,5 @@
 import { Box, Container } from '@chakra-ui/react'
-import { getHomeLayout } from '~components/layout/DefaultLayouts'
+import { getHomeLayout } from '~components/layout/DefaultLayout'
 import { MotionScroll } from '~components/motion'
 import { Underline } from '~components/Underline'
 import Hero from '~components/home/Hero'

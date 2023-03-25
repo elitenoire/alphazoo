@@ -4,7 +4,7 @@ import StartWelcome from '~components/learn/StartWelcome'
 import AlphabetGrid from '~components/learn/AlphabetGrid'
 import { useMotionStore, useMotionHydration } from '~/src/store'
 
-import { getLearnLayout } from '~components/layout/DefaultLayouts'
+import { getLearnLayout } from '~components/layout/DefaultLayout'
 
 export default function Learn() {
   const showWelcome = useMotionStore.use.showLearnWelcome()

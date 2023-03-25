@@ -126,7 +126,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                   fontSize="xl"
                   lineHeight="none"
                   bg="whiteAlpha.800"
-                  borderRadius="full"
+                  rounded="full"
                 >
                   26
                 </Box>
@@ -171,7 +171,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                         bg="white"
                         h="full"
                         w="full"
-                        borderRadius="md"
+                        rounded="md"
                         p="10%"
                         boxShadow="sm"
                         _hover={{ boxShadow: 'xl' }}

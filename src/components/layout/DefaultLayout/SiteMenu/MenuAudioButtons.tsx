@@ -54,7 +54,7 @@ const MenuAudioButton = ({
   }, [initialEnable])
 
   if (!hydrated) {
-    return <Box w={10} h={10} bg="blackAlpha.200" borderRadius="circle" />
+    return <Box w={10} h={10} bg="blackAlpha.200" rounded="circle" />
   }
 
   return (

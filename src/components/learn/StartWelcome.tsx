@@ -103,7 +103,7 @@ export default function StartWelcome({ onExit }: StartWelcomeProps) {
                 color="orange.400"
                 bg="whiteAlpha.900"
                 boxShadow="xl"
-                borderRadius="full"
+                rounded="full"
                 border="3px solid"
                 variants={appear}
                 custom={2.75}
@@ -119,7 +119,7 @@ export default function StartWelcome({ onExit }: StartWelcomeProps) {
                 color="orange.400"
                 bg="whiteAlpha.900"
                 boxShadow="xl"
-                borderRadius="3xl"
+                rounded="3xl"
                 border="3px solid"
                 variants={appear}
                 custom={2}
@@ -137,7 +137,7 @@ export default function StartWelcome({ onExit }: StartWelcomeProps) {
               fontFamily="title"
               fontSize={['flg', 'fxl']}
               boxShadow="2xl"
-              borderRadius="3xl"
+              rounded="3xl"
               border="3px solid"
               variants={appear}
               custom={1}

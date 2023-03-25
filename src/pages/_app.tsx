@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { DefaultSeo } from 'next-seo'
 import { AnimatePresence } from 'framer-motion'
 import { ChakraProvider } from '@chakra-ui/react'
-import { getDefaultLayout } from '~components/layout/DefaultLayouts'
+import { getDefaultLayout } from '~components/layout/DefaultLayout'
 
 import SEO from '~/next-seo.config'
 

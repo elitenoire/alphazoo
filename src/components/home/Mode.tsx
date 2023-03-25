@@ -41,7 +41,7 @@ export default function Mode() {
         mx={[null, 1, null, 5]}
         pt={[12, 24]}
         pb={16}
-        bg="background"
+        bg="secondary.100"
         rounded={['card', 'bigCard']}
         overflow="hidden"
         style={{ scale, opacity }}

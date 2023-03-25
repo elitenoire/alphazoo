@@ -10,7 +10,7 @@ export const activities = [
       },
       {
         name: 'B',
-        animals: ['Bear', 'Bat', 'Badger'],
+        animals: ['Bear', 'Bee', 'Beaver', 'Butterfly'],
       },
       {
         name: 'C',

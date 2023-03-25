@@ -175,7 +175,7 @@ const theme = extendTheme(
       },
       secondary: baseTheme.colors.yellow,
       accent: baseTheme.colors.purple,
-      background: baseTheme.colors.yellow[100],
+      background: '#ffee99',
       text: baseTheme.colors.gray[800],
       highlight: '#a0f8b5',
       muted: '#ebfbcb',
