@@ -1,14 +1,12 @@
 import type { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import NextImage from 'next/image'
-import NextLink from 'next/link'
 import { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence, useAnimate } from 'framer-motion'
 import type { AspectRatioProps } from '@chakra-ui/react'
 import { Box, Flex, AspectRatio, VisuallyHidden, Heading, Text } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MotionHeading, MotionPop, MagneticBox } from '~components/motion'
-import { SfxButton } from '~components/sfx'
+import Discovery from '~components/learn/Discovery'
 import { useMotionStore } from '~/src/store'
-import { ROUTES } from '~/src/constants'
 
 import { getLayout } from '~components/layout/AlphabetLayout'
 
@@ -164,41 +162,7 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
           </MotionFlex>
         </Flex>
       </Flex>
-      <Flex direction={['column', null, null, 'row']} rowGap={16} pt={24}>
-        <Box
-          w={['full', null, null, '60%']}
-          minH="md"
-          pt="8vw"
-          pr={[4, 16]}
-          pb={8}
-          pl={[4, 8]}
-          bg={alphabet ? `${alphabet.bg}.200` : 'blackAlpha.100'}
-          roundedTopRight="15vw"
-        >
-          <Heading
-            as="h2"
-            mb={1}
-            color={alphabet ? `${alphabet.bg}.700` : 'inherit'}
-            fontSize="f4xl"
-            variant="body"
-          >
-            Make a Discovery
-          </Heading>
-          <Text maxW="xs" mb={2} fontSize="fxl">
-            Learn about the animals that begin with the Alphabet{' '}
-            <strong>{alphabet?.name ?? ''}</strong>
-          </Text>
-          <SfxButton
-            as={NextLink}
-            href={ROUTES.wiki}
-            variant="ghost"
-            colorScheme={alphabet?.bg ?? 'blackAlpha'}
-            bg="whiteAlpha.900"
-          >
-            Discover
-          </SfxButton>
-        </Box>
-      </Flex>
+      <Discovery alphabet={alphabet} />
       <AnimatePresence initial={allowInitialMotion}>
         {showOverlay && (
           <Flex pos="fixed" zIndex="zen" align="center" justify="center" inset={0}>

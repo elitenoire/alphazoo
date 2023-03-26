@@ -3,16 +3,17 @@ import type { MotionBoxProps } from '~components/motion'
 import { MotionBox } from '~components/motion'
 
 interface CustomVariantProps {
-  factor?: number
+  pop?: number
   delay?: number
+  once?: boolean
 }
 
 interface MotionPopProps extends MotionBoxProps, CustomVariantProps {}
 
-const pop: Variants = {
-  hidden: ({ factor }: CustomVariantProps) => ({
+const popVariant: Variants = {
+  hidden: ({ pop }: CustomVariantProps) => ({
     opacity: 0,
-    scale: factor ?? 0.4,
+    scale: pop ?? 0.4,
   }),
   visible: ({ delay }: CustomVariantProps) => ({
     opacity: 1,
@@ -21,15 +22,15 @@ const pop: Variants = {
   }),
 }
 
-export const MotionPop = ({ delay, factor, ...rest }: MotionPopProps) => {
+export const MotionPop = ({ delay, pop, once = false, viewport, ...rest }: MotionPopProps) => {
   return (
     <MotionBox
       {...rest}
-      custom={{ factor, delay }}
-      variants={pop}
+      custom={{ pop, delay }}
+      variants={popVariant}
       initial="hidden"
       whileInView="visible"
-      viewport={{ margin: '0px 0px -10% 0px' }}
+      viewport={{ margin: '0px 0px -10% 0px', once, ...viewport }}
     />
   )
 }
