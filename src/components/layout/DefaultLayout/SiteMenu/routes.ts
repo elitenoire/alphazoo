@@ -6,7 +6,7 @@ export const routes = [
     name: 'Home',
     url: ROUTES.home,
     color: 'yellow.200',
-    img: '/img/badge-panda.svg',
+    img: '/img/menu-panda.svg',
     imgAlt: 'cute panda bear',
   },
   {
@@ -14,7 +14,7 @@ export const routes = [
     name: 'Learn',
     url: ROUTES.learn,
     color: 'orange.300',
-    img: '/img/badge-tiger.svg',
+    img: '/img/menu-tiger.svg',
     imgAlt: 'cute tiger',
   },
   {
@@ -22,7 +22,7 @@ export const routes = [
     name: 'Play',
     url: ROUTES.play,
     color: 'purple.300',
-    img: '/img/badge-monkey.svg',
+    img: '/img/menu-monkey.svg',
     imgAlt: 'cute monkey',
   },
   {
@@ -30,7 +30,7 @@ export const routes = [
     name: 'Wiki',
     url: ROUTES.wiki,
     color: 'pink.200',
-    img: '/img/badge-owl.svg',
+    img: '/img/menu-owl.svg',
     imgAlt: 'cute owl',
   },
   {
@@ -38,7 +38,7 @@ export const routes = [
     name: 'Profile',
     url: ROUTES.profile,
     color: 'green.400',
-    img: '/img/badge-unicorn.svg',
+    img: '/img/menu-unicorn.svg',
     imgAlt: 'cute unicorn',
   },
 ]

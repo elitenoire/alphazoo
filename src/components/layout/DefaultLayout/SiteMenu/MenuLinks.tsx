@@ -7,7 +7,7 @@ import { SfxLink } from '~components/sfx'
 import { routes } from './routes'
 import { container, navItem } from './variants'
 
-import frameUrl from '~public/img/badge-frame.svg'
+import frameUrl from '~public/img/menu-frame.svg'
 
 const MotionList = motion<ListProps>(List)
 const MotionListItem = motion<ListItemProps>(ListItem)
@@ -31,7 +31,7 @@ export const MenuLinks = ({ onHoverStart, onHoverEnd }: MenuLinksProps) => {
         },
         a: {
           display: 'inline-block',
-          borderBottom: '3px solid currentColor',
+          borderBottom: '3px solid',
           fontWeight: 'bold',
           fontSize: ['f2xl', null, null, 'fxl'],
           pt: [1, null, null, 2],
@@ -88,7 +88,7 @@ export const MenuLinks = ({ onHoverStart, onHoverEnd }: MenuLinksProps) => {
               transitionProperty="opacity,transform"
               transitionTimingFunction="ease"
             >
-              <AspectRatio w="100%" ratio={1}>
+              <AspectRatio w="full" ratio={1}>
                 <NextImage src={route.img} alt={route.imgAlt} fill unoptimized />
               </AspectRatio>
             </Circle>
@@ -96,7 +96,7 @@ export const MenuLinks = ({ onHoverStart, onHoverEnd }: MenuLinksProps) => {
               pos="absolute"
               top={0}
               left={0}
-              w="100%"
+              w="full"
               opacity={0}
               transform="scale(1.375)"
               transitionDuration="ultra-slow"
