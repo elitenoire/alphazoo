@@ -13,7 +13,7 @@ interface DiscoveryProps {
 
 export default function Discovery({ alphabet }: DiscoveryProps) {
   return (
-    <Flex direction={['column', null, null, 'row']} rowGap={16} pt={16}>
+    <Flex direction={['column', null, null, 'row']} rowGap={16} pt={16} roundedBottom="inherit">
       <Box
         w={['full', null, null, '60%']}
         pt="8vw"
@@ -21,6 +21,7 @@ export default function Discovery({ alphabet }: DiscoveryProps) {
         pb={12}
         pl={[4, 8]}
         bg={alphabet ? `${alphabet.bg}.200` : 'blackAlpha.100'}
+        roundedBottom="inherit"
         roundedTopRight="15vw"
       >
         <Heading
@@ -33,8 +34,8 @@ export default function Discovery({ alphabet }: DiscoveryProps) {
           Make a Discovery
         </Heading>
         <Text maxW="2xs" fontSize="fxl">
-          Learn about the animals that begin with the Alphabet{' '}
-          <strong>{alphabet?.name ?? ''}</strong>
+          Learn about animals that begin with <strong>{alphabet?.name ?? ''}</strong> and other
+          alphabets
         </Text>
         <SfxButton
           as={NextLink}

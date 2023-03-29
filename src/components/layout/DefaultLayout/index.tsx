@@ -22,45 +22,6 @@ interface DefaultLayoutProps extends FooterProps {
   threshold?: number
 }
 
-const DefaultLayout = ({
-  provider: Provider,
-  headerContent,
-  hideFooter,
-  hideBackToTop,
-  bg,
-  full,
-  children,
-}: DefaultLayoutProps) => {
-  return (
-    <GeneralSoundProvider>
-      <AnimatableBackground bg={bg}>
-        <Grid templateRows="auto 1fr auto" templateColumns="minmax(0,1fr)" minH="100vh">
-          <Header>{headerContent}</Header>
-          <main>
-            <Provider>
-              {children}
-              {!hideBackToTop && <BackToTop />}
-            </Provider>
-          </main>
-          {!hideFooter && <Footer full={full} />}
-        </Grid>
-      </AnimatableBackground>
-    </GeneralSoundProvider>
-  )
-}
-
-export const getDefaultLayout = (page: ReactElement) => {
-  return <DefaultLayout provider={Fragment}>{page}</DefaultLayout>
-}
-
-export const getHomeLayout = (page: ReactElement) => {
-  return (
-    <DefaultLayout provider={HomeSoundProvider} bg="brand.700" full>
-      {page}
-    </DefaultLayout>
-  )
-}
-
 const LearnMotionControl = ({ children }: PropsWithChildren) => {
   const router = useRouter()
 
@@ -103,9 +64,51 @@ const LearnMotionControl = ({ children }: PropsWithChildren) => {
   return <>{children}</>
 }
 
-export const getLearnLayout = (page: ReactElement) => {
+const DefaultLayout = ({
+  provider: Provider,
+  headerContent,
+  hideFooter,
+  hideBackToTop,
+  bg,
+  full,
+  children,
+}: DefaultLayoutProps) => {
   return (
-    <DefaultLayout provider={LearnSoundProvider} bg="orange.200">
+    <GeneralSoundProvider>
+      <AnimatableBackground bg={bg}>
+        <Grid templateRows="auto 1fr auto" templateColumns="minmax(0,1fr)" minH="100vh">
+          <Header>{headerContent}</Header>
+          <main>
+            <Provider>
+              {children}
+              {!hideBackToTop && <BackToTop />}
+            </Provider>
+          </main>
+          {!hideFooter && <Footer full={full} />}
+        </Grid>
+      </AnimatableBackground>
+    </GeneralSoundProvider>
+  )
+}
+
+export const getDefaultLayout = (page: ReactElement) => {
+  return <DefaultLayout provider={Fragment}>{page}</DefaultLayout>
+}
+
+export const getHomeLayout = (page: ReactElement) => {
+  return (
+    <DefaultLayout provider={HomeSoundProvider} bg="brand.700" full>
+      {page}
+    </DefaultLayout>
+  )
+}
+
+export const getLearnLayout = (
+  page: ReactElement,
+  props?: Omit<DefaultLayoutProps, 'children' | 'provider'>
+) => {
+  return (
+    <DefaultLayout bg="orange.200" provider={LearnSoundProvider} {...props}>
       <LearnMotionControl>{page}</LearnMotionControl>
     </DefaultLayout>
   )

@@ -52,7 +52,7 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
   }, [animateCard, animateImage, animateLetter, cardScope, imageScope, letterScope, swap])
 
   return (
-    <Box bg={alphabet ? `${alphabet.bg}.100` : 'white'}>
+    <Box bg={alphabet ? `${alphabet.bg}.100` : 'white'} roundedBottom="10vw">
       <VisuallyHidden as="h1">{`Alphabet ${alphabet?.name ?? ''}`}</VisuallyHidden>
       <Flex direction={['column', null, null, 'row']} rowGap={16} px={4} py={16} bg="inherit">
         <Flex
@@ -63,6 +63,7 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
           justify="center"
           flex={1}
           h={{ lg: 'calc(100vh - 4em)' }}
+          pb={[5, null, null, 0]}
           bg="inherit"
         >
           <MotionHeading
