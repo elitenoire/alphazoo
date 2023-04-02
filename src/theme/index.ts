@@ -126,6 +126,15 @@ const theme = extendTheme(
         '.object-contain': {
           objectFit: 'contain',
         },
+        '.object-bottom': {
+          objectPosition: 'bottom',
+        },
+        '.object-bottom-l': {
+          objectPosition: 'bottom left',
+        },
+        '.object-bottom-r': {
+          objectPosition: 'bottom right',
+        },
       },
     },
     layerStyles: {
