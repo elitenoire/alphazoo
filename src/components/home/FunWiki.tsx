@@ -71,13 +71,7 @@ export default function FunWiki() {
           >
             <NextImage src={ImgQaAnimals} alt="Cute animal faces" unoptimized />
           </Box>
-          <Heading
-            pt={2}
-            color="brand.900"
-            fontSize={['f4xl', 'f5xl']}
-            lineHeight="none"
-            id={HOMEPAGE_IDS.wiki}
-          >
+          <Heading pt={2} color="brand.900" fontSize={['f4xl', 'f5xl']} id={HOMEPAGE_IDS.wiki}>
             Wiki Fun!
           </Heading>
           <Text color="background" fontSize={['fxl', null, 'f2xl']}>

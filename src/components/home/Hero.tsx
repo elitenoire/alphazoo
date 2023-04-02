@@ -182,7 +182,6 @@ export default function Hero() {
           maxW="4.5em"
           fontSize={['f6xl', null, null, 'f5xl']}
           fontWeight={900}
-          lineHeight="none"
           letterSpacing="tight"
           textTransform="capitalize"
           opacity={0.95}

@@ -70,7 +70,6 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
             ref={letterScope}
             color={alphabet?.color ?? 'inherit'}
             fontSize="25vw"
-            lineHeight="none"
             initial={{ scale: 0 }}
             fontFamily="title"
           >

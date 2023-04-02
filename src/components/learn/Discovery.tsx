@@ -25,7 +25,6 @@ export default function Discovery({ alphabet }: DiscoveryProps) {
         roundedTopRight="15vw"
       >
         <Heading
-          as="h2"
           mb={1}
           fontSize="f4xl"
           variant="body"
