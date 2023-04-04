@@ -41,6 +41,13 @@ const withSvgr = (nextConfig = {}) => {
           typescript: true,
           titleProp: true,
           exportType: 'named',
+          replaceAttrValues: {
+            '#000': '{props.color || `#000`}',
+            '#000000': '{props.color || `#000`}',
+          },
+          svgProps: {
+            fill: 'currentcolor',
+          },
         },
       }
 

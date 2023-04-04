@@ -86,7 +86,7 @@ export default function Menu() {
         title="Support Me"
         transitionDuration="normal"
       >
-        <BuyCoffeeSvg fill="currentColor" />
+        <BuyCoffeeSvg />
       </SfxLink>
       <SfxLink
         pos="fixed"
@@ -104,7 +104,7 @@ export default function Menu() {
         title="Github Page"
         transitionDuration="normal"
       >
-        <GithubSvg fill="currentColor" />
+        <GithubSvg />
       </SfxLink>
     </MotionBox>
   )

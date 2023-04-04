@@ -129,7 +129,7 @@ export const MusicButton = ({ iconSize = '65%', label = 'Music', ...rest }: Audi
       onToggle={handleToggle}
       label={label}
       iconOn={<MusicBold color="currentColor" size={iconSize} />}
-      iconOff={<MusicSlashBold fill="currentColor" width={iconSize} height={iconSize} />}
+      iconOff={<MusicSlashBold width={iconSize} height={iconSize} />}
       {...rest}
     />
   )
@@ -230,8 +230,8 @@ export const SoundPhonicsButton = ({
       enable={enable}
       onToggle={handleToggle}
       label={label}
-      iconOn={<HearingOutline fill="currentColor" width={iconSize} height={iconSize} />}
-      iconOff={<HearingSlashOutline fill="currentColor" width={iconSize} height={iconSize} />}
+      iconOn={<HearingOutline width={iconSize} height={iconSize} />}
+      iconOff={<HearingSlashOutline width={iconSize} height={iconSize} />}
       {...rest}
     />
   )

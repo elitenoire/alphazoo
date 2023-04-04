@@ -105,7 +105,7 @@ export default function MenuBar() {
           transitionDuration="0.2s"
           transitionProperty="transform,box-shadow"
         >
-          <LogoSvg fill="currentcolor" />
+          <LogoSvg />
         </Box>
         <AnimatePresence>
           {isOpen && (
@@ -116,7 +116,7 @@ export default function MenuBar() {
               animate={{ x: 0, opacity: 1, transition: { delay: 0.2, duration: 0.3 } }}
               exit={{ x: 50, opacity: 0, transition: { duration: 0.3 } }}
             >
-              <LogonameSvg fill="currentcolor" />
+              <LogonameSvg />
             </MotionSpan>
           )}
         </AnimatePresence>

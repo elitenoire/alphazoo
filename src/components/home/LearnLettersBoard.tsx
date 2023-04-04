@@ -120,7 +120,7 @@ export function LearnLettersBoard() {
           >
             <MotionSpan style={{ opacity: stickyOpacity }}>ABC</MotionSpan>
           </MotionBox>
-          <PandySvg fill="currentColor" />
+          <PandySvg />
         </MotionFlex>
       </MotionFlex>
     </Box>

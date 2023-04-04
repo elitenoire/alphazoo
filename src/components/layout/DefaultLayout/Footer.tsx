@@ -63,8 +63,8 @@ const FooterBase = () => {
         _hover={{ color: 'brand.400' }}
         aria-label={SITE_CONFIG.appName}
       >
-        <BrandLogo flex={1} fill="currentcolor" />
-        <BrandLogoName flex={2.5} fill="currentcolor" />
+        <BrandLogo flex={1} />
+        <BrandLogoName flex={2.5} />
       </SfxLink>
       <Flex justify="center" wrap={['wrap', null, 'nowrap']} gap={[2, null, null, 4]}>
         <SfxIconButton
@@ -79,7 +79,7 @@ const FooterBase = () => {
           aria-label="Github Page"
           bgColor="whiteAlpha.50"
           href={SITE_CONFIG.githubLink}
-          icon={<Icon as={GithubSvg} fill="currentcolor" />}
+          icon={<Icon as={GithubSvg} />}
           isExternal
           size="md"
           title="Github Page"
@@ -96,7 +96,7 @@ const FooterBase = () => {
           aria-label="Contact Me"
           bgColor="whiteAlpha.50"
           href={`mailto:evathecoderr@outlook.com?subject=REF From ${SITE_CONFIG.appName.toUpperCase()}`}
-          icon={<Icon as={MailSvg} fill="currentcolor" />}
+          icon={<Icon as={MailSvg} />}
           isExternal
           size="md"
           title="Contact Me"
@@ -113,7 +113,7 @@ const FooterBase = () => {
           aria-label="Support Me"
           bgColor="whiteAlpha.50"
           href={SITE_CONFIG.supportLink}
-          icon={<Icon as={BuyCoffeeSvg} fill="currentcolor" />}
+          icon={<Icon as={BuyCoffeeSvg} />}
           isExternal
           size="md"
           title="Support Me"
