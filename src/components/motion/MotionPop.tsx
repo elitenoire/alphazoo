@@ -11,14 +11,14 @@ interface CustomVariantProps {
 interface MotionPopProps extends MotionBoxProps, CustomVariantProps {}
 
 const popVariant: Variants = {
-  hidden: ({ pop }: CustomVariantProps) => ({
+  hidden: ({ pop = 0.4 }: CustomVariantProps) => ({
     opacity: 0,
-    scale: pop ?? 0.4,
+    scale: pop,
   }),
-  visible: ({ delay }: CustomVariantProps) => ({
+  visible: ({ delay, pop = 0.4 }: CustomVariantProps) => ({
     opacity: 1,
     scale: 1,
-    transition: { type: 'spring', duration: 1, delay },
+    transition: { type: 'spring', delay, duration: pop > 1 ? 1 + (pop - 1) / pop : 1 },
   }),
 }
 

@@ -78,7 +78,7 @@ export default function AlphabetLayout({ children }: PropsWithChildren) {
           />
         </MotionBox>
         <Box zIndex={1} flex={1} overflow="hidden">
-          <MotionPop pop={4} delay={0.4}>
+          <MotionPop once pop={4} delay={0.4}>
             <Heading
               as="p"
               py={4}
@@ -90,7 +90,7 @@ export default function AlphabetLayout({ children }: PropsWithChildren) {
             </Heading>
           </MotionPop>
         </Box>
-        <MotionPop once delay={0.05} pos="absolute" top={0} right={4} bottom={0} w="12.5%">
+        <MotionPop delay={0.05} pos="absolute" top={0} right={4} bottom={0} w="12.5%">
           <NextImage
             className="object-contain object-bottom-r"
             src={`/img/mush.svg`}
