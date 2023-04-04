@@ -1,9 +1,20 @@
-import NextImage from 'next/image'
 import NextLink from 'next/link'
-import { Box, Flex, AspectRatio, Heading, Text } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, chakra } from '@chakra-ui/react'
+import { AnimalPortrait } from '~components/learn/AnimalPortrait'
 import { MotionPop } from '~components/motion'
 import { SfxButton } from '~components/sfx'
 import { ROUTES } from '~/src/constants'
+
+import { ReactComponent as BgOneSvg } from '~public/img/ogbg-1.svg'
+import { ReactComponent as BgTwoSvg } from '~public/img/ogbg-2.svg'
+
+import { ReactComponent as ShapeOneSvg } from '~public/img/ogshape-1.svg'
+import { ReactComponent as ShapeTwoSvg } from '~public/img/ogshape-2.svg'
+import { ReactComponent as ShapeThreeSvg } from '~public/img/ogshape-3.svg'
+import { ReactComponent as ShapeFourSvg } from '~public/img/ogshape-4.svg'
+
+const ChakraBgOneSvg = chakra(BgOneSvg)
+const ChakraBgTwoSvg = chakra(BgTwoSvg)
 
 import type { AlphabetType } from '~/types/data'
 
@@ -13,7 +24,12 @@ interface DiscoveryProps {
 
 export default function Discovery({ alphabet }: DiscoveryProps) {
   return (
-    <Flex direction={['column', null, null, 'row']} rowGap={16} pt={16} roundedBottom="inherit">
+    <Flex
+      direction={['column', null, null, 'row']}
+      overflow="hidden"
+      pt={16}
+      roundedBottom="inherit"
+    >
       <Box
         w={['full', null, null, '60%']}
         pt="8vw"
@@ -47,46 +63,64 @@ export default function Discovery({ alphabet }: DiscoveryProps) {
           Discover
         </SfxButton>
         <Flex wrap="wrap" rowGap={4}>
-          <MotionPop once flexGrow={1} flexShrink={1} flexBasis={['50%', null, 'auto', '50%']}>
-            <AspectRatio w={['75%', null, '95%', '70%']} ratio={1}>
-              <NextImage src={`/img/potrait-1.svg`} alt={`cute animal portrait`} fill unoptimized />
-            </AspectRatio>
-          </MotionPop>
-          <MotionPop
-            once
-            flexGrow={1}
-            flexShrink={1}
-            flexBasis={['50%', null, 'auto', '50%']}
-            delay={0.1}
-          >
-            <AspectRatio w={['75%', null, '95%', '70%']} ratio={1}>
-              <NextImage src={`/img/potrait-2.svg`} alt={`cute animal portrait`} fill unoptimized />
-            </AspectRatio>
-          </MotionPop>
-          <MotionPop
-            once
-            flexGrow={1}
-            flexShrink={1}
-            flexBasis={['50%', null, 'auto', '50%']}
-            delay={0.125}
-          >
-            <AspectRatio w={['75%', null, '95%', '70%']} ratio={1}>
-              <NextImage src={`/img/potrait-3.svg`} alt={`cute animal portrait`} fill unoptimized />
-            </AspectRatio>
-          </MotionPop>
-          <MotionPop
-            once
-            flexGrow={1}
-            flexShrink={1}
-            flexBasis={['50%', null, 'auto', '50%']}
-            delay={0.15}
-          >
-            <AspectRatio w={['75%', null, '95%', '70%']} ratio={1}>
-              <NextImage src={`/img/potrait-4.svg`} alt={`cute animal portrait`} fill unoptimized />
-            </AspectRatio>
-          </MotionPop>
+          <AnimalPortrait src="/img/portrait-1.svg" />
+          <AnimalPortrait src="/img/portrait-2.svg" delay={0.1} />
+          <AnimalPortrait src="/img/portrait-3.svg" delay={0.125} />
+          <AnimalPortrait src="/img/portrait-4.svg" delay={0.15} />
         </Flex>
       </Box>
+      <Flex
+        pos="relative"
+        align="center"
+        justify="center"
+        flexGrow={1}
+        flexShrink={1}
+        flexBasis={['30vmax', null, null, 'auto']}
+        py="10%"
+        {...(alphabet && { color: `${alphabet.bg}.700` })}
+      >
+        <MotionPop
+          pos="absolute"
+          w={['20%', '15%', null, '30%']}
+          left={['-5%', null, null, '-20%']}
+          top="10%"
+        >
+          <ShapeOneSvg />
+        </MotionPop>
+        <MotionPop pos="absolute" w={['15%', '10%', null, '20%']} left={0} bottom="-5%">
+          <ShapeTwoSvg />
+        </MotionPop>
+        <MotionPop pos="absolute" w={['20%', '15%', null, '20%']} right="-5%" top="20%">
+          <ShapeThreeSvg />
+        </MotionPop>
+        <MotionPop
+          pos="absolute"
+          w="20%"
+          right={['15%', null, null, '2%']}
+          bottom={['-20%', null, null, '15%']}
+        >
+          <ShapeFourSvg />
+        </MotionPop>
+
+        <Flex
+          zIndex={1}
+          align="center"
+          justify="center"
+          wrap="wrap"
+          direction={{ lg: 'column' }}
+          flex={1}
+          gap={6}
+          h="full"
+          px={[null, '12.5%', null, '17.5%']}
+        >
+          <Box flexGrow={[null, 1, null, 0]} flexShrink={1} flexBasis={[52, 40]} w="full">
+            <ChakraBgOneSvg fill={alphabet ? `${alphabet.bg}.400` : 'white'} opacity={0.5} />
+          </Box>
+          <Box flexGrow={[null, 1, null, 0]} flexShrink={1} flexBasis={[52, 40]} w="full">
+            <ChakraBgTwoSvg fill={alphabet ? `${alphabet.bg}.700` : 'white'} opacity={0.65} />
+          </Box>
+        </Flex>
+      </Flex>
     </Flex>
   )
 }
