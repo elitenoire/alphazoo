@@ -1,9 +1,10 @@
 import NextLink from 'next/link'
-import { Box, Flex, Heading, Text, chakra } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Link, chakra } from '@chakra-ui/react'
 import { AnimalPortrait } from '~components/learn/AnimalPortrait'
-import { MotionPop } from '~components/motion'
+import { MotionPop, MotionBox, MagneticBox } from '~components/motion'
 import { SfxButton } from '~components/sfx'
 import { ROUTES } from '~/src/constants'
+import { Animations } from './variants'
 
 import { ReactComponent as BgOneSvg } from '~public/img/ogbg-1.svg'
 import { ReactComponent as BgTwoSvg } from '~public/img/ogbg-2.svg'
@@ -113,12 +114,42 @@ export default function Discovery({ alphabet }: DiscoveryProps) {
           h="full"
           px={[null, '12.5%', null, '17.5%']}
         >
-          <Box flexGrow={[null, 1, null, 0]} flexShrink={1} flexBasis={[52, 40]} w="full">
+          <MotionBox
+            flexGrow={[null, 1, null, 0]}
+            flexShrink={1}
+            flexBasis={[52, 40]}
+            w="full"
+            whileInView="shake"
+            custom={1}
+            variants={Animations}
+          >
             <ChakraBgOneSvg fill={alphabet ? `${alphabet.bg}.400` : 'white'} opacity={0.5} />
-          </Box>
-          <Box flexGrow={[null, 1, null, 0]} flexShrink={1} flexBasis={[52, 40]} w="full">
-            <ChakraBgTwoSvg fill={alphabet ? `${alphabet.bg}.700` : 'white'} opacity={0.65} />
-          </Box>
+          </MotionBox>
+          <Flex flexGrow={[null, 1, null, 0]} flexShrink={1} flexBasis={[52, 40]} w="full">
+            <MagneticBox pos="relative" role="group">
+              <ChakraBgTwoSvg
+                fill={alphabet ? `${alphabet.bg}.700` : 'white'}
+                opacity={0.7}
+                _groupHover={{ opacity: 1 }}
+              />
+              <MagneticBox.Parallax pos="absolute" inset={0}>
+                <Link
+                  as={NextLink}
+                  alignItems="center"
+                  justifyContent="center"
+                  display="flex"
+                  w="full"
+                  h="full"
+                  color="white"
+                  fontSize="fxl"
+                  fontWeight="medium"
+                  href={`${ROUTES.wiki}/ant`}
+                >
+                  Ant
+                </Link>
+              </MagneticBox.Parallax>
+            </MagneticBox>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
