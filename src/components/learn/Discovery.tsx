@@ -123,9 +123,9 @@ export default function Discovery({ alphabet }: DiscoveryProps) {
             custom={1}
             variants={Animations}
           >
-            <ChakraBgOneSvg fill={alphabet ? `${alphabet.bg}.400` : 'white'} opacity={0.5} />
+            <ChakraBgOneSvg fill={alphabet ? `${alphabet.bg}.400` : 'white'} opacity={0.7} />
           </MotionBox>
-          <Flex flexGrow={[null, 1, null, 0]} flexShrink={1} flexBasis={[52, 40]} w="full">
+          <Box flexGrow={[null, 1, null, 0]} flexShrink={1} flexBasis={[52, 40]} w="full">
             <MagneticBox pos="relative" role="group">
               <ChakraBgTwoSvg
                 fill={alphabet ? `${alphabet.bg}.700` : 'white'}
@@ -149,7 +149,7 @@ export default function Discovery({ alphabet }: DiscoveryProps) {
                 </Link>
               </MagneticBox.Parallax>
             </MagneticBox>
-          </Flex>
+          </Box>
         </Flex>
       </Flex>
     </Flex>
