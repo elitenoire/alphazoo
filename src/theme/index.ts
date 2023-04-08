@@ -65,6 +65,7 @@ const fontSizes = {
 const radii = {
   xtiny: 2.5,
   tiny: 5,
+  icon: '22%',
   circle: '50%',
   card: '2em',
   bigCard: '4em',
@@ -138,6 +139,11 @@ const theme = extendTheme(
       },
     },
     layerStyles: {
+      page: {
+        pt: 24,
+        pb: 16,
+        px: [4, '8%'],
+      },
       showScroll: {
         overflowX: 'auto',
         overflowY: 'hidden',

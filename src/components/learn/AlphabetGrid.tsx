@@ -107,12 +107,10 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
     <>
       <AnimatePresence initial={false}>
         <Box
+          layerStyle="page"
           pos="relative"
           zIndex={1}
           w="full"
-          pt={24}
-          pb={16}
-          px={{ base: 8, xl: '8%' }}
           visibility={show ? 'visible' : 'hidden'}
         >
           <SlideFade transition={{ enter: { duration: 0.4 } }} in={show} offsetY="100%">
@@ -137,7 +135,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
           <MotionList
             display="grid"
             sx={{
-              '--gap': { base: '1.5em', xl: '1.375em' },
+              '--gap': { base: '1.5em', xl: '1.5vw' },
               '--size': '6.25em',
               '--max-column': '8',
             }}
@@ -171,7 +169,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                         bg="white"
                         h="full"
                         w="full"
-                        rounded="md"
+                        rounded="10%"
                         p="10%"
                         boxShadow="sm"
                         _hover={{ boxShadow: 'xl' }}
