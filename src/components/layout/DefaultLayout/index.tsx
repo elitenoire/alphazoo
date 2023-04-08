@@ -2,7 +2,12 @@ import type { ComponentType, PropsWithChildren, ReactNode, ReactElement } from '
 import { useRouter } from 'next/router'
 import { Fragment, useEffect } from 'react'
 import { Grid } from '@chakra-ui/react'
-import { GeneralSoundProvider, HomeSoundProvider, LearnSoundProvider } from '~/src/context/sfx'
+import {
+  GeneralSoundProvider,
+  HomeSoundProvider,
+  LearnSoundProvider,
+  WikiSoundProvider,
+} from '~/src/context/sfx'
 import { useMotionStore } from '~/src/store'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import type { FooterProps } from './Footer'
@@ -110,6 +115,14 @@ export const getLearnLayout = (
   return (
     <DefaultLayout bg="orange.200" provider={LearnSoundProvider} {...props}>
       <LearnMotionControl>{page}</LearnMotionControl>
+    </DefaultLayout>
+  )
+}
+
+export const getWikiLayout = (page: ReactElement) => {
+  return (
+    <DefaultLayout provider={WikiSoundProvider} bg="brand.700">
+      {page}
     </DefaultLayout>
   )
 }
