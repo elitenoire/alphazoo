@@ -2,6 +2,7 @@ import NextImage from 'next/image'
 import { motion } from 'framer-motion'
 import type { ListProps, ListItemProps, AspectRatioProps } from '@chakra-ui/react'
 import { Box, Heading, List, ListItem, AspectRatio } from '@chakra-ui/react'
+import { GalleryModal } from '~/src/components/wiki/GalleryModal'
 
 import { getWikiLayout } from '~components/layout/DefaultLayout'
 
@@ -25,7 +26,7 @@ export default function Wiki() {
           '--max-column': '6',
         }}
         placeContent="center"
-        pt={8}
+        pt={16}
         gap="var(--gap)"
         gridTemplateColumns="repeat(auto-fit, minmax(min(max(100% / var(--max-column) - var(--gap), var(--size)), 100%),1fr))"
       >
@@ -37,6 +38,7 @@ export default function Wiki() {
           </Box>
         ))}
       </MotionList>
+      <GalleryModal />
     </Box>
   )
 }

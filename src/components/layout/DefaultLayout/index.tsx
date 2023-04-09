@@ -121,7 +121,7 @@ export const getLearnLayout = (
 
 export const getWikiLayout = (page: ReactElement) => {
   return (
-    <DefaultLayout provider={WikiSoundProvider} bg="brand.700">
+    <DefaultLayout provider={WikiSoundProvider} bg="brand.500">
       {page}
     </DefaultLayout>
   )
