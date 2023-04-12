@@ -7,3 +7,10 @@ declare module '*.svg' {
   const content: StaticImageData
   export default content
 }
+
+declare module 'react-use-keypress' {
+  export default function useKeyPress(
+    key: KeyboardEvent['key'] | KeyboardEvent['key'][],
+    callback?: (e: KeyboardEvent) => void
+  ): void
+}

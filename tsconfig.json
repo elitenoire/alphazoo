@@ -21,7 +21,7 @@
     "importsNotUsedAsValues": "error",
   },
   "include": [
-    "types/svg.d.ts",
+    "types/index.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
