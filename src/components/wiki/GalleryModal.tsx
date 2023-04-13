@@ -15,14 +15,18 @@ import {
   ModalFooter,
   Text,
 } from '@chakra-ui/react'
+import { GalleryIcon } from './GalleryIcon'
 import { range } from '~/src/utils'
 
 const MotionList = motion<ListProps>(List)
 const MotionListItem = motion<ListItemProps>(ListItem)
 
-const gallery = Array.from({ length: 80 }, (x, i) => i)
+interface GalleryModalProps {
+  gallery: number[]
+  onClose: () => void
+}
 
-export const GalleryModal = () => {
+export const GalleryModal = ({ gallery, onClose }: GalleryModalProps) => {
   const [direction, setDirection] = useState(0)
   const [selected, setSelected] = useState(1)
 
@@ -70,7 +74,7 @@ export const GalleryModal = () => {
   const currentImage = gallery[selected] // : currentPhoto
 
   return (
-    <Modal isOpen motionPreset="none" onClose={() => ({})} size="full">
+    <Modal isOpen motionPreset="none" onClose={onClose} size="full">
       <ModalContent
         pos="relative"
         overflow="hidden"
@@ -109,6 +113,7 @@ export const GalleryModal = () => {
                 columnGap={0}
                 display="flex"
                 h={20}
+                minH="10dvh"
                 mx="auto"
               >
                 <AnimatePresence initial={false}>
@@ -130,21 +135,8 @@ export const GalleryModal = () => {
                       exit={{ width: '0%' }}
                       onClick={() => changePhotoId(g)}
                     >
-                      <Box
-                        as="button"
-                        w="full"
-                        bg="white"
-                        _hover={{ transform: 'scale(1.05)' }}
-                        appearance="none"
-                        transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-                        rounded="icon"
-                        transitionDuration="0.2s"
-                        transitionProperty="transform"
-                        transitionTimingFunction="ease-in-out"
-                      >
-                        <AspectRatio ratio={1}>
-                          <Box>{g}</Box>
-                        </AspectRatio>
+                      <Box as="button" w="full" appearance="none">
+                        <GalleryIcon icon={g} />
                       </Box>
                     </MotionListItem>
                   ))}
