@@ -1,2 +1,2 @@
 export * from './sound'
-export * from './motion'
+export * from './general'

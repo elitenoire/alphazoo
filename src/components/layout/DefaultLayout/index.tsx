@@ -8,7 +8,7 @@ import {
   LearnSoundProvider,
   WikiSoundProvider,
 } from '~/src/context/sfx'
-import { useMotionStore } from '~/src/store'
+import { useGeneralStore } from '~/src/store'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import type { FooterProps } from './Footer'
 import { Footer } from './Footer'
@@ -30,7 +30,7 @@ interface DefaultLayoutProps extends FooterProps {
 const LearnMotionControl = ({ children }: PropsWithChildren) => {
   const router = useRouter()
 
-  const setInitialMotion = useMotionStore.use.setAllowLearnAlphabetInitialMotion()
+  const setInitialMotion = useGeneralStore.use.setAllowLearnAlphabetInitialMotion()
 
   useEffect(() => {
     // Disable initial bounce motion only when routing

@@ -3,10 +3,10 @@ import NextImage from 'next/image'
 import { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence, useAnimate } from 'framer-motion'
 import type { AspectRatioProps } from '@chakra-ui/react'
-import { Box, Flex, AspectRatio, VisuallyHidden, Heading, Text } from '@chakra-ui/react'
-import { MotionBox, MotionFlex, MotionHeading, MotionPop, MagneticBox } from '~components/motion'
+import { Box, Flex, AspectRatio, VisuallyHidden, Heading } from '@chakra-ui/react'
+import { MotionBox, MotionFlex, MotionHeading, MotionPop } from '~components/motion'
 import Discovery from '~components/learn/Discovery'
-import { useMotionStore } from '~/src/store'
+import { useGeneralStore } from '~/src/store'
 
 import { getLayout } from '~components/layout/AlphabetLayout'
 
@@ -15,7 +15,7 @@ import { alphabets } from '~/src/data/alphabets'
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
 
 export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const allowInitialMotion = useMotionStore.use.allowLearnAlphabetInitialMotion()
+  const allowInitialMotion = useGeneralStore.use.allowLearnAlphabetInitialMotion()
   const [showOverlay, setShowOverlay] = useState(true)
   const [swap, setSwap] = useState(false)
 
@@ -221,6 +221,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps = async ({ params }: GetStaticPropsContext<{ id: string }>) => {
   const alphabet = alphabets.find((alphabet) => alphabet.name.toLowerCase() === params?.id)
+  // const list = alphabets.map((alphabet) => ({
+  //   numeral: alphabet.numeral,
+  //   name: alphabet.name,
+  // }))
+  // const prevId = list.find((a) => a.numeral === (alphabet?.numeral ?? 0) - 1)
+  // const nextId = list.find((a) => a.numeral === (alphabet?.numeral ?? 26) + 1)
 
   return { props: { alphabet } }
 }

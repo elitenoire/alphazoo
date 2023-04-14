@@ -6,6 +6,6 @@ export const SOUND_SETTINGS = {
   normalVolumeSound: 0.65,
 }
 
-export const MOTION_SETTINGS = {
-  storeName: 'motion-settings',
+export const GENERAL_SETTINGS = {
+  storeName: 'general-settings',
 }

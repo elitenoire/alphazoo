@@ -2,14 +2,14 @@ import { useState, useCallback, useEffect } from 'react'
 import Background from '~components/learn/Background'
 import StartWelcome from '~components/learn/StartWelcome'
 import AlphabetGrid from '~components/learn/AlphabetGrid'
-import { useMotionStore, useMotionHydration } from '~/src/store'
+import { useGeneralStore, useGeneralHydration } from '~/src/store'
 
 import { getLearnLayout } from '~components/layout/DefaultLayout'
 
 export default function Learn() {
-  const showWelcome = useMotionStore.use.showLearnWelcome()
-  const setShowWelcome = useMotionStore.use.setShowLearnWelcome()
-  const hydrated = useMotionHydration()
+  const showWelcome = useGeneralStore.use.showLearnWelcome()
+  const setShowWelcome = useGeneralStore.use.setShowLearnWelcome()
+  const hydrated = useGeneralHydration()
 
   const [gridReady, setGridReady] = useState(false)
 

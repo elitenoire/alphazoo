@@ -1,18 +1,18 @@
 import { create } from 'zustand'
 import { persist, subscribeWithSelector } from 'zustand/middleware'
-import { MOTION_SETTINGS } from '~src/constants'
+import { GENERAL_SETTINGS } from '~src/constants'
 import { useStoreHydration } from '~src/hooks/useStoreHydration'
 import { createSelectors } from './selectors'
 
-export interface MotionState {
+export interface GeneralState {
   showLearnWelcome: boolean
   allowLearnAlphabetInitialMotion: boolean
   setShowLearnWelcome: (state: boolean) => void
   setAllowLearnAlphabetInitialMotion: (state: boolean) => void
 }
 
-export const useMotionStore = createSelectors(
-  create<MotionState>()(
+export const useGeneralStore = createSelectors(
+  create<GeneralState>()(
     subscribeWithSelector(
       persist(
         (set) => ({
@@ -23,7 +23,7 @@ export const useMotionStore = createSelectors(
             set({ allowLearnAlphabetInitialMotion: state }),
         }),
         {
-          name: MOTION_SETTINGS.storeName,
+          name: GENERAL_SETTINGS.storeName,
           partialize: ({ showLearnWelcome }) => ({ showLearnWelcome }),
         }
       )
@@ -31,6 +31,6 @@ export const useMotionStore = createSelectors(
   )
 )
 
-export const useMotionHydration = () => {
-  return useStoreHydration<MotionState, { showLearnWelcome: boolean }>(useMotionStore)
+export const useGeneralHydration = () => {
+  return useStoreHydration<GeneralState, { showLearnWelcome: boolean }>(useGeneralStore)
 }
