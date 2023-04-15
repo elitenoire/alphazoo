@@ -7,8 +7,10 @@ import { createSelectors } from './selectors'
 export interface GeneralState {
   showLearnWelcome: boolean
   allowLearnAlphabetInitialMotion: boolean
+  lastViewedWiki: string | null
   setShowLearnWelcome: (state: boolean) => void
   setAllowLearnAlphabetInitialMotion: (state: boolean) => void
+  setLastViewedWiki: (state: string | null) => void
 }
 
 export const useGeneralStore = createSelectors(
@@ -18,9 +20,11 @@ export const useGeneralStore = createSelectors(
         (set) => ({
           showLearnWelcome: true,
           allowLearnAlphabetInitialMotion: true,
+          lastViewedWiki: null,
           setShowLearnWelcome: (state) => set({ showLearnWelcome: state }),
           setAllowLearnAlphabetInitialMotion: (state) =>
             set({ allowLearnAlphabetInitialMotion: state }),
+          setLastViewedWiki: (state) => set({ lastViewedWiki: state }),
         }),
         {
           name: GENERAL_SETTINGS.storeName,

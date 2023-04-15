@@ -87,9 +87,6 @@ const theme = extendTheme(
         '*': {
           WebkitTapHighlightColor: 'transparent',
         },
-        html: {
-          scrollBehavior: 'smooth',
-        },
         body: {
           fontSize: 'fmd',
           lineHeight: 'shorter',

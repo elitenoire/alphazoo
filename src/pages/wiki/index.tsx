@@ -1,64 +1,87 @@
 import type { InferGetStaticPropsType } from 'next'
-import NextImage from 'next/image'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
-import type { ListProps, ListItemProps, AspectRatioProps } from '@chakra-ui/react'
-import { Box, Heading, List, ListItem, AspectRatio } from '@chakra-ui/react'
+import { useRef, useEffect, useCallback, PropsWithChildren } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { Box, Heading, List } from '@chakra-ui/react'
 import { MotionPop } from '~components/motion'
 import { GalleryModal } from '~components/wiki/GalleryModal'
 import { GalleryIcon } from '~components/wiki/GalleryIcon'
-import { ROUTES } from '~/src/constants'
+import { useGeneralStore } from '~src/store'
+import { ROUTES } from '~src/constants'
 
 import { getWikiLayout } from '~components/layout/DefaultLayout'
 
-const MotionList = motion<ListProps>(List)
-const MotionListItem = motion<ListItemProps>(ListItem)
-const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
+type WikiPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
-export default function Wiki({ gallery }: InferGetStaticPropsType<typeof getStaticProps>) {
+type GalleryRouterProps = Pick<WikiPageProps, 'gallery'> & {
+  onLastViewed: () => void
+}
+
+const GalleryRouter = ({
+  gallery,
+  onLastViewed,
+  children,
+}: PropsWithChildren<GalleryRouterProps>) => {
+  const lastViewedWiki = useGeneralStore.use.lastViewedWiki()
+  const setLastViewedWiki = useGeneralStore.use.setLastViewedWiki()
+
   const router = useRouter()
   const { id } = router.query
-  // const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto()
+  const validId = typeof id === 'string' ? id : null
 
-  // const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null)
+  const handleClose = useCallback(() => {
+    setLastViewedWiki(validId)
+  }, [validId, setLastViewedWiki])
 
-  // const handleClose = useCallback(() => {
-  //   setLastViewedPhoto(id)
-  // }, [id])
-
-  const handleClose = () => ({})
-
-  // useEffect(() => {
-  //   // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
-  //   if (lastViewedPhoto && !id) {
-  //     lastViewedPhotoRef.current.scrollIntoView({ block: 'center' })
-  //     setLastViewedPhoto(null)
-  //   }
-  // }, [id, lastViewedPhoto, setLastViewedPhoto])
+  useEffect(() => {
+    // This effect keeps track of the last viewed wiki in the modal to keep the index page in sync when the user navigates back
+    if (lastViewedWiki && !validId) {
+      onLastViewed()
+      setLastViewedWiki(null)
+    }
+  }, [validId, lastViewedWiki, setLastViewedWiki, onLastViewed])
 
   return (
     <Box layerStyle="page">
+      {children}
+      <AnimatePresence>
+        {validId && <GalleryModal id={validId} gallery={gallery} onClose={handleClose} />}
+      </AnimatePresence>
+    </Box>
+  )
+}
+
+export default function WikiPage({ gallery }: WikiPageProps) {
+  const lastViewedWikiRef = useRef<HTMLAnchorElement>(null)
+
+  const lastViewedWiki = useGeneralStore.use.lastViewedWiki()
+
+  const syncScroll = useCallback(() => {
+    lastViewedWikiRef.current?.scrollIntoView({ block: 'center', behavior: 'auto' })
+  }, [])
+
+  return (
+    <GalleryRouter gallery={gallery} onLastViewed={syncScroll}>
       <Heading as="h1" color="brand.50" textAlign="center">
         Wiki Gallery
       </Heading>
-      <MotionList
-        display="grid"
+      <List
         sx={{
           '--gap': '1.5vw',
           '--size': '8em',
           '--max-column': '6',
         }}
-        placeContent="center"
-        pt={16}
         gap="var(--gap)"
         gridTemplateColumns="repeat(auto-fit, minmax(min(max(100% / var(--max-column) - var(--gap), var(--size)), 100%),1fr))"
+        display="grid"
+        pt={16}
+        placeContent="center"
       >
         {gallery.map((item) => (
           <MotionPop as="li" key={item} once>
             <NextLink
-              // ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
+              ref={item === Number(lastViewedWiki) ? lastViewedWikiRef : null}
               href={`${ROUTES.wiki}?id=${item}`}
               as={`${ROUTES.wiki}/${item}`}
               shallow
@@ -67,13 +90,12 @@ export default function Wiki({ gallery }: InferGetStaticPropsType<typeof getStat
             </NextLink>
           </MotionPop>
         ))}
-      </MotionList>
-      <GalleryModal gallery={gallery} onClose={handleClose} />
-    </Box>
+      </List>
+    </GalleryRouter>
   )
 }
 
-Wiki.getLayout = getWikiLayout
+WikiPage.getLayout = getWikiLayout
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps = async () => {

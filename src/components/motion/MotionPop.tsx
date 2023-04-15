@@ -1,5 +1,6 @@
 import type { Variants } from 'framer-motion'
 import type { MotionBoxProps } from '~components/motion'
+import { motion } from 'framer-motion'
 import { MotionBox } from '~components/motion'
 
 interface CustomVariantProps {
@@ -22,10 +23,11 @@ const popVariant: Variants = {
   }),
 }
 
-export const MotionPop = ({ delay, pop, once = false, viewport, ...rest }: MotionPopProps) => {
+export const MotionPop = ({ delay, pop, once = false, viewport, as, ...rest }: MotionPopProps) => {
   return (
     <MotionBox
       {...rest}
+      {...(as && { as: motion(as) })}
       custom={{ pop, delay }}
       variants={popVariant}
       initial="hidden"

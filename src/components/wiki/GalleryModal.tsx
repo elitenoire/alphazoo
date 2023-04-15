@@ -1,80 +1,25 @@
-import NextImage from 'next/image'
-import { useRef, useState, useCallback } from 'react'
-import useKeypress from 'react-use-keypress'
-import { useSwipeable } from 'react-swipeable'
-import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
-import type { ListProps, ListItemProps, AspectRatioProps } from '@chakra-ui/react'
-import {
-  Box,
-  AspectRatio,
-  List,
-  ListItem,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  Text,
-} from '@chakra-ui/react'
-import { GalleryIcon } from './GalleryIcon'
-import { range } from '~/src/utils'
-
-const MotionList = motion<ListProps>(List)
-const MotionListItem = motion<ListItemProps>(ListItem)
+import { useRouter } from 'next/router'
+import { useCallback } from 'react'
+import { Modal, ModalBody, ModalContent, ModalCloseButton } from '@chakra-ui/react'
+import { Gallery } from './Gallery'
+import { ROUTES } from '~src/constants'
 
 interface GalleryModalProps {
+  id: string | null
   gallery: number[]
   onClose: () => void
 }
 
-export const GalleryModal = ({ gallery, onClose }: GalleryModalProps) => {
-  const [direction, setDirection] = useState(0)
-  const [selected, setSelected] = useState(1)
+export const GalleryModal = ({ id, gallery, onClose }: GalleryModalProps) => {
+  const { push } = useRouter()
 
-  const changePhotoId = useCallback(
-    (newVal: number) => {
-      setDirection(newVal > selected ? 1 : -1)
-      setSelected(newVal)
-    },
-    [selected]
-  )
-
-  const prev = useCallback(() => {
-    if (selected > 0) {
-      changePhotoId(selected - 1)
-    }
-  }, [changePhotoId, selected])
-
-  const next = useCallback(() => {
-    if (selected + 1 < gallery.length) {
-      changePhotoId(selected + 1)
-    }
-  }, [changePhotoId, selected])
-
-  const handlers = useSwipeable({
-    onSwipedLeft: next,
-    onSwipedRight: prev,
-    trackMouse: true,
-  })
-
-  const navigate = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === 'ArrowRight') {
-        next()
-      } else if (event.key === 'ArrowLeft') {
-        prev()
-      }
-    },
-    [next, prev]
-  )
-
-  useKeypress(['ArrowRight', 'ArrowLeft'], navigate)
-
-  const filtered = gallery.filter((img) => range(selected - 10, selected + 10).includes(img))
-
-  const currentImage = gallery[selected] // : currentPhoto
+  const handleClose = useCallback(() => {
+    void push(ROUTES.wiki, undefined, { shallow: true })
+    onClose()
+  }, [onClose, push])
 
   return (
-    <Modal isOpen motionPreset="none" onClose={onClose} size="full">
+    <Modal isOpen motionPreset="none" onClose={handleClose} size="full">
       <ModalContent
         pos="relative"
         overflow="hidden"
@@ -82,68 +27,15 @@ export const GalleryModal = ({ gallery, onClose }: GalleryModalProps) => {
         backdropFilter="blur(5px)"
         containerProps={{ zIndex: 'zen' }}
       >
-        <ModalBody
-          pos="relative"
+        <ModalCloseButton
           zIndex={1}
-          alignItems="center"
-          justifyContent="center"
-          flexDir="column"
-          rowGap={1}
-          display="flex"
-          pt={[0, null, 1]}
-          pb={1}
-          px={[0, null, 6]}
-          {...handlers}
-        >
-          <MotionConfig
-            transition={{
-              default: { duration: 0.7, ease: [0.32, 0.72, 0, 1] },
-              opacity: { duration: 0.2 },
-            }}
-          >
-            <Box flex={1} w="full" minH={400} bg="white" rounded={[null, null, 'card']}>
-              <Text fontSize="f4xl" fontWeight={700}>
-                {currentImage}
-              </Text>
-            </Box>
-            <Box w="full">
-              <MotionList
-                initial={false}
-                sx={{ aspectRatio: '1' }}
-                columnGap={0}
-                display="flex"
-                h={20}
-                minH="10dvh"
-                mx="auto"
-              >
-                <AnimatePresence initial={false}>
-                  {filtered.map((g) => (
-                    <MotionListItem
-                      key={g}
-                      // w="10%"
-                      // minW={20}
-                      flexShrink={0}
-                      initial={{
-                        width: '0%',
-                        x: `${Math.max((selected - 1) * -100, 10 * -100)}%`,
-                      }}
-                      animate={{
-                        scale: g === selected ? 1.05 : 1,
-                        width: '100%',
-                        x: `${Math.max(selected * -100, 10 * -100)}%`,
-                      }}
-                      exit={{ width: '0%' }}
-                      onClick={() => changePhotoId(g)}
-                    >
-                      <Box as="button" w="full" appearance="none">
-                        <GalleryIcon icon={g} />
-                      </Box>
-                    </MotionListItem>
-                  ))}
-                </AnimatePresence>
-              </MotionList>
-            </Box>
-          </MotionConfig>
+          top={[1, null, 4]}
+          right={[1, null, 10]}
+          p={[6, null, 8]}
+          rounded={['md', null, 'circle']}
+        />
+        <ModalBody flex={1} display="flex" px={0} py={0}>
+          <Gallery id={id} gallery={gallery} showIcons />
         </ModalBody>
       </ModalContent>
     </Modal>
