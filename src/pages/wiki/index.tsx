@@ -2,7 +2,6 @@ import type { InferGetStaticPropsType } from 'next'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useRef, useEffect, useCallback, PropsWithChildren } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import { Box, Heading, List } from '@chakra-ui/react'
 import { MotionPop } from '~components/motion'
 import { GalleryModal } from '~components/wiki/GalleryModal'
@@ -15,12 +14,12 @@ import { getWikiLayout } from '~components/layout/DefaultLayout'
 type WikiPageProps = InferGetStaticPropsType<typeof getStaticProps>
 
 type GalleryRouterProps = Pick<WikiPageProps, 'gallery'> & {
-  onLastViewed: () => void
+  syncScroll: () => void
 }
 
 const GalleryRouter = ({
   gallery,
-  onLastViewed,
+  syncScroll,
   children,
 }: PropsWithChildren<GalleryRouterProps>) => {
   const lastViewedWiki = useGeneralStore.use.lastViewedWiki()
@@ -30,24 +29,18 @@ const GalleryRouter = ({
   const { id } = router.query
   const validId = typeof id === 'string' ? id : null
 
-  const handleClose = useCallback(() => {
-    setLastViewedWiki(validId)
-  }, [validId, setLastViewedWiki])
-
   useEffect(() => {
     // This effect keeps track of the last viewed wiki in the modal to keep the index page in sync when the user navigates back
     if (lastViewedWiki && !validId) {
-      onLastViewed()
+      syncScroll()
       setLastViewedWiki(null)
     }
-  }, [validId, lastViewedWiki, setLastViewedWiki, onLastViewed])
+  }, [validId, lastViewedWiki, setLastViewedWiki, syncScroll])
 
   return (
     <Box layerStyle="page">
       {children}
-      <AnimatePresence>
-        {validId && <GalleryModal id={validId} gallery={gallery} onClose={handleClose} />}
-      </AnimatePresence>
+      <GalleryModal id={validId} gallery={gallery} />
     </Box>
   )
 }
@@ -58,11 +51,11 @@ export default function WikiPage({ gallery }: WikiPageProps) {
   const lastViewedWiki = useGeneralStore.use.lastViewedWiki()
 
   const syncScroll = useCallback(() => {
-    lastViewedWikiRef.current?.scrollIntoView({ block: 'center', behavior: 'auto' })
+    lastViewedWikiRef.current?.scrollIntoView({ block: 'center' })
   }, [])
 
   return (
-    <GalleryRouter gallery={gallery} onLastViewed={syncScroll}>
+    <GalleryRouter gallery={gallery} syncScroll={syncScroll}>
       <Heading as="h1" color="brand.50" textAlign="center">
         Wiki Gallery
       </Heading>

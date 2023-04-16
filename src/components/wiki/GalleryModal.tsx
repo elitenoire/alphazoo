@@ -1,30 +1,35 @@
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
-import { Modal, ModalBody, ModalContent, ModalCloseButton } from '@chakra-ui/react'
+import { Modal, ModalBody, ModalContent, ModalOverlay, ModalCloseButton } from '@chakra-ui/react'
+import { useGeneralStore } from '~src/store'
+
 import { Gallery } from './Gallery'
 import { ROUTES } from '~src/constants'
 
 interface GalleryModalProps {
   id: string | null
   gallery: number[]
-  onClose: () => void
 }
 
-export const GalleryModal = ({ id, gallery, onClose }: GalleryModalProps) => {
+export const GalleryModal = ({ id, gallery }: GalleryModalProps) => {
   const { push } = useRouter()
+  const setLastViewedWiki = useGeneralStore.use.setLastViewedWiki()
 
   const handleClose = useCallback(() => {
+    const url = (window.history.state as { url: string }).url
+    const searchParams = new URLSearchParams(url.substring(url.indexOf('?')))
+    setLastViewedWiki(searchParams.get('id'))
+
     void push(ROUTES.wiki, undefined, { shallow: true })
-    onClose()
-  }, [onClose, push])
+  }, [push, setLastViewedWiki])
 
   return (
-    <Modal isOpen motionPreset="none" onClose={handleClose} size="full">
+    <Modal isOpen={!!id} motionPreset="slideInBottom" onClose={handleClose} size="full">
+      <ModalOverlay backdropFilter="blur(5px)" />
       <ModalContent
         pos="relative"
         overflow="hidden"
-        bg="blackAlpha.700"
-        backdropFilter="blur(5px)"
+        bg="transparent"
         containerProps={{ zIndex: 'zen' }}
       >
         <ModalCloseButton

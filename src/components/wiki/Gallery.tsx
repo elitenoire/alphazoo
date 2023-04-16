@@ -38,13 +38,9 @@ export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryP
       setSelected(newVal)
 
       if (showIcons) {
-        void push(
-          {
-            query: { id: newVal },
-          },
-          `${ROUTES.wiki}/${newVal}`,
-          { shallow: true }
-        )
+        const newUrl = `${ROUTES.wiki}?id=${newVal}`
+        const asUrl = `${ROUTES.wiki}/${newVal}`
+        window.history.replaceState({ ...window.history.state, as: asUrl, url: newUrl }, '', asUrl)
       } else {
         void push(`${ROUTES.wiki}/${newVal}`)
       }
