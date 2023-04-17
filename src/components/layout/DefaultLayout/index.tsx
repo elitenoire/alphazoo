@@ -7,15 +7,15 @@ import {
   HomeSoundProvider,
   LearnSoundProvider,
   WikiSoundProvider,
-} from '~/src/context/sfx'
-import { useGeneralStore } from '~/src/store'
+} from '~src/context/sfx'
+import { useGeneralStore } from '~src/store'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import type { FooterProps } from './Footer'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { BackToTop } from './BackToTop'
 
-import { ROUTES } from '~/src/constants'
+import { ROUTES } from '~src/constants'
 
 interface DefaultLayoutProps extends FooterProps {
   provider: ComponentType<PropsWithChildren>

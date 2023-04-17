@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react'
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion'
 import { IconButton, Box } from '@chakra-ui/react'
 import { ArrowUpBold } from 'react-iconsax-icons'
-import { useGeneralSfx } from '~/src/context/sfx'
+import { useGeneralSfx } from '~src/context/sfx'
 
 interface BackToTopProps extends BoxProps {
   threshold?: number

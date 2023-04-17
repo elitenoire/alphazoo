@@ -8,12 +8,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Box, Heading, List, ListItem, AspectRatio, SlideFade } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
 import { SfxLink } from '~components/sfx'
-import { usePhonics } from '~/src/hooks/usePhonics'
+import { usePhonics } from '~src/hooks/usePhonics'
 
 import { AlphabetModal } from '~components/learn/AlphabetModal'
 
 // import type { AlphabetType } from '~/types/data'
-import { alphabets } from '~/src/data/alphabets'
+import { alphabets } from '~src/data/alphabets'
 type AlphabetType = (typeof alphabets)[number]
 type GlyphType = AlphabetType['name']
 

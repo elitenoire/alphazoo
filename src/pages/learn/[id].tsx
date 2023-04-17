@@ -6,11 +6,11 @@ import type { AspectRatioProps } from '@chakra-ui/react'
 import { Box, Flex, AspectRatio, VisuallyHidden, Heading } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MotionHeading, MotionPop } from '~components/motion'
 import Discovery from '~components/learn/Discovery'
-import { useGeneralStore } from '~/src/store'
+import { useGeneralStore } from '~src/store'
 
 import { getLayout } from '~components/layout/AlphabetLayout'
 
-import { alphabets } from '~/src/data/alphabets'
+import { alphabets } from '~src/data/alphabets'
 
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
 

@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Text, Link, chakra } from '@chakra-ui/react'
 import { AnimalPortrait } from '~components/learn/AnimalPortrait'
 import { MotionPop, MotionBox, MagneticBox } from '~components/motion'
 import { SfxButton } from '~components/sfx'
-import { ROUTES } from '~/src/constants'
+import { ROUTES } from '~src/constants'
 import { Animations } from './variants'
 
 import { ReactComponent as BgOneSvg } from '~public/img/ogbg-1.svg'

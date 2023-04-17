@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 import Background from '~components/learn/Background'
 import StartWelcome from '~components/learn/StartWelcome'
 import AlphabetGrid from '~components/learn/AlphabetGrid'
-import { useGeneralStore, useGeneralHydration } from '~/src/store'
+import { useGeneralStore, useGeneralHydration } from '~src/store'
 
 import { getLearnLayout } from '~components/layout/DefaultLayout'
 

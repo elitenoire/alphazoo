@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { AddLinear, ArrowRightLinear, PlayBold } from 'react-iconsax-icons'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { SfxIconButton } from '~components/sfx'
-import { ROUTES } from '~/src/constants'
+import { ROUTES } from '~src/constants'
 
 import { settings, Animations } from './variants'
 

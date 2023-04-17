@@ -52,7 +52,7 @@ export default function Menu() {
       >
         <NextImage src={branchUrl} alt="" unoptimized />
       </Box>
-      <Flex direction="column" rowGap={4} minH="100%">
+      <Flex direction="column" rowGap={4} minH="full">
         <Box flex={1} overflow="hidden" pt={[20, null, null, 14]} px={8}>
           <Flex
             align="center"
@@ -63,7 +63,7 @@ export default function Menu() {
             <Box as="nav" flex={{ lg: 1 }}>
               <MenuLinks onHoverStart={onHoverStart} onHoverEnd={onHoverEnd} />
             </Box>
-            <Box w={['100%', null, null, '37.5%']} maxW={[null, 'sm', null, 'none']}>
+            <Box w={['full', null, null, '37.5%']} maxW={[null, 'sm', null, 'none']}>
               <MenuAudioPanel />
             </Box>
           </Flex>

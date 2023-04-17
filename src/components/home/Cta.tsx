@@ -3,7 +3,7 @@ import type { Variants } from 'framer-motion'
 import { Heading, Box } from '@chakra-ui/react'
 import { MotionSpan, MotionPop, MagneticBox } from '~components/motion'
 import { SfxButton } from '~components/sfx'
-import { ROUTES } from '~/src/constants'
+import { ROUTES } from '~src/constants'
 
 const slide: Variants = {
   hidden: { opacity: 0, y: '100%' },

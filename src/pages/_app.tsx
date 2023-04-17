@@ -9,7 +9,7 @@ import { getDefaultLayout } from '~components/layout/DefaultLayout'
 
 import SEO from '~/next-seo.config'
 
-import theme from '~/src/theme'
+import theme from '~src/theme'
 
 // Custom fonts
 import '@fontsource/mitr/latin-700.css'

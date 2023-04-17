@@ -9,7 +9,7 @@ import {
   SliderFilledTrack,
   SliderThumb,
 } from '@chakra-ui/react'
-import { useSoundStore, useSoundHydration } from '~/src/store'
+import { useSoundStore, useSoundHydration } from '~src/store'
 import {
   MusicButton,
   SoundFxButton,

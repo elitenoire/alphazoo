@@ -4,9 +4,9 @@ import { Box, Flex, Center, Text, useToken } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import type { Alphabet, GlyphType } from '~types/data'
 import type { PlayFunction } from 'use-sound/dist/types'
-import { useGeneralSfx } from '~/src/context/sfx'
-import { usePhonics } from '~/src/hooks/usePhonics'
-import { shuffle } from '~/src/utils'
+import { useGeneralSfx } from '~src/context/sfx'
+import { usePhonics } from '~src/hooks/usePhonics'
+import { shuffle } from '~src/utils'
 
 const colorList = [
   'purple.100',

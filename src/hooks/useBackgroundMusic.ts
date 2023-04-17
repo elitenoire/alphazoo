@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import useSound from 'use-sound'
-import { useSoundStore } from '~/src/store'
+import { useSoundStore } from '~src/store'
 
 export function useBackgroundMusic(src: string) {
   const soundEnabled = useSoundStore.use.music()

@@ -4,7 +4,7 @@ import { useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import { Box, Text } from '@chakra-ui/react'
 import type { MotionBoxProps } from '~components/motion'
 import { MotionBox } from '~components/motion'
-import { useGeneralSfx } from '~/src/context/sfx'
+import { useGeneralSfx } from '~src/context/sfx'
 
 export const AlphabetBubble = ({ bg, children, ...rest }: PropsWithChildren<MotionBoxProps>) => {
   const ref = useRef(null)

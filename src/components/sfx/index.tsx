@@ -1,7 +1,7 @@
 import type { ComponentType, MouseEventHandler } from 'react'
 import { forwardRef, useCallback } from 'react'
 import { Button, IconButton, Link } from '@chakra-ui/react'
-import { useGeneralSfx } from '~/src/context/sfx'
+import { useGeneralSfx } from '~src/context/sfx'
 import { getDisplayName } from '~src/utils'
 
 type SfxEvents = 'onClick' | 'onMouseEnter'

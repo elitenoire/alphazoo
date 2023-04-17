@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react'
 import type { ReturnedValue } from 'use-sound/dist/types'
 import useSound from 'use-sound'
-import { useBackgroundMusic } from '~/src/hooks/useBackgroundMusic'
+import { useBackgroundMusic } from '~src/hooks/useBackgroundMusic'
 import { createSfxProvider } from './factory'
 
 interface GeneralSFX {

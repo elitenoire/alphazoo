@@ -1,4 +1,4 @@
-import { ROUTES } from '~/src/constants'
+import { ROUTES } from '~src/constants'
 
 export const routes = [
   {

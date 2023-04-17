@@ -8,7 +8,7 @@ import { MotionBox, MotionFlex, MagneticBox, MotionPop } from '~components/motio
 import { WikiCard } from '~components/WikiCard'
 import { SfxButton } from '~components/sfx'
 import { HOMEPAGE_IDS, ROUTES } from '~src/constants'
-import { homeWikis } from '~/src/data/homeWiki'
+import { homeWikis } from '~src/data/homeWiki'
 
 import ImgQuestion from '~public/img/question.svg'
 import ImgQaAnimals from '~public/img/qa-animals.svg'

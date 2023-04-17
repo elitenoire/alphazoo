@@ -14,7 +14,7 @@ import { useToken, Portal, keyframes } from '@chakra-ui/react'
 import { MotionFlex, MotionBox } from '~components/motion'
 import { useAnimeBg } from '~src/hooks/useAnimeBg'
 
-import { activities } from '~/src/data/activity'
+import { activities } from '~src/data/activity'
 
 // import { ActivityBoardCanvas } from './ActivityBoardCanvas'
 

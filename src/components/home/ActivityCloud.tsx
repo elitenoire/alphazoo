@@ -1,7 +1,7 @@
 import type { Variants, DraggableProps } from 'framer-motion'
 import NextImage from 'next/image'
 import { MotionBox, MotionFlex } from '~components/motion'
-import { useIsLargeAndAbove, useIsSmallAndAbove } from '~/src/hooks/mediaQueries'
+import { useIsLargeAndAbove, useIsSmallAndAbove } from '~src/hooks/mediaQueries'
 
 import ImgWow from '~public/img/cloud-wow.svg'
 import ImgStar from '~public/img/cloud-star.svg'

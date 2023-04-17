@@ -6,8 +6,8 @@ import { Box, Flex, Text, VisuallyHidden, Link, useToken, chakra } from '@chakra
 import { MotionPop, MagneticBox } from '~components/motion'
 import { AnimalHead } from '~components/AnimalHead'
 import { useAnimeBg } from '~src/hooks/useAnimeBg'
-import { usePhonics } from '~/src/hooks/usePhonics'
-import { useGeneralSfx } from '~/src/context/sfx'
+import { usePhonics } from '~src/hooks/usePhonics'
+import { useGeneralSfx } from '~src/context/sfx'
 import { HOMEPAGE_IDS, SITE_CONFIG } from '~src/constants'
 
 import { ReactComponent as ScenerySvg } from '~public/img/scenery.svg'
