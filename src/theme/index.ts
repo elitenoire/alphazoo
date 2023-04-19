@@ -63,8 +63,8 @@ const fontSizes = {
 }
 
 const radii = {
-  xtiny: 2.5,
-  tiny: 5,
+  xtiny: '2.5px',
+  tiny: '5px',
   icon: '22%',
   circle: '50%',
   card: '2em',

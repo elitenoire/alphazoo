@@ -5,8 +5,9 @@ import useKeypress from 'react-use-keypress'
 import { useSwipeable } from 'react-swipeable'
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
 import type { ListProps, ListItemProps } from '@chakra-ui/react'
-import { Box, List, ListItem, Text, Flex } from '@chakra-ui/react'
+import { Box, List, ListItem, Flex } from '@chakra-ui/react'
 import { ArrowLeft1Linear, ArrowRight1Linear } from 'react-iconsax-icons'
+import { GalleryImage } from './GalleryImage'
 import { GalleryIcon } from './GalleryIcon'
 import { GalleryButton } from './GalleryButton'
 import { range } from '~src/utils'
@@ -118,17 +119,7 @@ export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryP
           opacity: { duration: 0.2 },
         }}
       >
-        <Box
-          flex={1}
-          w="full"
-          minH={400}
-          bg="orange.200"
-          {...(showIcons && { rounded: { md: 'card' } })}
-        >
-          <Text px={8} py={12} fontSize="f4xl" fontWeight={700}>
-            {currentWiki}
-          </Text>
-        </Box>
+        <GalleryImage rounded={showIcons} />
         {allowPrev && (
           <GalleryButton
             left={1}
@@ -160,21 +151,24 @@ export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryP
                 {filtered?.map((g) => (
                   <MotionListItem
                     key={g}
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
                     flexShrink={0}
                     initial={{
                       width: '0%',
                       x: `${Math.max((selected - 1) * -100, 10 * -100)}%`,
                     }}
                     animate={{
-                      scale: g === selected ? 1.05 : 1,
+                      scale: g === selected ? 1.125 : 1,
                       width: '100%',
                       x: `${Math.max(selected * -100, 10 * -100)}%`,
                     }}
                     exit={{ width: '0%' }}
                     onClick={() => changeWikiId(g)}
                   >
-                    <Box as="button" w="full" appearance="none">
-                      <GalleryIcon icon={g} />
+                    <Box as="button" boxSize="90%" appearance="none">
+                      <GalleryIcon />
                     </Box>
                   </MotionListItem>
                 ))}

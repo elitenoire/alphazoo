@@ -1,22 +1,76 @@
 import NextImage from 'next/image'
-import { Box, AspectRatio } from '@chakra-ui/react'
+import { Flex, AspectRatio, Text } from '@chakra-ui/react'
 
-export const GalleryIcon = ({ icon }: { icon: number }) => {
+interface GalleryIconProps {
+  src?: string // non-optional
+  title?: number // string
+}
+
+const TRANSFORM_SX = { transform: 'scale(1.05)' }
+const TRANSITION_SX = 'transform 0.2s cubic-bezier(.08,.52,.52,1)'
+
+export const GalleryIcon = ({ src, title }: GalleryIconProps) => {
   return (
-    <AspectRatio
+    <Flex
       as="span"
-      display="block"
+      pos="relative"
+      p="10%"
       bg="white"
-      _hover={{ transform: 'scale(1.05)' }}
-      appearance="none"
-      transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-      ratio={1}
+      data-group
       rounded="icon"
-      transitionDuration="0.2s"
-      transitionProperty="transform"
-      transitionTimingFunction="ease-in-out"
+      {...(title && {
+        justify: 'center',
+        align: 'center',
+        _hover: TRANSFORM_SX,
+        transition: TRANSITION_SX,
+      })}
     >
-      <Box>{icon}</Box>
-    </AspectRatio>
+      <AspectRatio
+        as="span"
+        display="block"
+        w="100%"
+        _groupHover={
+          title
+            ? {
+                opacity: 0,
+                transform: 'scale(0.4)',
+              }
+            : TRANSFORM_SX
+        }
+        ratio={1}
+        transitionDuration={title ? 'slower' : 'normal'}
+        transitionProperty="transform,opacity"
+        transitionTimingFunction="cubic-bezier(.08,.52,.52,1)"
+      >
+        <NextImage
+          src={`/img/wiki/alligator-icon.svg`}
+          alt={`${title ?? ''} icon`}
+          fill
+          unoptimized
+        />
+      </AspectRatio>
+      {title && (
+        <Text
+          as="span"
+          pos="absolute"
+          w="85%"
+          fontFamily="heading"
+          fontSize="fmd"
+          fontWeight="bold"
+          textAlign="center"
+          textTransform="uppercase"
+          opacity={0}
+          _groupHover={{
+            opacity: 1,
+          }}
+          noOfLines={1}
+          transitionDuration="slower"
+          transitionProperty="opacity"
+          transitionTimingFunction="cubic-bezier(.08,.52,.52,1)"
+        >
+          {title}
+        </Text>
+      )}
+    </Flex>
   )
 }

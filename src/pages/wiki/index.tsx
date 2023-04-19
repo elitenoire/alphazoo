@@ -79,7 +79,7 @@ export default function WikiPage({ gallery }: WikiPageProps) {
               as={`${ROUTES.wiki}/${item}`}
               shallow
             >
-              <GalleryIcon icon={item} />
+              <GalleryIcon title={item} />
             </NextLink>
           </MotionPop>
         ))}
