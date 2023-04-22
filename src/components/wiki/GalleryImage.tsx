@@ -1,5 +1,14 @@
 import NextImage from 'next/image'
-import { Box, Flex, AspectRatio, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Badge,
+  Text,
+} from '@chakra-ui/react'
 
 interface GalleryImageProps {
   rounded?: boolean
@@ -24,24 +33,49 @@ export const GalleryImage = ({ rounded }: GalleryImageProps) => {
           unoptimized
         />
       </Box>
-
-      <Text
+      <Accordion
         pos="absolute"
         bottom={0}
-        m={1}
-        p={4}
-        fontFamily="heading"
-        fontSize="fxl"
-        fontWeight="bold"
-        textTransform="capitalize"
+        m={[null, 1]}
+        p={3}
         bg="whiteAlpha.700"
-        rounded={rounded ? ['tiny', null, '1em'] : 'tiny'}
+        allowToggle
+        backdropFilter="blur(20px)"
+        rounded={[null, 'lg', rounded ? '1.75em' : null]}
+        roundedTopRight="xl"
       >
-        Ally The{' '}
-        <Box as="span" color="brand.800">
-          Alligator
-        </Box>
-      </Text>
+        <AccordionItem w={[null, 'min-content']} border="none">
+          <AccordionButton
+            flexWrap="wrap"
+            columnGap={[2, 3]}
+            w={['full', 'max-content']}
+            _expanded={{ bg: 'whiteAlpha.400' }}
+            rounded={rounded ? ['base', null, '1em'] : 'base'}
+          >
+            <Text
+              as="span"
+              flex={1}
+              fontFamily="heading"
+              fontSize={['flg', 'fxl']}
+              fontWeight="bold"
+              textAlign="left"
+              textTransform="capitalize"
+              noOfLines={1}
+            >
+              Ally The{' '}
+              <Box as="span" color="green.600">
+                Alligator
+              </Box>
+            </Text>
+            <Badge>info</Badge>
+            <AccordionIcon ml="auto" />
+          </AccordionButton>
+          <AccordionPanel>
+            Ally is one of the oldest reptile in the world and loudest. She prefers to live in
+            freshwater and her eyes glow in the dark.
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
     </Box>
   )
 }
