@@ -60,7 +60,7 @@ const AudioControl = ({
       templateAreas={'"icon label value""icon slider value"'}
     >
       <GridItem gridArea="icon">
-        <Control label={label} whenFixed={true} size="lg" iconSize="50%" bg="background" />
+        <Control label={label} size="lg" iconSize="50%" bg="background" />
       </GridItem>
       <GridItem gridArea="label" id={id}>
         <Text fontWeight={500}>{label}</Text>

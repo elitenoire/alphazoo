@@ -14,16 +14,23 @@ export const GalleryIcon = ({ src, title }: GalleryIconProps) => {
     <Flex
       as="span"
       pos="relative"
+      align="center"
+      justify="center"
       p="10%"
       bg="white"
       data-group
       rounded="icon"
       {...(title && {
-        justify: 'center',
-        align: 'center',
         _hover: TRANSFORM_SX,
         transition: TRANSITION_SX,
       })}
+      _before={{
+        content: '""',
+        pos: 'absolute',
+        boxSize: '93%',
+        rounded: 'inherit',
+        bg: 'green.100', // transparent
+      }}
     >
       <AspectRatio
         as="span"

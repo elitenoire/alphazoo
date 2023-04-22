@@ -12,7 +12,6 @@ import { ReactComponent as HearingOutline } from '~public/icons/hearing.svg'
 import { ReactComponent as HearingSlashOutline } from '~public/icons/hearingslash.svg'
 
 interface MenuIconButtonProps extends Omit<IconButtonProps, 'aria-label'> {
-  whenFixed?: boolean
   label?: string
 }
 
@@ -29,7 +28,6 @@ export interface AudioButtonProps extends MenuIconButtonProps {
 
 const MenuAudioButton = ({
   label = '',
-  whenFixed,
   iconOn,
   iconOff,
   enable: initialEnable,
@@ -67,10 +65,10 @@ const MenuAudioButton = ({
         bg="transparent"
         _hover={{
           shadow: '0 0 0 5px rgba(255,255,255,0.15)',
-          bg: whenFixed ? 'secondary.200' : 'brand.100',
+          bg: 'background',
         }}
         _active={{
-          bg: whenFixed ? 'secondary.300' : 'brand.200',
+          bg: 'background',
           transform: 'scale(0.95)',
         }}
         size="md"
