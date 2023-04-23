@@ -1,10 +1,8 @@
 import type { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import NextLink from 'next/link'
 import { useRouter } from 'next/router'
+import type { ReactElement } from 'react'
 import { useEffect } from 'react'
 import { Flex } from '@chakra-ui/react'
-import { CategoryBold } from 'react-iconsax-icons'
-import { GalleryButton } from '~components/wiki/GalleryButton'
 import { Gallery } from '~components/wiki/Gallery'
 import { useGeneralStore } from '~src/store'
 import { ROUTES } from '~src/constants'
@@ -27,29 +25,12 @@ export default function AnimalWiki({
 
   return (
     <Flex justify={{ md: 'center' }} minH="$100vh">
-      <GalleryButton
-        as={NextLink}
-        position="fixed"
-        zIndex="zen"
-        top={{ md: 0 }}
-        bottom={[0, null, 'auto']}
-        borderTopRightRadius={{ md: 0 }}
-        borderTopLeftRadius={0}
-        borderBottomRadius={[0, null, 'circle']}
-        pt={5}
-        pb={2}
-        pr={4}
-        p={[null, null, 3]}
-        icon={<CategoryBold color="currentColor" size="100%" />}
-        href={`${ROUTES.wiki}`}
-        shallow
-      />
       <Gallery id={validId} dynamicWiki={dynamicWiki} total={total} />
     </Flex>
   )
 }
 
-AnimalWiki.getLayout = getWikiLayout
+AnimalWiki.getLayout = (page: ReactElement) => getWikiLayout(page, { back: ROUTES.wiki })
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticPaths: GetStaticPaths = async () => {

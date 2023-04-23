@@ -2,7 +2,7 @@ import NextImage from 'next/image'
 import type { PropsWithChildren, ReactElement } from 'react'
 import { Box, Flex, Heading, AspectRatio } from '@chakra-ui/react'
 import { MotionPop, MotionBox } from '~components/motion'
-
+import type { LayoutProps } from '~src/components/layout/DefaultLayout'
 import { getLearnLayout } from '~src/components/layout/DefaultLayout'
 
 export default function AlphabetLayout({ children }: PropsWithChildren) {
@@ -104,7 +104,6 @@ export default function AlphabetLayout({ children }: PropsWithChildren) {
   )
 }
 
-export const getLayout = (page: ReactElement) => {
-  const props = { bg: 'white' }
+export const getLayout = (page: ReactElement, props?: LayoutProps) => {
   return getLearnLayout(<AlphabetLayout>{page}</AlphabetLayout>, props)
 }

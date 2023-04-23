@@ -8,13 +8,14 @@ import {
   LearnSoundProvider,
   WikiSoundProvider,
 } from '~src/context/sfx'
+import { LayoutProvider } from '~src/context/layout'
 import { useGeneralStore } from '~src/store'
 import { AnimatableBackground } from '~components/AnimatableBackground'
 import type { FooterProps } from './Footer'
 import { Footer } from './Footer'
 import { Header } from './Header'
 import { BackToTop } from './BackToTop'
-
+import type { RoutePath } from '~src/constants'
 import { ROUTES } from '~src/constants'
 
 interface DefaultLayoutProps extends FooterProps {
@@ -25,7 +26,10 @@ interface DefaultLayoutProps extends FooterProps {
   hideFooter?: boolean
   hideBackToTop?: boolean
   threshold?: number
+  back?: RoutePath
 }
+
+export type LayoutProps = Omit<DefaultLayoutProps, 'children' | 'provider'>
 
 const LearnMotionControl = ({ children }: PropsWithChildren) => {
   const router = useRouter()
@@ -77,22 +81,25 @@ const DefaultLayout = ({
   bg,
   full,
   children,
+  ...rest
 }: DefaultLayoutProps) => {
   return (
-    <GeneralSoundProvider>
-      <AnimatableBackground bg={bg}>
-        <Grid templateRows="auto 1fr auto" templateColumns="minmax(0,1fr)" minH="100vh">
-          <Header>{headerContent}</Header>
-          <main>
-            <Provider>
-              {children}
-              {!hideBackToTop && <BackToTop />}
-            </Provider>
-          </main>
-          {!hideFooter && <Footer full={full} />}
-        </Grid>
-      </AnimatableBackground>
-    </GeneralSoundProvider>
+    <LayoutProvider {...rest}>
+      <GeneralSoundProvider>
+        <AnimatableBackground bg={bg}>
+          <Grid templateRows="auto 1fr auto" templateColumns="minmax(0,1fr)" minH="$100vh">
+            <Header>{headerContent}</Header>
+            <main>
+              <Provider>
+                {children}
+                {!hideBackToTop && <BackToTop />}
+              </Provider>
+            </main>
+            {!hideFooter && <Footer full={full} />}
+          </Grid>
+        </AnimatableBackground>
+      </GeneralSoundProvider>
+    </LayoutProvider>
   )
 }
 
@@ -108,10 +115,7 @@ export const getHomeLayout = (page: ReactElement) => {
   )
 }
 
-export const getLearnLayout = (
-  page: ReactElement,
-  props?: Omit<DefaultLayoutProps, 'children' | 'provider'>
-) => {
+export const getLearnLayout = (page: ReactElement, props?: LayoutProps) => {
   return (
     <DefaultLayout bg="orange.200" provider={LearnSoundProvider} {...props}>
       <LearnMotionControl>{page}</LearnMotionControl>
@@ -119,9 +123,9 @@ export const getLearnLayout = (
   )
 }
 
-export const getWikiLayout = (page: ReactElement) => {
+export const getWikiLayout = (page: ReactElement, props?: LayoutProps) => {
   return (
-    <DefaultLayout provider={WikiSoundProvider} bg="brand.500">
+    <DefaultLayout provider={WikiSoundProvider} bg="brand.500" {...props}>
       {page}
     </DefaultLayout>
   )

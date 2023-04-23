@@ -5,7 +5,7 @@ import { useAnimationControls, useScroll, useVelocity, AnimatePresence } from 'f
 import { Box, Flex, useToken, useModalContext } from '@chakra-ui/react'
 import { MotionFlex, MotionBox, MotionSpan, MotionBurger } from '~components/motion'
 import { SfxLink, SfxButton } from '~components/sfx'
-import type { RoutePath } from '~src/constants'
+import { useLayoutContext } from '~src/context/layout'
 import { ROUTES, SITE_CONFIG } from '~src/constants'
 
 import { MusicButton, SoundFxButton } from './MenuAudioButtons'
@@ -18,15 +18,10 @@ type ModalContextExtended = ReturnType<typeof useModalContext> & {
   toggleOpen: () => void
 }
 
-const velocityThreshold = 100
-
-interface MenuBarProps {
-  back?: RoutePath
-}
-
-export default function MenuBar({ back }: MenuBarProps) {
+export default function MenuBar() {
   const [fullRadius] = useToken('radii', ['full'])
   const { isOpen, toggleOpen, onClose } = useModalContext() as ModalContextExtended
+  const { back, threshold = 100 } = useLayoutContext()
 
   const [isAtTop, setIsAtTop] = useState(true)
   const [isScrollingBack, setIsScrollingBack] = useState(false)
@@ -47,7 +42,7 @@ export default function MenuBar({ back }: MenuBarProps) {
       if (v > 0) {
         setIsScrollingBack(false)
       }
-      if (v < -velocityThreshold) {
+      if (v < -threshold) {
         setIsScrollingBack(true)
       }
     })
@@ -56,7 +51,7 @@ export default function MenuBar({ back }: MenuBarProps) {
       unSubVelocity()
       unSubScrollY()
     }
-  }, [scrollY, scrollVelocity])
+  }, [scrollY, scrollVelocity, threshold])
 
   useEffect(() => {
     barMotion.set(whenFixed && !isOpen ? 'fixed' : 'unfixed')
@@ -76,7 +71,7 @@ export default function MenuBar({ back }: MenuBarProps) {
       alignItems="center"
       justifyContent="space-between"
       pointerEvents="none"
-      w="100%"
+      w="full"
       minH={[14, 16]}
       py={3}
       px={[4, null, 8]}

@@ -1,5 +1,6 @@
 import type { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import NextImage from 'next/image'
+import type { ReactElement } from 'react'
 import { useState, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence, useAnimate } from 'framer-motion'
 import type { AspectRatioProps } from '@chakra-ui/react'
@@ -7,6 +8,7 @@ import { Box, Flex, AspectRatio, VisuallyHidden, Heading } from '@chakra-ui/reac
 import { MotionBox, MotionFlex, MotionHeading, MotionPop } from '~components/motion'
 import Discovery from '~components/learn/Discovery'
 import { useGeneralStore } from '~src/store'
+import { ROUTES } from '~src/constants'
 
 import { getLayout } from '~components/layout/AlphabetLayout'
 
@@ -205,7 +207,8 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
   )
 }
 
-AlphabetPage.getLayout = getLayout
+AlphabetPage.getLayout = (page: ReactElement) =>
+  getLayout(page, { back: ROUTES.learn, bg: 'white' })
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticPaths: GetStaticPaths = async () => {
