@@ -1,5 +1,6 @@
 import { extendTheme, theme as baseTheme, withDefaultColorScheme } from '@chakra-ui/react'
 import { components } from './variants'
+import { fonts, fontSizes } from './typography'
 
 type TChakraSpace = Record<string | number, string>
 type TChakraSize = Record<string | number, string | TChakraSpace>
@@ -17,49 +18,12 @@ const tokenTransform = <T extends object>(token: T) =>
 const space = tokenTransform<TChakraSpace>(baseTheme.space)
 const sizes = tokenTransform<TChakraSize>(baseTheme.sizes)
 
-const fonts = {
-  body: '"Owen Pro", system-ui, sans-serif',
-  heading: '"Grandstander", system-ui, sans-serif',
-  title: '"Mitr", system-ui, sans-serif',
-}
-
 const breakpoints = {
   sm: '32em', // 512px
   md: '48em', // 768px
   lg: '62em', // 992px
   xl: '80em', // 1280px
   '2xl': '96em', // 1536px
-}
-
-const fontSizes = {
-  '3xs': '0.45em',
-  '2xs': '0.625em',
-  xs: '0.75em',
-  sm: '0.875em',
-  md: '1em',
-  lg: '1.125em',
-  xl: '1.25em',
-  '2xl': '1.5em',
-  '3xl': '1.875em',
-  '4xl': '2.25em',
-  '5xl': '3em',
-  '6xl': '3.75em',
-  '7xl': '4.5em',
-  '8xl': '6em',
-  '9xl': '8em',
-  fxs: 'clamp(0.64rem, 0.06vw + 0.62rem, 0.67rem)',
-  fsm: 'clamp(0.8rem, 0.19vw + 0.74rem, 0.89rem)',
-  fmd: 'clamp(1rem, 0.39vw + 0.88rem, 1.19rem)',
-  flg: 'clamp(1.25rem, 0.69vw + 1.03rem, 1.58rem)',
-  fxl: 'clamp(1.56rem, 1.14vw + 1.2rem, 2.11rem)',
-  f2xl: 'clamp(1.95rem, 1.79vw + 1.38rem, 2.81rem)',
-  f3xl: 'clamp(2.44rem, 2.72vw + 1.57rem, 3.75rem)',
-  f4xl: 'clamp(3.05rem, 4.05vw + 1.75rem, 5rem)',
-  f5xl: 'clamp(3.81rem, 5.93vw + 1.92rem, 6.66rem)',
-  f6xl: 'clamp(4.77rem, 8.57vw + 2.03rem, 8.88rem)',
-  f7xl: 'clamp(5.96rem, 12.24vw + 2.04rem, 11.84rem)',
-  f8xl: 'clamp(7.45rem, 17.35vw + 1.9rem, 15.78rem)',
-  f9xl: 'clamp(9.31rem, 24.42vw + 1.5rem, 21.03rem)',
 }
 
 const radii = {
