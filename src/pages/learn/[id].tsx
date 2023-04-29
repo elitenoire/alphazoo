@@ -2,19 +2,54 @@ import type { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } f
 import NextImage from 'next/image'
 import type { ReactElement } from 'react'
 import { useState, useCallback, useEffect } from 'react'
-import { motion, AnimatePresence, useAnimate } from 'framer-motion'
+import { motion, AnimatePresence, useAnimate, useScroll, useMotionValueEvent } from 'framer-motion'
 import type { AspectRatioProps } from '@chakra-ui/react'
-import { Box, Flex, AspectRatio, VisuallyHidden, Heading } from '@chakra-ui/react'
+import { Box, Flex, AspectRatio, VisuallyHidden, Heading, forwardRef } from '@chakra-ui/react'
+import { ArrowLeft1Linear, ArrowRight1Linear } from 'react-iconsax-icons'
+import type { MotionHeadingProps } from '~components/motion'
 import { MotionBox, MotionFlex, MotionHeading, MotionPop } from '~components/motion'
+import { NavButton } from '~components/NavButton'
+import { SfxIconButton } from '~components/sfx'
 import Discovery from '~components/learn/Discovery'
 import { useGeneralStore } from '~src/store'
 import { ROUTES } from '~src/constants'
+import { useIsLargeAndAbove } from '~src/hooks/mediaQueries'
 
 import { getLayout } from '~components/layout/AlphabetLayout'
 
 import { alphabets } from '~src/data/alphabets'
 
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
+
+const threshold = 75
+
+const ShrinkingTitle = forwardRef<MotionHeadingProps, 'h2'>(({ color, children }, ref) => {
+  const [isLg] = useIsLargeAndAbove()
+  const { scrollY } = useScroll()
+  const [shrink, setShrink] = useState(false)
+
+  const syncShrink = useCallback(
+    (latest: number) => {
+      setShrink(!isLg && latest > threshold)
+    },
+    [isLg]
+  )
+
+  useMotionValueEvent(scrollY, 'change', syncShrink)
+
+  return (
+    <MotionHeading
+      ref={ref}
+      color={color}
+      animate={{ fontSize: shrink ? '12.5vw' : '25vw' }}
+      fontSize="25vw"
+      initial={{ scale: 0 }}
+      fontFamily="title"
+    >
+      {children}
+    </MotionHeading>
+  )
+})
 
 export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeof getStaticProps>) {
   const allowInitialMotion = useGeneralStore.use.allowLearnAlphabetInitialMotion()
@@ -48,8 +83,7 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
         await animateLetter(letterScope.current, { scale: 1 }, { type: 'spring', stiffness: 100 })
         await animateCard(cardScope.current, { scale: 1, opacity: 1, y: '0%' }, { duration: 0.35 })
       }
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      enterAnimation()
+      void enterAnimation()
     }
   }, [animateCard, animateImage, animateLetter, cardScope, imageScope, letterScope, swap])
 
@@ -68,15 +102,9 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
           pb={[5, null, null, 0]}
           bg="inherit"
         >
-          <MotionHeading
-            ref={letterScope}
-            color={alphabet?.color ?? 'inherit'}
-            fontSize="25vw"
-            initial={{ scale: 0 }}
-            fontFamily="title"
-          >
+          <ShrinkingTitle ref={letterScope} color={alphabet?.color ?? 'inherit'}>
             {title}
-          </MotionHeading>
+          </ShrinkingTitle>
           {!showOverlay && (
             <Box ref={imageScope} pos="absolute" w={{ base: '25%', lg: '50%' }}>
               {alphabet && (
@@ -163,6 +191,24 @@ export default function AlphabetPage({ alphabet }: InferGetStaticPropsType<typeo
             </MotionPop>
           </MotionFlex>
         </Flex>
+        <NavButton prev title="Prev" center />
+        <NavButton title="Next" center />
+        <Box pos="fixed" bottom={4}>
+          <Flex p={1} bg="white" border="5px solid" backdropFilter="blur(20px)" rounded="full">
+            <SfxIconButton
+              variant="ghost"
+              colorScheme="gray"
+              size="md"
+              icon={<ArrowLeft1Linear color="currentColor" size="35%" />}
+            />
+            <SfxIconButton
+              variant="ghost"
+              colorScheme="gray"
+              size="md"
+              icon={<ArrowRight1Linear color="currentColor" size="35%" />}
+            />
+          </Flex>
+        </Box>
       </Flex>
       <Discovery alphabet={alphabet} />
       <AnimatePresence initial={allowInitialMotion}>

@@ -3,7 +3,7 @@ import NextImage from 'next/image'
 import type { AspectRatioProps } from '@chakra-ui/react'
 import { Box, AspectRatio, Modal, ModalBody, ModalContent, ModalFooter } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { AddLinear, ArrowRightLinear, PlayBold } from 'react-iconsax-icons'
+import { AddLinear, ArrowRightLinear, VolumeLow1Bold } from 'react-iconsax-icons'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { SfxIconButton } from '~components/sfx'
 import { ROUTES } from '~src/constants'
@@ -126,60 +126,55 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
               color="white"
               _hover={{
                 bg: 'red.400',
+                transform: 'rotate(225deg)',
               }}
               _active={{
-                bg: 'red.600',
+                bg: 'red.500',
                 color: 'white',
-                transform: 'scale(0.98) rotate(45deg)',
+                transform: 'scale(0.98) rotate(225deg)',
               }}
               transform="rotate(45deg)"
               aria-label="Close"
               colorScheme="red"
-              icon={<AddLinear color="currentColor" size="100%" />}
+              icon={<AddLinear color="currentColor" size="75%" />}
               onClick={onClose}
               size="lg"
               title="Close"
-              variant="outline"
             />
             <SfxIconButton
               shadow="sm"
-              bg="blue.500"
-              color="white"
+              bg="white"
+              color={selected?.color ?? 'inherit'}
               _hover={{
-                bg: 'blue.400',
+                bg: 'white',
+                transform: 'scale(1.15)',
               }}
               _active={{
-                bg: 'blue.600',
-                color: 'white',
                 transform: 'scale(0.98)',
               }}
               aria-label="Play"
               colorScheme="blue"
-              icon={<PlayBold color="currentColor" size="70%" />}
+              icon={<VolumeLow1Bold color="currentColor" size="70%" />}
               size="lg"
               title="Play"
-              variant="outline"
               onClick={playSound}
             />
             <SfxIconButton
               as={NextLink}
               href={`${ROUTES.learn}/${selected?.name.toLowerCase() ?? ''}`}
-              shadow="sm"
-              bg="brand.500"
-              color="white"
+              bg="white"
+              color={selected?.color ?? 'inherit'}
               _hover={{
-                bg: 'brand.400',
+                color: 'white',
+                bg: selected?.color ?? 'black',
               }}
               _active={{
-                bg: 'brand.600',
-                color: 'white',
                 transform: 'scale(0.98)',
               }}
               aria-label="Continue"
               icon={<ArrowRightLinear color="currentColor" size="70%" />}
               size="lg"
               title="Continue"
-              variant="outline"
             />
           </MotionFlex>
         </ModalFooter>

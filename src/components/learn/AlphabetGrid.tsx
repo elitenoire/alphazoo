@@ -116,7 +116,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
           <SlideFade transition={{ enter: { duration: 0.4 } }} in={show} offsetY="100%">
             <Heading textAlign="center">
               Learn the{' '}
-              <Box as="span" display={['block', 'inline']} my={[1, 0]}>
+              <Box as="span" display={['block', 'inline']} my={[2, 0]}>
                 <Box
                   as="span"
                   p={1}

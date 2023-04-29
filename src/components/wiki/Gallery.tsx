@@ -6,10 +6,9 @@ import { useSwipeable } from 'react-swipeable'
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
 import type { ListProps, ListItemProps } from '@chakra-ui/react'
 import { Box, List, ListItem, Flex } from '@chakra-ui/react'
-import { ArrowLeft1Linear, ArrowRight1Linear } from 'react-iconsax-icons'
+import { NavButton } from '~components/NavButton'
 import { GalleryImage } from './GalleryImage'
 import { GalleryIcon } from './GalleryIcon'
-import { GalleryButton } from './GalleryButton'
 import { range } from '~src/utils'
 import { ROUTES } from '~src/constants'
 
@@ -120,22 +119,8 @@ export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryP
         }}
       >
         <GalleryImage rounded={showIcons} />
-        {allowPrev && (
-          <GalleryButton
-            left={1}
-            icon={<ArrowLeft1Linear color="currentColor" size="35%" />}
-            title="Previous"
-            onClick={prev}
-          />
-        )}
-        {allowNext && (
-          <GalleryButton
-            right={1}
-            icon={<ArrowRight1Linear color="currentColor" size="35%" />}
-            title="Next"
-            onClick={next}
-          />
-        )}
+        {allowPrev && <NavButton prev title="Previous" onClick={prev} />}
+        {allowNext && <NavButton title="Next" onClick={next} />}
         {showIcons && (
           <Box w="full">
             <MotionList
