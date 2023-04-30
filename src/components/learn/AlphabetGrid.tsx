@@ -6,7 +6,7 @@ import type { PlayFunction } from 'use-sound/dist/types'
 import { useState, useCallback, useRef, useImperativeHandle, forwardRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Box, Heading, List, ListItem, AspectRatio, SlideFade } from '@chakra-ui/react'
-import { MotionBox } from '~components/motion'
+import { MotionBox, MotionPop } from '~components/motion'
 import { SfxLink } from '~components/sfx'
 import { usePhonics } from '~src/hooks/usePhonics'
 
@@ -153,7 +153,6 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                 <MotionListItem key={name} variants={item}>
                   {/* Extra wrapper because of https://github.com/framer/motion/issues/1197 */}
                   <MotionBox
-                    whileTap={{ scale: 0.95 }}
                     whileHover={{
                       scale: 1.1,
                       transition: { type: 'spring', stiffness: 200 },
@@ -167,11 +166,11 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                         position="relative"
                         justifyContent="center"
                         bg="white"
-                        h="full"
-                        w="full"
+                        boxSize="full"
                         rounded="10%"
                         p="10%"
                         boxShadow="sm"
+                        _active={{ transform: 'scale(0.95)' }}
                         _hover={{ boxShadow: 'xl' }}
                         appearance="none"
                         onClick={select(alphabet)}
@@ -180,7 +179,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                           layoutId={`learn-${name}`}
                           as="span"
                           display="block"
-                          w="100%"
+                          w="full"
                           ratio={1}
                         >
                           <NextImage

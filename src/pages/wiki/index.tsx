@@ -72,7 +72,7 @@ export default function WikiPage({ gallery }: WikiPageProps) {
         placeContent="center"
       >
         {gallery.map((item) => (
-          <MotionPop as="li" key={item} once>
+          <MotionPop as="li" key={item} marge="0px" once>
             <NextLink
               ref={item === Number(lastViewedWiki) ? lastViewedWikiRef : null}
               href={`${ROUTES.wiki}?id=${item}`}

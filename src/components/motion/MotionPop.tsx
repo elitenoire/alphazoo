@@ -7,6 +7,7 @@ interface CustomVariantProps {
   pop?: number
   delay?: number
   once?: boolean
+  marge?: string
 }
 
 interface MotionPopProps extends MotionBoxProps, CustomVariantProps {}
@@ -23,7 +24,15 @@ const popVariant: Variants = {
   }),
 }
 
-export const MotionPop = ({ delay, pop, once = false, viewport, as, ...rest }: MotionPopProps) => {
+export const MotionPop = ({
+  delay,
+  pop,
+  marge = '-10%',
+  once = false,
+  viewport,
+  as,
+  ...rest
+}: MotionPopProps) => {
   return (
     <MotionBox
       {...rest}
@@ -32,7 +41,7 @@ export const MotionPop = ({ delay, pop, once = false, viewport, as, ...rest }: M
       variants={popVariant}
       initial="hidden"
       whileInView="visible"
-      viewport={{ margin: '0px 0px -10% 0px', once, ...viewport }}
+      viewport={{ margin: `0px 0px ${marge} 0px`, once, ...viewport }}
     />
   )
 }
