@@ -1,8 +1,6 @@
 import NextImage from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState, useCallback } from 'react'
-import useKeypress from 'react-use-keypress'
-import { useSwipeable } from 'react-swipeable'
+import { useState, useCallback } from 'react'
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
 import type { ListProps, ListItemProps } from '@chakra-ui/react'
 import { Box, List, ListItem, Flex } from '@chakra-ui/react'
@@ -11,6 +9,7 @@ import { GalleryImage } from './GalleryImage'
 import { GalleryIcon } from './GalleryIcon'
 import { range } from '~src/utils'
 import { ROUTES } from '~src/constants'
+import { useGestureNavigation } from '~src/hooks/useGestureNavigation'
 
 const MotionList = motion<ListProps>(List)
 const MotionListItem = motion<ListItemProps>(ListItem)
@@ -26,11 +25,11 @@ interface GalleryProps {
 export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryProps) => {
   const [direction, setDirection] = useState(0)
   const [selected, setSelected] = useState(Number(id))
-  const { push, prefetch } = useRouter()
+  const { push } = useRouter()
 
   const galleryCount = gallery?.length ?? total
   const allowPrev = selected > 0
-  const allowNext = galleryCount && selected + 1 < galleryCount
+  const allowNext = !!galleryCount && selected + 1 < galleryCount
 
   const changeWikiId = useCallback(
     (newVal: number) => {
@@ -60,38 +59,13 @@ export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryP
     }
   }, [changeWikiId, selected, allowNext])
 
-  const handlers = useSwipeable({
-    onSwipedLeft: next,
-    onSwipedRight: prev,
-    trackMouse: true,
+  const handlers = useGestureNavigation({
+    prev,
+    next,
+    allowPrefetch: !showIcons && (allowPrev || allowNext),
+    ...(allowPrev && { prevUrl: `${ROUTES.wiki}/${selected - 1}` }),
+    ...(allowNext && { nextUrl: `${ROUTES.wiki}/${selected + 1}` }),
   })
-
-  const navigate = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === 'ArrowRight') {
-        next()
-      } else if (event.key === 'ArrowLeft') {
-        prev()
-      }
-    },
-    [next, prev]
-  )
-
-  useKeypress(['ArrowRight', 'ArrowLeft'], navigate)
-
-  // prefetch prev / next routes for dynamic routes
-  useEffect(() => {
-    if (!showIcons) {
-      //prev
-      if (allowPrev) {
-        void prefetch(`${ROUTES.wiki}/${selected - 1}`)
-      }
-      // next
-      if (allowNext) {
-        void prefetch(`${ROUTES.wiki}/${selected + 1}`)
-      }
-    }
-  }, [showIcons, prefetch, selected, allowPrev, allowNext])
 
   const filtered = gallery?.filter((wiki) => range(selected - 10, selected + 10).includes(wiki))
   // wiki either from modal or dynamic page
