@@ -19,11 +19,11 @@ const ChakraBgTwoSvg = chakra(BgTwoSvg)
 
 import type { AlphabetType } from '~/types/data'
 
-interface DiscoveryProps {
+interface AlphabetDiscoveryProps {
   alphabet?: AlphabetType
 }
 
-export default function Discovery({ alphabet }: DiscoveryProps) {
+export const AlphabetDiscovery = ({ alphabet }: AlphabetDiscoveryProps) => {
   return (
     <Flex
       direction={['column', null, null, 'row']}
