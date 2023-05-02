@@ -9,8 +9,12 @@ import { ROUTES } from '~src/constants'
 
 import { getWikiLayout } from '~components/layout/DefaultLayout'
 
+import { wikis } from '~src/data/wiki'
+
 export default function AnimalWiki({
   dynamicWiki,
+  prevId,
+  nextId,
   total,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const setLastViewedWiki = useGeneralStore.use.setLastViewedWiki()
@@ -25,7 +29,13 @@ export default function AnimalWiki({
 
   return (
     <Flex justify={{ md: 'center' }} minH="$100vh">
-      <Gallery id={validId} dynamicWiki={dynamicWiki} total={total} />
+      <Gallery
+        id={validId}
+        dynamicWiki={dynamicWiki}
+        total={total}
+        prevId={prevId}
+        nextId={nextId}
+      />
     </Flex>
   )
 }
@@ -34,9 +44,9 @@ AnimalWiki.getLayout = (page: ReactElement) => getWikiLayout(page, { back: ROUTE
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = Array.from({ length: 80 }, (x, i) => ({
+  const paths = wikis.map((wiki) => ({
     params: {
-      id: i.toString(),
+      id: wiki.name.toLowerCase(),
     },
   }))
 
@@ -45,8 +55,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps = async ({ params }: GetStaticPropsContext<{ id: string }>) => {
-  const gallery = Array.from({ length: 80 }, (x, i) => i)
-  const dynamicWiki = gallery.find((wiki) => wiki === Number(params?.id))
+  const index = wikis.findIndex((wiki) => wiki.name.toLowerCase() === params?.id)
+  const dynamicWiki = wikis[index]
+  const prevId = wikis[index - 1]?.name.toLowerCase() || ''
+  const nextId = wikis[index + 1]?.name.toLowerCase() || ''
 
-  return { props: { dynamicWiki, total: gallery.length } }
+  return { props: { dynamicWiki, prevId, nextId, total: wikis.length } }
 }
