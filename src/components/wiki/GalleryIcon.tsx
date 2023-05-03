@@ -2,14 +2,15 @@ import NextImage from 'next/image'
 import { Flex, AspectRatio, Text } from '@chakra-ui/react'
 
 interface GalleryIconProps {
-  src?: string // non-optional
-  title?: number // string
+  src: string
+  title?: string
+  bg?: string
 }
 
 const TRANSFORM_SX = { transform: 'scale(1.05)' }
 const TRANSITION_SX = 'transform 0.2s cubic-bezier(.08,.52,.52,1)'
 
-export const GalleryIcon = ({ src, title }: GalleryIconProps) => {
+export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
   return (
     <Flex
       as="span"
@@ -29,7 +30,7 @@ export const GalleryIcon = ({ src, title }: GalleryIconProps) => {
         pos: 'absolute',
         boxSize: '93%',
         rounded: 'inherit',
-        bg: 'green.100', // transparent
+        ...(bg && { bg }),
       }}
     >
       <AspectRatio
@@ -49,12 +50,7 @@ export const GalleryIcon = ({ src, title }: GalleryIconProps) => {
         transitionProperty="transform,opacity"
         transitionTimingFunction="cubic-bezier(.08,.52,.52,1)"
       >
-        <NextImage
-          src={`/img/wiki/alligator-icon.svg`}
-          alt={`${title ?? ''} icon`}
-          fill
-          unoptimized
-        />
+        <NextImage src={src} alt={`${title ?? ''} icon`} fill unoptimized />
       </AspectRatio>
       {title && (
         <Text
