@@ -1,8 +1,9 @@
 import type { InferGetStaticPropsType } from 'next'
+import type { DeepPartial } from '~/types/utility'
 
 import { wikis } from '~src/data/wiki'
 
-export type WikiStaticProps = InferGetStaticPropsType<typeof getStaticProps>
+export type WikiStaticProps = DeepPartial<InferGetStaticPropsType<typeof getStaticProps>>
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticProps = async () => {

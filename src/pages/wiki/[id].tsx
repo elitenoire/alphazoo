@@ -1,26 +1,27 @@
-import type { InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import type { ReactElement } from 'react'
 import { useEffect } from 'react'
-import { Flex } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import { Gallery } from '~components/wiki/Gallery'
 import { useGeneralStore } from '~src/store'
 import { ROUTES } from '~src/constants'
+
+import type { WikiIdStaticProps } from '~@props/wikiId'
 import { getStaticPaths, getStaticProps } from '~@props/wikiId'
 
 import { getWikiLayout } from '~components/layout/DefaultLayout'
 
 export default function AnimalWiki({
-  dynamicWiki,
+  wiki,
   prevId,
   nextId,
-  total,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: WikiIdStaticProps) {
   const setLastViewedWiki = useGeneralStore.use.setLastViewedWiki()
 
   const router = useRouter()
   const { id } = router.query
-  const validId = typeof id === 'string' ? id : null
+  const _id = typeof id === 'string' ? id.toLowerCase() : null
+  const validId = wiki?.name?.toLowerCase() === _id ? _id : null
 
   useEffect(() => {
     setLastViewedWiki(validId)
@@ -28,13 +29,18 @@ export default function AnimalWiki({
 
   return (
     <Flex justify={{ md: 'center' }} minH="$100vh">
-      <Gallery
-        id={validId}
-        dynamicWiki={dynamicWiki}
-        total={total}
-        prevId={prevId}
-        nextId={nextId}
-      />
+      {wiki ? (
+        <Gallery
+          id={0}
+          gallery={[wiki]}
+          prevId={prevId}
+          nextId={nextId}
+        />
+      ) : (
+        <Flex p={2} justify="center" align="center" w="full">
+          <Text align="center" fontSize="flg">Something went wrong!</Text>
+        </Flex>
+      )}
     </Flex>
   )
 }

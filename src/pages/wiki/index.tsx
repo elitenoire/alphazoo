@@ -1,9 +1,8 @@
-import type { InferGetStaticPropsType } from 'next'
 import NextLink from 'next/link'
 import { useRef, useCallback } from 'react'
-import { Heading, List } from '@chakra-ui/react'
+import { Flex, Heading, List } from '@chakra-ui/react'
 import { MotionPop } from '~components/motion'
-import { GalleryRouter } from '~components/wiki/GalleryRouter'
+import { GalleryRouteModal } from '~components/wiki/GalleryRouteModal'
 import { GalleryIcon } from '~components/wiki/GalleryIcon'
 import { useGeneralStore } from '~src/store'
 import { ROUTES } from '~src/constants'
@@ -11,9 +10,9 @@ import { getStaticProps } from '~@props/wiki'
 
 import { getWikiLayout } from '~components/layout/DefaultLayout'
 
-type WikiPageProps = InferGetStaticPropsType<typeof getStaticProps>
+import type { WikiStaticProps } from '~@props/wiki'
 
-export default function WikiPage({ gallery }: WikiPageProps) {
+export default function WikiPage({ gallery }: WikiStaticProps) {
   const lastViewedWikiRef = useRef<HTMLAnchorElement>(null)
 
   const lastViewedWiki = useGeneralStore.use.lastViewedWiki()
@@ -23,36 +22,40 @@ export default function WikiPage({ gallery }: WikiPageProps) {
   }, [])
 
   return (
-    <GalleryRouter gallery={gallery} syncScroll={syncScroll}>
+    <GalleryRouteModal gallery={gallery} syncScroll={syncScroll}>
       <Heading as="h1" color="brand.50" textAlign="center">
         Wiki Gallery
       </Heading>
-      <List
-        sx={{
-          '--gap': '1.5vw',
-          '--size': '8em',
-          '--max-column': '6',
-        }}
-        gap="var(--gap)"
-        gridTemplateColumns="repeat(auto-fit, minmax(min(max(100% / var(--max-column) - var(--gap), var(--size)), 100%),1fr))"
-        display="grid"
-        pt={16}
-        placeContent="center"
-      >
-        {gallery.map(({ name, bgColor, iconUrl }) => (
-          <MotionPop as="li" key={name} marge="0px" once>
-            <NextLink
-              ref={name === lastViewedWiki ? lastViewedWikiRef : null}
-              href={`${ROUTES.wiki}?id=${name}`}
-              as={`${ROUTES.wiki}/${name}`}
-              shallow
-            >
-              <GalleryIcon src={iconUrl} title={name} bg={bgColor} />
-            </NextLink>
-          </MotionPop>
-        ))}
-      </List>
-    </GalleryRouter>
+      {gallery ? (
+        <List
+          sx={{
+            '--gap': '1.5vw',
+            '--size': '8em',
+            '--max-column': '6',
+          }}
+          gap="var(--gap)"
+          gridTemplateColumns="repeat(auto-fit, minmax(min(max(100% / var(--max-column) - var(--gap), var(--size)), 100%),1fr))"
+          display="grid"
+          pt={16}
+          placeContent="center"
+        >
+          {gallery.map(({ id, name, bgColor, iconUrl }, i) => (
+            <MotionPop as="li" key={`${id}-${name}-${i}`} marge="0px" once>
+              <NextLink
+                ref={name?.toLowerCase() === (lastViewedWiki?.toLowerCase() ?? null) ? lastViewedWikiRef : null}
+                href={`${ROUTES.wiki}?q=${name?.toLowerCase() ?? ''}`}
+                as={`${ROUTES.wiki}/${name?.toLowerCase() ?? ''}`}
+                shallow
+              >
+                <GalleryIcon src={iconUrl} title={name} bg={bgColor} />
+              </NextLink>
+            </MotionPop>
+          ))}
+        </List>
+      ) : (
+        <Flex>Gallery currently unavailable...</Flex>
+      )}
+    </GalleryRouteModal>
   )
 }
 

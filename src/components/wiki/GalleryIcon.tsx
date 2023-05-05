@@ -1,8 +1,9 @@
 import NextImage from 'next/image'
+import { useCallback, useState } from 'react'
 import { Flex, AspectRatio, Text } from '@chakra-ui/react'
 
 interface GalleryIconProps {
-  src: string
+  src?: string
   title?: string
   bg?: string
 }
@@ -11,6 +12,12 @@ const TRANSFORM_SX = { transform: 'scale(1.05)' }
 const TRANSITION_SX = 'transform 0.2s cubic-bezier(.08,.52,.52,1)'
 
 export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
+  const [loaded, setLoaded] = useState(false)
+
+  const handleLoaded = useCallback(() => {
+    setLoaded(true)
+  }, [])
+
   return (
     <Flex
       as="span"
@@ -50,7 +57,17 @@ export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
         transitionProperty="transform,opacity"
         transitionTimingFunction="cubic-bezier(.08,.52,.52,1)"
       >
-        <NextImage src={src} alt={`${title ?? ''} icon`} fill unoptimized />
+        {src ? (
+          <NextImage
+            src={src}
+            alt={`${title ?? ''} icon`}
+            onLoadingComplete={handleLoaded}
+            fill
+            unoptimized
+          />
+        ) : (
+          <span />
+        )}
       </AspectRatio>
       {title && (
         <Text
