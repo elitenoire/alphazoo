@@ -1,4 +1,3 @@
-import NextImage from 'next/image'
 import { useRouter } from 'next/router'
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
@@ -11,65 +10,89 @@ import { range } from '~src/utils'
 import { ROUTES } from '~src/constants'
 import { useGestureNavigation } from '~src/hooks/useGestureNavigation'
 
+import type { WikiStaticProps, TGalleryWiki } from '~@props/wiki'
+
 const MotionList = motion<ListProps>(List)
 const MotionListItem = motion<ListItemProps>(ListItem)
 
-interface GalleryProps {
-  id: string | null
-  gallery?: number[]
-  dynamicWiki?: number
-  total?: number
+type TFilteredGallery = readonly [TGalleryWiki, number]
+
+interface GalleryProps extends WikiStaticProps {
+  id: number
   showIcons?: boolean
+  prevId?: string
+  nextId?: string
 }
 
-export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryProps) => {
+export const Gallery = ({
+  id,
+  gallery,
+  prevId,
+  nextId,
+  showIcons,
+}: GalleryProps) => {
   const [direction, setDirection] = useState(0)
-  const [selected, setSelected] = useState(Number(id))
+  const [selected, setSelected] = useState(id)
+
   const { push } = useRouter()
 
-  const galleryCount = gallery?.length ?? total
-  const allowPrev = selected > 0
-  const allowNext = !!galleryCount && selected + 1 < galleryCount
+  const _prevId = gallery ? gallery[selected - 1]?.name : null
+  const _nextId = gallery ? gallery[selected + 1]?.name : null
 
-  const changeWikiId = useCallback(
-    (newVal: number) => {
-      setDirection(newVal > selected ? 1 : -1)
-      setSelected(newVal)
+  const PREV_ID = showIcons ? _prevId : prevId
+  const NEXT_ID = showIcons ? _nextId : nextId
+
+  const allowPrev = !!_prevId || !!prevId
+  const allowNext = !!_nextId || !!nextId
+
+  const changeId = useCallback(
+    (dir: 1 | -1, id?: string, fid?: number) => {
+      if (!id) return
+
+      setDirection(dir)
+      setSelected((s) => (showIcons ? (fid ?? s + dir) : 0))
 
       if (showIcons) {
-        const newUrl = `${ROUTES.wiki}?id=${newVal}`
-        const asUrl = `${ROUTES.wiki}/${newVal}`
+        const newUrl = `${ROUTES.wiki}?id=${id}`
+        const asUrl = `${ROUTES.wiki}/${id}`
         window.history.replaceState({ ...window.history.state, as: asUrl, url: newUrl }, '', asUrl)
       } else {
-        void push(`${ROUTES.wiki}/${newVal}`)
+        void push(`${ROUTES.wiki}/${id}`)
       }
     },
-    [push, showIcons, selected]
+    [push, showIcons]
   )
 
   const prev = useCallback(() => {
     if (allowPrev) {
-      changeWikiId(selected - 1)
+      changeId(-1, PREV_ID!)
     }
-  }, [changeWikiId, selected, allowPrev])
+  }, [allowPrev, changeId, PREV_ID])
 
   const next = useCallback(() => {
     if (allowNext) {
-      changeWikiId(selected + 1)
+      changeId(1, NEXT_ID!)
     }
-  }, [changeWikiId, selected, allowNext])
+  }, [allowNext, changeId, NEXT_ID])
 
   const handlers = useGestureNavigation({
     prev,
     next,
-    allowPrefetch: !showIcons && (allowPrev || allowNext),
-    ...(allowPrev && { prevUrl: `${ROUTES.wiki}/${selected - 1}` }),
-    ...(allowNext && { nextUrl: `${ROUTES.wiki}/${selected + 1}` }),
+    allowPrefetch: !showIcons,
+    ...(prevId && { prevUrl: `${ROUTES.wiki}/${prevId}` }),
+    ...(nextId && { nextUrl: `${ROUTES.wiki}/${nextId}` }),
   })
 
-  const filtered = gallery?.filter((wiki) => range(selected - 10, selected + 10).includes(wiki))
-  // wiki either from modal or dynamic page
-  const currentWiki = gallery ? gallery[selected] : dynamicWiki
+  const filterRange = showIcons ? range(selected - 10, selected + 10) : [selected]
+
+  const filtered = gallery?.reduce<TFilteredGallery[]>((_filtered, g, i) => {
+      if (filterRange.includes(i)) {
+        _filtered.push([g, i])
+      }
+      return _filtered
+    },
+    []
+  )
 
   return (
     <Flex
@@ -92,9 +115,17 @@ export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryP
           opacity: { duration: 0.2 },
         }}
       >
-        <GalleryImage rounded={showIcons} />
-        {allowPrev && <NavButton prev title="Previous" onClick={prev} />}
-        {allowNext && <NavButton title="Next" onClick={next} />}
+        <GalleryImage rounded={showIcons} wiki={gallery?.[selected]} />
+        {allowPrev && (
+          <NavButton
+            prev
+            title={`Previous${PREV_ID ? ' : ' + PREV_ID.toUpperCase() : ''}`}
+            onClick={prev}
+          />
+        )}
+        {allowNext && (
+          <NavButton title={`Next${NEXT_ID ? ' : ' + NEXT_ID.toUpperCase() : ''}`} onClick={next} />
+        )}
         {showIcons && (
           <Box w="full">
             <MotionList
@@ -107,9 +138,9 @@ export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryP
               mx="auto"
             >
               <AnimatePresence initial={false}>
-                {filtered?.map((g) => (
+                {filtered?.map(([{ name, iconUrl, bgColor }, fid]) => (
                   <MotionListItem
-                    key={g}
+                    key={fid}
                     display="flex"
                     justifyContent="center"
                     alignItems="center"
@@ -119,15 +150,15 @@ export const Gallery = ({ id, gallery, total, dynamicWiki, showIcons }: GalleryP
                       x: `${Math.max((selected - 1) * -100, 10 * -100)}%`,
                     }}
                     animate={{
-                      scale: g === selected ? 1.125 : 1,
+                      scale: fid === selected ? 1.125 : 1,
                       width: '100%',
                       x: `${Math.max(selected * -100, 10 * -100)}%`,
                     }}
                     exit={{ width: '0%' }}
-                    onClick={() => changeWikiId(g)}
+                    onClick={() => changeId(fid > selected ? 1 : -1, name, fid)}
                   >
                     <Box as="button" boxSize="90%" appearance="none">
-                      <GalleryIcon />
+                      <GalleryIcon src={iconUrl} bg={bgColor} title={showIcons ? '' : name} />
                     </Box>
                   </MotionListItem>
                 ))}
