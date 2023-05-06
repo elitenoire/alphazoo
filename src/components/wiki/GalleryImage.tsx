@@ -1,4 +1,5 @@
 import NextImage from 'next/image'
+import { useCallback, useState } from 'react'
 import {
   Box,
   Accordion,
@@ -9,7 +10,20 @@ import {
   Badge,
   Text,
 } from '@chakra-ui/react'
+import type { Variants } from 'framer-motion'
+import { MotionBox } from '~components/motion'
 import type { TGalleryWiki } from '~@props/wiki'
+
+const blurIn: Variants = {
+  loading: {
+    scale: 1.2,
+    filter: 'blur(20px)',
+  },
+  loaded: {
+    scale: 1,
+    filter: 'blur(0px)',
+  },
+}
 
 interface GalleryImageProps {
   wiki?: TGalleryWiki
@@ -18,6 +32,15 @@ interface GalleryImageProps {
 
 export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
   const { sceneUrl, alias, info, name, textColor, bgColor } = wiki
+
+    const [loaded, setLoaded] = useState('')
+
+    const handleLoaded = useCallback(() => {
+      if (sceneUrl) {
+        setLoaded(sceneUrl)
+      }
+    }, [sceneUrl])
+
   return (
     <Box
       pos="relative"
@@ -25,12 +48,31 @@ export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
       w="full"
       minH={400}
       bg={bgColor ?? 'gray.200'}
+      overflow="hidden"
       {...(rounded && { rounded: { md: 'card' } })}
     >
       {sceneUrl && (
-        <Box pos="absolute" overflow="hidden" w="full" minH="full" inset={0} rounded="inherit">
-          <NextImage className="object-cover" fill src={sceneUrl} alt="" unoptimized />
-        </Box>
+        <MotionBox
+          key={sceneUrl}
+          pos="absolute"
+          overflow="hidden"
+          w="full"
+          minH="full"
+          inset={0}
+          rounded="inherit"
+          variants={blurIn}
+          initial="loading"
+          animate={loaded ? 'loaded': 'loading'}
+        >
+          <NextImage
+            className="object-cover"
+            fill
+            src={sceneUrl}
+            alt=""
+            unoptimized
+            onLoadingComplete={handleLoaded}
+          />
+        </MotionBox>
       )}
       {alias && name && info && (
         <Accordion

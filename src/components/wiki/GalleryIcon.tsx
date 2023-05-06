@@ -1,6 +1,8 @@
 import NextImage from 'next/image'
 import { useCallback, useState } from 'react'
 import { Flex, AspectRatio, Text } from '@chakra-ui/react'
+import type { Variants } from 'framer-motion'
+import { MotionSpan } from '~components/motion'
 
 interface GalleryIconProps {
   src?: string
@@ -10,6 +12,15 @@ interface GalleryIconProps {
 
 const TRANSFORM_SX = { transform: 'scale(1.05)' }
 const TRANSITION_SX = 'transform 0.2s cubic-bezier(.08,.52,.52,1)'
+
+const blur: Variants = {
+  loading: {
+    filter: 'blur(8px)',
+  },
+  loaded: {
+    filter: 'blur(0px)',
+  },
+}
 
 export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
   const [loaded, setLoaded] = useState(false)
@@ -41,7 +52,7 @@ export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
       }}
     >
       <AspectRatio
-        as="span"
+        as={MotionSpan}
         display="block"
         w="100%"
         _groupHover={
@@ -56,6 +67,9 @@ export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
         transitionDuration={title ? 'slower' : 'normal'}
         transitionProperty="transform,opacity"
         transitionTimingFunction="cubic-bezier(.08,.52,.52,1)"
+        variants={blur}
+        initial="loading"
+        animate={loaded ? 'loaded' : 'loading'}
       >
         {src ? (
           <NextImage
