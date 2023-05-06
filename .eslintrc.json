@@ -45,7 +45,8 @@
       ],
       "rules": {
         "@typescript-eslint/consistent-type-definitions": "off",
-        "@typescript-eslint/consistent-type-imports": "error"
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/no-non-null-assertion": "off",
       }
     }
   ]

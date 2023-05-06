@@ -9,10 +9,10 @@ import {
   Badge,
   Text,
 } from '@chakra-ui/react'
-import type { WikiStaticProps } from '~@props/wiki'
+import type { TGalleryWiki } from '~@props/wiki'
 
 interface GalleryImageProps {
-  wiki?: NonNullable<WikiStaticProps['gallery']>[number]
+  wiki?: TGalleryWiki
   rounded?: boolean
 }
 

@@ -12,10 +12,11 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/learn/:path*'],
+  matcher: ['/learn/:path*', '/wiki/:path*'],
 }
 
 // BUG: https://github.com/vercel/next.js/issues/38239
 // New middleware causing 404 page not to be shown for notfound
 // dyanimc routes when client-side navigating
 // Possible fix in v13.2.4-canary.4
+// As at v13.3.1 works locally but not in PROD env
