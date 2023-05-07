@@ -21,17 +21,17 @@ export default function AnimalWiki({
   const router = useRouter()
   const { id } = router.query
   const _id = typeof id === 'string' ? id.toLowerCase() : null
-  const validId = wiki?.name?.toLowerCase() === _id ? _id : null
+  const validPathId = wiki?.name?.toLowerCase() === _id ? _id : null
 
   useEffect(() => {
-    setLastViewedWiki(validId)
-  }, [setLastViewedWiki, validId])
+    setLastViewedWiki(validPathId)
+  }, [setLastViewedWiki, validPathId])
 
   return (
     <Flex justify={{ md: 'center' }} minH="$100vh">
       {wiki ? (
         <Gallery
-          id={0}
+          index={0}
           gallery={[wiki]}
           prevId={prevId}
           nextId={nextId}

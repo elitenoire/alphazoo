@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import type { PropsWithChildren } from 'react'
 import { useCallback, useEffect } from 'react'
+import type { ModalCloseButtonProps } from '@chakra-ui/react'
 import {
   Box,
   Modal,
@@ -9,12 +10,14 @@ import {
   ModalOverlay,
   ModalCloseButton,
 } from '@chakra-ui/react'
+import { withSfx } from '~components/sfx'
+import { Gallery } from '~components/wiki/Gallery'
 import { useGeneralStore } from '~src/store'
-
-import { Gallery } from './Gallery'
 import { ROUTES } from '~src/constants'
 
 import type { WikiStaticProps } from '~@props/wiki'
+
+const SfxModalCloseButton = withSfx<ModalCloseButtonProps, HTMLButtonElement>(ModalCloseButton)
 
 interface GalleryRouteModalProps extends Pick<WikiStaticProps, 'gallery'> {
   syncScroll: () => void
@@ -32,8 +35,8 @@ export const GalleryRouteModal = ({
   const { q } = query
 
   const _q = typeof q === 'string' ? q.toLowerCase() : null
-  const selected = _q && gallery ? gallery.findIndex((g) => g.name?.toLowerCase() === _q) : -1
-  const validId = selected >= 0 ? _q : null
+  const activeIdx = _q && gallery ? gallery.findIndex((g) => g.name?.toLowerCase() === _q) : -1
+  const validPathId = activeIdx >= 0 ? _q : null
 
   const handleClose = useCallback(() => {
     const url = (window.history.state as { url: string }).url
@@ -45,17 +48,17 @@ export const GalleryRouteModal = ({
 
   useEffect(() => {
     // This effect keeps track of the last viewed wiki in the modal to keep the index page in sync when the user navigates back
-    if (lastViewedWiki && !validId) {
+    if (lastViewedWiki && !validPathId) {
       syncScroll()
       setLastViewedWiki(null)
     }
-  }, [validId, lastViewedWiki, setLastViewedWiki, syncScroll])
+  }, [validPathId, lastViewedWiki, setLastViewedWiki, syncScroll])
 
   return (
     <Box layerStyle="page">
       {children}
       {gallery && (
-        <Modal isOpen={!!validId} motionPreset="slideInBottom" onClose={handleClose} size="full">
+        <Modal isOpen={!!validPathId} motionPreset="slideInBottom" onClose={handleClose} size="full">
           <ModalOverlay backdropFilter="blur(5px)" />
           <ModalContent
             pos="relative"
@@ -63,7 +66,7 @@ export const GalleryRouteModal = ({
             bg="transparent"
             containerProps={{ zIndex: 'zen' }}
           >
-            <ModalCloseButton
+            <SfxModalCloseButton
               zIndex={1}
               top={[1, null, 4]}
               right={[1, null, 10]}
@@ -71,7 +74,7 @@ export const GalleryRouteModal = ({
               rounded={['md', null, 'circle']}
             />
             <ModalBody flex={1} display="flex" px={0} py={0}>
-              <Gallery id={selected} gallery={gallery} showIcons />
+              <Gallery index={activeIdx} gallery={gallery} showIcons />
             </ModalBody>
           </ModalContent>
         </Modal>

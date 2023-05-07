@@ -4,8 +4,8 @@ import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
 import type { ListItemProps } from '@chakra-ui/react'
 import { Box, List, ListItem, Flex } from '@chakra-ui/react'
 import { NavButton } from '~components/NavButton'
-import { GalleryImage } from './GalleryImage'
-import { GalleryIcon } from './GalleryIcon'
+import { GalleryImage } from '~components/wiki/GalleryImage'
+import { GalleryIcon } from '~components/wiki/GalleryIcon'
 import { range } from '~src/utils'
 import { ROUTES } from '~src/constants'
 import { useGestureNavigation } from '~src/hooks/useGestureNavigation'
@@ -17,44 +17,38 @@ const MotionListItem = motion<ListItemProps>(ListItem)
 type TFilteredGallery = readonly [TGalleryWiki, number]
 
 interface GalleryProps extends WikiStaticProps {
-  id: number
+  index: number
   showIcons?: boolean
   prevId?: string
   nextId?: string
 }
 
-export const Gallery = ({
-  id,
-  gallery,
-  prevId,
-  nextId,
-  showIcons,
-}: GalleryProps) => {
-  const [selected, setSelected] = useState(id)
+export const Gallery = ({ index, gallery, prevId, nextId, showIcons }: GalleryProps) => {
+  const [activeIdx, setActiveIdx] = useState(index)
 
   const { push } = useRouter()
 
-  const _prevId = gallery ? gallery[selected - 1]?.name : null
-  const _nextId = gallery ? gallery[selected + 1]?.name : null
+  const _prevId = gallery ? gallery[activeIdx - 1]?.name : null
+  const _nextId = gallery ? gallery[activeIdx + 1]?.name : null
 
-  const PREV_ID = showIcons ? _prevId : prevId
-  const NEXT_ID = showIcons ? _nextId : nextId
+  const PREV_PATH_ID = showIcons ? _prevId : prevId
+  const NEXT_PATH_ID = showIcons ? _nextId : nextId
 
   const allowPrev = !!_prevId || !!prevId
   const allowNext = !!_nextId || !!nextId
 
   const changeId = useCallback(
-    (dir: 1 | -1, id?: string, fid?: number) => {
-      if (!id) return
+    (dir: 1 | -1, pathId?: string, newIdx?: number) => {
+      if (!pathId) return
 
-      setSelected((s) => (showIcons ? (fid ?? s + dir) : 0))
+      setActiveIdx((idx) => (showIcons ? newIdx ?? idx + dir : 0))
 
       if (showIcons) {
-        const newUrl = `${ROUTES.wiki}?id=${id}`
-        const asUrl = `${ROUTES.wiki}/${id}`
+        const newUrl = `${ROUTES.wiki}?id=${pathId}`
+        const asUrl = `${ROUTES.wiki}/${pathId}`
         window.history.replaceState({ ...window.history.state, as: asUrl, url: newUrl }, '', asUrl)
       } else {
-        void push(`${ROUTES.wiki}/${id}`)
+        void push(`${ROUTES.wiki}/${pathId}`)
       }
     },
     [push, showIcons]
@@ -62,15 +56,22 @@ export const Gallery = ({
 
   const prev = useCallback(() => {
     if (allowPrev) {
-      changeId(-1, PREV_ID!)
+      changeId(-1, PREV_PATH_ID!)
     }
-  }, [allowPrev, changeId, PREV_ID])
+  }, [allowPrev, changeId, PREV_PATH_ID])
 
   const next = useCallback(() => {
     if (allowNext) {
-      changeId(1, NEXT_ID!)
+      changeId(1, NEXT_PATH_ID!)
     }
-  }, [allowNext, changeId, NEXT_ID])
+  }, [allowNext, changeId, NEXT_PATH_ID])
+
+  const goto = useCallback(
+    (idx: number, dir: 1 | -1, pathId?: string) => () => {
+      changeId(dir, pathId, idx)
+    },
+    [changeId]
+  )
 
   const handlers = useGestureNavigation({
     prev,
@@ -80,16 +81,14 @@ export const Gallery = ({
     ...(nextId && { nextUrl: `${ROUTES.wiki}/${nextId}` }),
   })
 
-  const filterRange = showIcons ? range(selected - 10, selected + 10) : [selected]
+  const filterRange = showIcons ? range(activeIdx - 10, activeIdx + 10) : [activeIdx]
 
   const filtered = gallery?.reduce<TFilteredGallery[]>((_filtered, g, i) => {
-      if (filterRange.includes(i)) {
-        _filtered.push([g, i])
-      }
-      return _filtered
-    },
-    []
-  )
+    if (filterRange.includes(i)) {
+      _filtered.push([g, i])
+    }
+    return _filtered
+  }, [])
 
   return (
     <Flex
@@ -106,19 +105,17 @@ export const Gallery = ({
       })}
       {...handlers}
     >
-      <MotionConfig
-        transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-      >
-        <GalleryImage rounded={showIcons} wiki={gallery?.[selected]} />
+      <MotionConfig transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}>
+        <GalleryImage rounded={showIcons} wiki={gallery?.[activeIdx]} />
         {allowPrev && (
           <NavButton
             prev
-            title={`Previous${PREV_ID ? ' : ' + PREV_ID.toUpperCase() : ''}`}
+            title={`Previous${PREV_PATH_ID ? ' : ' + PREV_PATH_ID.toUpperCase() : ''}`}
             onClick={prev}
           />
         )}
         {allowNext && (
-          <NavButton title={`Next${NEXT_ID ? ' : ' + NEXT_ID.toUpperCase() : ''}`} onClick={next} />
+          <NavButton title={`Next${NEXT_PATH_ID ? ' : ' + NEXT_PATH_ID.toUpperCase() : ''}`} onClick={next} />
         )}
         {showIcons && (
           <Box w="full">
@@ -131,24 +128,24 @@ export const Gallery = ({
               mx="auto"
             >
               <AnimatePresence initial={false}>
-                {filtered?.map(([{ name, iconUrl, bgColor }, fid]) => (
+                {filtered?.map(([{ name, iconUrl, bgColor }, fIdx]) => (
                   <MotionListItem
-                    key={fid}
+                    key={fIdx}
                     display="flex"
                     justifyContent="center"
                     alignItems="center"
                     flexShrink={0}
                     initial={{
                       width: '0%',
-                      x: `${Math.max((selected - 1) * -100, 10 * -100)}%`,
+                      x: `${Math.max((activeIdx - 1) * -100, 10 * -100)}%`,
                     }}
                     animate={{
-                      scale: fid === selected ? 1.125 : 1,
+                      scale: fIdx === activeIdx ? 1.125 : 1,
                       width: '100%',
-                      x: `${Math.max(selected * -100, 10 * -100)}%`,
+                      x: `${Math.max(activeIdx * -100, 10 * -100)}%`,
                     }}
                     exit={{ width: '0%' }}
-                    onClick={() => changeId(fid > selected ? 1 : -1, name, fid)}
+                    onClick={goto(fIdx, fIdx > activeIdx ? 1 : -1, name)}
                   >
                     <Box as="button" boxSize="90%" appearance="none">
                       <GalleryIcon src={iconUrl} bg={bgColor} title={showIcons ? '' : name} />

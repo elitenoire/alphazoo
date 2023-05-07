@@ -137,7 +137,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
             sx={{
               '--gap': { base: '1.5em', xl: '1.5vw' },
               '--size': '6.25em',
-              '--max-column': '8',
+              '--max-column': '7',
             }}
             placeContent="center"
             pt={8}
