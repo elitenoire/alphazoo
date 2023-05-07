@@ -1,14 +1,11 @@
 import NextImage from 'next/image'
 import { useCallback, useState } from 'react'
-import { Flex, AspectRatio, Text } from '@chakra-ui/react'
+import type { FlexProps } from '@chakra-ui/react'
+import { Flex, AspectRatio, Text, forwardRef } from '@chakra-ui/react'
 import type { Variants } from 'framer-motion'
 import { MotionSpan } from '~components/motion'
+import { withSfx } from '~components/sfx'
 
-interface GalleryIconProps {
-  src?: string
-  title?: string
-  bg?: string
-}
 
 const TRANSFORM_SX = { transform: 'scale(1.05)' }
 const TRANSITION_SX = 'transform 0.2s cubic-bezier(.08,.52,.52,1)'
@@ -22,7 +19,11 @@ const blur: Variants = {
   },
 }
 
-export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
+interface GalleryIconProps extends FlexProps {
+  src?: string
+}
+
+const GalleryIconBase = forwardRef<GalleryIconProps, 'div'>(({ src, title, bg, ...rest }, ref) => {
   const [loaded, setLoaded] = useState(false)
 
   const handleLoaded = useCallback(() => {
@@ -31,6 +32,7 @@ export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
 
   return (
     <Flex
+      ref={ref}
       as="span"
       pos="relative"
       align="center"
@@ -50,6 +52,7 @@ export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
         rounded: 'inherit',
         ...(bg && { bg }),
       }}
+      {...rest}
     >
       <AspectRatio
         as={MotionSpan}
@@ -107,4 +110,6 @@ export const GalleryIcon = ({ src, title, bg }: GalleryIconProps) => {
       )}
     </Flex>
   )
-}
+})
+
+export const GalleryIcon = withSfx<GalleryIconProps, HTMLDivElement>(GalleryIconBase)

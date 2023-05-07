@@ -1,5 +1,6 @@
 import NextImage from 'next/image'
 import { useCallback, useState } from 'react'
+import type { AccordionButtonProps } from '@chakra-ui/react'
 import {
   Box,
   Accordion,
@@ -12,7 +13,12 @@ import {
 } from '@chakra-ui/react'
 import type { Variants } from 'framer-motion'
 import { MotionBox } from '~components/motion'
+import { withSfx } from '~components/sfx'
+import { usePhonics } from '~src/hooks/usePhonics'
+
 import type { TGalleryWiki } from '~@props/wiki'
+
+const SfxAccordionButton = withSfx<AccordionButtonProps, HTMLButtonElement>(AccordionButton)
 
 const blurIn: Variants = {
   loading: {
@@ -31,15 +37,17 @@ interface GalleryImageProps {
 }
 
 export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
-  const { sceneUrl, alias, info, name, textColor, bgColor } = wiki
+  const { sceneUrl, alias, info, name, textColor, bgColor  } = wiki
 
-    const [loaded, setLoaded] = useState('')
+  const [playSound] = usePhonics(`/sounds/intro.mp3`)
+  const [loaded, setLoaded] = useState('')
 
     const handleLoaded = useCallback(() => {
       if (sceneUrl) {
         setLoaded(sceneUrl)
+        playSound()
       }
-    }, [sceneUrl])
+    }, [sceneUrl, playSound])
 
   return (
     <Box
@@ -87,7 +95,7 @@ export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
           roundedTopRight="xl"
         >
           <AccordionItem w={[null, 'min-content']} border="none">
-            <AccordionButton
+            <SfxAccordionButton
               flexWrap="wrap"
               columnGap={[2, 3]}
               w={['full', 'max-content']}
@@ -111,7 +119,7 @@ export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
               </Text>
               <Badge>info</Badge>
               <AccordionIcon ml="auto" />
-            </AccordionButton>
+            </SfxAccordionButton>
             <AccordionPanel fontSize={[null, 'flg']}>{info}</AccordionPanel>
           </AccordionItem>
         </Accordion>
