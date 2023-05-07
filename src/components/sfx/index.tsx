@@ -1,17 +1,21 @@
 import type { ComponentType, MouseEventHandler } from 'react'
 import { forwardRef, useCallback } from 'react'
+import type { ButtonProps, IconButtonProps, LinkProps } from '@chakra-ui/react'
 import { Button, IconButton, Link } from '@chakra-ui/react'
 import { useGeneralSfx } from '~src/context/sfx'
 import { getDisplayName } from '~src/utils'
+import type { Merge } from '~/types/utility'
 
 type SfxEvents = 'onClick' | 'onMouseEnter'
 
-type WithSfxProps<T = HTMLElement> = {
+type WithSfxProps<T extends HTMLElement> = {
   [K in SfxEvents]: MouseEventHandler<T>
 }
 
-const withSfx = <T extends HTMLElement, P>(Component: ComponentType<P & WithSfxProps<T>>) => {
-  const WithSfxComponent = forwardRef<T, P & Partial<WithSfxProps<T>>>(
+export const withSfx = <P, T extends HTMLElement = HTMLElement>(
+  Component: ComponentType<P>
+) => {
+  const HOC = forwardRef<T, Merge<P, Partial<WithSfxProps<T>>>>(
     ({ onClick, onMouseEnter, ...rest }, ref) => {
       const { playClick, playHover } = useGeneralSfx()
 
@@ -42,13 +46,13 @@ const withSfx = <T extends HTMLElement, P>(Component: ComponentType<P & WithSfxP
     }
   )
 
-  WithSfxComponent.displayName = `withSfx(${getDisplayName(Component)})`
+  HOC.displayName = `withSfx(${getDisplayName(Component)})`
 
-  return WithSfxComponent
+  return HOC
 }
 
-export const SfxButton = withSfx(Button)
+export const SfxButton = withSfx<ButtonProps, HTMLButtonElement>(Button)
 
-export const SfxIconButton = withSfx(IconButton)
+export const SfxIconButton = withSfx<IconButtonProps, HTMLButtonElement>(IconButton)
 
-export const SfxLink = withSfx(Link)
+export const SfxLink = withSfx<LinkProps, HTMLAnchorElement>(Link)
