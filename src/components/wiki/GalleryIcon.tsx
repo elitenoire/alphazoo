@@ -6,7 +6,6 @@ import type { Variants } from 'framer-motion'
 import { MotionSpan } from '~components/motion'
 import { withSfx } from '~components/sfx'
 
-
 const TRANSFORM_SX = { transform: 'scale(1.05)' }
 const TRANSITION_SX = 'transform 0.2s cubic-bezier(.08,.52,.52,1)'
 
@@ -66,13 +65,13 @@ const GalleryIconBase = forwardRef<GalleryIconProps, 'div'>(({ src, title, bg, .
               }
             : TRANSFORM_SX
         }
+        animate={loaded ? 'loaded' : 'loading'}
+        initial="loading"
         ratio={1}
         transitionDuration={title ? 'slower' : 'normal'}
         transitionProperty="transform,opacity"
         transitionTimingFunction="cubic-bezier(.08,.52,.52,1)"
         variants={blur}
-        initial="loading"
-        animate={loaded ? 'loaded' : 'loading'}
       >
         {src ? (
           <NextImage
@@ -112,4 +111,4 @@ const GalleryIconBase = forwardRef<GalleryIconProps, 'div'>(({ src, title, bg, .
   )
 })
 
-export const GalleryIcon = withSfx<GalleryIconProps, HTMLDivElement>(GalleryIconBase)
+export const GalleryIcon = withSfx<GalleryIconProps, 'div'>(GalleryIconBase)

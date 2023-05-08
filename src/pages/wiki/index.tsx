@@ -40,9 +40,13 @@ export default function WikiPage({ gallery }: WikiStaticProps) {
           placeContent="center"
         >
           {gallery.map(({ id, name, bgColor, iconUrl }, i) => (
-            <MotionPop as="li" key={`${id}-${name}-${i}`} marge="0px" once>
+            <MotionPop as="li" key={`${id ?? ''}-${name ?? ''}-${i}`} marge="0px" once>
               <NextLink
-                ref={name?.toLowerCase() === (lastViewedWiki?.toLowerCase() ?? null) ? lastViewedWikiRef : null}
+                ref={
+                  name?.toLowerCase() === (lastViewedWiki?.toLowerCase() ?? null)
+                    ? lastViewedWikiRef
+                    : null
+                }
                 href={`${ROUTES.wiki}?q=${name?.toLowerCase() ?? ''}`}
                 as={`${ROUTES.wiki}/${name?.toLowerCase() ?? ''}`}
                 shallow

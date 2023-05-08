@@ -115,7 +115,10 @@ export const Gallery = ({ index, gallery, prevId, nextId, showIcons }: GalleryPr
           />
         )}
         {allowNext && (
-          <NavButton title={`Next${NEXT_PATH_ID ? ' : ' + NEXT_PATH_ID.toUpperCase() : ''}`} onClick={next} />
+          <NavButton
+            title={`Next${NEXT_PATH_ID ? ' : ' + NEXT_PATH_ID.toUpperCase() : ''}`}
+            onClick={next}
+          />
         )}
         {showIcons && (
           <Box w="full">
@@ -148,7 +151,7 @@ export const Gallery = ({ index, gallery, prevId, nextId, showIcons }: GalleryPr
                     onClick={goto(fIdx, fIdx > activeIdx ? 1 : -1, name)}
                   >
                     <Box as="button" boxSize="90%" appearance="none">
-                      <GalleryIcon src={iconUrl} bg={bgColor} title={showIcons ? '' : name} />
+                      <GalleryIcon src={iconUrl} bg={bgColor} />
                     </Box>
                   </MotionListItem>
                 ))}

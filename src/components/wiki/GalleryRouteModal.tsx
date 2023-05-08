@@ -17,7 +17,7 @@ import { ROUTES } from '~src/constants'
 
 import type { WikiStaticProps } from '~@props/wiki'
 
-const SfxModalCloseButton = withSfx<ModalCloseButtonProps, HTMLButtonElement>(ModalCloseButton)
+const SfxModalCloseButton = withSfx<ModalCloseButtonProps, 'button'>(ModalCloseButton)
 
 interface GalleryRouteModalProps extends Pick<WikiStaticProps, 'gallery'> {
   syncScroll: () => void
@@ -58,7 +58,12 @@ export const GalleryRouteModal = ({
     <Box layerStyle="page">
       {children}
       {gallery && (
-        <Modal isOpen={!!validPathId} motionPreset="slideInBottom" onClose={handleClose} size="full">
+        <Modal
+          isOpen={!!validPathId}
+          motionPreset="slideInBottom"
+          onClose={handleClose}
+          size="full"
+        >
           <ModalOverlay backdropFilter="blur(5px)" />
           <ModalContent
             pos="relative"

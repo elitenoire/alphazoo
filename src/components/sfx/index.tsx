@@ -1,26 +1,24 @@
 import type { ComponentType, MouseEventHandler } from 'react'
-import { forwardRef, useCallback } from 'react'
-import type { ButtonProps, IconButtonProps, LinkProps } from '@chakra-ui/react'
-import { Button, IconButton, Link } from '@chakra-ui/react'
+import { useCallback } from 'react'
+import type { As, ButtonProps, IconButtonProps, LinkProps } from '@chakra-ui/react'
+import { Button, IconButton, Link, forwardRef } from '@chakra-ui/react'
 import { useGeneralSfx } from '~src/context/sfx'
 import { getDisplayName } from '~src/utils'
 import type { Merge } from '~/types/utility'
 
 type SfxEvents = 'onClick' | 'onMouseEnter'
 
-type WithSfxProps<T extends HTMLElement> = {
+type WithSfxProps<T extends HTMLElement = HTMLElement> = {
   [K in SfxEvents]: MouseEventHandler<T>
 }
 
-export const withSfx = <P, T extends HTMLElement = HTMLElement>(
-  Component: ComponentType<P>
-) => {
-  const HOC = forwardRef<T, Merge<P, Partial<WithSfxProps<T>>>>(
+export const withSfx = <P, T extends As>(Component: ComponentType<P>) => {
+  const HOC = forwardRef<Merge<P, Partial<WithSfxProps>>, T>(
     ({ onClick, onMouseEnter, ...rest }, ref) => {
       const { playClick, playHover } = useGeneralSfx()
 
       const handleClick = useCallback(
-        (e: React.MouseEvent<T>) => {
+        (e: React.MouseEvent<HTMLElement>) => {
           playClick?.()
           onClick?.(e)
         },
@@ -28,7 +26,7 @@ export const withSfx = <P, T extends HTMLElement = HTMLElement>(
       )
 
       const handleMouseEnter = useCallback(
-        (e: React.MouseEvent<T>) => {
+        (e: React.MouseEvent<HTMLElement>) => {
           playHover?.()
           onMouseEnter?.(e)
         },
@@ -51,8 +49,8 @@ export const withSfx = <P, T extends HTMLElement = HTMLElement>(
   return HOC
 }
 
-export const SfxButton = withSfx<ButtonProps, HTMLButtonElement>(Button)
+export const SfxButton = withSfx<ButtonProps, 'button'>(Button)
 
-export const SfxIconButton = withSfx<IconButtonProps, HTMLButtonElement>(IconButton)
+export const SfxIconButton = withSfx<IconButtonProps, 'button'>(IconButton)
 
-export const SfxLink = withSfx<LinkProps, HTMLAnchorElement>(Link)
+export const SfxLink = withSfx<LinkProps, 'a'>(Link)

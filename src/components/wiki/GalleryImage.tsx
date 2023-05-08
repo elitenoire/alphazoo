@@ -18,7 +18,7 @@ import { usePhonics } from '~src/hooks/usePhonics'
 
 import type { TGalleryWiki } from '~@props/wiki'
 
-const SfxAccordionButton = withSfx<AccordionButtonProps, HTMLButtonElement>(AccordionButton)
+const SfxAccordionButton = withSfx<AccordionButtonProps, 'button'>(AccordionButton)
 
 const blurIn: Variants = {
   loading: {
@@ -37,26 +37,26 @@ interface GalleryImageProps {
 }
 
 export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
-  const { sceneUrl, alias, info, name, textColor, bgColor  } = wiki
+  const { sceneUrl, alias, info, name, textColor, bgColor } = wiki
 
   const [playSound] = usePhonics(`/sounds/intro.mp3`)
   const [loaded, setLoaded] = useState('')
 
-    const handleLoaded = useCallback(() => {
-      if (sceneUrl) {
-        setLoaded(sceneUrl)
-        playSound()
-      }
-    }, [sceneUrl, playSound])
+  const handleLoaded = useCallback(() => {
+    if (sceneUrl) {
+      setLoaded(sceneUrl)
+      playSound()
+    }
+  }, [sceneUrl, playSound])
 
   return (
     <Box
       pos="relative"
       flex={1}
+      overflow="hidden"
       w="full"
       minH={400}
       bg={bgColor ?? 'gray.200'}
-      overflow="hidden"
       {...(rounded && { rounded: { md: 'card' } })}
     >
       {sceneUrl && (
@@ -70,7 +70,7 @@ export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
           rounded="inherit"
           variants={blurIn}
           initial="loading"
-          animate={loaded ? 'loaded': 'loading'}
+          animate={loaded ? 'loaded' : 'loading'}
         >
           <NextImage
             className="object-cover"

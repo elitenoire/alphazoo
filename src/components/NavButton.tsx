@@ -1,9 +1,13 @@
-import type { IconButtonProps } from '@chakra-ui/react'
+import type { ComponentProps } from 'react'
 import { forwardRef } from '@chakra-ui/react'
 import { ArrowLeft1Linear, ArrowRight1Linear } from 'react-iconsax-icons'
 import { SfxIconButton } from '~components/sfx'
 
-type NavButtonProps = Omit<IconButtonProps, 'aria-label'> & {
+// BUG: Type hints get disabled due to Omit on Indexed types
+
+type SfxIconButtonProps = ComponentProps<typeof SfxIconButton>
+interface NavButtonProps extends Omit<SfxIconButtonProps, 'aria-label' | 'title'> {
+  title: string
   prev?: boolean
   center?: boolean
 }

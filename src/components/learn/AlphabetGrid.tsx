@@ -6,7 +6,7 @@ import type { PlayFunction } from 'use-sound/dist/types'
 import { useState, useCallback, useRef, useImperativeHandle, forwardRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Box, Heading, List, ListItem, AspectRatio, SlideFade } from '@chakra-ui/react'
-import { MotionBox, MotionPop } from '~components/motion'
+import { MotionBox } from '~components/motion'
 import { SfxLink } from '~components/sfx'
 import { usePhonics } from '~src/hooks/usePhonics'
 

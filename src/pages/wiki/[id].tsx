@@ -11,11 +11,7 @@ import { getStaticPaths, getStaticProps } from '~@props/wikiId'
 
 import { getWikiLayout } from '~components/layout/DefaultLayout'
 
-export default function AnimalWiki({
-  wiki,
-  prevId,
-  nextId,
-}: WikiIdStaticProps) {
+export default function AnimalWiki({ wiki, prevId, nextId }: WikiIdStaticProps) {
   const setLastViewedWiki = useGeneralStore.use.setLastViewedWiki()
 
   const router = useRouter()
@@ -30,15 +26,12 @@ export default function AnimalWiki({
   return (
     <Flex justify={{ md: 'center' }} minH="$100vh">
       {wiki ? (
-        <Gallery
-          index={0}
-          gallery={[wiki]}
-          prevId={prevId}
-          nextId={nextId}
-        />
+        <Gallery index={0} gallery={[wiki]} prevId={prevId} nextId={nextId} />
       ) : (
-        <Flex p={2} justify="center" align="center" w="full">
-          <Text align="center" fontSize="flg">Something went wrong!</Text>
+        <Flex align="center" justify="center" w="full" p={2}>
+          <Text align="center" fontSize="flg">
+            Something went wrong!
+          </Text>
         </Flex>
       )}
     </Flex>
