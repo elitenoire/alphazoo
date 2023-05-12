@@ -10,7 +10,7 @@ import { ReactComponent as BackdropSVG } from '~public/img/plx-01-backdrop.svg'
 
 const spring = {
   type: 'spring',
-  stiffness: 30,
+  bounce: 0.1,
   delay: 0.2,
 }
 
@@ -86,15 +86,14 @@ export default function Hero() {
       align="center"
       justify="center"
       overflow="hidden"
-      w="100%"
+      w="full"
       h="130vh"
       minH="31.25em"
       onMouseMove={handleMouseMove}
     >
       <MotionBox
         pos="absolute"
-        w="full"
-        h="full"
+        boxSize="full"
         overflow="hidden"
         style={{
           borderBottomLeftRadius: radius,
@@ -105,8 +104,7 @@ export default function Hero() {
         <Box
           as={BackdropSVG}
           pos="absolute"
-          w="100%"
-          h="100%"
+          boxSize="full"
           fill="background"
           preserveAspectRatio="xMidYMid slice"
         />
@@ -114,12 +112,12 @@ export default function Hero() {
           pos="absolute"
           left="-5%"
           w="110%"
-          h="100%"
+          h="full"
           bgSize="cover"
           bgRepeat="no-repeat"
           bgImg="url('/img/plx-02-topfoliage.svg')"
           initial={{ y: '-15%', scale: 1.5 }}
-          animate={{ y: '0', scale: 1 }}
+          animate={{ y: '0%', scale: 1 }}
           // @ts-expect-error from chakra-ui official docs
           transition={{ delay: 0.5, duration: 0.65, ease: 'easeInOut' }}
           style={{ x: topFoliageX, y: topFoliageY }}
@@ -128,32 +126,35 @@ export default function Hero() {
           pos="absolute"
           left="-5%"
           w="110%"
-          h="100%"
+          h="full"
           bgSize="cover"
           bgRepeat="no-repeat"
           bgImg="url('/img/plx-03-backanimals.svg')"
           bgPos="center"
-          animate={{ y: '0', opacity: 1, transition: spring }}
-          initial={{ y: '10%', opacity: 0 }}
+          initial={{ y: '5%', opacity: 0 }}
+          animate={{ y: '0%', opacity: 1 }}
+          // @ts-expect-error from chakra-ui official docs
+          transition={spring}
           style={{ x: backAnimalsX, y: backAnimalsY }}
         />
         <MotionBox
           pos="absolute"
           left="-5%"
           w="110%"
-          h="100%"
+          h="full"
           bgSize="cover"
           bgRepeat="no-repeat"
           bgImg="url('/img/plx-04-frontanimals.svg')"
           bgPos="center"
-          animate={{ y: '0', scale: 1, opacity: 1, transition: spring }}
-          initial={{ y: '10%', scale: 1.3, opacity: 0 }}
+          initial={{ y: '5%', scale: 1.2, opacity: 0 }}
+          animate={{ y: '0%', scale: 1, opacity: 1 }}
+          // @ts-expect-error from chakra-ui official docs
+          transition={spring}
           style={{ x: frontAnimalsX, y: frontAnimalsY }}
         />
         <MotionBox
           pos="absolute"
-          w="100%"
-          h="100%"
+          boxSize="full"
           bgSize="cover"
           bgRepeat="no-repeat"
           bgImg="url('/img/plx-05-bottomfoliage.svg')"
@@ -168,8 +169,10 @@ export default function Hero() {
         sx={{
           backfaceVisibility: 'hidden',
         }}
-        animate={{ y: '0', opacity: 1, transition: spring }}
         initial={{ y: '5%', opacity: 0 }}
+        animate={{ y: '0%', opacity: 1 }}
+        // @ts-expect-error from chakra-ui official docs
+        transition={spring}
         style={{ willChange }}
       >
         <Heading
@@ -194,8 +197,7 @@ export default function Hero() {
         </Text>
         <MagneticBox display="inline-block" p={4} mt={2}>
           <SfxButton
-            w="6em"
-            h="6em"
+            boxSize={24}
             p={3}
             color="text"
             shadow="2xl"

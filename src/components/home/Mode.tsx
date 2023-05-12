@@ -36,17 +36,16 @@ export default function Mode() {
     <section aria-labelledby={HOMEPAGE_IDS.mode}>
       <MotionFlex
         ref={modeRef}
-        pos="relative"
         justifyContent="center"
         mx={[null, 1, null, 5]}
         pt={[12, 24]}
-        pb={16}
+        pb={[16, 24]}
         bg="secondary.100"
         rounded={['card', 'bigCard']}
         overflow="hidden"
         style={{ scale, opacity }}
       >
-        <Box pos="relative" zIndex={1} w="full">
+        <Box w="full">
           <Box px={6} textAlign={[null, 'center']}>
             <Heading color="brand.600" fontSize={['f4xl', 'f5xl']} id={HOMEPAGE_IDS.mode}>
               Learn + Play
@@ -55,7 +54,7 @@ export default function Mode() {
               Two fun and easy educational modes for kids to enjoy.
             </Text>
           </Box>
-          <Flex justify="space-around" wrap="wrap" rowGap={6} columnGap={4} mt={10} mb={14}>
+          <Flex justify="space-around" wrap="wrap" rowGap={6} columnGap={4} pt={10}>
             <MagneticBox flex={['1 1 100%', '1 1 45%']} mx={[2, 0]}>
               <MotionFlex
                 variants={item}
@@ -67,8 +66,7 @@ export default function Mode() {
                 pos="relative"
                 alignItems="center"
                 justifyContent="center"
-                w="full"
-                h="full"
+                boxSize="full"
                 maxW={['xs', null, null, null, null, 'md']}
                 maxH={['xs', null, null, null, null, 'md']}
                 m="auto"
@@ -115,8 +113,7 @@ export default function Mode() {
                 pos="relative"
                 alignItems="center"
                 justifyContent="center"
-                w="full"
-                h="full"
+                boxSize="full"
                 maxW={['xs', null, null, null, null, 'md']}
                 maxH={['xs', null, null, null, null, 'md']}
                 m="auto"
@@ -152,9 +149,6 @@ export default function Mode() {
               </MotionFlex>
             </MagneticBox>
           </Flex>
-        </Box>
-        <Box pos="absolute" bottom={0} w={['45%', null, '30%']}>
-          <NextImage src={ImgPanda} alt="Cute panda torso" unoptimized />
         </Box>
       </MotionFlex>
       <Text as="small" align="center" display="block" opacity={0.15} _hover={{ opacity: 0.4 }}>
