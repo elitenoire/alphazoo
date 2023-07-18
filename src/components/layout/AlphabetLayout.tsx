@@ -9,7 +9,7 @@ export default function AlphabetLayout({ children }: PropsWithChildren) {
   return (
     <>
       {children}
-      <Box px={4} py={40}>
+      {/* <Box px={4} py={40}>
         <Flex pos="sticky" top={20} justify="center" wrap="wrap-reverse" gap={8}>
           <Heading flex={1} fontSize="f4xl" textAlign="right">
             Play A <br /> Game
@@ -49,21 +49,14 @@ export default function AlphabetLayout({ children }: PropsWithChildren) {
             rounded={['10vw', null, '8vw']}
           />
         </Flex>
-      </Box>
-      <Flex
-        pos="relative"
-        align="center"
-        justify={['flex-end', 'center']}
-        minH={40}
-        px={4}
-        bg="brand.400"
-      >
+      </Box> */}
+      <Flex pos="relative" align="center" justify={['flex-end', 'center']} minH={40} mt={40} px={4}>
         <MotionBox
           pos="absolute"
           top="-100%"
           bottom={0}
           left={4}
-          w="30%"
+          w={{ base: '25%', lg: '10%' }}
           initial={{ y: '50%' }}
           whileInView={{ y: '0%' }}
           // @ts-expect-error from chakra-ui official docs
@@ -77,19 +70,9 @@ export default function AlphabetLayout({ children }: PropsWithChildren) {
             unoptimized
           />
         </MotionBox>
-        <Box zIndex={1} flex={1} overflow="hidden">
-          <MotionPop once pop={4} delay={0.4}>
-            <Heading
-              as="p"
-              py={4}
-              color="brand.800"
-              fontSize="f4xl"
-              textAlign={['right', 'center']}
-            >
-              Have Fun!
-            </Heading>
-          </MotionPop>
-        </Box>
+        <Heading as="p" py={4} color="brand.800" fontSize="f4xl" textAlign={['right', 'center']}>
+          Have Fun!
+        </Heading>
         <MotionPop delay={0.05} pos="absolute" top={0} right={4} bottom={0} w="12.5%">
           <NextImage
             className="object-contain object-bottom-r"

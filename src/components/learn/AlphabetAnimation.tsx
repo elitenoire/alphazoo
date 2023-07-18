@@ -35,6 +35,7 @@ const ShrinkingTitle = forwardRef<MotionHeadingProps, 'h2'>(({ color, children }
       animate={{ fontSize: shrink ? '12.5vw' : '25vw' }}
       initial={{ scale: 0, fontSize: '25vw' }}
       fontFamily="title"
+      pb={2}
     >
       {children}
     </MotionHeading>
@@ -92,9 +93,10 @@ export const AlphabetAnimation = forwardRef<AlphabetAnimationProps, 'div'>(
           ref={ref}
           direction={['column', null, null, 'row']}
           rowGap={16}
-          px={4}
-          py={16}
+          pt={[32, null, null, 16]}
+          pb={16}
           bg="inherit"
+          rounded="inherit"
           {...rest}
         >
           <Flex
@@ -105,8 +107,11 @@ export const AlphabetAnimation = forwardRef<AlphabetAnimationProps, 'div'>(
             justify="center"
             flex={1}
             h={{ lg: 'calc(100vh - 4em)' }}
-            pb={[5, null, null, 0]}
+            pt={[1, null, null, 0]}
             bg="inherit"
+            borderBottomWidth="3px"
+            borderBottomStyle="solid"
+            borderBottomColor={['blackAlpha.100', null, null, 'transparent']}
           >
             <ShrinkingTitle ref={letterScope} color={alphabet?.color ?? 'inherit'}>
               {title}
@@ -134,15 +139,21 @@ export const AlphabetAnimation = forwardRef<AlphabetAnimationProps, 'div'>(
               </Box>
             )}
           </Flex>
-          <Flex align="center" justify="center" flex={1} overflow="hidden">
+          <Flex
+            align="center"
+            justify="center"
+            flex={1}
+            overflow="hidden"
+            pt={[8, null, null, 16]}
+            pb={[28, null, null, 64]}
+          >
             <MotionFlex
               ref={cardScope}
               initial={{ scale: 0.5, opacity: 0, y: '10%' }}
               flexDirection="column"
-              gap={{ base: 16, '2xl': '4vw' }}
+              gap={{ base: 28, '2xl': '4vw' }}
               w="full"
-              px={[null, '5%', '10%']}
-              pt={[8, null, null, 16]}
+              px={[4, '5%', '10%']}
             >
               {children}
             </MotionFlex>

@@ -3,11 +3,11 @@ import NextImage from 'next/image'
 import { useRouter } from 'next/router'
 import type { ReactElement } from 'react'
 import { useCallback } from 'react'
-import { Box, Flex, VisuallyHidden, Heading } from '@chakra-ui/react'
+import { Box, Flex, VisuallyHidden, Heading, useToken } from '@chakra-ui/react'
 import { ArrowLeft1Linear, ArrowRight1Linear } from 'react-iconsax-icons'
 import { MotionPop } from '~components/motion'
 import { SfxIconButton } from '~components/sfx'
-import { AlphabetDiscovery } from '~components/learn/AlphabetDiscovery'
+// import { AlphabetDiscovery } from '~components/learn/AlphabetDiscovery'
 import { AlphabetAnimation } from '~components/learn/AlphabetAnimation'
 import { useGestureNavigation } from '~src/hooks/useGestureNavigation'
 import { ROUTES } from '~src/constants'
@@ -21,6 +21,8 @@ export default function LearnAlphabet({
   prevId,
   nextId,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const shadowColor = useToken('colors', 'brand.300', 'white')
+
   const { push } = useRouter()
 
   const prev = useCallback(() => {
@@ -46,7 +48,7 @@ export default function LearnAlphabet({
   const bgTheme = alphabet ? `${alphabet.bg}.100` : 'white'
 
   return (
-    <Box bg={bgTheme} roundedBottom="10vw">
+    <Box bg={bgTheme} shadow={`0 0 0 1.5em ${shadowColor}`} roundedBottom="10vw">
       <VisuallyHidden as="h1">{`Alphabet ${alphabet?.name ?? ''}`}</VisuallyHidden>
       <AlphabetAnimation alphabet={alphabet} {...handlers}>
         <MotionPop marge="0px">
@@ -143,13 +145,13 @@ export default function LearnAlphabet({
           />
         </Flex>
       </Flex>
-      <AlphabetDiscovery alphabet={alphabet} />
+      {/* <AlphabetDiscovery alphabet={alphabet} /> */}
     </Box>
   )
 }
 
 LearnAlphabet.getLayout = (page: ReactElement) =>
-  getLayout(page, { back: ROUTES.learn, bg: 'white' })
+  getLayout(page, { back: ROUTES.learn, bg: 'brand.400' })
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getStaticPaths: GetStaticPaths = async () => {
