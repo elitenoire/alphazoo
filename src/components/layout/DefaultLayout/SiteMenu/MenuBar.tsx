@@ -185,7 +185,10 @@ export default function MenuBar() {
             gap={1}
             fontWeight="medium"
             textTransform="uppercase"
-            _hover={{ bg: 'background' }}
+            _hover={{
+              bg: 'background',
+              shadow: '0 0 0 5px rgba(255,255,255,0.15)',
+            }}
             _active={{
               bg: 'background',
               transform: 'scale(0.95)',

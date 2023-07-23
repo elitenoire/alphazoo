@@ -189,6 +189,7 @@ export default function Hero() {
           textTransform="capitalize"
           opacity={0.95}
           wordBreak="break-all"
+          variant="title"
         >
           {`${SITE_CONFIG.appFullName}!`}
         </Heading>

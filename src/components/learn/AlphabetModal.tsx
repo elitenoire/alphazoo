@@ -127,6 +127,7 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
               _hover={{
                 bg: 'red.400',
                 transform: 'rotate(225deg)',
+                shadow: '0 0 0 5px rgba(255,255,255,0.25)',
               }}
               _active={{
                 bg: 'red.500',
@@ -167,6 +168,7 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
               _hover={{
                 color: 'white',
                 bg: selected?.color ?? 'black',
+                shadow: '0 0 0 5px rgba(255,255,255,0.25)',
               }}
               _active={{
                 transform: 'scale(0.98)',

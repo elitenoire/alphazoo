@@ -63,7 +63,7 @@ export default function LearnAlphabet({
                 priority
               />
             </Box>
-            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }}>
+            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }} variant="title">
               Ant
             </Heading>
           </Box>
@@ -80,7 +80,7 @@ export default function LearnAlphabet({
                 priority
               />
             </Box>
-            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }}>
+            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }} variant="title">
               Alligator
             </Heading>
           </Box>
@@ -97,7 +97,7 @@ export default function LearnAlphabet({
                 priority
               />
             </Box>
-            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }}>
+            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }} variant="title">
               Antelope
             </Heading>
           </Box>

@@ -140,9 +140,9 @@ export const Footer = ({ full }: FooterProps) => {
   const y = useSpring(useTransform(scrollYProgress, [0.1, 0.35], [50, -30]), { stiffness: 60 })
 
   return full ? (
-    <Flex as="footer" pos="relative" zIndex={1} direction="column" minH="100vh" mt="-100vh">
+    <Flex as="footer" pos="relative" zIndex={1} direction="column" minH="$100vh" mt="-100vh">
       <ChakraClique />
-      {/* <Box w="100%">
+      {/* <Box w="full">
         <NextImage fill src={ImgClique} alt="Cute animals looking over a green hill" unoptimized />
       </Box> */}
       <Box

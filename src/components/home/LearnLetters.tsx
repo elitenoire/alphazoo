@@ -120,7 +120,7 @@ export function LearnLetters<T extends GlyphType[]>({ letters }: LearnLettersPro
         maxW="9em"
         m="auto"
         px={['10%', null, '15%']}
-        fontFamily="title"
+        fontFamily="glyph"
         fontSize="min(max(3.5rem, 10vmax), 280px)"
         whiteSpace="nowrap"
         listStyleType="none"

@@ -57,11 +57,11 @@ const AnimalHeadBase: ForwardRefRenderFunction<HTMLDivElement, AnimalHeadProps> 
         <AnimalSVG width="70%" fill={haloFill} />
         {!icon && (
           <>
-            <Heading as="p" pos="absolute" top="-0.25em" opacity={0.9} size="2xl">
+            <Heading as="p" pos="absolute" top="-0.25em" opacity={0.9} size="2xl" variant="title">
               {animal}
             </Heading>
             {(title || children) && (
-              <Heading as="p" pos="absolute" bottom="-0.5em" size="4xl">
+              <Heading as="p" pos="absolute" bottom="-0.5em" size="4xl" variant="title">
                 {children ?? title}
               </Heading>
             )}

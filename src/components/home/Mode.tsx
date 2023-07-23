@@ -11,7 +11,6 @@ import { HOMEPAGE_IDS, ROUTES } from '~src/constants'
 import { ReactComponent as SquircleBgSvg } from '~public/img/bg-squircle.svg'
 import ImgLearn from '~public/img/learn.svg'
 import ImgPlay from '~public/img/play.svg'
-import ImgPanda from '~public/img/panda.svg'
 
 const item: Variants = {
   hidden: (i: number) => ({ opacity: 0, x: i * 20 }),
@@ -47,7 +46,7 @@ export default function Mode() {
       >
         <Box w="full">
           <Box px={6} textAlign={[null, 'center']}>
-            <Heading color="brand.600" fontSize={['f4xl', 'f5xl']} id={HOMEPAGE_IDS.mode}>
+            <Heading color="brand.600" fontSize="f4xl" id={HOMEPAGE_IDS.mode}>
               Learn + Play
             </Heading>
             <Text maxW="2xs" mx={[null, 'auto']} fontSize={['fxl', null, 'f2xl']} opacity={0.95}>

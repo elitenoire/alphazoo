@@ -34,8 +34,9 @@ const ShrinkingTitle = forwardRef<MotionHeadingProps, 'h2'>(({ color, children }
       color={color}
       animate={{ fontSize: shrink ? '12.5vw' : '25vw' }}
       initial={{ scale: 0, fontSize: '25vw' }}
-      fontFamily="title"
-      pb={2}
+      fontFamily="glyph"
+      lineHeight={2.5}
+      textTransform="none"
     >
       {children}
     </MotionHeading>

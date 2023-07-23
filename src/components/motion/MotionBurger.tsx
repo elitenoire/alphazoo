@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { motion, useAnimationControls, Variants } from 'framer-motion'
+import type { Variants } from 'framer-motion'
+import { motion, useAnimationControls } from 'framer-motion'
 
 const topPath: Variants = {
   open: { d: 'M7.1 6.9 L16.9 17.1' },

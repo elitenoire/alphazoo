@@ -82,7 +82,8 @@ export default function Learn() {
             ml="auto"
             pt={24}
             pb={32}
-            fontSize="f5xl"
+            color="brand.dark"
+            fontSize="f4xl"
             textAlign={['center', null, 'right']}
             id={HOMEPAGE_IDS.learn}
           >

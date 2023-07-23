@@ -117,7 +117,7 @@ export const getHomeLayout = (page: ReactElement) => {
 
 export const getLearnLayout = (page: ReactElement, props?: LayoutProps) => {
   return (
-    <DefaultLayout bg="orange.200" provider={LearnSoundProvider} {...props}>
+    <DefaultLayout bg="brand.800" provider={LearnSoundProvider} {...props}>
       <LearnMotionControl>{page}</LearnMotionControl>
     </DefaultLayout>
   )

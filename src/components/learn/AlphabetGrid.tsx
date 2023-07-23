@@ -114,20 +114,16 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
           visibility={show ? 'visible' : 'hidden'}
         >
           <SlideFade transition={{ enter: { duration: 0.4 } }} in={show} offsetY="100%">
-            <Heading textAlign="center">
+            <Heading color="background" textAlign="center">
               Learn the{' '}
-              <Box as="span" display={['block', 'inline']} my={[2, 0]}>
-                <Box
-                  as="span"
-                  p={1}
-                  color="orange.400"
-                  fontSize="xl"
-                  lineHeight="none"
-                  bg="whiteAlpha.800"
-                  rounded="full"
-                >
-                  26
-                </Box>
+              <Box
+                as="span"
+                display={['block', 'inline']}
+                p={[null, 1]}
+                color="brand.300"
+                fontSize="3xl"
+              >
+                26
               </Box>{' '}
               Alphabets
             </Heading>

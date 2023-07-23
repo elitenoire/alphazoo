@@ -10,12 +10,8 @@ import {
   SliderThumb,
 } from '@chakra-ui/react'
 import { useSoundStore, useSoundHydration } from '~src/store'
-import {
-  MusicButton,
-  SoundFxButton,
-  SoundPhonicsButton,
-  AudioButtonProps,
-} from './MenuAudioButtons'
+import type { AudioButtonProps } from './MenuAudioButtons'
+import { MusicButton, SoundFxButton, SoundPhonicsButton } from './MenuAudioButtons'
 
 interface AudioControlProps {
   id: string

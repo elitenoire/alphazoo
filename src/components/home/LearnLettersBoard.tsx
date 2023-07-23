@@ -111,7 +111,7 @@ export function LearnLettersBoard() {
             px={3}
             py={1}
             color="background"
-            fontFamily="title"
+            fontFamily="glyph"
             fontSize="6vw"
             bg="text"
             userSelect="none"

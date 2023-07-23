@@ -13,7 +13,7 @@ import ImgRobot from '~public/img/robot.svg'
 export default function Features() {
   return (
     <Box as="section" px={[4, null, 8]} aria-labelledby={HOMEPAGE_IDS.features}>
-      <Heading color="brand.dark" fontSize="f5xl" id={HOMEPAGE_IDS.features}>
+      <Heading color="brand.dark" fontSize="f4xl" id={HOMEPAGE_IDS.features}>
         Made for Fun
       </Heading>
       <Text fontSize={['f2xl', null, null, null, 'f3xl']}>

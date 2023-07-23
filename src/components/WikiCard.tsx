@@ -85,7 +85,12 @@ export const WikiCard = ({
               }}
               exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2, type: 'spring' } }}
             >
-              <Heading as="h3" color={titleColor ?? `${colorScheme}.700`} fontSize="fxl">
+              <Heading
+                as="h3"
+                color={titleColor ?? `${colorScheme}.700`}
+                fontSize="fxl"
+                variant="title"
+              >
                 {animal}
               </Heading>
             </MotionFlex>
@@ -104,7 +109,12 @@ export const WikiCard = ({
             transition: { delay: 0.1, duration: 0.6, type: 'spring' },
           }}
         >
-          <Heading as="h3" color={titleColor ?? `${colorScheme}.700`} fontSize="fxl">
+          <Heading
+            as="h3"
+            color={titleColor ?? `${colorScheme}.700`}
+            fontSize="fxl"
+            variant="title"
+          >
             {animal}
           </Heading>
           <Text fontSize="flg">{wiki}</Text>

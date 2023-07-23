@@ -105,7 +105,7 @@ export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
               <Text
                 as="span"
                 flex={1}
-                fontFamily="heading"
+                fontFamily="title"
                 fontSize={['flg', 'fxl']}
                 fontWeight="bold"
                 textAlign="left"

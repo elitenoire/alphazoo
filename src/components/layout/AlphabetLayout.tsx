@@ -70,7 +70,14 @@ export default function AlphabetLayout({ children }: PropsWithChildren) {
             unoptimized
           />
         </MotionBox>
-        <Heading as="p" py={4} color="brand.800" fontSize="f4xl" textAlign={['right', 'center']}>
+        <Heading
+          as="p"
+          py={4}
+          color="brand.800"
+          fontSize="f4xl"
+          textAlign={['right', 'center']}
+          textShadow="0.5em -1em rgba(0,0,0,0.3)"
+        >
           Have Fun!
         </Heading>
         <MotionPop delay={0.05} pos="absolute" top={0} right={4} bottom={0} w="12.5%">
