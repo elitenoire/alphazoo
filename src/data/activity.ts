@@ -128,3 +128,17 @@ export const activities = [
     ],
   },
 ]
+
+export const AnimalList = (() => {
+  const list: string[] = []
+  for (let i = 0; i < 3; i++) {
+    activities.forEach((activity) => {
+      activity.alphabet.forEach((a) => {
+        if (a.animals.length > i) {
+          list.push(a.animals[i])
+        }
+      })
+    })
+  }
+  return list
+})()

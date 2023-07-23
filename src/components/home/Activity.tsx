@@ -6,7 +6,8 @@ import { MotionBox, MotionText, MotionSpan, MotionScroll } from '~components/mot
 import { HOMEPAGE_IDS } from '~src/constants'
 import { ActivityCloud } from './ActivityCloud'
 import { AlphabetBubble } from './AlphabetBubble'
-import { ActivityBoard, ActivityGrid } from './ActivityBoard'
+import { ActivityMarquee } from './ActivityMarquee'
+import { ActivityCard } from './ActivityCard'
 
 import ImgPanda from '~public/img/happypanda.svg'
 
@@ -44,9 +45,9 @@ export default function Activity() {
             <Heading
               overflow="hidden"
               color="secondary.500"
-              fontSize="f5xl"
+              fontSize={['f5xl', null, null, 'f4xl']}
               lineHeight={0.85}
-              letterSpacing="-0.035em"
+              letterSpacing="tight"
               wordBreak="break-word"
               id={HOMEPAGE_IDS.activity}
             >
@@ -151,7 +152,7 @@ export default function Activity() {
         </Flex>
       </MotionScroll>
       {/* make container or give bounding padding */}
-      <List mb={8} fontFamily="title" pointerEvents="none" spacing={16}>
+      <List mb={8} fontFamily="glyph" pointerEvents="none" spacing={16}>
         <ListItem pos="sticky" top={4} overflow="hidden">
           <AlphabetBubble bg="orange.200">AaBbCcDdEeFf</AlphabetBubble>
         </ListItem>
@@ -166,9 +167,9 @@ export default function Activity() {
         </ListItem>
         <ListItem h={32} aria-hidden="true" />
       </List>
-      <ActivityBoard>
-        <ActivityGrid />
-      </ActivityBoard>
+      <ActivityMarquee>
+        <ActivityCard />
+      </ActivityMarquee>
     </MotionBox>
   )
 }
