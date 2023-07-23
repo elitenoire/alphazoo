@@ -23,8 +23,9 @@ const owenPro = localFont({
 
 export const fonts = {
   body: owenPro.style.fontFamily,
-  heading: grandstander.style.fontFamily,
-  title: mitr.style.fontFamily,
+  heading: owenPro.style.fontFamily,
+  title: grandstander.style.fontFamily,
+  glyph: mitr.style.fontFamily,
 }
 
 export const fontSizes = {

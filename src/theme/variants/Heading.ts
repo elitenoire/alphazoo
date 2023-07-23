@@ -5,14 +5,18 @@ export const Heading: ComponentSingleStyleConfig = {
   variants: {
     caps: {
       textTransform: 'uppercase',
+    },
+    title: {
+      fontFamily: 'title',
+      textTransform: 'uppercase',
       lineHeight: 'none',
       fontVariant: 'discretionary-ligatures',
     },
     body: {
       fontFamily: 'body',
     },
-    title: {
-      fontFamily: 'title',
+    glyph: {
+      fontFamily: 'glyph',
     },
   },
   defaultProps: {
