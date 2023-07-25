@@ -40,7 +40,7 @@ export const BackToTop = ({
   return (
     <AnimatePresence>
       {show && (
-        <Box pos="fixed" zIndex="backtotop" right={[4, null, 8]} bottom={4} {...rest}>
+        <Box pos="fixed" zIndex="docked" right={[4, null, 8]} bottom={4} {...rest}>
           <motion.div
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

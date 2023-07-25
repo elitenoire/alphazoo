@@ -33,7 +33,7 @@ export default function Menu() {
   return (
     <MotionBox
       pos="fixed"
-      zIndex="menuoverlay"
+      zIndex="overlay"
       inset={0}
       overflowY="auto"
       bg="brand.300"

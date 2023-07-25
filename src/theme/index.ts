@@ -36,11 +36,7 @@ const radii = {
 }
 
 const zIndices = {
-  max: 9990,
-  backtotop: 9995,
-  supermax: 9997,
-  menuoverlay: 9998,
-  menubar: 9999,
+  max: 9999,
   zen: 10000,
 }
 
@@ -104,6 +100,15 @@ const theme = extendTheme(
         pt: 24,
         pb: 16,
         px: [4, '8%'],
+      },
+      pushy: {
+        _active: { transform: 'scale(0.98)' },
+      },
+      interactive: {
+        cursor: 'pointer',
+        _active: { transform: 'scale(0.98)' },
+        transitionDuration: 'normal',
+        transitionProperty: 'common',
       },
       showScroll: {
         overflowX: 'auto',

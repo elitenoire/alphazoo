@@ -67,7 +67,7 @@ export default function MenuBar() {
       pos="fixed"
       top={0}
       left={0}
-      zIndex="menubar"
+      zIndex="modal"
       alignItems="center"
       justifyContent="space-between"
       pointerEvents="none"
@@ -93,10 +93,8 @@ export default function MenuBar() {
             roundedBottomRight="base"
             backdropFilter="blur(20px)"
             shadow="xl"
+            layerStyle="pushy"
             _hover={{ textDecoration: 'none' }}
-            _active={{
-              transform: 'scale(0.98)',
-            }}
             data-group
           >
             <Flex

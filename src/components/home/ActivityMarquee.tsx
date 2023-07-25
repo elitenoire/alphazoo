@@ -50,7 +50,7 @@ export function ActivityMarquee({ children }: PropsWithChildren) {
               pos="fixed"
               bottom={0}
               left={0}
-              zIndex="max"
+              zIndex={1}
               alignItems="center"
               justifyContent="space-between"
               full="100%"

@@ -46,9 +46,6 @@ export const MenuLinks = ({ onHoverStart, onHoverEnd }: MenuLinksProps) => {
             textDecoration: 'none',
             transform: ['scale(1.125)', null, null, 'scale(1.25)'],
           },
-          ':hover + div': {
-            zIndex: 10,
-          },
           ':hover + div > div:first-of-type': {
             opacity: 1,
             transform: 'translateX(0em) scale(1) rotate(0deg)',

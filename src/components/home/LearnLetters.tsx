@@ -57,8 +57,6 @@ const Letter = forwardRef<LetterRef, PropsWithChildren<LetterProps>>(
           WebkitTextStrokeWidth: '0.1rem',
           WebkitTextStrokeColor: color,
         }}
-        pos="relative"
-        zIndex={2}
         align="center"
         display="flex"
         px="0.2em"

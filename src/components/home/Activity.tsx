@@ -39,7 +39,7 @@ export default function Activity() {
   const containerRef = useRef(null)
   return (
     <MotionBox ref={containerRef} as="section" mt={-8} aria-labelledby={HOMEPAGE_IDS.activity}>
-      <MotionScroll position="relative" distance={300} zIndex="docked">
+      <MotionScroll position="relative" distance={300} zIndex={1}>
         <Flex direction="column" columnGap={8} px={4}>
           <Box pos="relative" maxW="md" mx={['auto', null, 0]} pb={[20, null, 60]}>
             <Heading
