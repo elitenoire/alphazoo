@@ -107,19 +107,8 @@ export const Gallery = ({ index, gallery, prevId, nextId, showIcons }: GalleryPr
     >
       <MotionConfig transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}>
         <GalleryImage rounded={showIcons} wiki={gallery?.[activeIdx]} />
-        {allowPrev && (
-          <NavButton
-            prev
-            title={`Previous${PREV_PATH_ID ? ' : ' + PREV_PATH_ID.toUpperCase() : ''}`}
-            onClick={prev}
-          />
-        )}
-        {allowNext && (
-          <NavButton
-            title={`Next${NEXT_PATH_ID ? ' : ' + NEXT_PATH_ID.toUpperCase() : ''}`}
-            onClick={next}
-          />
-        )}
+        {allowPrev && <NavButton prev title={PREV_PATH_ID?.toUpperCase()} onClick={prev} />}
+        {allowNext && <NavButton title={NEXT_PATH_ID?.toUpperCase()} onClick={next} />}
         {showIcons && (
           <Box w="full">
             <List

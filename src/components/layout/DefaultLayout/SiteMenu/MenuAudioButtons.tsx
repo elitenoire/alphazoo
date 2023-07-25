@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import useSound from 'use-sound'
 import type { IconButtonProps } from '@chakra-ui/react'
-import { IconButton, Box, useToken } from '@chakra-ui/react'
+import { IconButton, Box, Tooltip, useToken } from '@chakra-ui/react'
 import { MusicBold, VolumeHighBold, VolumeSlashBold } from 'react-iconsax-icons'
 import { useSoundHydration, useSoundStore } from '~src/store'
 import { useGeneralSfx } from '~src/context/sfx'
@@ -45,7 +45,7 @@ const MenuAudioButton = ({
     onToggle?.()
   }, [onToggle])
 
-  const ariaLabel = `Turn ${label} ${enable ? 'Off' : 'On'}`.toLowerCase()
+  const ariaLabel = `Turn ${label} ${enable ? 'Off' : 'On'}`
 
   useEffect(() => {
     setEnable((_enable) => initialEnable ?? _enable)
@@ -60,28 +60,29 @@ const MenuAudioButton = ({
       initial={false}
       animate={{ rotate: enable ? 360 : 0, transition: { duration: 0.3 } }}
     >
-      <IconButton
-        color={enable ? 'inherit' : disabledColor}
-        bg="transparent"
-        _hover={{
-          shadow: '0 0 0 5px rgba(255,255,255,0.15)',
-          bg: 'background',
-        }}
-        _active={{
-          bg: 'background',
-          transform: 'scale(0.95)',
-        }}
-        size="md"
-        transitionDuration="0.2s"
-        transitionProperty="transform,box-shadow"
-        {...rest}
-        aria-label={ariaLabel}
-        onClick={toggleAudio}
-        onMouseEnter={playHover}
-        title={ariaLabel}
-      >
-        {enable ? iconOn : iconOff}
-      </IconButton>
+      <Tooltip hasArrow label={ariaLabel}>
+        <IconButton
+          color={enable ? 'inherit' : disabledColor}
+          bg="transparent"
+          _hover={{
+            shadow: '0 0 0 5px rgba(255,255,255,0.15)',
+            bg: 'background',
+          }}
+          _active={{
+            bg: 'background',
+            transform: 'scale(0.95)',
+          }}
+          size="md"
+          transitionDuration="0.2s"
+          transitionProperty="transform,box-shadow"
+          {...rest}
+          aria-label={ariaLabel}
+          onClick={toggleAudio}
+          onMouseEnter={playHover}
+        >
+          {enable ? iconOn : iconOff}
+        </IconButton>
+      </Tooltip>
     </motion.div>
   )
 }

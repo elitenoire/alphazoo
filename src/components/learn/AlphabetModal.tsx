@@ -1,9 +1,17 @@
 import NextLink from 'next/link'
 import NextImage from 'next/image'
 import type { AspectRatioProps } from '@chakra-ui/react'
-import { Box, AspectRatio, Modal, ModalBody, ModalContent, ModalFooter } from '@chakra-ui/react'
+import {
+  Box,
+  AspectRatio,
+  Tooltip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+} from '@chakra-ui/react'
 import { motion } from 'framer-motion'
-import { AddLinear, ArrowRightLinear, VolumeLow1Bold } from 'react-iconsax-icons'
+import { AddLinear, VolumeLow1Bold, Book1Bold } from 'react-iconsax-icons'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { SfxIconButton } from '~components/sfx'
 import { ROUTES } from '~src/constants'
@@ -26,12 +34,7 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
 
   return (
     <Modal isOpen={!!selected} motionPreset="none" onClose={onClose} size="full">
-      <ModalContent
-        pos="relative"
-        overflow="hidden"
-        bg="transparent"
-        containerProps={{ zIndex: 'zen' }}
-      >
+      <ModalContent pos="relative" overflow="hidden" bg="transparent">
         <MotionBox
           pos="absolute"
           inset={0}
@@ -120,64 +123,64 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
             // @ts-expect-error from chakra-ui official docs
             transition={{ duration: 0.4 }}
           >
-            <SfxIconButton
-              shadow="sm"
-              bg="red.500"
-              color="white"
-              _hover={{
-                bg: 'red.400',
-                transform: 'rotate(225deg)',
-                shadow: '0 0 0 5px rgba(255,255,255,0.25)',
-              }}
-              _active={{
-                bg: 'red.500',
-                color: 'white',
-                transform: 'scale(0.98) rotate(225deg)',
-              }}
-              transform="rotate(45deg)"
-              aria-label="Close"
-              colorScheme="red"
-              icon={<AddLinear color="currentColor" size="75%" />}
-              onClick={onClose}
-              size="lg"
-              title="Close"
-            />
-            <SfxIconButton
-              shadow="sm"
-              bg="white"
-              color={selected?.color ?? 'inherit'}
-              _hover={{
-                bg: 'white',
-                transform: 'scale(1.15)',
-              }}
-              _active={{
-                transform: 'scale(0.98)',
-              }}
-              aria-label="Play"
-              colorScheme="blue"
-              icon={<VolumeLow1Bold color="currentColor" size="70%" />}
-              size="lg"
-              title="Play"
-              onClick={playSound}
-            />
-            <SfxIconButton
-              as={NextLink}
-              href={`${ROUTES.learn}/${selected?.name.toLowerCase() ?? ''}`}
-              bg="white"
-              color={selected?.color ?? 'inherit'}
-              _hover={{
-                color: 'white',
-                bg: selected?.color ?? 'black',
-                shadow: '0 0 0 5px rgba(255,255,255,0.25)',
-              }}
-              _active={{
-                transform: 'scale(0.98)',
-              }}
-              aria-label="Continue"
-              icon={<ArrowRightLinear color="currentColor" size="70%" />}
-              size="lg"
-              title="Continue"
-            />
+            <Tooltip hasArrow label="Close">
+              <SfxIconButton
+                shadow="sm"
+                bg="red.500"
+                color="white"
+                _hover={{
+                  bg: 'red.400',
+                  transform: 'rotate(225deg)',
+                  shadow: '0 0 0 5px rgba(255,255,255,0.25)',
+                }}
+                _active={{
+                  bg: 'red.500',
+                  color: 'white',
+                  transform: 'scale(0.98) rotate(225deg)',
+                }}
+                transform="rotate(45deg)"
+                aria-label="Close"
+                colorScheme="red"
+                icon={<AddLinear color="currentColor" size="75%" />}
+                size="lg"
+                onClick={onClose}
+              />
+            </Tooltip>
+            <Tooltip hasArrow label="Play">
+              <SfxIconButton
+                shadow="sm"
+                bg="white"
+                color={selected?.color ?? 'inherit'}
+                layerStyle="pushy"
+                _hover={{
+                  color: 'white',
+                  bg: selected?.color ?? 'black',
+                  shadow: '0 0 0 5px rgba(255,255,255,0.25)',
+                }}
+                aria-label="Play"
+                icon={<VolumeLow1Bold color="currentColor" size="70%" />}
+                size="lg"
+                onClick={playSound}
+              />
+            </Tooltip>
+            <Tooltip hasArrow label="Learn">
+              <SfxIconButton
+                as={NextLink}
+                href={`${ROUTES.learn}/${selected?.name.toLowerCase() ?? ''}`}
+                shadow="sm"
+                bg="white"
+                color={selected?.color ?? 'inherit'}
+                layerStyle="pushy"
+                _hover={{
+                  color: 'white',
+                  bg: selected?.color ?? 'black',
+                  shadow: '0 0 0 5px rgba(255,255,255,0.25)',
+                }}
+                aria-label="Learn"
+                icon={<Book1Bold color="currentColor" size="65%" />}
+                size="lg"
+              />
+            </Tooltip>
           </MotionFlex>
         </ModalFooter>
       </ModalContent>
