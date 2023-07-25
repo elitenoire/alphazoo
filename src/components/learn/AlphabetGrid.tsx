@@ -166,7 +166,7 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
                         rounded="10%"
                         p="10%"
                         boxShadow="sm"
-                        _active={{ transform: 'scale(0.95)' }}
+                        layerStyle="pushy"
                         _hover={{ boxShadow: 'xl' }}
                         appearance="none"
                         onClick={select(alphabet)}

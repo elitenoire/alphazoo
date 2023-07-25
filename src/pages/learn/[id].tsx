@@ -1,14 +1,13 @@
 import type { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import NextImage from 'next/image'
 import { useRouter } from 'next/router'
 import type { ReactElement } from 'react'
 import { useCallback } from 'react'
-import { Box, Flex, VisuallyHidden, Heading, useToken } from '@chakra-ui/react'
+import { Box, Flex, VisuallyHidden, Tooltip, useToken } from '@chakra-ui/react'
 import { ArrowLeft1Linear, ArrowRight1Linear } from 'react-iconsax-icons'
-import { MotionPop } from '~components/motion'
 import { SfxIconButton } from '~components/sfx'
 // import { AlphabetDiscovery } from '~components/learn/AlphabetDiscovery'
-import { AlphabetAnimation } from '~components/learn/AlphabetAnimation'
+import { AlphabetEnterAnimation } from '~components/learn/AlphabetEnterAnimation'
+import { AlphabetAnimals } from '~components/learn/AlphabetAnimals'
 import { useGestureNavigation } from '~src/hooks/useGestureNavigation'
 import { ROUTES } from '~src/constants'
 
@@ -46,66 +45,18 @@ export default function LearnAlphabet({
   })
 
   const bgTheme = alphabet ? `${alphabet.bg}.100` : 'white'
+  const prevLabel = `Alphabet ${prevId.toUpperCase()}`
+  const nextLabel = `Alphabet ${nextId.toUpperCase()}`
 
   return (
     <Box bg={bgTheme} shadow={`0 0 0 1.5em ${shadowColor}`} roundedBottom="10vw">
       <VisuallyHidden as="h1">{`Alphabet ${alphabet?.name ?? ''}`}</VisuallyHidden>
-      <AlphabetAnimation alphabet={alphabet} {...handlers}>
-        <MotionPop marge="0px">
-          <Box textAlign="center" bg="white" rounded={{ base: '5em', xl: '5vw' }}>
-            <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
-              <NextImage
-                className="object-contain"
-                src={`/img/animals/ant.svg`}
-                alt={`Ant`}
-                fill
-                unoptimized
-                priority
-              />
-            </Box>
-            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }} variant="title">
-              Ant
-            </Heading>
-          </Box>
-        </MotionPop>
-        <MotionPop marge="0px">
-          <Box textAlign="center" bg="white" rounded={{ base: '5em', xl: '5vw' }}>
-            <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
-              <NextImage
-                className="object-contain"
-                src={`/img/animals/alligator.svg`}
-                alt={`Alligator`}
-                fill
-                unoptimized
-                priority
-              />
-            </Box>
-            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }} variant="title">
-              Alligator
-            </Heading>
-          </Box>
-        </MotionPop>
-        <MotionPop marge="0px">
-          <Box textAlign="center" bg="white" rounded={{ base: '5em', xl: '5vw' }}>
-            <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
-              <NextImage
-                className="object-contain"
-                src={`/img/animals/antelope.svg`}
-                alt={`Antelope`}
-                fill
-                unoptimized
-                priority
-              />
-            </Box>
-            <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }} variant="title">
-              Antelope
-            </Heading>
-          </Box>
-        </MotionPop>
-      </AlphabetAnimation>
+      <AlphabetEnterAnimation alphabet={alphabet} {...handlers}>
+        <AlphabetAnimals bg={bgTheme} />
+      </AlphabetEnterAnimation>
       <Flex
         pos="fixed"
-        zIndex="backtotop"
+        zIndex="docked"
         bottom={4}
         left={0}
         justify="center"
@@ -121,28 +72,30 @@ export default function LearnAlphabet({
           backdropFilter="blur(10px)"
           rounded="full"
         >
-          <SfxIconButton
-            colorScheme="gray"
-            bg={bgTheme}
-            _hover={{ bg: 'white' }}
-            _active={{ transform: 'scale(0.98)' }}
-            icon={<ArrowLeft1Linear color="currentColor" size="35%" />}
-            aria-label={`previous alphabet ${prevId.toUpperCase()}`}
-            title={`previous alphabet ${prevId.toUpperCase()}`}
-            onClick={prev}
-            isDisabled={!prevId}
-          />
-          <SfxIconButton
-            colorScheme="gray"
-            bg={bgTheme}
-            _hover={{ bg: 'white' }}
-            _active={{ transform: 'scale(0.98)' }}
-            icon={<ArrowRight1Linear color="currentColor" size="35%" />}
-            aria-label={`next alphabet ${nextId.toUpperCase()}`}
-            title={`next alphabet ${nextId.toUpperCase()}`}
-            onClick={next}
-            isDisabled={!nextId}
-          />
+          <Tooltip hasArrow isDisabled={!prevId} label={prevLabel}>
+            <SfxIconButton
+              layerStyle="pushy"
+              bg={bgTheme}
+              _hover={{ bg: 'white' }}
+              aria-label={prevLabel}
+              colorScheme="gray"
+              icon={<ArrowLeft1Linear color="currentColor" size="35%" />}
+              isDisabled={!prevId}
+              onClick={prev}
+            />
+          </Tooltip>
+          <Tooltip hasArrow isDisabled={!nextId} label={nextLabel}>
+            <SfxIconButton
+              layerStyle="pushy"
+              bg={bgTheme}
+              _hover={{ bg: 'white' }}
+              aria-label={nextLabel}
+              colorScheme="gray"
+              icon={<ArrowRight1Linear color="currentColor" size="35%" />}
+              isDisabled={!nextId}
+              onClick={next}
+            />
+          </Tooltip>
         </Flex>
       </Flex>
       {/* <AlphabetDiscovery alphabet={alphabet} /> */}

@@ -7,7 +7,7 @@ import {
   useSpring,
   useMotionTemplate,
   useTransform,
-  useAnimationControls,
+  useAnimate,
   transform,
 } from 'framer-motion'
 import { Box, useToken } from '@chakra-ui/react'
@@ -21,7 +21,7 @@ import ImgPeepers from '~public/img/peepers.svg'
 
 export function LearnLettersBoard() {
   const [currentBg, boardBg, newBg] = useToken('colors', ['brand.600', 'black', 'secondary.200'])
-  const peepersMotion = useAnimationControls()
+  const [peepersScope, animatePeepers] = useAnimate()
 
   const stripScrollBodyRef = useRef(null)
 
@@ -44,10 +44,14 @@ export function LearnLettersBoard() {
   const handleMouseMove = useCallback(
     (event: MouseEvent<HTMLDivElement>) => {
       const offsetX = event.clientX - window.innerWidth / 2
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      peepersMotion.start({ x: Math.max(offsetX / 5, 5) }, { type: 'spring', stiffness: 60 })
+
+      void animatePeepers(
+        peepersScope.current,
+        { x: Math.max(offsetX / 5, 5) },
+        { type: 'spring', stiffness: 60 }
+      )
     },
-    [peepersMotion]
+    [animatePeepers, peepersScope]
   )
 
   useAnimeBg(yScroll, transformer)
@@ -64,37 +68,6 @@ export function LearnLettersBoard() {
         style={{ borderColor }}
         onMouseMove={handleMouseMove}
       >
-        <MotionText
-          pos="absolute"
-          top={0}
-          left={0}
-          px={2}
-          bg="secondary.200"
-          fontWeight={500}
-          fontSize="xs"
-          borderBottomRightRadius="5px"
-          userSelect="none"
-          style={{ opacity: borderOpacity }}
-        >
-          Interactive
-        </MotionText>
-        <MotionBox
-          display={['none', 'block']}
-          pos="absolute"
-          zIndex={2}
-          w={['20%', null, '10%']}
-          right={0}
-          bottom={0}
-          animate={peepersMotion}
-          style={{ opacity: borderOpacity }}
-        >
-          <NextImage src={ImgPeepers} alt="Cute animals faces peeping" unoptimized />
-        </MotionBox>
-        <MotionFlex minW={0} minH="inherit" zIndex={1} style={{ x, opacity }}>
-          <LearnLetters letters={AIrow} />
-          <LearnLetters letters={JQrow} />
-          <LearnLetters letters={RZrow} />
-        </MotionFlex>
         <MotionFlex
           pos="absolute"
           flexDir={['column', null, null, 'row']}
@@ -122,6 +95,36 @@ export function LearnLettersBoard() {
           </MotionBox>
           <PandySvg />
         </MotionFlex>
+        <MotionText
+          pos="absolute"
+          top={0}
+          left={0}
+          px={2}
+          bg="secondary.200"
+          fontWeight={500}
+          fontSize="xs"
+          borderBottomRightRadius="5px"
+          userSelect="none"
+          style={{ opacity: borderOpacity }}
+        >
+          Interactive
+        </MotionText>
+        <MotionFlex minW={0} minH="inherit" style={{ x, opacity }}>
+          <LearnLetters letters={AIrow} />
+          <LearnLetters letters={JQrow} />
+          <LearnLetters letters={RZrow} />
+        </MotionFlex>
+        <MotionBox
+          ref={peepersScope}
+          display={['none', 'block']}
+          pos="absolute"
+          w={['20%', null, '10%']}
+          right={0}
+          bottom={0}
+          style={{ opacity: borderOpacity }}
+        >
+          <NextImage src={ImgPeepers} alt="Peeping animals faces" unoptimized />
+        </MotionBox>
       </MotionFlex>
     </Box>
   )

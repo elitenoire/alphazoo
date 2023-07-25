@@ -34,9 +34,10 @@ const blurIn: Variants = {
 interface GalleryImageProps {
   wiki?: TGalleryWiki
   rounded?: boolean
+  open?: boolean
 }
 
-export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
+export const GalleryImage = ({ rounded, open, wiki = {} }: GalleryImageProps) => {
   const { sceneUrl, alias, info, name, textColor, bgColor } = wiki
 
   const [playSound] = usePhonics(`/sounds/intro.mp3`)
@@ -91,8 +92,10 @@ export const GalleryImage = ({ rounded, wiki = {} }: GalleryImageProps) => {
           bg="whiteAlpha.700"
           allowToggle
           backdropFilter="blur(20px)"
+          // defaultIndex={0}
           rounded={[null, 'lg', rounded ? '1.75em' : null]}
           roundedTopRight="xl"
+          {...(open && { defaultIndex: 0 })}
         >
           <AccordionItem w={[null, 'min-content']} border="none">
             <SfxAccordionButton

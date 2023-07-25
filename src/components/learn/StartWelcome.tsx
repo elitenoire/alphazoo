@@ -94,33 +94,29 @@ export default function StartWelcome({ onExit }: StartWelcomeProps) {
               align="flex-start"
               direction="column"
               gap={3}
-              fontFamily="title"
+              fontFamily="glyph"
               fontSize={['flg', 'fxl']}
             >
               <MotionSpan
                 px={3}
                 py={2}
-                color="orange.400"
-                bg="whiteAlpha.900"
-                boxShadow="xl"
+                bg="whiteAlpha.800"
                 rounded="full"
-                border="3px solid"
+                border="5px solid"
                 variants={appear}
                 custom={2.75}
                 willChange="opacity"
               >
-                <Box as="span" fontSize="2xl">
+                <Box as="span" fontSize="xl">
                   Hi!{' '}
                 </Box>
               </MotionSpan>
               <MotionSpan
                 px={3}
                 py={2}
-                color="orange.400"
-                bg="whiteAlpha.900"
-                boxShadow="xl"
+                bg="whiteAlpha.800"
                 rounded="3xl"
-                border="3px solid"
+                border="5px solid"
                 variants={appear}
                 custom={2}
                 willChange="opacity"
@@ -132,13 +128,11 @@ export default function StartWelcome({ onExit }: StartWelcomeProps) {
               my={6}
               px={3}
               py={2}
-              color="orange.400"
-              bg="whiteAlpha.900"
-              fontFamily="title"
+              bg="whiteAlpha.800"
+              fontFamily="glyph"
               fontSize={['flg', 'fxl']}
-              boxShadow="2xl"
               rounded="3xl"
-              border="3px solid"
+              border="5px solid"
               variants={appear}
               custom={1}
               willChange="opacity"
@@ -147,7 +141,7 @@ export default function StartWelcome({ onExit }: StartWelcomeProps) {
             </MotionText>
             <MotionBox variants={appear} custom={1}>
               <MagneticBox>
-                <SfxButton colorScheme="orange" onClick={handleClick}>
+                <SfxButton colorScheme="brand" onClick={handleClick}>
                   Start
                 </SfxButton>
               </MagneticBox>

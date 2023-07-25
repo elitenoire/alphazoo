@@ -1,23 +1,13 @@
-import { useRouter } from 'next/router'
 import type { PropsWithChildren } from 'react'
 import { useCallback, useEffect } from 'react'
-import type { ModalCloseButtonProps } from '@chakra-ui/react'
-import {
-  Box,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  ModalCloseButton,
-} from '@chakra-ui/react'
-import { withSfx } from '~components/sfx'
+import { useRouter } from 'next/router'
+import { Box } from '@chakra-ui/react'
 import { Gallery } from '~components/wiki/Gallery'
 import { useGeneralStore } from '~src/store'
 import { ROUTES } from '~src/constants'
+import { GalleryModal } from './GalleryModal'
 
 import type { WikiStaticProps } from '~@props/wiki'
-
-const SfxModalCloseButton = withSfx<ModalCloseButtonProps, 'button'>(ModalCloseButton)
 
 interface GalleryRouteModalProps extends Pick<WikiStaticProps, 'gallery'> {
   syncScroll: () => void
@@ -58,31 +48,14 @@ export const GalleryRouteModal = ({
     <Box layerStyle="page">
       {children}
       {gallery && (
-        <Modal
+        <GalleryModal
           isOpen={!!validPathId}
           motionPreset="slideInBottom"
           onClose={handleClose}
           size="full"
         >
-          <ModalOverlay backdropFilter="blur(5px)" />
-          <ModalContent
-            pos="relative"
-            overflow="hidden"
-            bg="transparent"
-            containerProps={{ zIndex: 'zen' }}
-          >
-            <SfxModalCloseButton
-              zIndex={1}
-              top={[1, null, 4]}
-              right={[1, null, 10]}
-              p={[6, null, 8]}
-              rounded={['md', null, 'circle']}
-            />
-            <ModalBody flex={1} display="flex" px={0} py={0}>
-              <Gallery index={activeIdx} gallery={gallery} showIcons />
-            </ModalBody>
-          </ModalContent>
-        </Modal>
+          <Gallery index={activeIdx} gallery={gallery} showIcons />
+        </GalleryModal>
       )}
     </Box>
   )

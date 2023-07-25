@@ -1,10 +1,17 @@
 import NextImage from 'next/image'
 import { useState, useCallback, useEffect } from 'react'
-import { motion, AnimatePresence, useAnimate, useScroll, useMotionValueEvent } from 'framer-motion'
+import {
+  motion,
+  AnimatePresence,
+  useAnimate,
+  useScroll,
+  useMotionValueEvent,
+  useTransform,
+} from 'framer-motion'
 import type { FlexProps, AspectRatioProps } from '@chakra-ui/react'
 import { Box, Flex, AspectRatio, forwardRef } from '@chakra-ui/react'
 import type { MotionHeadingProps } from '~components/motion'
-import { MotionBox, MotionFlex, MotionHeading } from '~components/motion'
+import { MotionBox, MotionHeading } from '~components/motion'
 import { useGeneralStore } from '~src/store'
 import { useIsLargeAndAbove } from '~src/hooks/mediaQueries'
 
@@ -12,12 +19,16 @@ import type { AlphabetType } from '~/types/data'
 
 const MotionAspectRatio = motion<AspectRatioProps>(AspectRatio)
 
-const threshold = 75
+const threshold = 5
 
-const ShrinkingTitle = forwardRef<MotionHeadingProps, 'h2'>(({ color, children }, ref) => {
+const ShrinkingTitle = ({ color, children }: MotionHeadingProps) => {
   const [isLg] = useIsLargeAndAbove()
   const { scrollY } = useScroll()
+
+  const [titleScope, animateTitle] = useAnimate()
+
   const [shrink, setShrink] = useState(false)
+  const [isShrinking, setIsShrinking] = useState(false)
 
   const syncShrink = useCallback(
     (latest: number) => {
@@ -28,26 +39,47 @@ const ShrinkingTitle = forwardRef<MotionHeadingProps, 'h2'>(({ color, children }
 
   useMotionValueEvent(scrollY, 'change', syncShrink)
 
+  useEffect(() => {
+    const shrinkAnimation = async () => {
+      try {
+        setIsShrinking(true)
+        await animateTitle(
+          titleScope.current,
+          { fontSize: shrink ? '12.5vw' : '25vw' },
+          { type: 'spring', duration: 1 }
+        )
+        setIsShrinking(false)
+      } catch (err) {
+        console.warn(err)
+      }
+    }
+
+    if (!isShrinking) {
+      void shrinkAnimation()
+    }
+  }, [animateTitle, isShrinking, shrink, titleScope])
+
   return (
     <MotionHeading
-      ref={ref}
+      ref={titleScope}
       color={color}
-      animate={{ fontSize: shrink ? '12.5vw' : '25vw' }}
-      initial={{ scale: 0, fontSize: '25vw' }}
+      initial={{ fontSize: '25vw' }}
       fontFamily="glyph"
       lineHeight={2.5}
       textTransform="none"
+      // style={{ fontSize }}
+      // {...(isLg && { style: { fontSize } })}
     >
       {children}
     </MotionHeading>
   )
-})
+}
 
-interface AlphabetAnimationProps extends FlexProps {
+interface AlphabetEnterAnimationProps extends FlexProps {
   alphabet?: AlphabetType
 }
 
-export const AlphabetAnimation = forwardRef<AlphabetAnimationProps, 'div'>(
+export const AlphabetEnterAnimation = forwardRef<AlphabetEnterAnimationProps, 'div'>(
   ({ alphabet, children, ...rest }, ref) => {
     const allowInitialMotion = useGeneralStore.use.allowLearnAlphabetInitialMotion()
     const [showOverlay, setShowOverlay] = useState(true)
@@ -102,7 +134,7 @@ export const AlphabetAnimation = forwardRef<AlphabetAnimationProps, 'div'>(
         >
           <Flex
             pos="sticky"
-            zIndex="max"
+            zIndex={1}
             top={0}
             align="center"
             justify="center"
@@ -114,9 +146,9 @@ export const AlphabetAnimation = forwardRef<AlphabetAnimationProps, 'div'>(
             borderBottomStyle="solid"
             borderBottomColor={['blackAlpha.100', null, null, 'transparent']}
           >
-            <ShrinkingTitle ref={letterScope} color={alphabet?.color ?? 'inherit'}>
-              {title}
-            </ShrinkingTitle>
+            <MotionBox ref={letterScope} initial={{ scale: 0 }}>
+              <ShrinkingTitle color={alphabet?.color ?? 'inherit'}>{title}</ShrinkingTitle>
+            </MotionBox>
             {!showOverlay && (
               <Box ref={imageScope} pos="absolute" w={{ base: '25%', lg: '50%' }}>
                 {alphabet && (
@@ -140,25 +172,11 @@ export const AlphabetAnimation = forwardRef<AlphabetAnimationProps, 'div'>(
               </Box>
             )}
           </Flex>
-          <Flex
-            align="center"
-            justify="center"
-            flex={1}
-            overflow="hidden"
-            pt={[8, null, null, 16]}
-            pb={[28, null, null, 64]}
-          >
-            <MotionFlex
-              ref={cardScope}
-              initial={{ scale: 0.5, opacity: 0, y: '10%' }}
-              flexDirection="column"
-              gap={{ base: 28, '2xl': '4vw' }}
-              w="full"
-              px={[4, '5%', '10%']}
-            >
+          <Box flex={1} overflow="hidden" pt={[8, null, null, 16]} pb={[28, null, null, 64]}>
+            <MotionBox ref={cardScope} initial={{ scale: 0.5, opacity: 0, y: '10%' }}>
               {children}
-            </MotionFlex>
-          </Flex>
+            </MotionBox>
+          </Box>
         </Flex>
         <AnimatePresence initial={allowInitialMotion}>
           {showOverlay && (
