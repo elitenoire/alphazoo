@@ -74,7 +74,7 @@ interface AlphabetGridProps {
   show: boolean
 }
 
-export default function AlphabetGrid({ show }: AlphabetGridProps) {
+export function AlphabetGrid({ show }: AlphabetGridProps) {
   const [selected, setSelected] = useState<AlphabetType | null>(null)
 
   const alphabetSoundsRef = useRef<Partial<AlphabetSounds>>({})
@@ -129,16 +129,8 @@ export default function AlphabetGrid({ show }: AlphabetGridProps) {
             </Heading>
           </SlideFade>
           <MotionList
-            display="grid"
-            sx={{
-              '--gap': { base: '1.5em', xl: '1.5vw' },
-              '--size': '6.25em',
-              '--max-column': '7',
-            }}
-            placeContent="center"
-            pt={8}
-            gap="var(--gap)"
-            gridTemplateColumns="repeat(auto-fit, minmax(min(max(100% / var(--max-column) - var(--gap), var(--size)), 100%),1fr))"
+            layerStyle="gridy"
+            pt={16}
             variants={list}
             initial="out"
             animate={show ? 'in' : 'out'}

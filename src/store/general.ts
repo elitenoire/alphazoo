@@ -5,10 +5,10 @@ import { useStoreHydration } from '~src/hooks/useStoreHydration'
 import { createSelectors } from './selectors'
 
 export interface GeneralState {
-  showLearnWelcome: boolean
+  showLearnIntro: boolean
   allowLearnAlphabetInitialMotion: boolean
   lastViewedWiki: string | null
-  setShowLearnWelcome: (state: boolean) => void
+  setShowLearnIntro: (state: boolean) => void
   setAllowLearnAlphabetInitialMotion: (state: boolean) => void
   setLastViewedWiki: (state: string | null) => void
 }
@@ -18,17 +18,17 @@ export const useGeneralStore = createSelectors(
     subscribeWithSelector(
       persist(
         (set) => ({
-          showLearnWelcome: true,
+          showLearnIntro: true,
           allowLearnAlphabetInitialMotion: true,
           lastViewedWiki: null,
-          setShowLearnWelcome: (state) => set({ showLearnWelcome: state }),
+          setShowLearnIntro: (state) => set({ showLearnIntro: state }),
           setAllowLearnAlphabetInitialMotion: (state) =>
             set({ allowLearnAlphabetInitialMotion: state }),
           setLastViewedWiki: (state) => set({ lastViewedWiki: state }),
         }),
         {
           name: GENERAL_SETTINGS.storeName,
-          partialize: ({ showLearnWelcome }) => ({ showLearnWelcome }),
+          partialize: ({ showLearnIntro }) => ({ showLearnIntro }),
         }
       )
     )
@@ -36,5 +36,5 @@ export const useGeneralStore = createSelectors(
 )
 
 export const useGeneralHydration = () => {
-  return useStoreHydration<GeneralState, { showLearnWelcome: boolean }>(useGeneralStore)
+  return useStoreHydration<GeneralState, { showLearnIntro: boolean }>(useGeneralStore)
 }

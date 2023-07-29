@@ -67,32 +67,31 @@ export const AnimalCard = ({
         </Heading>
       )}
       {showIcon && (
-        <Tooltip hasArrow label="Open wiki">
-          <SfxIconButton
-            pos="absolute"
-            top={3}
-            right={3}
-            isRound
-            shadow="inner"
-            fontSize="lg"
-            aria-label="Open wiki"
-            bg="blackAlpha.100"
-            color="inherit"
-            layerStyle="pushy"
-            _hover={{
-              bg: iconBg ?? 'gray.800',
-              shadow: 'none',
-              backgroundClip: 'content-box',
-              padding: '4px',
-              borderWidth: '2px',
-              borderStyle: 'solid',
-              borderColor: iconBg ?? 'gray.800',
-              ...(!iconBg && { color: 'white' }),
-            }}
-            icon={<PetBold color="currentColor" size="40%" />}
-            onClick={handleIconClick}
-          />
-        </Tooltip>
+        <Box pos="absolute" top={6} right={6}>
+          <Tooltip hasArrow label="Open wiki">
+            <SfxIconButton
+              isRound
+              shadow="inner"
+              fontSize="lg"
+              aria-label="Open wiki"
+              bg="blackAlpha.100"
+              color="inherit"
+              layerStyle="pushy"
+              _hover={{
+                bg: iconBg ?? 'gray.800',
+                shadow: 'none',
+                backgroundClip: 'content-box',
+                padding: '4px',
+                borderWidth: '2px',
+                borderStyle: 'solid',
+                borderColor: iconBg ?? 'gray.800',
+                ...(!iconBg && { color: 'white' }),
+              }}
+              icon={<PetBold color="currentColor" size="40%" />}
+              onClick={handleIconClick}
+            />
+          </Tooltip>
+        </Box>
       )}
     </Box>
   )

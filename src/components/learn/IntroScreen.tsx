@@ -40,11 +40,11 @@ const appear: Variants = {
   }),
 }
 
-interface StartWelcomeProps {
+interface IntroScreenProps {
   onExit: () => void
 }
 
-export default function StartWelcome({ onExit }: StartWelcomeProps) {
+export function IntroScreen({ onExit }: IntroScreenProps) {
   const [started, setStarted] = useState(false)
   const handleClick = useCallback(() => {
     setStarted(true)

@@ -1,14 +1,17 @@
 import { useState, useCallback, useEffect } from 'react'
-import Background from '~components/learn/Background'
-import StartWelcome from '~components/learn/StartWelcome'
-import AlphabetGrid from '~components/learn/AlphabetGrid'
+import { Flex } from '@chakra-ui/react'
+import { IntroScreen } from '~components/learn/IntroScreen'
+import { AlphabetGrid } from '~components/learn/AlphabetGrid'
+import { FixedBackground } from '~components/FixedBackground'
 import { useGeneralStore, useGeneralHydration } from '~src/store'
 
 import { getLearnLayout } from '~components/layout/DefaultLayout'
 
+import ImgLearn from '~public/img/bg-learn.svg'
+
 export default function Learn() {
-  const showWelcome = useGeneralStore.use.showLearnWelcome()
-  const setShowWelcome = useGeneralStore.use.setShowLearnWelcome()
+  const showIntro = useGeneralStore.use.showLearnIntro()
+  const setShowIntro = useGeneralStore.use.setShowLearnIntro()
   const hydrated = useGeneralHydration()
 
   const [gridReady, setGridReady] = useState(false)
@@ -19,20 +22,27 @@ export default function Learn() {
 
   const handleExit = useCallback(() => {
     revealGrid()
-    setShowWelcome(false)
-  }, [revealGrid, setShowWelcome])
+    setShowIntro(false)
+  }, [revealGrid, setShowIntro])
 
   useEffect(() => {
-    if (hydrated && !showWelcome) {
+    if (hydrated && !showIntro) {
       revealGrid()
     }
-  }, [hydrated, showWelcome, revealGrid])
+  }, [hydrated, showIntro, revealGrid])
 
   return (
-    <Background expand={gridReady}>
-      {hydrated && showWelcome && <StartWelcome onExit={handleExit} />}
-      <AlphabetGrid show={gridReady} />
-    </Background>
+    <FixedBackground src={ImgLearn} alt="">
+      <Flex
+        pos="relative"
+        align="center"
+        overflow="hidden"
+        {...(gridReady ? { minH: 'full' } : { h: '100vh', minH: '31.25em' })}
+      >
+        {hydrated && showIntro && <IntroScreen onExit={handleExit} />}
+        <AlphabetGrid show={gridReady} />
+      </Flex>
+    </FixedBackground>
   )
 }
 

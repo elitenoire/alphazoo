@@ -117,7 +117,7 @@ export const getHomeLayout = (page: ReactElement) => {
 
 export const getLearnLayout = (page: ReactElement, props?: LayoutProps) => {
   return (
-    <DefaultLayout bg="brand.800" provider={LearnSoundProvider} {...props}>
+    <DefaultLayout bg="brand.700" provider={LearnSoundProvider} {...props}>
       <LearnMotionControl>{page}</LearnMotionControl>
     </DefaultLayout>
   )
@@ -125,7 +125,7 @@ export const getLearnLayout = (page: ReactElement, props?: LayoutProps) => {
 
 export const getWikiLayout = (page: ReactElement, props?: LayoutProps) => {
   return (
-    <DefaultLayout provider={WikiSoundProvider} bg="brand.500" {...props}>
+    <DefaultLayout provider={WikiSoundProvider} bg="brand.800" {...props}>
       {page}
     </DefaultLayout>
   )

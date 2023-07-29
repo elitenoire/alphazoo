@@ -101,6 +101,16 @@ const theme = extendTheme(
         pb: 16,
         px: [4, '8%'],
       },
+      gridy: {
+        '--gap': { base: '0.75em', xl: '1vw' },
+        '--size': '8em',
+        '--max-column': '6',
+        display: 'grid',
+        gridTemplateColumns:
+          'repeat(auto-fit, minmax(min(max(100% / var(--max-column) - var(--gap), var(--size)), 100%),1fr))',
+        gap: 'var(--gap)',
+        placeContent: 'center',
+      },
       pushy: {
         _active: { transform: 'scale(0.98)' },
       },

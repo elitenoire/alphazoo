@@ -1,9 +1,9 @@
 import NextImage from 'next/image'
 import type { PropsWithChildren, ReactElement } from 'react'
-import { Box, Flex, Heading, AspectRatio } from '@chakra-ui/react'
+import { Flex, Heading } from '@chakra-ui/react'
 import { MotionPop, MotionBox } from '~components/motion'
-import type { LayoutProps } from '~src/components/layout/DefaultLayout'
-import { getLearnLayout } from '~src/components/layout/DefaultLayout'
+import type { LayoutProps } from '~components/layout/DefaultLayout'
+import { getLearnLayout } from '~components/layout/DefaultLayout'
 
 export default function AlphabetLayout({ children }: PropsWithChildren) {
   return (
