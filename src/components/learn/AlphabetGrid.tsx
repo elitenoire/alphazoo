@@ -5,7 +5,7 @@ import type { ListProps, ListItemProps, AspectRatioProps } from '@chakra-ui/reac
 import type { PlayFunction } from 'use-sound/dist/types'
 import { useState, useCallback, useRef, useImperativeHandle, forwardRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Box, Heading, List, ListItem, AspectRatio, SlideFade } from '@chakra-ui/react'
+import { Box, Heading, List, ListItem, AspectRatio, Fade } from '@chakra-ui/react'
 import { MotionBox } from '~components/motion'
 import { SfxLink } from '~components/sfx'
 import { usePhonics } from '~src/hooks/usePhonics'
@@ -111,9 +111,10 @@ export function AlphabetGrid({ show }: AlphabetGridProps) {
           pos="relative"
           zIndex={1}
           w="full"
+          pt={[32, 24]}
           visibility={show ? 'visible' : 'hidden'}
         >
-          <SlideFade transition={{ enter: { duration: 0.4 } }} in={show} offsetY="100%">
+          <Fade transition={{ enter: { duration: 0.6 } }} in={show}>
             <Heading color="background" textAlign="center">
               Learn the{' '}
               <Box
@@ -127,7 +128,7 @@ export function AlphabetGrid({ show }: AlphabetGridProps) {
               </Box>{' '}
               Alphabets
             </Heading>
-          </SlideFade>
+          </Fade>
           <MotionList
             layerStyle="gridy"
             pt={16}

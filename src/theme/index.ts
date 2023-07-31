@@ -97,7 +97,7 @@ const theme = extendTheme(
     },
     layerStyles: {
       page: {
-        pt: 24,
+        pt: 32,
         pb: 16,
         px: [4, '8%'],
       },

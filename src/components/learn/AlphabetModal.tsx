@@ -33,7 +33,7 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
   const idx = (selected?.numeral ?? 1) % settings.length
 
   return (
-    <Modal isOpen={!!selected} motionPreset="none" onClose={onClose} size="full">
+    <Modal autoFocus={false} isOpen={!!selected} motionPreset="none" onClose={onClose} size="full">
       <ModalContent pos="relative" overflow="hidden" bg="transparent">
         <MotionBox
           pos="absolute"
