@@ -1,10 +1,9 @@
-import type { MotionValue } from 'framer-motion'
 import NextImage from 'next/image'
-import { useRef } from 'react'
 import { Box, Flex, Text, useToken } from '@chakra-ui/react'
-import { useScroll, useSpring, useTransform, transform } from 'framer-motion'
+import { transform } from 'framer-motion'
 import { MotionFlex, MotionPop } from '~components/motion'
 import { useAnimeBg } from '~src/hooks/useAnimeBg'
+import { useScrollReveal } from '~src/hooks/useScrollReveal'
 
 import ImgActivityOne from '~public/img/activity-1.svg'
 import ImgActivityTwo from '~public/img/activity-2.svg'
@@ -13,16 +12,7 @@ import ImgActivityThree from '~public/img/activity-3.svg'
 export function ActivityCard() {
   const [currentBg, newBg] = useToken('colors', ['secondary.200', 'background'])
 
-  const activityBoardRef = useRef(null)
-
-  const { scrollYProgress } = useScroll({
-    target: activityBoardRef,
-    offset: ['start 0.8', 'end start'],
-  })
-
-  const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
-  const scale = useTransform(yScroll, [0, 0.2], [0.875, 1])
-  const opacity = useTransform(yScroll, [0, 0.05], [0, 1])
+  const { scrollReveal, scrollYProgress } = useScrollReveal({ offset: ['start 0.8', 'end start'] })
 
   const transformer = transform([0, 0.5], [currentBg, newBg])
 
@@ -30,7 +20,6 @@ export function ActivityCard() {
 
   return (
     <MotionFlex
-      ref={activityBoardRef}
       flexDir={['column', null, null, 'row']}
       columnGap={4}
       mx={[null, 1, null, 5]}
@@ -38,7 +27,7 @@ export function ActivityCard() {
       py={[12, 24]}
       bg="secondary.300"
       rounded={['card', 'bigCard']}
-      style={{ scale, opacity }}
+      {...scrollReveal}
     >
       <Box w={[null, null, null, '30%']}>
         <Flex
@@ -77,7 +66,7 @@ export function ActivityCard() {
           </Text>
         </Flex>
       </Box>
-      <Flex flex={{ lg: 1 }} pt={12} px={[12, null, 24]}>
+      <Flex flex={{ lg: 1 }} px={[12, null, 24]} pt={12}>
         <Flex direction="column" flex={4} rowGap={4}>
           <MotionPop>
             <NextImage src={ImgActivityOne} className="w-full" alt="" unoptimized />

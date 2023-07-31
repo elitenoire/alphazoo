@@ -1,11 +1,10 @@
-import { useRef } from 'react'
 import NextLink from 'next/link'
 import NextImage from 'next/image'
-import type { MotionValue, Variants } from 'framer-motion'
-import { useTransform, useScroll, useSpring } from 'framer-motion'
+import type { Variants } from 'framer-motion'
 import { Box, Flex, Heading, Text, Link, useToken } from '@chakra-ui/react'
 import { MotionFlex, MagneticBox } from '~components/motion'
 import { SfxButton } from '~components/sfx'
+import { useScrollReveal } from '~/src/hooks/useScrollReveal'
 import { HOMEPAGE_IDS, ROUTES } from '~src/constants'
 
 import { ReactComponent as SquircleBgSvg } from '~public/img/bg-squircle.svg'
@@ -18,23 +17,13 @@ const item: Variants = {
 }
 
 export default function Mode() {
-  const modeRef = useRef(null)
-
-  const { scrollYProgress } = useScroll({
-    target: modeRef,
-    offset: ['start 0.8', '0.8 start'],
-  })
-
-  const yScroll = useSpring(scrollYProgress, { stiffness: 60 }) as MotionValue<number>
-  const scale = useTransform(yScroll, [0, 0.2], [0.875, 1])
-  const opacity = useTransform(yScroll, [0, 0.05], [0, 1])
+  const { scrollReveal } = useScrollReveal()
 
   const [squircleBg] = useToken('colors', ['secondary.300'])
 
   return (
     <section aria-labelledby={HOMEPAGE_IDS.mode}>
       <MotionFlex
-        ref={modeRef}
         justifyContent="center"
         mx={[null, 1, null, 5]}
         pt={[12, 24]}
@@ -42,7 +31,7 @@ export default function Mode() {
         bg="secondary.100"
         rounded={['card', 'bigCard']}
         overflow="hidden"
-        style={{ scale, opacity }}
+        {...scrollReveal}
       >
         <Box w="full">
           <Box px={6} textAlign={[null, 'center']}>
