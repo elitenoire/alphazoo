@@ -7,6 +7,7 @@ import {
   HomeSoundProvider,
   LearnSoundProvider,
   WikiSoundProvider,
+  PlaySoundProvider,
 } from '~src/context/sfx'
 import { LayoutProvider } from '~src/context/layout'
 import { useGeneralStore } from '~src/store'
@@ -126,6 +127,14 @@ export const getLearnLayout = (page: ReactElement, props?: LayoutProps) => {
 export const getWikiLayout = (page: ReactElement, props?: LayoutProps) => {
   return (
     <DefaultLayout provider={WikiSoundProvider} bg="brand.800" {...props}>
+      {page}
+    </DefaultLayout>
+  )
+}
+
+export const getPlayLayout = (page: ReactElement, props?: LayoutProps) => {
+  return (
+    <DefaultLayout provider={PlaySoundProvider} bg="brand.800" {...props}>
       {page}
     </DefaultLayout>
   )
