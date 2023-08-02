@@ -115,7 +115,7 @@ export function LearnLetters<T extends GlyphType[]>({ letters }: LearnLettersPro
         as="ul"
         flexWrap="wrap"
         gap={0.5}
-        maxW="9em"
+        maxW={36}
         m="auto"
         px={['10%', null, '15%']}
         fontFamily="glyph"
@@ -140,7 +140,7 @@ export function LearnLetters<T extends GlyphType[]>({ letters }: LearnLettersPro
                   <Text
                     as="span"
                     display="flex"
-                    px="0.5em"
+                    px={2}
                     py="0.125em"
                     fontSize="0.5em"
                     bg={'color' in emojiColor ? emojiColor.color : undefined}

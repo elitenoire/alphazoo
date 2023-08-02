@@ -102,8 +102,8 @@ const theme = extendTheme(
         px: [4, '8%'],
       },
       gridy: {
-        '--gap': { base: '0.75em', xl: '1vw' },
-        '--size': '8em',
+        '--gap': { base: 'space.3', xl: '1vw' },
+        '--size': 'sizes.32',
         '--max-column': '6',
         display: 'grid',
         gridTemplateColumns:

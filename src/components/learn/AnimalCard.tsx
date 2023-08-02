@@ -1,6 +1,8 @@
 import type { MouseEvent } from 'react'
+import type { ImageProps } from 'next/image'
 import NextImage from 'next/image'
 import { useCallback } from 'react'
+import type { ThemeTypings } from '@chakra-ui/react'
 import { Box, Heading, Tooltip } from '@chakra-ui/react'
 import { PetBold } from 'react-iconsax-icons'
 import { SfxIconButton } from '~components/sfx'
@@ -8,24 +10,24 @@ import { usePhonics } from '~src/hooks/usePhonics'
 import { useGeneralSfx } from '~src/context/sfx'
 
 interface AnimalCardProps {
-  name?: string
-  img?: string
-  sound?: string
-  iconBg?: string
+  title?: string
+  soundUrl?: string
+  imgSrc?: ImageProps['src']
+  iconBg?: ThemeTypings['colors']
   onIconClick?: () => void
 }
 
 export const AnimalCard = ({
-  name = '',
-  sound = '',
-  img = '/img/animals/ant.svg',
+  title = '',
+  soundUrl = '',
+  imgSrc = '/img/animals/ant.svg',
   iconBg,
   onIconClick,
 }: AnimalCardProps) => {
-  const [playSound] = usePhonics(sound)
+  const [playSound] = usePhonics(soundUrl)
   const { playHover } = useGeneralSfx()
 
-  const allowHover = !!sound
+  const allowHover = !!soundUrl
   const showIcon = !!onIconClick
 
   const handleMouseEnter = useCallback(() => {
@@ -57,13 +59,20 @@ export const AnimalCard = ({
       {...(allowHover && { layerStyle: 'interactive' })}
     >
       <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
-        {img && (
-          <NextImage className="object-contain" src={img} alt={name} fill unoptimized priority />
+        {imgSrc && (
+          <NextImage
+            className="object-contain"
+            src={imgSrc}
+            alt={title}
+            fill
+            unoptimized
+            priority
+          />
         )}
       </Box>
-      {name && (
+      {title && (
         <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }} variant="title">
-          {name}
+          {title}
         </Heading>
       )}
       {showIcon && (

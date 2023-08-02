@@ -1,21 +1,10 @@
 import { useRef } from 'react'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
-import {
-  Heading,
-  Box,
-  Container,
-  Flex,
-  Link,
-  LinkBox,
-  LinkOverlay,
-  Icon,
-  Text,
-  chakra,
-} from '@chakra-ui/react'
+import { Heading, Box, Container, Flex, Link, LinkBox, Icon, Text, chakra } from '@chakra-ui/react'
 import { useScroll, useSpring, useTransform } from 'framer-motion'
 import { MotionBox } from '~components/motion'
-import { SfxLink, SfxIconButton } from '~components/sfx'
+import { SfxLink, SfxIconButton, SfxLinkOverlay } from '~components/sfx'
 import { ROUTES, SITE_CONFIG } from '~src/constants'
 
 import ImgClique, { ReactComponent as CliqueSvg } from '~public/img/clique.svg'
@@ -176,9 +165,9 @@ export const Footer = ({ full }: FooterProps) => {
             justify="flex-end"
             direction="column"
             rowGap={[32, null, 16]}
+            px={[null, 4]}
             pt={12}
             pb={[8, null, 14]}
-            px={[null, 4]}
           >
             <Flex pos="relative" justify={['center', null, 'flex-end']}>
               <Flex
@@ -231,12 +220,12 @@ export const Footer = ({ full }: FooterProps) => {
                   transitionTimingFunction="ease-in-out"
                 >
                   <Text fontSize={['2xl', null, '3xl']}>
-                    <LinkOverlay href={SITE_CONFIG.githubLink} isExternal>
+                    <SfxLinkOverlay href={SITE_CONFIG.githubLink} isExternal>
                       <Box as="span" display="block" color="brand.200">
                         Pssst...
                       </Box>{' '}
                       the animals would love a Github Star!
-                    </LinkOverlay>
+                    </SfxLinkOverlay>
                   </Text>
                   <Box pos="absolute" top="-10%" right={0} w={['20%', null, '23%']}>
                     <NextImage src={ImgTwostar} alt="" unoptimized />
@@ -265,7 +254,7 @@ export const Footer = ({ full }: FooterProps) => {
       </Box>
     </Flex>
   ) : (
-    <Box as="footer" pt={12} pb={[8, null, 14]} px={[null, 4]} color="brand.600" bg="black">
+    <Box as="footer" px={[null, 4]} pt={12} pb={[8, null, 14]} color="brand.600" bg="black">
       <Container maxW="container.max">
         <FooterBase />
       </Container>
