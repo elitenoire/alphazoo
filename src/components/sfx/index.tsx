@@ -1,7 +1,13 @@
 import type { ComponentType, MouseEventHandler } from 'react'
 import { useCallback } from 'react'
-import type { As, ButtonProps, IconButtonProps, LinkProps } from '@chakra-ui/react'
-import { Button, IconButton, Link, forwardRef } from '@chakra-ui/react'
+import type {
+  As,
+  ButtonProps,
+  IconButtonProps,
+  LinkProps,
+  LinkOverlayProps,
+} from '@chakra-ui/react'
+import { Button, IconButton, Link, LinkOverlay, forwardRef } from '@chakra-ui/react'
 import { useGeneralSfx } from '~src/context/sfx'
 import { getDisplayName } from '~src/utils'
 import type { Merge } from '~/types/utility'
@@ -54,3 +60,5 @@ export const SfxButton = withSfx<ButtonProps, 'button'>(Button)
 export const SfxIconButton = withSfx<IconButtonProps, 'button'>(IconButton)
 
 export const SfxLink = withSfx<LinkProps, 'a'>(Link)
+
+export const SfxLinkOverlay = withSfx<LinkOverlayProps, 'a'>(LinkOverlay)
