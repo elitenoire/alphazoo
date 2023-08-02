@@ -38,7 +38,8 @@
         "chakra-ui/props-shorthand": "error",
         "chakra-ui/require-specific-component": "error",
         "@typescript-eslint/no-non-null-assertion": "off",
-        "@typescript-eslint/consistent-type-imports": "error"
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/no-unused-vars": "warn"
       }
     },
     {

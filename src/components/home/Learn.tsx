@@ -25,8 +25,8 @@ export default function Learn() {
       <Container as="header" maxW="container.max" p={0}>
         <Heading
           maxW="container.lg"
-          mb={28}
           mx="auto"
+          mb={28}
           px={2}
           color="background"
           fontSize={['f2xl', 'f3xl']}

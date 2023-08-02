@@ -1,6 +1,7 @@
 import type { ComponentType, PropsWithChildren, ReactNode, ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import { Fragment, useEffect } from 'react'
+import type { ThemeTypings } from '@chakra-ui/react'
 import { Grid } from '@chakra-ui/react'
 import {
   GeneralSoundProvider,
@@ -23,7 +24,7 @@ interface DefaultLayoutProps extends FooterProps {
   provider: ComponentType<PropsWithChildren>
   children: ReactNode
   headerContent?: ReactNode
-  bg?: string
+  bg?: ThemeTypings['colors']
   hideFooter?: boolean
   hideBackToTop?: boolean
   threshold?: number

@@ -7,13 +7,13 @@ import { ArrowRight1Bold } from 'react-iconsax-icons'
 import type { MotionFlexProps } from '~components/motion'
 import { MotionBox, MotionFlex } from '~components/motion'
 import { useGeneralSfx } from '~src/context/sfx'
-import type { ChakraColorHues } from '~types/theme'
+import type { ChakraColorScheme } from '~types/theme'
 
-interface WikiCardProps extends MotionFlexProps {
+type WikiCardProps = MotionFlexProps & {
   animal: string
   wiki: string
   expand?: boolean
-  colorScheme?: ChakraColorHues
+  colorScheme?: ChakraColorScheme
   titleColor?: ThemeTypings['colors']
 }
 

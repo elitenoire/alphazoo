@@ -53,7 +53,7 @@ export default function Menu() {
         <NextImage src={branchUrl} alt="" unoptimized />
       </Box>
       <Flex direction="column" rowGap={4} minH="full">
-        <Box flex={1} overflow="hidden" pt={[20, null, null, 14]} px={8}>
+        <Box flex={1} overflow="hidden" px={8} pt={[20, null, null, 14]}>
           <Flex
             align="center"
             direction={['column', null, null, 'row-reverse']}

@@ -1,4 +1,4 @@
-import type { ChakraColorHues } from '~types/theme'
+import type { ChakraColorScheme } from '~types/theme'
 
 export type Alphabet =
   | 'A'
@@ -46,7 +46,7 @@ export type WikiType = {
   wiki: string
   img: string
   imgRatio: number
-  colorScheme: ChakraColorHues
+  colorScheme: ChakraColorScheme
   tintBg?: boolean
 }
 
@@ -54,6 +54,6 @@ export type AlphabetType = {
   numeral: number
   name: Alphabet
   color: string
-  bg: ChakraColorHues
+  bg: ChakraColorScheme
   modalBg: string
 }

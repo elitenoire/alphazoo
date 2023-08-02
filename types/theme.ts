@@ -5,4 +5,4 @@ export type PickByType<T, Value> = {
   [P in keyof T as T[P] extends Value | undefined ? P : never]: T[P]
 }
 
-export type ChakraColorHues = keyof PickByType<Theme['colors'], ColorHues>
+export type ChakraColorScheme = keyof PickByType<Theme['colors'], ColorHues>
