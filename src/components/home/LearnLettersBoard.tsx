@@ -83,7 +83,7 @@ export function LearnLettersBoard() {
             right={1}
             px={3}
             py={1}
-            color="background"
+            color="text.inverse"
             fontFamily="glyph"
             fontSize="6vw"
             bg="text"

@@ -20,8 +20,8 @@ export default function Play() {
   return (
     <Box layerStyle="page" pos="relative" zIndex={1} px={0} pb={0}>
       <Fade transition={{ enter: { duration: 0.6 } }} in>
-        <Heading as="h1" color="background" textAlign="center">
-          <Box as="span" color="brand.300">
+        <Heading as="h1" color="text.inverse" textAlign="center">
+          <Box as="span" color="text.highlight">
             Play
           </Box>{' '}
           Zone
@@ -39,9 +39,9 @@ export default function Play() {
           roundedTop={['card', 'bigCard']}
           {...scrollReveal}
         >
-          <Box px={4} py={12} color="background" textAlign="center">
+          <Box px={4} py={12} color="text.inverse" textAlign="center">
             <Heading maxW={[44, null, 'none']} mx="auto" mb={4} lineHeight="none" variant="body">
-              <Box as="span" color="brand.300" fontSize="2xl">
+              <Box as="span" color="text.highlight" fontSize="2xl">
                 10
               </Box>{' '}
               Mini Games to Play for Fun.

@@ -84,6 +84,9 @@ const theme = extendTheme(
         '.object-contain': {
           objectFit: 'contain',
         },
+        '.object-top': {
+          objectPosition: 'top',
+        },
         '.object-bottom': {
           objectPosition: 'bottom',
         },
@@ -145,7 +148,7 @@ const theme = extendTheme(
         fontVariant: 'discretionary-ligatures',
       },
       highlight: {
-        bgColor: 'highlight',
+        bgColor: 'text.highlight',
         borderRadius: 'lg',
         px: 1,
       },
@@ -168,9 +171,16 @@ const theme = extendTheme(
       accent: baseTheme.colors.purple,
       background: '#ffee99',
       text: baseTheme.colors.gray[800],
-      highlight: '#a0f8b5',
       muted: '#ebfbcb',
       black: '#121113', // #01161e
+    },
+    semanticTokens: {
+      colors: {
+        text: {
+          inverse: '#ffee99',
+          highlight: 'brand.300',
+        },
+      },
     },
     sizes: {
       ...sizes,

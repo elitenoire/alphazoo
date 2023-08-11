@@ -28,7 +28,7 @@ export default function WikiPage({ gallery }: WikiStaticProps) {
 
   return (
     <GalleryRouteModal gallery={gallery} syncScroll={syncScroll}>
-      <Heading as="h1" color="background" textAlign="center">
+      <Heading as="h1" color="text.inverse" textAlign="center">
         Wiki Gallery
       </Heading>
       {gallery ? (

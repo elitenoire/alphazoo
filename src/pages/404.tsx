@@ -11,16 +11,16 @@ export default function Error404() {
   return (
     <>
       <NextSeo title="Page Not Found" noindex />
-      <Flex align="center" justify="center" overflow="hidden" minH="100vh" bg="background">
+      <Flex align="center" justify="center" overflow="hidden" minH="100vh" bg="brand.700">
         <Container>
           <Box maxW="xs" mx="auto">
             <NextImage src={Img404} alt="" unoptimized className="w-full" />
           </Box>
           <Box pt={4} textAlign="center">
-            <Heading as="h1" color="brand.800" fontSize="f2xl">
+            <Heading as="h1" mb={1} color="text.highlight" fontSize="f2xl">
               Page Not Found
             </Heading>
-            <Text fontSize={[null, '2xl']}>There is nothing to see here.</Text>
+            <Text fontSize={[null, '2xl']}>There is nothing to see here</Text>
             <Text fontSize={[null, '2xl']}>
               Head back {''}
               <SfxLink
@@ -30,7 +30,7 @@ export default function Error404() {
                 fontWeight="bold"
                 textTransform="uppercase"
               >
-                Home.
+                Home
               </SfxLink>
             </Text>
           </Box>

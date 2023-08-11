@@ -28,7 +28,7 @@ export default function Learn() {
           mx="auto"
           mb={28}
           px={2}
-          color="background"
+          color="text.inverse"
           fontSize={['f2xl', 'f3xl']}
           fontWeight={500}
           textAlign="center"

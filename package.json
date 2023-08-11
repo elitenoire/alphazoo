@@ -6,7 +6,7 @@
     "start": "next start",
     "lint": "next lint",
     "theme": "chakra-cli tokens src/theme/index.ts",
-    "theme:watch": "chakra-cli tokens src/theme/theme.ts --watch",
+    "theme:watch": "chakra-cli tokens src/theme/index.ts --watch",
     "postinstall": "yarn theme"
   },
   "dependencies": {

@@ -3,10 +3,11 @@ import NextImage from 'next/image'
 import { useState, useCallback } from 'react'
 import { AspectRatio, Box, Flex, Text, Heading, Link } from '@chakra-ui/react'
 import { MotionBox, MotionFlex, MagneticBox, MotionPop } from '~components/motion'
-import { WikiCard } from '~components/WikiCard'
 import { SfxButton } from '~components/sfx'
 import { useScrollReveal } from '~/src/hooks/useScrollReveal'
 import { HOMEPAGE_IDS, ROUTES } from '~src/constants'
+import { WikiCard } from './WikiCard'
+
 import { homeWikis } from '~src/data/homeWiki'
 
 import ImgQuestion from '~public/img/question.svg'
@@ -54,7 +55,7 @@ export default function FunWiki() {
             p={4}
             bg="blackAlpha.200"
             borderWidth="0.25em"
-            borderColor="background"
+            borderColor="text.inverse"
             shadow="inner"
             rounded="full"
           >
@@ -63,7 +64,7 @@ export default function FunWiki() {
           <Heading pt={2} color="brand.900" fontSize="f4xl" id={HOMEPAGE_IDS.wiki}>
             Wiki Fun!
           </Heading>
-          <Text color="background" fontSize={['fxl', null, 'f2xl']}>
+          <Text color="text.inverse" fontSize={['fxl', null, 'f2xl']}>
             Did you know that?
           </Text>
         </Flex>

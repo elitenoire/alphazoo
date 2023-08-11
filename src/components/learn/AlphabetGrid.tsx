@@ -115,13 +115,13 @@ export function AlphabetGrid({ show }: AlphabetGridProps) {
           visibility={show ? 'visible' : 'hidden'}
         >
           <Fade transition={{ enter: { duration: 0.6 } }} in={show}>
-            <Heading color="background" textAlign="center">
+            <Heading color="text.inverse" textAlign="center">
               Learn the{' '}
               <Box
                 as="span"
                 display={['block', 'inline']}
                 p={[null, 1]}
-                color="brand.300"
+                color="text.highlight"
                 fontSize="3xl"
               >
                 26
