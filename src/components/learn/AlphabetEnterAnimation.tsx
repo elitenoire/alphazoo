@@ -164,7 +164,6 @@ export const AlphabetEnterAnimation = forwardRef<AlphabetEnterAnimationProps, 'd
                       src={`/img/glyphs/${alphabet.name.toUpperCase()}.svg`}
                       alt={`Animal letter ${alphabet.name}`}
                       fill
-                      unoptimized
                       priority
                     />
                   </MotionAspectRatio>
@@ -208,7 +207,6 @@ export const AlphabetEnterAnimation = forwardRef<AlphabetEnterAnimationProps, 'd
                     src={`/img/glyphs/${alphabet.name.toUpperCase()}.svg`}
                     alt={`Animal letter ${alphabet.name}`}
                     fill
-                    unoptimized
                     priority
                   />
                 </MotionAspectRatio>

@@ -12,6 +12,9 @@ const nextConfig = {
     emotion: true,
     removeConsole,
   },
+  images: {
+    unoptimized: true,
+  },
   modularizeImports: {
     'react-iconsax-icons': {
       transform: 'react-iconsax-icons/lib/{{member}}',

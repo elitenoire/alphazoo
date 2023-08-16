@@ -175,7 +175,6 @@ export function AlphabetGrid({ show }: AlphabetGridProps) {
                             src={`/img/glyphs/${name.toUpperCase()}.svg`}
                             alt={`Animal letter ${name}`}
                             fill
-                            unoptimized
                           />
                         </MotionAspectRatio>
                       </SfxLink>

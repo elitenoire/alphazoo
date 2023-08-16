@@ -69,7 +69,6 @@ export default function Mode() {
                   <NextImage
                     src={ImgLearn}
                     alt="Happy girl kneeling in front of a big ABC toy block"
-                    unoptimized
                   />
                   <SfxButton
                     as={NextLink}
@@ -116,7 +115,6 @@ export default function Mode() {
                   <NextImage
                     src={ImgPlay}
                     alt="Happy boy sitting infront of a big jigsaw puzzle and holding a red toy car"
-                    unoptimized
                   />
                   <SfxButton
                     as={NextLink}

@@ -50,7 +50,7 @@ export default function Menu() {
         opacity={0.2}
         pointerEvents="none"
       >
-        <NextImage src={branchUrl} alt="" unoptimized />
+        <NextImage src={branchUrl} alt="" />
       </Box>
       <Flex direction="column" rowGap={4} minH="full">
         <Box flex={1} overflow="hidden" px={8} pt={[20, null, null, 14]}>

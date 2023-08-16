@@ -95,12 +95,12 @@ export const AppWelcome = () => {
         </Box>
         <Box pos="absolute" top={0} left="-50%" w="50%" transform="rotate(-45deg)">
           <AspectRatio data-wlc-plant ratio={1}>
-            <NextImage fill src={ImgPlantOne} alt="" unoptimized priority />
+            <NextImage fill src={ImgPlantOne} alt="" priority />
           </AspectRatio>
         </Box>
         <Box pos="absolute" right="-50%" bottom={0} w="50%" transform="rotate(45deg)">
           <AspectRatio data-wlc-plant ratio={1}>
-            <NextImage fill src={ImgPlantTwo} alt="" unoptimized priority />
+            <NextImage fill src={ImgPlantTwo} alt="" priority />
           </AspectRatio>
         </Box>
       </Box>
@@ -115,7 +115,7 @@ export const AppWelcome = () => {
         translateY={['5%', null, '25%']}
       >
         <AspectRatio w="full" data-wlc-paw ratio={14 / 25}>
-          <NextImage fill src={ImgPaw} alt="" unoptimized priority />
+          <NextImage fill src={ImgPaw} alt="" priority />
         </AspectRatio>
       </Box>
       <Box
@@ -129,17 +129,17 @@ export const AppWelcome = () => {
         translateY={['0%', null, '-20%']}
       >
         <AspectRatio w="full" data-wlc-paw ratio={14 / 25}>
-          <NextImage fill src={ImgPaw} alt="" unoptimized priority />
+          <NextImage fill src={ImgPaw} alt="" priority />
         </AspectRatio>
       </Box>
       <Box pos="absolute" top={0} left={0} w={[null, null, '30%', '20%']}>
         <AspectRatio w="full" data-wlc-vine ratio={3 / 2}>
-          <NextImage fill src={ImgVineOne} alt="" unoptimized />
+          <NextImage fill src={ImgVineOne} alt="" />
         </AspectRatio>
       </Box>
       <Box pos="absolute" top={0} right={0} w={['80%', null, '50%', '35%']}>
         <AspectRatio w="full" data-wlc-vine ratio={5 / 2}>
-          <NextImage fill src={ImgVineTwo} alt="" unoptimized />
+          <NextImage fill src={ImgVineTwo} alt="" />
         </AspectRatio>
       </Box>
 
@@ -154,7 +154,7 @@ export const AppWelcome = () => {
         >
           <Box overflow="hidden" w="50%">
             <AspectRatio top="30%" w="full" data-wlc-panda ratio={7 / 6}>
-              <NextImage fill src={ImgPanda} alt="" unoptimized />
+              <NextImage fill src={ImgPanda} alt="" />
             </AspectRatio>
           </Box>
           <Box
@@ -205,7 +205,7 @@ export const AppWelcome = () => {
             data-wlc-content
           >
             <Box pos="absolute" opacity={0.25} inset={0}>
-              <NextImage className="object-cover object-top" fill src={ImgBg} alt="" unoptimized />
+              <NextImage className="object-cover object-top" fill src={ImgBg} alt="" />
             </Box>
             <Flex
               sx={{

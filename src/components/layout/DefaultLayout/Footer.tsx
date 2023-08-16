@@ -132,7 +132,7 @@ export const Footer = ({ full }: FooterProps) => {
     <Flex as="footer" pos="relative" zIndex={1} direction="column" minH="$100vh" mt="-100vh">
       <ChakraClique />
       {/* <Box w="full">
-        <NextImage fill src={ImgClique} alt="Cute animals looking over a green hill" unoptimized />
+        <NextImage fill src={ImgClique} alt="Cute animals looking over a green hill"  />
       </Box> */}
       <Box
         flex={1}
@@ -228,7 +228,7 @@ export const Footer = ({ full }: FooterProps) => {
                     </SfxLinkOverlay>
                   </Text>
                   <Box pos="absolute" top="-10%" right={0} w={['20%', null, '23%']}>
-                    <NextImage src={ImgTwostar} alt="" unoptimized />
+                    <NextImage src={ImgTwostar} alt="" />
                   </Box>
                   <ChakraPaw
                     id="paw-skin"

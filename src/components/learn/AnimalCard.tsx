@@ -59,16 +59,7 @@ export const AnimalCard = ({
       {...(allowHover && { layerStyle: 'interactive' })}
     >
       <Box pos="relative" w="60%" minH="max(17em, 25vmax)" mx="auto">
-        {imgSrc && (
-          <NextImage
-            className="object-contain"
-            src={imgSrc}
-            alt={title}
-            fill
-            unoptimized
-            priority
-          />
-        )}
+        {imgSrc && <NextImage className="object-contain" src={imgSrc} alt={title} fill priority />}
       </Box>
       {title && (
         <Heading as="p" fontSize={{ base: 'f2xl', '2xl': '3.5vw' }} variant="title">

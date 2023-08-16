@@ -146,7 +146,7 @@ export default function Activity() {
             mr={['auto', null, null, 0]}
             ml="auto"
           >
-            <NextImage src={ImgPanda} alt="Happy panda in front of a bamboo plant" unoptimized />
+            <NextImage src={ImgPanda} alt="Happy panda in front of a bamboo plant" />
           </Box>
           <ActivityCloud dragConstraints={containerRef} />
         </Flex>

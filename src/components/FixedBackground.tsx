@@ -19,7 +19,6 @@ export const FixedBackground = ({
           fill
           src={src}
           alt={alt}
-          unoptimized
           {...rest}
         />
       </Box>

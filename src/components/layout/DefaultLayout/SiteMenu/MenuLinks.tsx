@@ -86,7 +86,7 @@ export const MenuLinks = ({ onHoverStart, onHoverEnd }: MenuLinksProps) => {
               transitionTimingFunction="ease"
             >
               <AspectRatio w="full" ratio={1}>
-                <NextImage src={route.img} alt={route.imgAlt} fill unoptimized />
+                <NextImage src={route.img} alt={route.imgAlt} fill />
               </AspectRatio>
             </Circle>
             <Box
@@ -100,7 +100,7 @@ export const MenuLinks = ({ onHoverStart, onHoverEnd }: MenuLinksProps) => {
               transitionProperty="opacity,transform"
               transitionTimingFunction="ease"
             >
-              <NextImage src={frameUrl} alt="" unoptimized />
+              <NextImage src={frameUrl} alt="" />
             </Box>
           </Box>
         </MotionListItem>

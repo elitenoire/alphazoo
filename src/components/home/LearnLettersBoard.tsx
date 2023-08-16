@@ -123,7 +123,7 @@ export function LearnLettersBoard() {
           bottom={0}
           style={{ opacity: borderOpacity }}
         >
-          <NextImage src={ImgPeepers} alt="Peeping animals faces" unoptimized />
+          <NextImage src={ImgPeepers} alt="Peeping animals faces" />
         </MotionBox>
       </MotionFlex>
     </Box>

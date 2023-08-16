@@ -59,7 +59,7 @@ export default function FunWiki() {
             shadow="inner"
             rounded="full"
           >
-            <NextImage src={ImgQaAnimals} alt="Cute animal faces" unoptimized />
+            <NextImage src={ImgQaAnimals} alt="Cute animal faces" />
           </Box>
           <Heading pt={2} color="brand.900" fontSize="f4xl" id={HOMEPAGE_IDS.wiki}>
             Wiki Fun!
@@ -76,7 +76,7 @@ export default function FunWiki() {
           w="30%"
           opacity={0.25}
         >
-          <NextImage src={ImgQuestion} alt="Question doodle" unoptimized />
+          <NextImage src={ImgQuestion} alt="Question doodle" />
         </Box>
         <MotionFlex
           layoutScroll
@@ -108,7 +108,7 @@ export default function FunWiki() {
               {...(tintBg && { bg: `${colorScheme}.100` })}
             >
               <AspectRatio w="100%" ratio={imgRatio}>
-                <NextImage src={img} alt={`${animal} illustration`} fill unoptimized />
+                <NextImage src={img} alt={`${animal} illustration`} fill />
               </AspectRatio>
             </WikiCard>
           ))}

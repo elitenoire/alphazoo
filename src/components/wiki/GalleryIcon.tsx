@@ -74,13 +74,7 @@ const GalleryIconBase = forwardRef<GalleryIconProps, 'div'>(({ src, title, bg, .
         variants={blur}
       >
         {src ? (
-          <NextImage
-            src={src}
-            alt={`${title ?? ''} icon`}
-            onLoadingComplete={handleLoaded}
-            fill
-            unoptimized
-          />
+          <NextImage src={src} alt={`${title ?? ''} icon`} onLoadingComplete={handleLoaded} fill />
         ) : (
           <span />
         )}

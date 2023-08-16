@@ -70,7 +70,6 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
                   src={`/img/glyphs/${selected.name.toUpperCase()}.svg`}
                   alt={`Animal letter ${selected.name}`}
                   fill
-                  unoptimized
                 />
               </MotionAspectRatio>
               <MotionBox
@@ -92,7 +91,7 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
                 variants={Animations}
                 {...settings[idx].left.props}
               >
-                <NextImage fill src={`/img/${settings[idx].left.img}`} alt="" unoptimized />
+                <NextImage fill src={`/img/${settings[idx].left.img}`} alt="" />
               </MotionBox>
               <MotionBox
                 bg={modalBg}
@@ -109,7 +108,7 @@ export const AlphabetModal = ({ onClose, selected, playSound }: AlphabetModalPro
                 variants={Animations}
                 {...settings[idx].right.props}
               >
-                <NextImage fill src={`/img/${settings[idx].right.img}`} alt="" unoptimized />
+                <NextImage fill src={`/img/${settings[idx].right.img}`} alt="" />
               </MotionBox>
             </Box>
           )}

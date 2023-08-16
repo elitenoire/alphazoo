@@ -17,7 +17,7 @@ export const AnimalPortrait = ({ delay, src }: AnimalPortraitProps) => {
       delay={delay}
     >
       <AspectRatio w={['75%', null, '95%', '70%']} ratio={1}>
-        <NextImage src={src} alt="cute animal portrait" fill unoptimized />
+        <NextImage src={src} alt="cute animal portrait" fill />
       </AspectRatio>
     </MotionPop>
   )

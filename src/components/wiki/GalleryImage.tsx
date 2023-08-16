@@ -78,7 +78,6 @@ export const GalleryImage = ({ rounded, open, wiki = {} }: GalleryImageProps) =>
             fill
             src={sceneUrl}
             alt=""
-            unoptimized
             onLoadingComplete={handleLoaded}
           />
         </MotionBox>

@@ -69,15 +69,15 @@ export function ActivityCard() {
       <Flex flex={{ lg: 1 }} px={[12, null, 24]} pt={12}>
         <Flex direction="column" flex={4} rowGap={4}>
           <MotionPop>
-            <NextImage src={ImgActivityOne} className="w-full" alt="" unoptimized />
+            <NextImage src={ImgActivityOne} className="w-full" alt="" />
           </MotionPop>
           <MotionPop>
-            <NextImage src={ImgActivityTwo} className="w-full" alt="" unoptimized />
+            <NextImage src={ImgActivityTwo} className="w-full" alt="" />
           </MotionPop>
         </Flex>
         <Box flex={3} display={['none', 'block']}>
           <MotionPop pos="relative" boxSize="full">
-            <NextImage src={ImgActivityThree} fill alt="" unoptimized />
+            <NextImage src={ImgActivityThree} fill alt="" />
           </MotionPop>
         </Box>
       </Flex>

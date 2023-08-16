@@ -70,7 +70,7 @@ export const GameCard = ({ title = '', colorScheme = 'green', imgSrc, href }: Ga
           scale={2}
           translateY="15%"
         >
-          {imgSrc ? <NextImage src={imgSrc} alt="" fill unoptimized /> : <span />}
+          {imgSrc ? <NextImage src={imgSrc} alt="" fill /> : <span />}
         </AspectRatio>
       </Box>
     </LinkBox>
