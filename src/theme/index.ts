@@ -177,8 +177,18 @@ const theme = extendTheme(
     semanticTokens: {
       colors: {
         text: {
+          base: 'gray.800',
           inverse: '#ffee99',
           highlight: 'brand.300',
+        },
+        bg: {
+          secondary: 'secondary.200',
+          brand: {
+            highlight: 'brand.300',
+            bright: 'brand.500',
+            warm: 'brand.700',
+            scenic: 'brand.800',
+          },
         },
       },
     },
