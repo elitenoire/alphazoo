@@ -1,13 +1,23 @@
 import { useRef } from 'react'
 import NextImage from 'next/image'
 import NextLink from 'next/link'
-import { Heading, Box, Container, Flex, Link, LinkBox, Icon, Text, chakra } from '@chakra-ui/react'
+import {
+  Heading,
+  Box,
+  Container,
+  Flex,
+  Link,
+  LinkBox,
+  Icon,
+  Text,
+  AspectRatio,
+  chakra,
+} from '@chakra-ui/react'
 import { useScroll, useSpring, useTransform } from 'framer-motion'
 import { MotionBox } from '~components/motion'
 import { SfxLink, SfxIconButton, SfxLinkOverlay } from '~components/sfx'
 import { ROUTES, SITE_CONFIG } from '~src/constants'
 
-import ImgClique, { ReactComponent as CliqueSvg } from '~public/img/clique.svg'
 import { ReactComponent as LogoSvg } from '~public/brand/logo.svg'
 import { ReactComponent as LogonameSvg } from '~public/brand/logoname.svg'
 import { ReactComponent as PawSvg } from '~public/img/paw.svg'
@@ -15,11 +25,11 @@ import { ReactComponent as ArrowSvg } from '~public/img/arrow.svg'
 import { ReactComponent as GithubSvg } from '~public/icons/github.svg'
 import { ReactComponent as MailSvg } from '~public/icons/mail.svg'
 import { ReactComponent as BuyCoffeeSvg } from '~public/icons/buymeacoffee.svg'
+import ImgClique from '~public/img/clique.svg'
 import ImgTwostar from '~public/img/twostar.svg'
 
 const BrandLogo = chakra(LogoSvg)
 const BrandLogoName = chakra(LogonameSvg)
-const ChakraClique = chakra(CliqueSvg)
 const ChakraPaw = chakra(PawSvg)
 const ChakraArrow = chakra(ArrowSvg)
 
@@ -118,7 +128,7 @@ const FooterBase = () => {
   )
 }
 
-export const Footer = ({ full }: FooterProps) => {
+const FullFooter = () => {
   const containerRef = useRef(null)
 
   const { scrollYProgress } = useScroll({
@@ -128,19 +138,12 @@ export const Footer = ({ full }: FooterProps) => {
 
   const y = useSpring(useTransform(scrollYProgress, [0.1, 0.35], [50, -30]), { stiffness: 60 })
 
-  return full ? (
+  return (
     <Flex as="footer" pos="relative" zIndex={1} direction="column" minH="$100vh" mt="-100vh">
-      <ChakraClique />
-      {/* <Box w="full">
-        <NextImage fill src={ImgClique} alt="Cute animals looking over a green hill"  />
-      </Box> */}
-      <Box
-        flex={1}
-        overflow="hidden"
-        mt="-5px"
-        color="brand.600"
-        bgGradient="linear(brand.900 5px, black)"
-      >
+      <AspectRatio w="full" ratio={[5 / 4, 12 / 5]}>
+        <NextImage fill src={ImgClique} alt="Cute animals looking over a hill" />
+      </AspectRatio>
+      <Flex flex={1} overflow="hidden" color="brand.600" bgGradient="linear(brand.900 5px, black)">
         <Container gridTemplateRows="auto 1fr" display="grid" maxW="container.max" minH="inherit">
           <Text
             as="small"
@@ -251,13 +254,21 @@ export const Footer = ({ full }: FooterProps) => {
             <FooterBase />
           </Flex>
         </Container>
-      </Box>
+      </Flex>
     </Flex>
-  ) : (
+  )
+}
+
+const CompactFooter = () => {
+  return (
     <Box as="footer" px={[null, 4]} pt={12} pb={[8, null, 14]} color="brand.600" bg="black">
       <Container maxW="container.max">
         <FooterBase />
       </Container>
     </Box>
   )
+}
+
+export const Footer = ({ full }: FooterProps) => {
+  return full ? <FullFooter /> : <CompactFooter />
 }
