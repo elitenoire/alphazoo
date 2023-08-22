@@ -29,7 +29,7 @@ const AudioControl = ({
   onChangeEnd,
 }: AudioControlProps) => {
   const hydrated = useSoundHydration()
-  const [value, setValue] = useState(initialValue * 100)
+  const [value, setValue] = useState(initialValue)
 
   const handleChange = useCallback((val: number) => {
     setValue(val)
@@ -37,16 +37,16 @@ const AudioControl = ({
 
   const handleChangeEnd = useCallback(
     (val: number) => {
-      onChangeEnd?.(val / 100)
+      onChangeEnd?.(val)
     },
     [onChangeEnd]
   )
 
   useEffect(() => {
-    if (initialValue >= 0) {
-      setValue(initialValue * 100)
+    if (hydrated) {
+      setValue(initialValue)
     }
-  }, [initialValue])
+  }, [hydrated, initialValue])
 
   return (
     <Grid
@@ -66,9 +66,10 @@ const AudioControl = ({
           <Slider
             aria-labelledby={id}
             colorScheme="secondary"
+            max={1}
             onChange={handleChange}
             onChangeEnd={handleChangeEnd}
-            step={1}
+            step={0.01}
             value={value}
           >
             <SliderTrack h={2} bg="blackAlpha.300" rounded="full">
@@ -80,7 +81,7 @@ const AudioControl = ({
       </GridItem>
       <GridItem gridArea="value">
         <Text align="center" w="3ch" fontSize="f2xl">
-          {hydrated ? value : ''}
+          {hydrated ? (value * 100).toFixed() : ''}
         </Text>
       </GridItem>
     </Grid>
