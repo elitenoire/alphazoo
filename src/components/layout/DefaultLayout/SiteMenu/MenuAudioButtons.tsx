@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import useSound from 'use-sound'
 import type { IconButtonProps } from '@chakra-ui/react'
@@ -17,7 +17,7 @@ interface MenuIconButtonProps extends Omit<IconButtonProps, 'aria-label'> {
 
 interface MenuAudioButtonProps extends MenuIconButtonProps {
   enable?: boolean
-  onToggle?: () => void
+  onToggle?: (val: boolean) => void
   iconOn: IconButtonProps['icon']
   iconOff: IconButtonProps['icon']
 }
@@ -40,16 +40,18 @@ const MenuAudioButton = ({
   const hydrated = useSoundHydration()
   const { playHover } = useGeneralSfx()
 
-  const toggleAudio = useCallback(() => {
+  const handleClick = useCallback(() => {
     setEnable((_enable) => !_enable)
-    onToggle?.()
-  }, [onToggle])
-
-  const ariaLabel = `Turn ${label} ${enable ? 'Off' : 'On'}`
+    onToggle?.(!enable)
+  }, [enable, onToggle])
 
   useEffect(() => {
-    setEnable((_enable) => initialEnable ?? _enable)
-  }, [initialEnable])
+    if (hydrated) {
+      setEnable((_enable) => initialEnable ?? _enable)
+    }
+  }, [hydrated, initialEnable])
+
+  const ariaLabel = `Turn ${label} ${enable ? 'Off' : 'On'}`
 
   if (!hydrated) {
     return <Box w={10} h={10} bg="blackAlpha.200" rounded="circle" />
@@ -77,7 +79,7 @@ const MenuAudioButton = ({
           transitionProperty="transform,box-shadow"
           {...rest}
           aria-label={ariaLabel}
-          onClick={toggleAudio}
+          onClick={handleClick}
           onMouseEnter={playHover}
         >
           {enable ? iconOn : iconOff}
@@ -90,37 +92,19 @@ const MenuAudioButton = ({
 export const MusicButton = ({ iconSize = '65%', label = 'Music', ...rest }: AudioButtonProps) => {
   const enable = useSoundStore.use.music()
   const toggle = useSoundStore.use.toggleMusic()
-  const setEnable = useSoundStore.use.setMusic()
-
-  const soundVolume = useSoundStore.use.musicVolume()
-  const setSoundVolume = useSoundStore.use.setMusicVolume()
-
-  const prevVolumeRef = useRef(soundVolume)
 
   const volume = useSoundStore.use.soundEffectsVolume()
 
   const [playOff] = useSound('/sounds/music-off.mp3', { volume })
   const [playOn] = useSound('/sounds/music-on.mp3', { volume })
 
-  const handleToggle = useCallback(() => {
-    if (enable) {
-      playOff()
-      setSoundVolume(0)
-    } else {
-      playOn()
-      setSoundVolume(prevVolumeRef.current)
-    }
-    toggle()
-  }, [enable, playOff, playOn, setSoundVolume, toggle])
-
-  useEffect(() => {
-    if (soundVolume) {
-      prevVolumeRef.current = soundVolume
-      setEnable(true)
-    } else {
-      setEnable(false)
-    }
-  }, [setEnable, soundVolume])
+  const handleToggle = useCallback(
+    (_enable: boolean) => {
+      _enable ? playOff() : playOn()
+      toggle(_enable)
+    },
+    [toggle, playOff, playOn]
+  )
 
   return (
     <MenuAudioButton
@@ -141,37 +125,19 @@ export const SoundFxButton = ({
 }: AudioButtonProps) => {
   const enable = useSoundStore.use.soundEffects()
   const toggle = useSoundStore.use.toggleSoundEffects()
-  const setEnable = useSoundStore.use.setSoundEffects()
 
-  const soundVolume = useSoundStore.use.soundEffectsVolume()
-  const setSoundVolume = useSoundStore.use.setSoundEffectsVolume()
-
-  const prevVolumeRef = useRef(soundVolume)
-
-  const volume = soundVolume || prevVolumeRef.current
+  const volume = useSoundStore.use.soundEffectsVolume()
 
   const [playOff] = useSound('/sounds/sfx-off.mp3', { volume })
   const [playOn] = useSound('/sounds/sfx-on.mp3', { volume })
 
-  const handleToggle = useCallback(() => {
-    if (enable) {
-      playOff()
-      setSoundVolume(0)
-    } else {
-      playOn()
-      setSoundVolume(prevVolumeRef.current)
-    }
-    toggle()
-  }, [enable, playOff, playOn, setSoundVolume, toggle])
-
-  useEffect(() => {
-    if (soundVolume) {
-      prevVolumeRef.current = soundVolume
-      setEnable(true)
-    } else {
-      setEnable(false)
-    }
-  }, [setEnable, soundVolume])
+  const handleToggle = useCallback(
+    (_enable: boolean) => {
+      _enable ? playOff() : playOn()
+      toggle(_enable)
+    },
+    [toggle, playOff, playOn]
+  )
 
   return (
     <MenuAudioButton
@@ -192,37 +158,19 @@ export const SoundPhonicsButton = ({
 }: AudioButtonProps) => {
   const enable = useSoundStore.use.soundPhonics()
   const toggle = useSoundStore.use.toggleSoundPhonics()
-  const setEnable = useSoundStore.use.setSoundPhonics()
-
-  const soundVolume = useSoundStore.use.soundPhonicsVolume()
-  const setSoundVolume = useSoundStore.use.setSoundPhonicsVolume()
-
-  const prevVolumeRef = useRef(soundVolume)
 
   const volume = useSoundStore.use.soundEffectsVolume()
 
   const [playOff] = useSound('/sounds/sfx-off.mp3', { volume })
   const [playOn] = useSound('/sounds/sfx-on.mp3', { volume })
 
-  const handleToggle = useCallback(() => {
-    if (enable) {
-      playOff()
-      setSoundVolume(0)
-    } else {
-      playOn()
-      setSoundVolume(prevVolumeRef.current)
-    }
-    toggle()
-  }, [enable, playOff, playOn, setSoundVolume, toggle])
-
-  useEffect(() => {
-    if (soundVolume) {
-      prevVolumeRef.current = soundVolume
-      setEnable(true)
-    } else {
-      setEnable(false)
-    }
-  }, [setEnable, soundVolume])
+  const handleToggle = useCallback(
+    (_enable: boolean) => {
+      _enable ? playOff() : playOn()
+      toggle(_enable)
+    },
+    [toggle, playOff, playOn]
+  )
 
   return (
     <MenuAudioButton

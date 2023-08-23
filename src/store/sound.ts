@@ -7,16 +7,16 @@ import { createSelectors } from './selectors'
 export interface SoundState {
   music: boolean
   musicVolume: number
+  musicPrevVolume: number
   soundPhonics: boolean
   soundPhonicsVolume: number
+  soundPhonicsPrevVolume: number
   soundEffects: boolean
   soundEffectsVolume: number
-  toggleMusic: () => void
-  toggleSoundPhonics: () => void
-  toggleSoundEffects: () => void
-  setMusic: (state: boolean) => void
-  setSoundPhonics: (state: boolean) => void
-  setSoundEffects: (state: boolean) => void
+  soundEffectsPrevVolume: number
+  toggleMusic: (state: boolean) => void
+  toggleSoundPhonics: (state: boolean) => void
+  toggleSoundEffects: (state: boolean) => void
   setMusicVolume: (volume: number) => void
   setSoundPhonicsVolume: (volume: number) => void
   setSoundEffectsVolume: (volume: number) => void
@@ -33,15 +33,42 @@ export const useSoundStore = createSelectors(
           musicVolume: SOUND_SETTINGS.normalVolumeMusic,
           soundEffectsVolume: SOUND_SETTINGS.normalVolumeSound,
           soundPhonicsVolume: SOUND_SETTINGS.normalVolumeSound,
-          toggleMusic: () => set({ music: !get().music }),
-          toggleSoundPhonics: () => set({ soundPhonics: !get().soundPhonics }),
-          toggleSoundEffects: () => set({ soundEffects: !get().soundEffects }),
-          setMusic: (state) => set({ music: state }),
-          setSoundPhonics: (state) => set({ soundPhonics: state }),
-          setSoundEffects: (state) => set({ soundEffects: state }),
-          setMusicVolume: (volume) => set({ musicVolume: volume }),
-          setSoundPhonicsVolume: (volume) => set({ soundPhonicsVolume: volume }),
-          setSoundEffectsVolume: (volume) => set({ soundEffectsVolume: volume }),
+          musicPrevVolume: SOUND_SETTINGS.normalVolumeMusic,
+          soundEffectsPrevVolume: SOUND_SETTINGS.normalVolumeSound,
+          soundPhonicsPrevVolume: SOUND_SETTINGS.normalVolumeSound,
+          toggleMusic: (state) =>
+            set({
+              music: state,
+              musicVolume: state ? get().musicPrevVolume : SOUND_SETTINGS.muteVolume,
+            }),
+          toggleSoundPhonics: (state) =>
+            set({
+              soundPhonics: state,
+              soundPhonicsVolume: state ? get().soundPhonicsPrevVolume : SOUND_SETTINGS.muteVolume,
+            }),
+          toggleSoundEffects: (state) =>
+            set({
+              soundEffects: state,
+              soundEffectsVolume: state ? get().soundEffectsPrevVolume : SOUND_SETTINGS.muteVolume,
+            }),
+          setMusicVolume: (volume) =>
+            set({
+              musicVolume: volume,
+              musicPrevVolume: volume || get().musicPrevVolume,
+              music: !!volume,
+            }),
+          setSoundPhonicsVolume: (volume) =>
+            set({
+              soundPhonicsVolume: volume,
+              soundPhonicsPrevVolume: volume || get().soundPhonicsPrevVolume,
+              soundPhonics: !!volume,
+            }),
+          setSoundEffectsVolume: (volume) =>
+            set({
+              soundEffectsVolume: volume,
+              soundEffectsPrevVolume: volume || get().soundEffectsPrevVolume,
+              soundEffects: !!volume,
+            }),
         }),
         {
           name: SOUND_SETTINGS.storeName,
