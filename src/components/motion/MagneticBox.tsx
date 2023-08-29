@@ -1,5 +1,5 @@
 import type { ReactHTML, MouseEvent } from 'react'
-import type { MotionValue } from 'framer-motion'
+import type { MotionValue, MotionProps } from 'framer-motion'
 import type { BoxProps } from '@chakra-ui/react'
 import type { MotionBoxProps } from '~components/motion'
 import { createContext, useContext, useCallback } from 'react'
@@ -14,7 +14,7 @@ const MagneticContext = createContext({
   y: motionValue(0),
 })
 
-interface MagneticParallaxProps extends MotionBoxProps {
+type MagneticParallaxProps = MotionBoxProps & {
   speed?: number
   as?: keyof ReactHTML
 }
@@ -72,7 +72,11 @@ const MagneticBoxParallax = ({
   const transform = useMotionTemplate`translate(${xMove}em,${yMove}em)`
 
   return (
-    <MotionBox {...(as && { as: motion(as) })} style={{ ...style, transform }} {...rest}>
+    <MotionBox
+      {...(as && { as: motion(as) })}
+      style={{ ...(style as MotionProps['style']), transform }}
+      {...rest}
+    >
       {children}
     </MotionBox>
   )

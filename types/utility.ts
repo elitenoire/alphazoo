@@ -3,6 +3,12 @@ export type Merge<P, T> = Omit<P, keyof T> & T
 
 export type ValueOf<T> = T[keyof T]
 
+export type Prettify<T> = {
+  [K in keyof T]: T[K]
+} & {}
+
+export type MappedOmit<T, K extends keyof T> = { [P in keyof T as P extends K ? never : P]: T[P] }
+
 // DeepPartial implementation taken from the utility-types NPM package, which is
 // Copyright (c) 2016 Piotr Witek <piotrek.witek@gmail.com> (http://piotrwitek.github.io)
 // and used under the terms of the MIT license

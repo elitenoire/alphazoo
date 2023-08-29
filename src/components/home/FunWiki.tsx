@@ -107,7 +107,7 @@ export default function FunWiki() {
               // scrollSnapAlign="center"
               {...(tintBg && { bg: `${colorScheme}.100` })}
             >
-              <AspectRatio w="100%" ratio={imgRatio}>
+              <AspectRatio w="full" ratio={imgRatio}>
                 <NextImage src={img} alt={`${animal} illustration`} fill />
               </AspectRatio>
             </WikiCard>
